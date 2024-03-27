@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://xmq032mdyq7a"]
+
+[ext_resource type="PackedScene" uid="uid://02oiy550pacp" path="res://scenes/level.tscn" id="1_d4wlq"]
+[ext_resource type="Script" path="res://scripts/root.gd" id="1_ghyap"]
+
+[node name="Root" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_ghyap")
+
+[node name="MainMenu" type="CanvasLayer" parent="."]
+
+[node name="Level" parent="." instance=ExtResource("1_d4wlq")]
+process_mode = 1
+
+[node name="BuildMenu" type="CanvasLayer" parent="."]
+process_mode = 2
+visible = false
+
+[node name="MarginContainer" type="MarginContainer" parent="BuildMenu"]
+offset_left = 107.0
+offset_top = 203.0
+offset_right = 787.0
+offset_bottom = 876.0
+
+[node name="Panel" type="Panel" parent="BuildMenu/MarginContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="BuildMenu/MarginContainer"]
+layout_mode = 2

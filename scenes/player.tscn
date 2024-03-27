@@ -1,0 +1,137 @@
+[gd_scene load_steps=18 format=3 uid="uid://bp38lfu2xg7sc"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_1wp3v"]
+[ext_resource type="Texture2D" uid="uid://dei68j7xuxxre" path="res://sprites/player/cowboy_temp.png" id="1_r215t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sdwyk"]
+atlas = ExtResource("1_r215t")
+region = Rect2(264, 0, 132, 276)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7nln"]
+atlas = ExtResource("1_r215t")
+region = Rect2(396, 0, 132, 276)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hjbfd"]
+atlas = ExtResource("1_r215t")
+region = Rect2(528, 0, 132, 276)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1b18g"]
+atlas = ExtResource("1_r215t")
+region = Rect2(0, 276, 132, 276)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gpfxr"]
+atlas = ExtResource("1_r215t")
+region = Rect2(132, 276, 132, 276)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yshcm"]
+atlas = ExtResource("1_r215t")
+region = Rect2(264, 276, 132, 276)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4ljt"]
+atlas = ExtResource("1_r215t")
+region = Rect2(396, 276, 132, 276)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jg8ub"]
+atlas = ExtResource("1_r215t")
+region = Rect2(528, 276, 132, 276)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d8fns"]
+atlas = ExtResource("1_r215t")
+region = Rect2(0, 552, 132, 276)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sp6hy"]
+atlas = ExtResource("1_r215t")
+region = Rect2(132, 552, 132, 276)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0dtpc"]
+atlas = ExtResource("1_r215t")
+region = Rect2(264, 552, 132, 276)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qq30w"]
+atlas = ExtResource("1_r215t")
+region = Rect2(0, 0, 132, 276)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r2lml"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sdwyk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7nln")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hjbfd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1b18g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gpfxr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yshcm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4ljt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jg8ub")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d8fns")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sp6hy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0dtpc")
+}],
+"loop": true,
+"name": &"running",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qq30w")
+}],
+"loop": true,
+"name": &"standing",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ff0f4"]
+size = Vector2(20, 77)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qgewi"]
+size = Vector2(8, 8)
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 6
+script = ExtResource("1_1wp3v")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_r2lml")
+animation = &"standing"
+autoplay = "standing"
+
+[node name="BodyCollider" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_ff0f4")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="AutoFireTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="CarDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CarDetector"]
+shape = SubResource("RectangleShape2D_qgewi")
+
+[connection signal="timeout" from="AutoFireTimer" to="." method="_on_auto_fire_timer_timeout"]
+[connection signal="area_entered" from="CarDetector" to="." method="_on_car_detector_area_entered"]
+[connection signal="area_exited" from="CarDetector" to="." method="_on_car_detector_area_exited"]

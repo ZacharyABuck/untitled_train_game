@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3gyokft7sh4r"]
+
+[ext_resource type="Script" path="res://scripts/hard_point.gd" id="1_fc3sh"]
+
+[sub_resource type="Animation" id="Animation_jen2g"]
+resource_name = "flash"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wyict"]
+resource_name = "still"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rauy8"]
+_data = {
+"flash": SubResource("Animation_jen2g"),
+"still": SubResource("Animation_wyict")
+}
+
+[node name="HardPoint" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_fc3sh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "still"
+libraries = {
+"": SubResource("AnimationLibrary_rauy8")
+}

@@ -1,0 +1,100 @@
+[gd_scene load_steps=8 format=3 uid="uid://bauu0fl50lkr5"]
+
+[ext_resource type="Script" path="res://scripts/car.gd" id="1_1dudu"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_6wuvj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_56ap2"]
+size = Vector2(20, 414)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jbwp3"]
+size = Vector2(20, 414)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g76ik"]
+size = Vector2(162, 19)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dsbl5"]
+size = Vector2(162, 19)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a1ef6"]
+size = Vector2(161, 385)
+
+[node name="Car" type="Node2D" groups=["car"]]
+script = ExtResource("1_1dudu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.580392, 0.580392, 0.580392, 1)
+texture = SubResource("CanvasTexture_6wuvj")
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+position = Vector2(-70, -2)
+shape = SubResource("RectangleShape2D_56ap2")
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+position = Vector2(73, -2)
+shape = SubResource("RectangleShape2D_jbwp3")
+
+[node name="TopWall" type="StaticBody2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopWall"]
+position = Vector2(2, -199.5)
+shape = SubResource("RectangleShape2D_g76ik")
+disabled = true
+
+[node name="BottomWall" type="StaticBody2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomWall"]
+position = Vector2(2, 197)
+shape = SubResource("RectangleShape2D_dsbl5")
+disabled = true
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+position = Vector2(1.5, 1.5)
+shape = SubResource("RectangleShape2D_a1ef6")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+modulate = Color(0, 0.807843, 0, 1)
+offset_left = -60.0
+offset_top = -13.0
+offset_right = 62.0
+offset_bottom = 14.0
+max_value = 20.0
+value = 20.0
+
+[node name="HardPoints" type="Node2D" parent="."]
+
+[node name="FrontLeft" type="Node2D" parent="HardPoints"]
+position = Vector2(-35, -192)
+
+[node name="FrontRight" type="Node2D" parent="HardPoints"]
+position = Vector2(39, -191)
+
+[node name="LeftUpper" type="Node2D" parent="HardPoints"]
+position = Vector2(-60, -94)
+
+[node name="LeftLower" type="Node2D" parent="HardPoints"]
+position = Vector2(-58, 94)
+
+[node name="RightUpper" type="Node2D" parent="HardPoints"]
+position = Vector2(63, -95)
+
+[node name="RightLower" type="Node2D" parent="HardPoints"]
+position = Vector2(63, 94)
+
+[node name="BackLeft" type="Node2D" parent="HardPoints"]
+position = Vector2(-31, 191)
+
+[node name="BackRight" type="Node2D" parent="HardPoints"]
+position = Vector2(39, 189)

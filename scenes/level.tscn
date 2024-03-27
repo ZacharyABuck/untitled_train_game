@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://02oiy550pacp"]
+
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_2a3mn"]
+[ext_resource type="Script" path="res://scripts/map_manager.gd" id="1_lfsvw"]
+[ext_resource type="PackedScene" uid="uid://ba3200hrmm41k" path="res://scenes/train.tscn" id="2_2wehf"]
+[ext_resource type="Script" path="res://scripts/enemy_manager.gd" id="4_j45kh"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_2a3mn")
+
+[node name="Maps" type="Node2D" parent="."]
+script = ExtResource("1_lfsvw")
+
+[node name="Train" parent="." instance=ExtResource("2_2wehf")]
+position = Vector2(960, 468)
+
+[node name="Bullets" type="Node2D" parent="."]
+
+[node name="Enemies" type="Node2D" parent="."]
+script = ExtResource("4_j45kh")
+
+[node name="EnemySpawnPositions" type="Node2D" parent="."]
+
+[node name="0" type="Node2D" parent="EnemySpawnPositions"]
+position = Vector2(-1324, 2054)
+
+[node name="1" type="Node2D" parent="EnemySpawnPositions"]
+position = Vector2(-1330, 2252)
+
+[node name="2" type="Node2D" parent="EnemySpawnPositions"]
+position = Vector2(-1183, 2659)
+
+[node name="3" type="Node2D" parent="EnemySpawnPositions"]
+position = Vector2(-589, 2750)
+
+[node name="4" type="Node2D" parent="EnemySpawnPositions"]
+position = Vector2(-136, 2758)
+
+[node name="5" type="Node2D" parent="EnemySpawnPositions"]
+position = Vector2(2451, 2672)
+
+[node name="6" type="Node2D" parent="EnemySpawnPositions"]
+position = Vector2(2898, 2655)
+
+[node name="7" type="Node2D" parent="EnemySpawnPositions"]
+position = Vector2(3141, 2409)
+
+[node name="8" type="Node2D" parent="EnemySpawnPositions"]
+position = Vector2(3144, 2135)
+
+[node name="EnemySpawnTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="EnemySpawnTimer" to="Enemies" method="_on_enemy_spawn_timer_timeout"]
