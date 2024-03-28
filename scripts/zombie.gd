@@ -5,7 +5,6 @@ extends RigidBody2D
 var speed = 400
 
 var health = 3
-var damage = 1
 var money = 2
 
 var target
@@ -42,15 +41,13 @@ func _on_attack_timer_timeout():
 		attack()
 
 func attack():
-	PlayerInfo.health -= damage
-	print(PlayerInfo.health)
+	PlayerInfo.health -= EnemyInfo["zombie"]["damage"]
 
 func take_damage(amount):
 	health -= amount
 	if health <= 0:
 		PlayerInfo.money += money
 		queue_free()
-
 
 func _on_wall_detector_body_entered(body):
 	if body.get_parent().is_in_group("car") and boarded == false:
@@ -66,8 +63,8 @@ func _on_wall_detector_body_exited(body):
 func _on_player_detector_body_entered(body):
 	if body.is_in_group("player"):
 		state = "attacking"
+		attack()
 		attack_timer.start()
-
 
 func _on_player_detector_body_exited(body):
 	if body.is_in_group("player"):

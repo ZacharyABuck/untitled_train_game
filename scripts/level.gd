@@ -49,7 +49,6 @@ func populate_build_menu():
 	for i in GadgetInfo.gadget_roster:
 		get_parent().item_list.add_item(GadgetInfo.gadget_roster[i]["name"], GadgetInfo.gadget_roster[i]["sprite"])
 		get_parent().item_list.set_item_metadata(get_parent().item_list.item_count-1, GadgetInfo.gadget_roster[i])
-		print(GadgetInfo.gadget_roster[i])
 
 func request_gadget(gadget):
 	if PlayerInfo.money >= gadget["cost"]:

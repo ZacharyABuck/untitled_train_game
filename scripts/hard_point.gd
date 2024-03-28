@@ -39,7 +39,6 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 		var new_gadget = gadget["scene"].instantiate()
 		PlayerInfo.active_player.active_car.gadgets.add_child(new_gadget)
 		new_gadget.global_position = global_position
-
 		LevelInfo.active_level.get_parent().build_menu.hide()
 		LevelInfo.active_level.get_parent().build_menu_open = false
 		LevelInfo.active_level.get_tree().paused = false
