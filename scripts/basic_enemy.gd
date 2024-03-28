@@ -5,7 +5,7 @@ extends RigidBody2D
 
 var basic_bullet = preload("res://scenes/basic_bullet.tscn")
 
-var speed = 5
+var speed = 500
 
 var health = 5
 var money = 2
@@ -15,12 +15,13 @@ var state = "moving"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	linear_velocity = global_position.direction_to(target.global_position) * speed
+	var random_target = TrainInfo.cars_inventory.keys().pick_random()
+	target = TrainInfo.cars_inventory[random_target]["node"]
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	linear_velocity = global_position.direction_to(target.global_position) * (speed*delta)
 
 func _physics_process(delta):
 	if state == "moving":

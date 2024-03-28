@@ -30,6 +30,7 @@ func _on_attack_timer_timeout():
 			if i.is_in_group("enemy"):
 				target = i
 				attack()
+				break
 
 func attack():
 	var new_bullet = basic_bullet.instantiate()

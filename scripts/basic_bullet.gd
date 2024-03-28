@@ -20,7 +20,6 @@ func _ready():
 			area.set_collision_layer_value(5, true)
 			area.set_collision_mask_value(4, true)
 		"enemy":
-			print("enemy bullet")
 			area.set_collision_layer_value(6, true)
 			area.set_collision_mask_value(3, true)
 

@@ -44,7 +44,7 @@ _data = {
 radius = 30.0167
 
 [node name="HardPoint" type="Node2D"]
-process_mode = 3
+process_mode = 2
 script = ExtResource("1_fc3sh")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

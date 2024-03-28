@@ -21,6 +21,7 @@ TrainInfo="*res://scripts/train_info.gd"
 PlayerInfo="*res://scripts/player_info.gd"
 GadgetInfo="*res://scripts/gadget_info.gd"
 LevelInfo="*res://scripts/level_info.gd"
+EnemyInfo="*res://scripts/enemy_info.gd"
 
 [display]
 

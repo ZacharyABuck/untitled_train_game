@@ -1,0 +1,90 @@
+[gd_scene load_steps=10 format=3 uid="uid://dlf3ut18w14gl"]
+
+[ext_resource type="Script" path="res://scripts/zombie.gd" id="1_3r5c6"]
+[ext_resource type="Texture2D" uid="uid://ccds4qrjst8a5" path="res://sprites/enemies/slasher_man_gb.png" id="2_uhkae"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ek46o"]
+atlas = ExtResource("2_uhkae")
+region = Rect2(96, 64, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gbyij"]
+atlas = ExtResource("2_uhkae")
+region = Rect2(120, 64, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qw0mb"]
+atlas = ExtResource("2_uhkae")
+region = Rect2(144, 64, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lwujq"]
+atlas = ExtResource("2_uhkae")
+region = Rect2(168, 64, 24, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k0d6m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ek46o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbyij")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qw0mb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lwujq")
+}],
+"loop": true,
+"name": &"running",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4v00t"]
+size = Vector2(36, 63)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_it6fp"]
+size = Vector2(39, 65)
+
+[node name="Zombie" type="RigidBody2D" groups=["enemy"]]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_3r5c6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+texture_filter = 1
+position = Vector2(-0.5, -4)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_k0d6m")
+animation = &"running"
+autoplay = "running"
+frame = 1
+frame_progress = 0.700619
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 9.5)
+shape = SubResource("RectangleShape2D_4v00t")
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="WallDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallDetector"]
+position = Vector2(0.5, 8.5)
+shape = SubResource("RectangleShape2D_it6fp")
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+position = Vector2(0.5, 8.5)
+shape = SubResource("RectangleShape2D_it6fp")
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="body_entered" from="WallDetector" to="." method="_on_wall_detector_body_entered"]
+[connection signal="body_exited" from="WallDetector" to="." method="_on_wall_detector_body_exited"]
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
+[connection signal="body_exited" from="PlayerDetector" to="." method="_on_player_detector_body_exited"]
