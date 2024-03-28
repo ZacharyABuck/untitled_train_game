@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://j1ex3r7vq3i"]
+
+[ext_resource type="Script" path="res://scripts/pistol_turret.gd" id="1_x11a8"]
+[ext_resource type="Texture2D" uid="uid://c1esbr41s7mmf" path="res://sprites/gadgets/pistol_turret.png" id="2_57lg3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_seo2p"]
+radius = 515.559
+
+[node name="PistolTurret" type="Node2D"]
+script = ExtResource("1_x11a8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+rotation = 3.14159
+texture = ExtResource("2_57lg3")
+
+[node name="EnemyDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector"]
+shape = SubResource("CircleShape2D_seo2p")
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

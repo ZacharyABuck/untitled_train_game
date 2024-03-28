@@ -8,6 +8,7 @@ var basic_bullet = preload("res://scenes/basic_bullet.tscn")
 var speed = 5
 
 var health = 5
+var money = 2
 
 var target
 var state = "moving"
@@ -44,4 +45,5 @@ func attack():
 func take_damage(amount):
 	health -= amount
 	if health <= 0:
+		PlayerInfo.money += money
 		queue_free()

@@ -8,11 +8,12 @@ var player = preload("res://scenes/player.tscn")
 func _ready():
 	spawn_train()
 	spawn_player()
+	populate_build_menu()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _process(_delta):
+	$UI/MoneyLabel.text = "Money: $" + str(PlayerInfo.money)
 
 func spawn_train():
 	var index = 0
@@ -38,11 +39,23 @@ func spawn_train():
 		TrainInfo.cars_inventory[index]["node"] = new_car
 		TrainInfo.cars_inventory[index]["type"] = new_car.type
 		index += 1
-		print(TrainInfo.cars_inventory)
 
 func spawn_player():
 	var new_player = player.instantiate()
 	new_player.global_position = train.cars.get_child(0).global_position
 	add_child(new_player)
 
+func populate_build_menu():
+	for i in GadgetInfo.gadget_roster:
+		get_parent().item_list.add_item(GadgetInfo.gadget_roster[i]["name"], GadgetInfo.gadget_roster[i]["sprite"])
+		get_parent().item_list.set_item_metadata(get_parent().item_list.item_count-1, GadgetInfo.gadget_roster[i])
+		print(GadgetInfo.gadget_roster[i])
 
+func request_gadget(gadget):
+	if PlayerInfo.money >= gadget["cost"]:
+		var hard_points = PlayerInfo.active_player.active_car.hard_points.get_children()
+		for i in hard_points:
+			i.get_child(0).animation_player.play("flash")
+			i.get_child(0).selection_sprite.texture = gadget["sprite"]
+		GadgetInfo.selected_gadget = gadget
+		GadgetInfo.selection_active = true

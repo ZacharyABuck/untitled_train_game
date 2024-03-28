@@ -6,20 +6,26 @@
 [ext_resource type="Script" path="res://scripts/enemy_manager.gd" id="4_j45kh"]
 
 [node name="Level" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_2a3mn")
 
 [node name="Maps" type="Node2D" parent="."]
+process_mode = 1
 script = ExtResource("1_lfsvw")
 
 [node name="Train" parent="." instance=ExtResource("2_2wehf")]
+process_mode = 1
 position = Vector2(960, 468)
 
 [node name="Bullets" type="Node2D" parent="."]
+process_mode = 1
 
 [node name="Enemies" type="Node2D" parent="."]
+process_mode = 1
 script = ExtResource("4_j45kh")
 
 [node name="EnemySpawnPositions" type="Node2D" parent="."]
+process_mode = 1
 
 [node name="0" type="Node2D" parent="EnemySpawnPositions"]
 position = Vector2(-1324, 2054)
@@ -49,7 +55,18 @@ position = Vector2(3141, 2409)
 position = Vector2(3144, 2135)
 
 [node name="EnemySpawnTimer" type="Timer" parent="."]
+process_mode = 1
 wait_time = 3.0
 autostart = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="MoneyLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 26.0
+offset_right = 1902.0
+offset_bottom = 49.0
+theme_override_font_sizes/font_size = 30
+text = "Money = 0"
 
 [connection signal="timeout" from="EnemySpawnTimer" to="Enemies" method="_on_enemy_spawn_timer_timeout"]

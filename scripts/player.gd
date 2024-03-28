@@ -34,11 +34,12 @@ func _input(event):
 		auto_fire_timer.start()
 
 func shoot():
-	var new_bullet = basic_bullet.instantiate()
-	new_bullet.global_position = global_position
-	new_bullet.type = "friendly"
-	new_bullet.target = get_global_mouse_position()
-	get_parent().bullets.add_child(new_bullet)
+	if get_tree().paused == false:
+		var new_bullet = basic_bullet.instantiate()
+		new_bullet.global_position = global_position
+		new_bullet.type = "friendly"
+		new_bullet.target = get_global_mouse_position()
+		get_parent().bullets.add_child(new_bullet)
 
 
 func _on_auto_fire_timer_timeout():

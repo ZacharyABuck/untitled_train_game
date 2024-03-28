@@ -98,3 +98,5 @@ position = Vector2(-31, 191)
 
 [node name="BackRight" type="Node2D" parent="HardPoints"]
 position = Vector2(39, 189)
+
+[node name="Gadgets" type="Node2D" parent="."]
