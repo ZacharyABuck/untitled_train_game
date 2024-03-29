@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://02oiy550pacp"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_2a3mn"]
-[ext_resource type="Script" path="res://scripts/map_manager.gd" id="1_lfsvw"]
+[ext_resource type="Script" path="res://scripts/maps/map_manager.gd" id="1_lfsvw"]
 [ext_resource type="PackedScene" uid="uid://ba3200hrmm41k" path="res://scenes/train.tscn" id="2_2wehf"]
-[ext_resource type="Script" path="res://scripts/enemies.gd" id="4_gtbnk"]
+[ext_resource type="Script" path="res://scripts/enemies/enemy_spawner.gd" id="4_gtbnk"]
 
 [node name="Level" type="Node2D"]
 process_mode = 1

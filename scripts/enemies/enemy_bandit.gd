@@ -3,13 +3,13 @@ extends RigidBody2D
 
 @onready var attack_timer = $AttackTimer
 
-
 var basic_bullet = preload("res://scenes/basic_bullet.tscn")
 
-var speed = 500
-
-var health = 5
-var money = 2
+var enemy_stats = EnemyInfo.enemy_roster["bandit"]
+var speed = enemy_stats["speed"]
+var health = enemy_stats["health"]
+var damage = enemy_stats["damage"]
+var money = enemy_stats["money"]
 
 var target
 var state = "moving"
@@ -18,7 +18,6 @@ var state = "moving"
 func _ready():
 	var random_target = TrainInfo.cars_inventory.keys().pick_random()
 	target = TrainInfo.cars_inventory[random_target]["node"]
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -31,7 +30,6 @@ func _physics_process(delta):
 			linear_velocity = Vector2.ZERO
 			state = "attacking"
 			attack_timer.start()
-
 
 func _on_attack_timer_timeout():
 	if state == "attacking":

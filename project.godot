@@ -12,16 +12,16 @@ config_version=5
 
 config/name="Untitled Train Game"
 run/main_scene="res://scenes/Root.tscn"
-config/features=PackedStringArray("4.1", "Mobile")
+config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
-TrainInfo="*res://scripts/train_info.gd"
-PlayerInfo="*res://scripts/player_info.gd"
-GadgetInfo="*res://scripts/gadget_info.gd"
+TrainInfo="*res://scripts/train/train_info.gd"
+PlayerInfo="*res://scripts/player/player_info.gd"
+GadgetInfo="*res://scripts/gadgets/gadget_info.gd"
 LevelInfo="*res://scripts/level_info.gd"
-EnemyInfo="*res://scripts/enemy_info.gd"
+EnemyInfo="*res://scripts/enemies/enemy_info.gd"
 
 [display]
 

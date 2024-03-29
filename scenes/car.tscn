@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bauu0fl50lkr5"]
 
-[ext_resource type="Script" path="res://scripts/car.gd" id="1_1dudu"]
+[ext_resource type="Script" path="res://scripts/train/car.gd" id="1_0r333"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_6wuvj"]
 
@@ -20,7 +20,7 @@ size = Vector2(162, 19)
 size = Vector2(161, 385)
 
 [node name="Car" type="Node2D" groups=["car"]]
-script = ExtResource("1_1dudu")
+script = ExtResource("1_0r333")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.580392, 0.580392, 0.580392, 1)

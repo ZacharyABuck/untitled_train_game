@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://d3gyokft7sh4r"]
 
-[ext_resource type="Script" path="res://scripts/hard_point.gd" id="1_fc3sh"]
+[ext_resource type="Script" path="res://scripts/train/hard_point.gd" id="1_eq7aa"]
 
 [sub_resource type="Animation" id="Animation_jen2g"]
 resource_name = "flash"
@@ -45,16 +45,16 @@ radius = 30.0167
 
 [node name="HardPoint" type="Node2D"]
 process_mode = 2
-script = ExtResource("1_fc3sh")
+script = ExtResource("1_eq7aa")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "still"
 libraries = {
 "": SubResource("AnimationLibrary_rauy8")
 }
+autoplay = "still"
 
 [node name="Area2D" type="Area2D" parent="."]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://j1ex3r7vq3i"]
 
-[ext_resource type="Script" path="res://scripts/pistol_turret.gd" id="1_x11a8"]
+[ext_resource type="Script" path="res://scripts/gadgets/pistol_turret.gd" id="1_x11a8"]
 [ext_resource type="Texture2D" uid="uid://c1esbr41s7mmf" path="res://sprites/gadgets/pistol_turret.png" id="2_57lg3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h5xqt"]

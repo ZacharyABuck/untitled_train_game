@@ -1,22 +1,22 @@
 [gd_scene load_steps=9 format=3 uid="uid://ys4jr28gfxkd"]
 
-[ext_resource type="Texture2D" uid="uid://ccds4qrjst8a5" path="res://sprites/enemies/slasher_man_gb.png" id="1_lkaom"]
-[ext_resource type="Script" path="res://scripts/basic_enemy.gd" id="1_qfgn0"]
+[ext_resource type="Script" path="res://scripts/enemy_bandit.gd" id="1_tfnqj"]
+[ext_resource type="Texture2D" uid="uid://ccds4qrjst8a5" path="res://sprites/enemies/slasher_man_gb.png" id="2_ihixy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ek46o"]
-atlas = ExtResource("1_lkaom")
+atlas = ExtResource("2_ihixy")
 region = Rect2(96, 64, 24, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gbyij"]
-atlas = ExtResource("1_lkaom")
+atlas = ExtResource("2_ihixy")
 region = Rect2(120, 64, 24, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qw0mb"]
-atlas = ExtResource("1_lkaom")
+atlas = ExtResource("2_ihixy")
 region = Rect2(144, 64, 24, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lwujq"]
-atlas = ExtResource("1_lkaom")
+atlas = ExtResource("2_ihixy")
 region = Rect2(168, 64, 24, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_k0d6m"]
@@ -42,10 +42,10 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4v00t"]
 size = Vector2(36, 63)
 
-[node name="BasicEnemy" type="RigidBody2D" groups=["enemy"]]
+[node name="EnemyBandit" type="RigidBody2D" groups=["enemy"]]
 collision_layer = 8
 collision_mask = 4
-script = ExtResource("1_qfgn0")
+script = ExtResource("1_tfnqj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
