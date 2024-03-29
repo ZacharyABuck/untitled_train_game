@@ -1,7 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://ys4jr28gfxkd"]
+[gd_scene load_steps=11 format=3 uid="uid://ys4jr28gfxkd"]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy_bandit.gd" id="1_488ir"]
 [ext_resource type="Texture2D" uid="uid://ccds4qrjst8a5" path="res://sprites/enemies/slasher_man_gb.png" id="2_oce6m"]
+[ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://Components/health_component.tscn" id="3_gpfls"]
+[ext_resource type="PackedScene" uid="uid://cyv57gynwtrmu" path="res://Components/hitbox_component.tscn" id="4_0ge5n"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ek46o"]
 atlas = ExtResource("2_oce6m")
@@ -40,7 +42,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4v00t"]
-size = Vector2(36, 63)
+size = Vector2(36, 72.5)
 
 [node name="EnemyBandit" type="RigidBody2D" groups=["enemy"]]
 collision_layer = 8
@@ -58,11 +60,18 @@ autoplay = "running"
 frame = 1
 frame_progress = 0.700619
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 9.5)
-shape = SubResource("RectangleShape2D_4v00t")
-
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 2.0
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_gpfls")]
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_0ge5n")]
+collision_layer = 8
+collision_mask = 4
+health_component = NodePath("../HealthComponent")
+
+[node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, 4.75)
+shape = SubResource("RectangleShape2D_4v00t")
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

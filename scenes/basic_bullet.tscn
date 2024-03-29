@@ -1,11 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://cuvjtd33w3p7"]
 
 [ext_resource type="Script" path="res://scripts/basic_bullet.gd" id="1_lqmqr"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_8ffxy"]
+[ext_resource type="Texture2D" uid="uid://cxuupqp0iolbo" path="res://sprites/projectiles/bullet_rifle.png" id="2_go01j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6a1pl"]
-size = Vector2(2, 32)
+size = Vector2(6.6974, 43.2201)
 
 [node name="BasicBullet" type="RigidBody2D"]
 collision_layer = 0
@@ -14,19 +13,21 @@ gravity_scale = 0.0
 contact_monitor = true
 script = ExtResource("1_lqmqr")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0, 0, 0, 1)
-position = Vector2(-5.96046e-08, 9.53674e-07)
-rotation = 1.5708
-scale = Vector2(2, 30.5)
-texture = SubResource("CanvasTexture_8ffxy")
-
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(3, 2)
 rotation = 1.5708
+scale = Vector2(1.07528, 0.321658)
 shape = SubResource("RectangleShape2D_6a1pl")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(3, 2)
+rotation = 1.5708
+scale = Vector2(0.0664878, 0.0224345)
+texture = ExtResource("2_go01j")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

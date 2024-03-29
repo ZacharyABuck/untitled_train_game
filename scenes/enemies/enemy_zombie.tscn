@@ -1,7 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://dlf3ut18w14gl"]
+[gd_scene load_steps=12 format=3 uid="uid://dlf3ut18w14gl"]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie.gd" id="1_sfyon"]
 [ext_resource type="Texture2D" uid="uid://ccds4qrjst8a5" path="res://sprites/enemies/slasher_man_gb.png" id="2_u25me"]
+[ext_resource type="PackedScene" uid="uid://cyv57gynwtrmu" path="res://Components/hitbox_component.tscn" id="3_aknae"]
+[ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://Components/health_component.tscn" id="4_52reb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ek46o"]
 atlas = ExtResource("2_u25me")
@@ -63,12 +65,19 @@ autoplay = "running"
 frame = 1
 frame_progress = 0.700619
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_aknae")]
+collision_layer = 8
+collision_mask = 4
+health_component = NodePath("../HealthComponent")
+
+[node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(0, 9.5)
 shape = SubResource("RectangleShape2D_4v00t")
 
-[node name="AttackTimer" type="Timer" parent="."]
-wait_time = 2.0
+[node name="HealthComponent" parent="." instance=ExtResource("4_52reb")]
 
 [node name="WallDetector" type="Area2D" parent="."]
 collision_layer = 0
