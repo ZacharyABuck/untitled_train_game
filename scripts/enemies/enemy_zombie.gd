@@ -44,10 +44,6 @@ func attack():
 	if target == PlayerInfo.active_player:
 		PlayerInfo.health -= damage
 		print(PlayerInfo.health)
-	elif target.is_in_group("gadget"):
-		GadgetFunctions.take_damage(target, damage)
-	elif target.is_in_group("car"):
-		target.take_damage(damage)
 
 func _on_wall_detector_body_entered(body):
 	if body.get_parent().is_in_group("car") and boarded == false and state != "boarding":
