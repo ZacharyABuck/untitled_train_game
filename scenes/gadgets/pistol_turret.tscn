@@ -23,6 +23,5 @@ shape = SubResource("CircleShape2D_h5xqt")
 
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 2.0
-autostart = true
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

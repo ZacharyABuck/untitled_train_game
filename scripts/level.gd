@@ -34,10 +34,10 @@ func spawn_train():
 				if random_type != "engine" and random_type != "caboose":
 					new_car.type = random_type
 					valid = true
-		new_car.set_parameters()
-		TrainInfo.cars_inventory[index] = {"node" = null, "type" = null}
+		new_car.index = index
+		TrainInfo.cars_inventory[index] = {"node" = null, "type" = new_car.type, "hard_points" = {}, "gadgets" = {},}
 		TrainInfo.cars_inventory[index]["node"] = new_car
-		TrainInfo.cars_inventory[index]["type"] = new_car.type
+		new_car.set_parameters()
 		index += 1
 
 func spawn_player():

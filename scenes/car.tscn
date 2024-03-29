@@ -74,6 +74,7 @@ max_value = 20.0
 value = 20.0
 
 [node name="HardPoints" type="Node2D" parent="."]
+process_mode = 2
 
 [node name="FrontLeft" type="Node2D" parent="HardPoints"]
 position = Vector2(-35, -192)

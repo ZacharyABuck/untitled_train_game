@@ -7,7 +7,7 @@ var enemy_roster = {
 		"health" = 5,
 		"damage" = 1,
 		"money" = 2,
-		"speed" = 400,
+		"speed" = 150,
 	},
 	"zombie" = {
 		"scene" = load("res://scenes/enemies/enemy_zombie.tscn"),
@@ -15,6 +15,6 @@ var enemy_roster = {
 		"health" = 10,
 		"damage" = 5,
 		"money" = 2,
-		"speed" = 250,
+		"speed" = 100,
 	},
 }

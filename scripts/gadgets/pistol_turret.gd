@@ -13,9 +13,10 @@ var attack_cooldown = gadget_stats["attack_cooldown"]
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	attack_timer.wait_time = attack_cooldown
+	attack_timer.start()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if target != null:
 		look_at(target.global_position)
 

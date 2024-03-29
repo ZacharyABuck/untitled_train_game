@@ -7,6 +7,8 @@ var active_car
 
 var basic_bullet = preload("res://scenes/basic_bullet.tscn")
 
+var can_shoot = true
+
 const speed = 300
 
 func _ready():
@@ -24,16 +26,17 @@ func get_input():
 	else:
 		sprite.play("running")
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	get_input()
 	move_and_slide()
 
 func _input(event):
-	if event.is_action_pressed("shoot"):
+	if event.is_action_pressed("shoot") and can_shoot:
 		shoot()
 		auto_fire_timer.start()
 
 func shoot():
+	can_shoot = false
 	if get_tree().paused == false:
 		var new_bullet = basic_bullet.instantiate()
 		new_bullet.global_position = global_position
@@ -43,6 +46,7 @@ func shoot():
 
 
 func _on_auto_fire_timer_timeout():
+	can_shoot = true
 	if Input.is_action_pressed("shoot"):
 		shoot()
 

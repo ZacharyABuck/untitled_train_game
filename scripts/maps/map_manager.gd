@@ -27,7 +27,7 @@ func generate_map(pos):
 		new_map.set_cell(0, i, 0, tile_atlas_coords.pick_random(), 0)
 	generate_track(new_map)
 
-func generate_track(map):
+func generate_track(tilemap):
 	var y_values = range(-2,10)
 	for i in y_values:
-		map.set_cell(1, Vector2i(7,i), 1, Vector2i(0,0), 0)
+		tilemap.set_cell(1, Vector2i(7,i), 1, Vector2i(0,0), 0)

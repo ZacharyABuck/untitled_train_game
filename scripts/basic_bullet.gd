@@ -25,16 +25,17 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 
-func _physics_process(delta):
+func _physics_process(_delta):
 		move_and_collide(linear_velocity)
 
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("enemy"):
-		body.take_damage(damage)
+		EnemyFunctions.take_damage(body, damage)
+		#body.take_damage(damage)
 		queue_free()
 	if body.get_parent().is_in_group("car"):
 		body.get_parent().take_damage(damage)

@@ -22,6 +22,8 @@ PlayerInfo="*res://scripts/player/player_info.gd"
 GadgetInfo="*res://scripts/gadgets/gadget_info.gd"
 LevelInfo="*res://scripts/level_info.gd"
 EnemyInfo="*res://scripts/enemies/enemy_info.gd"
+GadgetFunctions="*res://scripts/gadgets/gadget_functions.gd"
+EnemyFunctions="*res://scripts/enemies/enemy_functions.gd"
 
 [display]
 

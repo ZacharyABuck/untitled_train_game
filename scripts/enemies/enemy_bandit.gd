@@ -20,14 +20,13 @@ func _ready():
 	target = TrainInfo.cars_inventory[random_target]["node"]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	linear_velocity = global_position.direction_to(target.global_position) * (speed*delta)
+func _process(_delta):
+	pass
 
 func _physics_process(delta):
 	if state == "moving":
-		move_and_collide(linear_velocity)
+		move_and_collide(global_position.direction_to(target.global_position)*(speed*delta))
 		if global_position.distance_to(target.global_position) <= randi_range(300,400):
-			linear_velocity = Vector2.ZERO
 			state = "attacking"
 			attack_timer.start()
 
@@ -41,9 +40,3 @@ func attack():
 	new_bullet.type = "enemy"
 	new_bullet.target = target.global_position
 	get_parent().add_child(new_bullet)
-
-func take_damage(amount):
-	health -= amount
-	if health <= 0:
-		PlayerInfo.money += money
-		queue_free()

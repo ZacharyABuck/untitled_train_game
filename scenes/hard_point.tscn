@@ -20,7 +20,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_wyict"]
 resource_name = "still"
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -44,7 +43,6 @@ _data = {
 radius = 30.0167
 
 [node name="HardPoint" type="Node2D"]
-process_mode = 2
 script = ExtResource("1_eq7aa")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
