@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bp38lfu2xg7sc"]
+[gd_scene load_steps=19 format=3 uid="uid://bp38lfu2xg7sc"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_1wp3v"]
 [ext_resource type="Texture2D" uid="uid://dei68j7xuxxre" path="res://sprites/player/cowboy_temp.png" id="1_r215t"]
@@ -106,6 +106,14 @@ size = Vector2(20, 77)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qgewi"]
 size = Vector2(8, 8)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lm4s8"]
+bg_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 10
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_mask = 6
 script = ExtResource("1_1wp3v")
@@ -131,6 +139,18 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CarDetector"]
 shape = SubResource("RectangleShape2D_qgewi")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+visible = false
+offset_left = -33.0
+offset_top = -51.0
+offset_right = 33.0
+offset_bottom = -46.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_lm4s8")
+max_value = 20.0
+step = 1.0
+value = 10.0
+show_percentage = false
 
 [connection signal="timeout" from="AutoFireTimer" to="." method="_on_auto_fire_timer_timeout"]
 [connection signal="area_entered" from="CarDetector" to="." method="_on_car_detector_area_entered"]

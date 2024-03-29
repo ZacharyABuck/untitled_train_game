@@ -26,7 +26,7 @@ func _input(event):
 			unpause_game()
 			build_menu_open = false
 			build_menu.hide()
-			for i in PlayerInfo.active_player.active_car.hard_points.get_children():
+			for i in TrainInfo.cars_inventory[PlayerInfo.active_player.active_car]["node"].hard_points.get_children():
 				var hard_point = i.get_child(0)
 				hard_point.animation_player.play("still")
 				hard_point.sprite.modulate = Color.WHITE

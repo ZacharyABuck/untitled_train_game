@@ -52,7 +52,7 @@ func populate_build_menu():
 
 func request_gadget(gadget):
 	if PlayerInfo.money >= gadget["cost"]:
-		var hard_points = PlayerInfo.active_player.active_car.hard_points.get_children()
+		var hard_points = TrainInfo.cars_inventory[PlayerInfo.active_player.active_car]["node"].hard_points.get_children()
 		for i in hard_points:
 			i.get_child(0).animation_player.play("flash")
 			i.get_child(0).selection_sprite.texture = gadget["sprite"]

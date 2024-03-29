@@ -5,3 +5,6 @@ func take_damage(enemy, amount):
 	if enemy.health <= 0:
 		PlayerInfo.money += enemy.money
 		enemy.queue_free()
+		for i in EnemyInfo.enemy_inventory:
+			if EnemyInfo.enemy_inventory[i] == enemy:
+				EnemyInfo.enemy_inventory.erase(i)

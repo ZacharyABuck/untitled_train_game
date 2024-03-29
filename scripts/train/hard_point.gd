@@ -18,7 +18,7 @@ func _process(_delta):
 	pass
 
 func _on_area_2d_mouse_entered():
-	if GadgetInfo.selection_active and gadget == null and PlayerInfo.active_player.active_car == car:
+	if GadgetInfo.selection_active and gadget == null and TrainInfo.cars_inventory[PlayerInfo.active_player.active_car]["node"]  == car:
 		selection_sprite.show()
 
 func _on_area_2d_mouse_exited():
@@ -26,7 +26,8 @@ func _on_area_2d_mouse_exited():
 		selection_sprite.hide()
 
 func _on_area_2d_input_event(_viewport, event, _shape_idx):
-	if GadgetInfo.selection_active and gadget == null and event is InputEventMouseButton and event.pressed and PlayerInfo.active_player.active_car == car:
+	if GadgetInfo.selection_active and gadget == null and event is InputEventMouseButton \
+	 and event.pressed and TrainInfo.cars_inventory[PlayerInfo.active_player.active_car]["node"] == car:
 		GadgetFunctions.add_gadget(GadgetInfo.selected_gadget, self, car)
 		selection_sprite.texture = null
 		selection_sprite.hide()

@@ -9,6 +9,7 @@ var damage = enemy_stats["damage"]
 var money = enemy_stats["money"]
 
 var target
+var active_car
 var state = "moving"
 var boarded = false
 
@@ -40,11 +41,17 @@ func _on_attack_timer_timeout():
 			state = "moving"
 
 func attack():
-	PlayerInfo.health -= damage
-	print(PlayerInfo.health)
+	if target == PlayerInfo.active_player:
+		PlayerInfo.health -= damage
+		print(PlayerInfo.health)
+	elif target.is_in_group("gadget"):
+		GadgetFunctions.take_damage(target, damage)
+	elif target.is_in_group("car"):
+		target.take_damage(damage)
 
 func _on_wall_detector_body_entered(body):
 	if body.get_parent().is_in_group("car") and boarded == false and state != "boarding":
+		active_car = body.get_parent().index
 		state = "boarding"
 		speed = speed - (speed * .75)
 
@@ -52,11 +59,11 @@ func _on_wall_detector_body_exited(body):
 	if state == "boarding" and body.get_parent().is_in_group("car"):
 		state = "moving"
 		boarded = true
-		sleeping = true
 		speed = enemy_stats["speed"]
 
 func _on_player_detector_body_entered(body):
 	if body.is_in_group("player"):
+		target = body
 		state = "attacking"
 		attack()
 		attack_timer.start()

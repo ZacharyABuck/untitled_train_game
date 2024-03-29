@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 @onready var sprite = $AnimatedSprite2D
 @onready var auto_fire_timer = $AutoFireTimer
+@onready var health_bar = $HealthBar
+
 
 var active_car
 
@@ -13,6 +15,8 @@ const speed = 300
 
 func _ready():
 	PlayerInfo.active_player = self
+	health_bar.max_value = PlayerInfo.max_health
+	health_bar.value = PlayerInfo.max_health
 
 func get_input():
 	var input_direction = Input.get_vector("left", "right", "up", "down")
@@ -25,6 +29,13 @@ func get_input():
 		sprite.play("standing")
 	else:
 		sprite.play("running")
+
+func _process(delta):
+	health_bar.value = PlayerInfo.health
+	if health_bar.value == health_bar.max_value:
+		health_bar.hide()
+	else:
+		health_bar.show()
 
 func _physics_process(_delta):
 	get_input()
@@ -44,18 +55,16 @@ func shoot():
 		new_bullet.target = get_global_mouse_position()
 		get_parent().bullets.add_child(new_bullet)
 
-
 func _on_auto_fire_timer_timeout():
 	can_shoot = true
 	if Input.is_action_pressed("shoot"):
 		shoot()
 
-
 func _on_car_detector_area_entered(area):
 	if area.get_parent().is_in_group("car"):
-		active_car = area.get_parent()
-		active_car.sprite.modulate = Color.WHITE
+		active_car = area.get_parent().index
+		TrainInfo.cars_inventory[active_car]["node"].sprite.modulate = Color.WHITE
 
 func _on_car_detector_area_exited(area):
-	if area.get_parent() == active_car:
-		active_car.sprite.modulate = active_car.starting_color
+	if area.get_parent().index == active_car:
+		TrainInfo.cars_inventory[active_car]["node"].sprite.modulate = TrainInfo.cars_inventory[active_car]["node"].starting_color

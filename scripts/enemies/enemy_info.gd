@@ -18,3 +18,7 @@ var enemy_roster = {
 		"speed" = 100,
 	},
 }
+
+var enemy_inventory = {
+	
+}
