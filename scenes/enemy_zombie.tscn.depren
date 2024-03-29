@@ -1,22 +1,22 @@
 [gd_scene load_steps=10 format=3 uid="uid://dlf3ut18w14gl"]
 
-[ext_resource type="Script" path="res://scripts/zombie.gd" id="1_3r5c6"]
-[ext_resource type="Texture2D" uid="uid://ccds4qrjst8a5" path="res://sprites/enemies/slasher_man_gb.png" id="2_uhkae"]
+[ext_resource type="Script" path="res://scripts/enemy_zombie.gd" id="1_v55td"]
+[ext_resource type="Texture2D" uid="uid://ccds4qrjst8a5" path="res://sprites/enemies/slasher_man_gb.png" id="2_4s4kv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ek46o"]
-atlas = ExtResource("2_uhkae")
+atlas = ExtResource("2_4s4kv")
 region = Rect2(96, 64, 24, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gbyij"]
-atlas = ExtResource("2_uhkae")
+atlas = ExtResource("2_4s4kv")
 region = Rect2(120, 64, 24, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qw0mb"]
-atlas = ExtResource("2_uhkae")
+atlas = ExtResource("2_4s4kv")
 region = Rect2(144, 64, 24, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lwujq"]
-atlas = ExtResource("2_uhkae")
+atlas = ExtResource("2_4s4kv")
 region = Rect2(168, 64, 24, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_k0d6m"]
@@ -45,10 +45,10 @@ size = Vector2(36, 63)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_it6fp"]
 size = Vector2(39, 65)
 
-[node name="Zombie" type="RigidBody2D" groups=["enemy"]]
+[node name="EnemyZombie" type="RigidBody2D" groups=["enemy"]]
 collision_layer = 8
 collision_mask = 0
-script = ExtResource("1_3r5c6")
+script = ExtResource("1_v55td")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(1, 0, 0, 1)

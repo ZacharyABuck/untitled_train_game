@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://bp38lfu2xg7sc"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_1wp3v"]
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_1wp3v"]
 [ext_resource type="Texture2D" uid="uid://dei68j7xuxxre" path="res://sprites/player/cowboy_temp.png" id="1_r215t"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sdwyk"]
