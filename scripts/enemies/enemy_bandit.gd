@@ -40,7 +40,3 @@ func attack():
 	new_bullet.type = "enemy"
 	new_bullet.target = target.global_position
 	get_parent().add_child(new_bullet)
-
-
-func _on_hitbox_component_area_entered(area):
-	pass # Replace with function body.

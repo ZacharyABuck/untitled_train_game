@@ -64,6 +64,7 @@ frame_progress = 0.700619
 wait_time = 2.0
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_gpfls")]
+MAX_HEALTH = 5
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_0ge5n")]
 collision_layer = 8
