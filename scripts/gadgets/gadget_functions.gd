@@ -23,8 +23,8 @@ func add_gadget(gadget, hard_point, car):
 	new_gadget.global_position = hard_point.global_position
 	
 	#close build menu and unpause
-	LevelInfo.root.build_menu.hide()
-	LevelInfo.root.build_menu_open = false
+	LevelInfo.active_level.build_menu.hide()
+	LevelInfo.active_level.build_menu_open = false
 	LevelInfo.root.unpause_game()
 
 func take_damage(gadget, amount):
