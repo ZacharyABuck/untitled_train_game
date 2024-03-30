@@ -55,16 +55,7 @@ func populate_build_menu():
 		gadget_list.add_item(GadgetInfo.gadget_roster[i]["name"], GadgetInfo.gadget_roster[i]["sprite"])
 		gadget_list.set_item_metadata(gadget_list.item_count-1, GadgetInfo.gadget_roster[i])
 
-func request_gadget(gadget):
-	if PlayerInfo.money >= gadget["cost"]:
-		var hard_points = TrainInfo.cars_inventory[PlayerInfo.active_player.active_car]["node"].hard_points.get_children()
-		for i in hard_points:
-			i.get_child(0).animation_player.play("flash")
-			i.get_child(0).selection_sprite.texture = gadget["sprite"]
-		GadgetInfo.selected_gadget = gadget
-		GadgetInfo.selection_active = true
-
 func _on_gadget_list_item_clicked(index, _at_position, _mouse_button_index):
 	var gadget_info = LevelInfo.active_level.gadget_list.get_item_metadata(index)
-	request_gadget(gadget_info)
+	GadgetFunctions.request_gadget(gadget_info)
 

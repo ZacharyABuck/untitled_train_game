@@ -31,3 +31,4 @@ func generate_track(tilemap):
 	var y_values = range(-2,10)
 	for i in y_values:
 		tilemap.set_cell(1, Vector2i(7,i), 1, Vector2i(0,0), 0)
+		tilemap
