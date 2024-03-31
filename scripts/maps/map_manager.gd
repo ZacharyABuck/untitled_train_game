@@ -11,6 +11,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	pass
 	for i in get_children():
 		i.global_position.y += TrainInfo.speed*delta
 		if i.top_marker != null and i.top_marker.global_position.y >= 0:

@@ -35,8 +35,3 @@ func add_gadget(gadget, hard_point, car):
 	LevelInfo.active_level.build_menu.hide()
 	LevelInfo.active_level.build_menu_open = false
 	LevelInfo.root.unpause_game()
-
-func take_damage(gadget, amount):
-	gadget.health -= amount
-	if gadget.health <= 0:
-		gadget.modulate = Color.RED
