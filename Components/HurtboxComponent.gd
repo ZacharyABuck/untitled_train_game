@@ -1,5 +1,5 @@
 extends Area2D
-class_name HitboxComponent
+class_name HurtboxComponent
 
 @export var health_component : HealthComponent
 

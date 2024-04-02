@@ -4,7 +4,7 @@ extends Node2D
 @onready var enemy_detector = $EnemyDetector
 @onready var sprite = $Sprite2D
 var target
-var basic_bullet = preload("res://scenes/basic_bullet.tscn")
+var basic_bullet = preload("res://scenes/projectiles/basic_bullet.tscn")
 
 var gadget_stats = GadgetInfo.gadget_roster["pistol_turret"]
 var damage = gadget_stats["damage"]

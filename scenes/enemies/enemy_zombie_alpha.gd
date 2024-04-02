@@ -1,23 +1,24 @@
 extends RigidBody2D
 
-@onready var attack_timer = $AttackTimer
-@onready var animations = $ZombieSpriteSheet
-@onready var attack_area = $ZombieSpriteSheet/AttackArea
-@onready var hurtbox = $HurtboxComponent/Hurtbox
-@onready var collision = $CollisionShape2D
+@onready var animated_sprite = $Zombie_Animation
+@onready var attack_timer = $Attacktimer
 
-var enemy_stats = EnemyInfo.enemy_roster["zombie"]
+var enemy_stats = EnemyInfo.enemy_roster["zombie_alpha"]
 var speed = enemy_stats["speed"]
+var health = enemy_stats["health"]
 var damage = enemy_stats["damage"]
 var money = enemy_stats["money"]
+
 
 var target
 var active_car
 var state = "moving"
 var boarded = false
 
+# Called when the node enters the scene tree for the first time.
 func _ready():
 	target = PlayerInfo.active_player
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -27,19 +28,28 @@ func _physics_process(delta):
 	match state:
 		"moving":
 			move_and_collide(global_position.direction_to(target.global_position)*(speed*delta))
-			look_at(target.global_position)
-			animations.play("moving")
+			attack_timer.stop()
+			animated_sprite.play("moving")
 		"boarding":
 			move_and_collide(global_position.direction_to(Vector2(target.global_position.x, global_position.y))*(speed*delta))
-			animations.play("idle")
+			attack_timer.stop()
+			animated_sprite.play("moving")
 		"attacking":
-			move_and_collide(global_position.direction_to(target.global_position)*(0*delta))
-		"dead":
-			hurtbox.disabled = true
-			collision.disabled = true
+			animated_sprite.play("attacking")
+			move_and_collide(global_position.direction_to(target.global_position)*(speed*delta))
+
+func _on_attack_timer_timeout():
+	for i in $PlayerDetector.get_overlapping_bodies():
+		if i.is_in_group("player"):
+			state = "attacking"
+			attack()
+		else:
+			state = "moving"
 
 func attack():
-	animations.play("attacking")
+	if target == PlayerInfo.active_player:
+		PlayerInfo.health -= damage
+		print(PlayerInfo.health)
 
 func _on_wall_detector_body_entered(body):
 	if body.get_parent().is_in_group("car") and boarded == false and state != "boarding":
@@ -58,15 +68,7 @@ func _on_player_detector_body_entered(body):
 		target = body
 		state = "attacking"
 		attack()
-
-func _on_zombie_sprite_sheet_animation_finished():
-	if animations.animation == "attacking":
-		if target == PlayerInfo.active_player:
-			PlayerInfo.health -= damage
-		if state == "attacking":
-			attack()
-	if animations.animation == "death":
-		queue_free()
+		attack_timer.start()
 
 func _on_player_detector_body_exited(body):
 	if body.is_in_group("player"):

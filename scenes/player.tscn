@@ -1,7 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://bp38lfu2xg7sc"]
+[gd_scene load_steps=22 format=3 uid="uid://bp38lfu2xg7sc"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_1wp3v"]
 [ext_resource type="Texture2D" uid="uid://dei68j7xuxxre" path="res://sprites/player/cowboy_temp.png" id="1_r215t"]
+[ext_resource type="Script" path="res://components/HurtboxComponent.gd" id="3_pf8ut"]
+[ext_resource type="Script" path="res://components/HealthComponent.gd" id="4_8hue6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sdwyk"]
 atlas = ExtResource("1_r215t")
@@ -101,7 +103,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ff0f4"]
-size = Vector2(20, 77)
+size = Vector2(30, 83)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qgewi"]
 size = Vector2(8, 8)
@@ -114,8 +116,12 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 corner_detail = 10
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m2jei"]
+size = Vector2(24, 78)
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
-collision_mask = 6
+collision_layer = 9
+collision_mask = 5
 script = ExtResource("1_1wp3v")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -125,7 +131,7 @@ animation = &"standing"
 autoplay = "standing"
 
 [node name="BodyCollider" type="CollisionShape2D" parent="."]
-position = Vector2(0, -1.5)
+position = Vector2(-1, -3.5)
 shape = SubResource("RectangleShape2D_ff0f4")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -141,16 +147,30 @@ collision_mask = 4
 shape = SubResource("RectangleShape2D_qgewi")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
-visible = false
 offset_left = -33.0
 offset_top = -51.0
 offset_right = 33.0
 offset_bottom = -46.0
+tooltip_text = "Health"
 theme_override_styles/fill = SubResource("StyleBoxFlat_lm4s8")
-max_value = 20.0
+max_value = 50.0
 step = 1.0
 value = 10.0
 show_percentage = false
+
+[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("3_pf8ut")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(-1, -3)
+shape = SubResource("RectangleShape2D_m2jei")
+
+[node name="HealthComponent" type="Node2D" parent="." node_paths=PackedStringArray("ANIMATION")]
+script = ExtResource("4_8hue6")
+MAX_HEALTH = 50
+IS_KILLABLE = false
+ANIMATION = NodePath("../AnimatedSprite2D")
 
 [connection signal="timeout" from="AutoFireTimer" to="." method="_on_auto_fire_timer_timeout"]
 [connection signal="area_entered" from="CarDetector" to="." method="_on_car_detector_area_entered"]
