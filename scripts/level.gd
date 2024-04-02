@@ -21,34 +21,35 @@ func _process(_delta):
 	$UI/MoneyLabel.text = "Money: $" + str(PlayerInfo.money)
 
 func spawn_train():
-	var index = 0
-	for i in train.car_spawn_positions.get_children():
-		var new_car = train.car.instantiate()
-		new_car.position = i.position
-		train.cars.add_child(new_car)
-		if i == train.car_spawn_positions.get_child(0):
-			new_car.top_collider.disabled = false
-			new_car.type = "engine"
-		elif i == train.car_spawn_positions.get_child(train.car_spawn_positions.get_child_count()-1):
-			new_car.type = "caboose"
-			new_car.bottom_collider.disabled = false
-		else:
-			var valid = false
-			while valid == false:
-				var random_type = TrainInfo.cars_roster.keys().pick_random()
-				if random_type != "engine" and random_type != "caboose":
-					new_car.type = random_type
-					valid = true
-		new_car.index = index
-		TrainInfo.cars_inventory[index] = {"node" = null, "type" = new_car.type, "hard_points" = {}, "gadgets" = {},}
-		TrainInfo.cars_inventory[index]["node"] = new_car
-		new_car.set_parameters()
-		index += 1
+	pass
+	#var index = 0
+	#for i in train.car_spawn_positions.get_children():
+		#var new_car = train.car.instantiate()
+		#new_car.position = i.position
+		#train.cars.add_child(new_car)
+		#if i == train.car_spawn_positions.get_child(0):
+			#new_car.top_collider.disabled = false
+			#new_car.type = "engine"
+		#elif i == train.car_spawn_positions.get_child(train.car_spawn_positions.get_child_count()-1):
+			#new_car.type = "caboose"
+			#new_car.bottom_collider.disabled = false
+		#else:
+			#var valid = false
+			#while valid == false:
+				#var random_type = TrainInfo.cars_roster.keys().pick_random()
+				#if random_type != "engine" and random_type != "caboose":
+					#new_car.type = random_type
+					#valid = true
+		#new_car.index = index
+		#TrainInfo.cars_inventory[index] = {"node" = null, "type" = new_car.type, "hard_points" = {}, "gadgets" = {},}
+		#TrainInfo.cars_inventory[index]["node"] = new_car
+		#new_car.set_parameters()
+		#index += 1
 
 func spawn_player():
+	await get_tree().create_timer(1).timeout
 	var new_player = player.instantiate()
-	new_player.global_position = train.cars.get_child(0).global_position
-	add_child(new_player)
+	$Train/test_track.engine.add_child(new_player)
 
 func populate_build_menu():
 	for i in GadgetInfo.gadget_roster:

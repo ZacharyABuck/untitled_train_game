@@ -12,13 +12,13 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-	for i in get_children():
-		i.global_position.y += TrainInfo.speed*delta
-		if i.top_marker != null and i.top_marker.global_position.y >= 0:
-			i.top_marker.queue_free()
-			generate_map(i.spawn_marker.global_position)
-		if i.despawn_marker.global_position.y >= 0:
-			i.queue_free()
+	#for i in get_children():
+		#i.global_position.y += TrainInfo.speed*delta
+		#if i.top_marker != null and i.top_marker.global_position.y >= 0:
+			#i.top_marker.queue_free()
+			#generate_map(i.spawn_marker.global_position)
+		#if i.despawn_marker.global_position.y >= 0:
+			#i.queue_free()
 
 func generate_map(pos):
 	var new_map = map.instantiate()
@@ -26,10 +26,3 @@ func generate_map(pos):
 	add_child(new_map)
 	for i in new_map.get_used_cells(0):
 		new_map.set_cell(0, i, 0, tile_atlas_coords.pick_random(), 0)
-	generate_track(new_map)
-
-func generate_track(tilemap):
-	var y_values = range(-2,10)
-	for i in y_values:
-		tilemap.set_cell(1, Vector2i(7,i), 1, Vector2i(0,0), 0)
-		tilemap

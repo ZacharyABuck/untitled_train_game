@@ -1,0 +1,11 @@
+[gd_resource type="FontFile" load_steps=2 format=3]
+
+[ext_resource type="FontFile" uid="uid://chnn7o53hp1wh" path="res://sprites/train_demo_assets/DePixelSchmal.ttf" id="1"]
+
+
+[resource]
+size = 15
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+font_data = ExtResource( 1 )

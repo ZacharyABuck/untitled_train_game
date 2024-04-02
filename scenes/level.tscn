@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://02oiy550pacp"]
+[gd_scene load_steps=8 format=3 uid="uid://02oiy550pacp"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_2a3mn"]
 [ext_resource type="Script" path="res://scripts/maps/map_manager.gd" id="1_lfsvw"]
 [ext_resource type="PackedScene" uid="uid://ba3200hrmm41k" path="res://scenes/train.tscn" id="2_2wehf"]
+[ext_resource type="PackedScene" uid="uid://cb1r5v4vqyrx8" path="res://scenes/test_track.tscn" id="4_akfdb"]
 [ext_resource type="Script" path="res://scripts/enemies/enemy_spawner.gd" id="4_gtbnk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nfjy5"]
@@ -19,6 +20,9 @@ script = ExtResource("1_lfsvw")
 
 [node name="Train" parent="." instance=ExtResource("2_2wehf")]
 position = Vector2(960, 468)
+
+[node name="test_track" parent="Train" instance=ExtResource("4_akfdb")]
+position = Vector2(-256, 0)
 
 [node name="Bullets" type="Node2D" parent="."]
 
