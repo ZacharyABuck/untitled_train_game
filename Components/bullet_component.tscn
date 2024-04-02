@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://m5whhyxh62bu"]
+
+[ext_resource type="Script" path="res://scenes/enemies/BulletComponent.gd" id="1_sk815"]
+
+[node name="BulletComponent" type="RigidBody2D"]
+script = ExtResource("1_sk815")
