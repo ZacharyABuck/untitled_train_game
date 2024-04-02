@@ -166,11 +166,12 @@ health_component = NodePath("../HealthComponent")
 position = Vector2(-1, -3)
 shape = SubResource("RectangleShape2D_m2jei")
 
-[node name="HealthComponent" type="Node2D" parent="." node_paths=PackedStringArray("ANIMATION")]
+[node name="HealthComponent" type="Node2D" parent="." node_paths=PackedStringArray("ANIMATION", "HEALTHBAR")]
 script = ExtResource("4_8hue6")
 MAX_HEALTH = 50
 IS_KILLABLE = false
 ANIMATION = NodePath("../AnimatedSprite2D")
+HEALTHBAR = NodePath("../HealthBar")
 
 [connection signal="timeout" from="AutoFireTimer" to="." method="_on_auto_fire_timer_timeout"]
 [connection signal="area_entered" from="CarDetector" to="." method="_on_car_detector_area_entered"]

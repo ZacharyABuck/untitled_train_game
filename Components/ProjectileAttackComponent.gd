@@ -38,9 +38,6 @@ func _ready():
 	attack_timer.timeout.connect(_on_attack_timer_timeout)
 	_set_layers(self)
 
-func _process(delta):
-	pass
-
 func shoot_if_target_in_range(target):
 	attack_target = target
 	if attack_timer.is_stopped():

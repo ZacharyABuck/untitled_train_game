@@ -7,14 +7,18 @@ class_name HealthComponent
 @export var MAX_HEALTH := 10
 @export var ARMOR_VALUE := 0
 @export var IS_KILLABLE := true
-@export var ANIMATION := AnimatedSprite2D
+@export var ANIMATION : AnimatedSprite2D
+@export var HEALTHBAR : ProgressBar
 
-var health : float
+var health
 var armor : int
 var final_damage : int
 var is_killable : bool
+var has_healthbar : bool
 var character
 var animation
+var healthbar = false
+
 
 func _ready():
 	health = MAX_HEALTH
@@ -22,14 +26,17 @@ func _ready():
 	is_killable = IS_KILLABLE
 	animation = ANIMATION
 	character = get_parent()
-
+	if HEALTHBAR != null:
+		_initialize_healthbar()
+	
 func damage(attack : Attack):
-	var final_damage = _calculate_final_damage(attack.attack_damage, armor)
+	_calculate_final_damage(attack.attack_damage, armor)
 	if final_damage >= health:
 		health = 0
 	else:
 		health -= final_damage
-	print(final_damage," damage dealt to ", character.name,". Current HP: ", health)
+	if has_healthbar:
+		healthbar.value = health
 	if health <= 0:
 		_handle_death()
 
@@ -47,3 +54,8 @@ func _calculate_final_damage(damage, armor):
 		final_damage = 0
 	return final_damage
 
+func _initialize_healthbar():
+		has_healthbar = true
+		healthbar = HEALTHBAR
+		healthbar.max_value = MAX_HEALTH
+		healthbar.value = health

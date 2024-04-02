@@ -1,17 +1,11 @@
 extends RigidBody2D
 
-
 @onready var attack_timer = $AttackTimer
 @onready var animations = $AnimatedSprite2D
 @onready var gun = $GunAttackComponent
 
-var basic_bullet = preload("res://scenes/projectiles/basic_bullet.tscn")
-
-
 var enemy_stats = EnemyInfo.enemy_roster["bandit"]
 var speed = enemy_stats["speed"]
-var health = enemy_stats["health"]
-var damage = enemy_stats["damage"]
 var money = enemy_stats["money"]
 
 var target

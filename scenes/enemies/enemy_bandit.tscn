@@ -106,7 +106,6 @@ frame_progress = 1.0
 wait_time = 2.0
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("ANIMATION") instance=ExtResource("3_gpfls")]
-MAX_HEALTH = 5
 ANIMATION = NodePath("../AnimatedSprite2D")
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_0ge5n")]

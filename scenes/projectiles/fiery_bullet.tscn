@@ -1,7 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://lu27a4gu1761"]
+[gd_scene load_steps=14 format=3 uid="uid://lu27a4gu1761"]
 
 [ext_resource type="Script" path="res://scenes/projectiles/fiery_bullet.gd" id="1_rbxsi"]
-[ext_resource type="Script" path="res://scenes/projectiles/Hitbox.gd" id="2_kk7bu"]
 [ext_resource type="Texture2D" uid="uid://bmqgch1rewd60" path="res://sprites/bullets/fire_bullets_orange_16x16.png" id="3_btbm8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3f3kf"]
@@ -105,7 +104,6 @@ ANIMATIONS = NodePath("AnimatedSprite2D")
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 0
-script = ExtResource("2_kk7bu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(3.62661e-10, 1.55732)
@@ -118,8 +116,6 @@ position = Vector2(-1.71969, 0)
 scale = Vector2(2.01894, 2)
 sprite_frames = SubResource("SpriteFrames_qurcu")
 animation = &"hit"
-frame = 4
-frame_progress = 1.0
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_area_2d_area_entered"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

@@ -4,19 +4,13 @@ extends CharacterBody2D
 @onready var auto_fire_timer = $AutoFireTimer
 @onready var health_bar = $HealthBar
 
-
 var active_car
-
-var basic_bullet = preload("res://scenes/projectiles/fiery_bullet.tscn")
-
+var bullet = preload("res://scenes/projectiles/fiery_bullet.tscn")
 var can_shoot = true
-
 const speed = 300
 
 func _ready():
 	PlayerInfo.active_player = self
-	health_bar.max_value = PlayerInfo.max_health
-	health_bar.value = PlayerInfo.max_health
 
 func get_input():
 	var input_direction = Input.get_vector("left", "right", "up", "down")
@@ -31,11 +25,7 @@ func get_input():
 		sprite.play("running")
 
 func _process(delta):
-	health_bar.value = PlayerInfo.health
-	if health_bar.value == health_bar.max_value:
-		health_bar.hide()
-	else:
-		health_bar.show()
+	pass
 
 func _physics_process(_delta):
 	get_input()
@@ -49,7 +39,7 @@ func _input(event):
 func shoot():
 	can_shoot = false
 	if get_tree().paused == false:
-		var new_bullet = basic_bullet.instantiate()
+		var new_bullet = bullet.instantiate()
 		new_bullet.global_position = global_position
 		new_bullet.target = get_global_mouse_position()
 		new_bullet.valid_hitbox_types = {"enemy":true, "player":false, "car":false, "terrain":false}
