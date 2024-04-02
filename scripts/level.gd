@@ -49,7 +49,8 @@ func spawn_train():
 func spawn_player():
 	await get_tree().create_timer(1).timeout
 	var new_player = player.instantiate()
-	$Train/test_track.engine.add_child(new_player)
+	new_player.global_position = TrainInfo.train_engine.global_position
+	add_child(new_player)
 
 func populate_build_menu():
 	for i in GadgetInfo.gadget_roster:
