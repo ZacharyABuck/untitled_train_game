@@ -24,7 +24,7 @@ func spawn_train():
 	var index = 0
 	for i in train.car_spawn_positions.get_children():
 		var new_car = train.car.instantiate()
-		#new_car.position = i.position
+		new_car.position = i.position
 		train.cars.add_child(new_car)
 		if i == train.car_spawn_positions.get_child(0):
 			new_car.top_collider.disabled = false
