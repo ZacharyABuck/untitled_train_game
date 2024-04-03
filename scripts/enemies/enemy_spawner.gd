@@ -12,7 +12,7 @@ func _process(_delta):
 	pass
 
 func _on_enemy_spawn_timer_timeout():
-	$"../EnemySpawnTimer".wait_time *= .98
+	#$"../EnemySpawnTimer".wait_time *= .98
 	var valid = false
 	var random_number = randi_range(1,100)
 	var random_enemy
