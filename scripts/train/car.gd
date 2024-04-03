@@ -20,20 +20,10 @@ var target
 
 var starting_color
 
-var last_pos: Vector2
-var current_pos: Vector2
-var pos_difference: Vector2
-
 func _ready():
 	starting_color = $Sprite2D.modulate
 	health_bar.max_value = max_health
 	health_bar.value = health
-
-func _process(delta):
-	current_pos = global_position
-	pos_difference = current_pos - last_pos
-	print(pos_difference)
-	last_pos = current_pos
 
 func take_damage(amount):
 	health -= amount

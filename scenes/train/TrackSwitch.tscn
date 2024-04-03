@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://jvakchg2s8i4"]
 
-[ext_resource type="Script" path="res://scripts/TrackSwitch.gd" id="1_kvbo1"]
-[ext_resource type="PackedScene" uid="uid://isd3o7ji1m5j" path="res://scenes/Track.tscn" id="2"]
+[ext_resource type="Script" path="res://scripts/train/TrackSwitch.gd" id="1_kvbo1"]
+[ext_resource type="PackedScene" uid="uid://isd3o7ji1m5j" path="res://scenes/train/Track.tscn" id="2"]
 [ext_resource type="Texture2D" uid="uid://cjm22oirs0or4" path="res://sprites/train_demo_assets/arrow.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://cy6vudnfoiv4o" path="res://sprites/train_demo_assets/switch_right.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://cbhnr32w8moim" path="res://sprites/train_demo_assets/switch_left.png" id="5"]

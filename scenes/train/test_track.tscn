@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://cb1r5v4vqyrx8"]
+
+[ext_resource type="Script" path="res://scripts/train/test_track.gd" id="1_voj2j"]
+[ext_resource type="PackedScene" uid="uid://bjqtvbefblx2e" path="res://scenes/train/TrainVehicle.tscn" id="2_1cfxa"]
+[ext_resource type="PackedScene" uid="uid://isd3o7ji1m5j" path="res://scenes/train/Track.tscn" id="3_3liv7"]
+[ext_resource type="PackedScene" uid="uid://c2qsc24ng38ir" path="res://scenes/train/TrainEngine.tscn" id="4_0m5ae"]
+
+[sub_resource type="Curve2D" id="1"]
+resource_local_to_scene = true
+_data = {
+"points": PackedVector2Array(-210.679, -245.611, 0, 0, 1735, 689, 1010.86, -163.589, -1010.86, 163.589, 35, -93, 8.08452, -760.679, -8.08452, 760.679, -1370, 1173, -867.824, 106.282, 867.824, -106.282, 906, 2583, 259.185, 432.488, -259.185, -432.488, 1719, 1469, 2606.56, -1095.52, -2606.56, 1095.52, -1861, 1890, -1935.29, -117.466, 1935.29, 117.466, -523, 4036, -515.022, 1030.5, 515.022, -1030.5, 2052, 2806, 0, 0, 0, 0, 1735, 689)
+}
+point_count = 9
+
+[node name="test_track" type="Node2D"]
+script = ExtResource("1_voj2j")
+car_count = 3
+train_vehicle_reference = ExtResource("2_1cfxa")
+
+[node name="Tracks" type="Node2D" parent="."]
+
+[node name="Track" parent="Tracks" instance=ExtResource("3_3liv7")]
+position = Vector2(256, 128)
+curve = SubResource("1")
+
+[node name="TrainEngine" parent="." instance=ExtResource("4_0m5ae")]
+scale = Vector2(0.999998, 1)
+max_force = 300.0
+target_force_percent = 2.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

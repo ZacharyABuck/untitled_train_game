@@ -117,7 +117,7 @@ health_component = NodePath("../HealthComponent")
 position = Vector2(0, 4.75)
 shape = SubResource("RectangleShape2D_4v00t")
 
-[node name="GunAttackComponent" parent="." node_paths=PackedStringArray("ATTACK_TIMER", "TARGET_AREA") instance=ExtResource("5_4b008")]
+[node name="GunAttackComponent" parent="." node_paths=PackedStringArray("ATTACK_TIMER") instance=ExtResource("5_4b008")]
 TARGET_TYPES = {
 "car": false,
 "enemy": false,
@@ -126,7 +126,6 @@ TARGET_TYPES = {
 }
 ATTACK_TIMER = NodePath("../AttackTimer")
 PROJECTILE = ExtResource("6_k5sjj")
-TARGET_AREA = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GunAttackComponent"]
 shape = SubResource("CircleShape2D_fxxqh")

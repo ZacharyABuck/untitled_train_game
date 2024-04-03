@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c2qsc24ng38ir"]
 
-[ext_resource type="PackedScene" uid="uid://bjqtvbefblx2e" path="res://scenes/TrainVehicle.tscn" id="1"]
-[ext_resource type="Script" path="res://scripts/TrainEngine.gd" id="2_ggyah"]
+[ext_resource type="PackedScene" uid="uid://bjqtvbefblx2e" path="res://scenes/train/TrainVehicle.tscn" id="1"]
+[ext_resource type="Script" path="res://scripts/train/TrainEngine.gd" id="2_ggyah"]
 [ext_resource type="Texture2D" uid="uid://cvutg2fumvmco" path="res://sprites/train_demo_assets/train_engine.png" id="3"]
 
 [node name="TrainEngine" groups=["train_engines"] instance=ExtResource("1")]

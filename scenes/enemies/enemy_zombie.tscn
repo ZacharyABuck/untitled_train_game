@@ -276,7 +276,7 @@ texture_filter = 1
 position = Vector2(2, 8)
 scale = Vector2(0.617188, 0.6875)
 sprite_frames = SubResource("SpriteFrames_8jdkj")
-animation = &"attacking"
+animation = &"moving"
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="body_entered" from="WallDetector" to="." method="_on_wall_detector_body_entered"]

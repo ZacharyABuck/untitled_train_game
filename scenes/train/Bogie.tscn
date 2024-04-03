@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dt488rqstaeu8"]
 
-[ext_resource type="Script" path="res://scripts/Bogie.gd" id="1_h5gfl"]
+[ext_resource type="Script" path="res://scripts/train/Bogie.gd" id="1_h5gfl"]
 [ext_resource type="Texture2D" uid="uid://dgqkrwdl4wdf5" path="res://sprites/train_demo_assets/train_wheels.png" id="2_0i8od"]
 
 [node name="Bogie" type="PathFollow2D" groups=["bogies"]]

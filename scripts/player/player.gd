@@ -28,6 +28,7 @@ func _process(delta):
 	pass
 
 func _physics_process(_delta):
+	global_rotation_degrees = 0
 	get_input()
 	move_and_slide()
 
@@ -43,7 +44,7 @@ func shoot():
 		new_bullet.global_position = global_position
 		new_bullet.target = get_global_mouse_position()
 		new_bullet.valid_hitbox_types = {"enemy":true, "player":false, "car":false, "terrain":false}
-		get_parent().bullets.add_child(new_bullet)
+		LevelInfo.active_level.bullets.add_child(new_bullet)
 
 func _on_auto_fire_timer_timeout():
 	can_shoot = true
@@ -54,7 +55,11 @@ func _on_car_detector_area_entered(area):
 	if area.get_parent().is_in_group("car"):
 		active_car = area.get_parent().index
 		TrainInfo.cars_inventory[active_car]["node"].sprite.modulate = Color.WHITE
+		call_deferred("reparent", TrainInfo.cars_inventory[active_car]["node"])
+		for i in TrainInfo.cars_inventory:
+			if i != active_car:
+				TrainInfo.cars_inventory[i]["node"].sprite.modulate = TrainInfo.cars_inventory[i]["node"].starting_color
 
 func _on_car_detector_area_exited(area):
-	if area.get_parent().index == active_car:
+	if area.get_parent().is_in_group("car"):
 		TrainInfo.cars_inventory[active_car]["node"].sprite.modulate = TrainInfo.cars_inventory[active_car]["node"].starting_color

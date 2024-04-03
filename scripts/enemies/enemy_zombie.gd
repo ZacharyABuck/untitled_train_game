@@ -2,7 +2,7 @@ extends RigidBody2D
 
 @onready var attack_timer = $AttackTimer
 @onready var animations = $ZombieSpriteSheet
-@onready var attack_area = $ZombieSpriteSheet/AttackArea
+@onready var attack_area = $PlayerDetector
 @onready var hurtbox = $HurtboxComponent/Hurtbox
 @onready var collision = $CollisionShape2D
 

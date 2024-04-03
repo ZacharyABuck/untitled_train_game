@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_2a3mn"]
 [ext_resource type="Script" path="res://scripts/maps/map_manager.gd" id="1_lfsvw"]
-[ext_resource type="PackedScene" uid="uid://ba3200hrmm41k" path="res://scenes/train.tscn" id="2_2wehf"]
-[ext_resource type="PackedScene" uid="uid://cb1r5v4vqyrx8" path="res://scenes/test_track.tscn" id="4_akfdb"]
+[ext_resource type="PackedScene" uid="uid://ba3200hrmm41k" path="res://scenes/train/train.tscn" id="3_jmwff"]
+[ext_resource type="PackedScene" uid="uid://cb1r5v4vqyrx8" path="res://scenes/train/test_track.tscn" id="4_8xu7o"]
 [ext_resource type="Script" path="res://scripts/enemies/enemy_spawner.gd" id="4_gtbnk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nfjy5"]
@@ -18,11 +18,12 @@ script = ExtResource("1_2a3mn")
 [node name="Maps" type="Node2D" parent="."]
 script = ExtResource("1_lfsvw")
 
-[node name="Train" parent="." instance=ExtResource("2_2wehf")]
+[node name="Train" parent="." instance=ExtResource("3_jmwff")]
 position = Vector2(960, 468)
 
-[node name="test_track" parent="Train" instance=ExtResource("4_akfdb")]
+[node name="test_track" parent="Train" instance=ExtResource("4_8xu7o")]
 position = Vector2(-256, 0)
+car_count = 4
 
 [node name="Bullets" type="Node2D" parent="."]
 
@@ -84,6 +85,7 @@ offset_bottom = 876.0
 
 [node name="GadgetList" type="ItemList" parent="UI/BuildMenu/MarginContainer"]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/guide_color = Color(0, 0, 0, 0)
 theme_override_font_sizes/font_size = 30

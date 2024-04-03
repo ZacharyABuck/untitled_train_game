@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var car_spawn_positions = $CarSpawnPositions
-var car = preload("res://scenes/car.tscn")
+var car = preload("res://scenes/train/car.tscn")
 @onready var cars = $Cars
 
 
