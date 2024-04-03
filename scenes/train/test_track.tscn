@@ -8,9 +8,9 @@
 [sub_resource type="Curve2D" id="1"]
 resource_local_to_scene = true
 _data = {
-"points": PackedVector2Array(-210.679, -245.611, 0, 0, 1735, 689, 1010.86, -163.589, -1010.86, 163.589, -846, 478, 8.08452, -760.679, -8.08452, 760.679, -2684, 3024, -867.824, 106.282, 867.824, -106.282, 2515, 3669, 259.185, 432.488, -259.185, -432.488, 2933, 806, 2606.56, -1095.52, -2606.56, 1095.52, -1861, 1890, -1935.29, -117.466, 1935.29, 117.466, -523, 4036, -515.022, 1030.5, 515.022, -1030.5, 2052, 2806, 0, 0, 0, 0, 1735, 689)
+"points": PackedVector2Array(-210.679, -245.611, 0, 0, 712, 933, 1010.86, -163.589, -1010.86, 163.589, -1186, 747, 8.08452, -760.679, -8.08452, 760.679, -2499, 2419, -1935.29, -117.466, 1935.29, 117.466, -523, 4036, -515.022, 1030.5, 515.022, -1030.5, 2052, 2806, 0, 0, 0, 0, 712, 933)
 }
-point_count = 9
+point_count = 6
 
 [node name="test_track" type="Node2D"]
 script = ExtResource("1_voj2j")
@@ -25,8 +25,8 @@ curve = SubResource("1")
 
 [node name="TrainEngine" parent="." instance=ExtResource("4_0m5ae")]
 scale = Vector2(0.999998, 1)
-max_force = 300.0
-target_force_percent = 2.0
+max_force = 500.0
+target_force_percent = 5.0
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.05

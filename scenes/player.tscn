@@ -120,6 +120,8 @@ corner_detail = 10
 size = Vector2(24, 78)
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+z_index = 5
+z_as_relative = false
 collision_layer = 9
 collision_mask = 5
 script = ExtResource("1_1wp3v")

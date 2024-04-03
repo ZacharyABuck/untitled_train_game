@@ -16,8 +16,6 @@ func _setup_train():
 	TrainInfo.cars_inventory[0]["node"] = last_vehicle.car
 	last_vehicle.car.set_parameters()
 	
-	
-	
 	for index in range(car_count):
 		if index == 0:
 			pass
