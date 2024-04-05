@@ -92,7 +92,6 @@ func _on_animated_sprite_2d_animation_finished():
 		attack_timer.start()
 		animations.play("recovery")
 
-
 func _connect_signals():
 	animations = ANIMATIONS
 	attack_timer.timeout.connect(_on_attack_timer_timeout)
@@ -108,12 +107,3 @@ func _set_layers(obj):
 	if target_types["terrain"]:
 		# Add in collission mask for terrain if needed.
 		pass
-
-
-# might not need this anymore? This is sorta behavioral and might exist on the Character?
-# This isn't even Connected to anything right now.
-func _on_area_2d_area_entered(area):
-	if area is HurtboxComponent:
-		#play "windup" animation.
-		target_area = area
-		animations.play("windup")

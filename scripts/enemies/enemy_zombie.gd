@@ -23,7 +23,6 @@ func _process(_delta):
 	pass
 
 func _physics_process(delta):
-	
 	if state != "dead":
 		if attack_component.target_is_in_range(target) and boarded:
 			state = "attacking"

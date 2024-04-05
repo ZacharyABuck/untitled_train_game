@@ -1,5 +1,6 @@
 extends Node
 
+# This method is no longer needed. Unsure what functions will end up in here!
 func take_damage(enemy, amount):
 	enemy.health -= amount
 	if enemy.health <= 0:
