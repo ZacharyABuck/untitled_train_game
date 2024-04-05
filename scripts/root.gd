@@ -31,7 +31,27 @@ func _input(event):
 
 #this starts a new game
 func _on_button_button_down():
+	$MainMenu/NW.show()
+	$MainMenu/NE.show()
+	$MainMenu/Button.hide()
+	#main_menu.hide()
+	#var new_level = level.instantiate()
+	#add_child(new_level)
+	#LevelInfo.active_level = new_level
+	#LevelInfo.root = self
+	#in_game = true
+
+func _on_ne_button_down():
+	start_game("NE")
+
+func _on_nw_button_down():
+	start_game("NW")
+
+
+
+func start_game(direction):
 	main_menu.hide()
+	LevelInfo.level_parameters["direction"] = direction
 	var new_level = level.instantiate()
 	add_child(new_level)
 	LevelInfo.active_level = new_level
@@ -43,3 +63,5 @@ func pause_game():
 
 func unpause_game():
 	LevelInfo.active_level.get_tree().paused = false
+
+
