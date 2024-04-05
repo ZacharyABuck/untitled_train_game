@@ -1,3 +1,11 @@
+# Configure a Projectile Attack with the below variables.
+# This Component handles the logic for firing the projectile. You supply the projectile via the PackedScene.
+# The TARGET_AREA is the area that the enemy uses to determine if a target is in range.
+# The most common pattern is to use "target_is_in_range(target)" to determine when to kick off the attack.
+# You can then use "shoot_at_target(target)" or "shoot_if_target_in_range(target)" to shoot.
+# Projectile animations need a "hit" and a "travel" animation.
+# The Projectile node type always has the requisite variables (from the template).
+
 extends Area2D
 class_name ProjectileAttackComponent
 

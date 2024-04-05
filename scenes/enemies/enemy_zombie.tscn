@@ -1,9 +1,10 @@
-[gd_scene load_steps=36 format=3 uid="uid://dlf3ut18w14gl"]
+[gd_scene load_steps=47 format=3 uid="uid://dlf3ut18w14gl"]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie.gd" id="1_sfyon"]
 [ext_resource type="PackedScene" uid="uid://cyv57gynwtrmu" path="res://components/hurtbox_component.tscn" id="3_aknae"]
 [ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://components/health_component.tscn" id="4_52reb"]
 [ext_resource type="Texture2D" uid="uid://cduo5m6k4p2ln" path="res://sprites/enemies/zombie.png" id="5_4qa5l"]
+[ext_resource type="Script" path="res://components/MeleeAttackComponent.gd" id="5_vxl1g"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nyh8v"]
 
@@ -11,9 +12,6 @@
 size = Vector2(26, 40)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1tdci"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_it6fp"]
-size = Vector2(25, 36)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_elxgy"]
 atlas = ExtResource("5_4qa5l")
@@ -118,6 +116,46 @@ region = Rect2(1280, 640, 128, 128)
 [sub_resource type="AtlasTexture" id="AtlasTexture_xt7u0"]
 atlas = ExtResource("5_4qa5l")
 region = Rect2(1408, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m3ep7"]
+atlas = ExtResource("5_4qa5l")
+region = Rect2(2432, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yjey3"]
+atlas = ExtResource("5_4qa5l")
+region = Rect2(2560, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ubvqq"]
+atlas = ExtResource("5_4qa5l")
+region = Rect2(2688, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3b6xa"]
+atlas = ExtResource("5_4qa5l")
+region = Rect2(1408, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0gome"]
+atlas = ExtResource("5_4qa5l")
+region = Rect2(1792, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qowun"]
+atlas = ExtResource("5_4qa5l")
+region = Rect2(1920, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o3dcd"]
+atlas = ExtResource("5_4qa5l")
+region = Rect2(2048, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pq2qf"]
+atlas = ExtResource("5_4qa5l")
+region = Rect2(1408, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c46yd"]
+atlas = ExtResource("5_4qa5l")
+region = Rect2(1536, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7dfhm"]
+atlas = ExtResource("5_4qa5l")
+region = Rect2(1664, 640, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8jdkj"]
 animations = [{
@@ -227,13 +265,60 @@ animations = [{
 "loop": true,
 "name": &"moving",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m3ep7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yjey3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ubvqq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3b6xa")
+}],
+"loop": false,
+"name": &"recovery",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0gome")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qowun")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o3dcd")
+}],
+"loop": false,
+"name": &"strike",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pq2qf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c46yd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7dfhm")
+}],
+"loop": false,
+"name": &"windup",
+"speed": 10.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mv14h"]
+size = Vector2(28, 36)
 
 [node name="EnemyZombie" type="RigidBody2D" groups=["enemy"]]
 position = Vector2(0, 6)
 collision_layer = 8
 collision_mask = 8
-mass = 0.5
 lock_rotation = true
 script = ExtResource("1_sfyon")
 
@@ -264,24 +349,34 @@ collision_mask = 4
 position = Vector2(2.5, 9)
 shape = SubResource("CapsuleShape2D_1tdci")
 
-[node name="PlayerDetector" type="Area2D" parent="."]
-collision_layer = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
-position = Vector2(18, 9)
-shape = SubResource("RectangleShape2D_it6fp")
-
 [node name="ZombieSpriteSheet" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 position = Vector2(2, 8)
 scale = Vector2(0.617188, 0.6875)
 sprite_frames = SubResource("SpriteFrames_8jdkj")
-animation = &"attacking"
+animation = &"recovery"
+frame = 3
+frame_progress = 1.0
+
+[node name="MeleeAttackComponent" type="Area2D" parent="." node_paths=PackedStringArray("ATTACK_TIMER", "TARGET_AREA", "ANIMATIONS")]
+script = ExtResource("5_vxl1g")
+TARGET_TYPES = {
+"car": false,
+"enemy": false,
+"player": true,
+"terrain": false
+}
+ATTACK_TIMER = NodePath("../AttackTimer")
+DAMAGE = 5
+TARGET_AREA = NodePath("TargetArea")
+ANIMATIONS = NodePath("../ZombieSpriteSheet")
+
+[node name="TargetArea" type="CollisionShape2D" parent="MeleeAttackComponent"]
+position = Vector2(20, 9)
+shape = SubResource("RectangleShape2D_mv14h")
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="body_entered" from="WallDetector" to="." method="_on_wall_detector_body_entered"]
 [connection signal="body_exited" from="WallDetector" to="." method="_on_wall_detector_body_exited"]
-[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
-[connection signal="body_exited" from="PlayerDetector" to="." method="_on_player_detector_body_exited"]
 [connection signal="animation_finished" from="ZombieSpriteSheet" to="." method="_on_zombie_sprite_sheet_animation_finished"]
 [connection signal="frame_changed" from="ZombieSpriteSheet" to="." method="_on_zombie_sprite_sheet_frame_changed"]

@@ -1,8 +1,15 @@
+# A Character needs a HealthComponent, a HurtboxComponent, and a Collision for the Hurtbox.
+# The Animation you give the HealthComponent needs the following animations:
+# 1. "death" -- what happens when the character is killed. This is only used if IsKillable is true.
+# -----
+# The ProgressBar is optional if you want the character to have an HP Bar to display. 
+# The "character" for the HealthComponent is always the Parent Node of the Component.
+# You can set multiple HealthComponents for a single character, if they have multiple Hurtboxes.
+# If the character is an Enemy, they need to have a "state" variable and "money" variable for rewards.
+# If we add XP, we'll need that variable as well.
+
 extends Node2D
 class_name HealthComponent
-# We initialize MAX_HEALTH at 10 as a default, but this can be changed in the Inspector.
-# I'm not sure if we'll use the HealthComponent or the Rosters to set character stats.
-# We have both right now (EnemyInfo vs. HealthComponent)
 
 @export var MAX_HEALTH := 10
 @export var ARMOR_VALUE := 0

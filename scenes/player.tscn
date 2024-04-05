@@ -103,7 +103,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ff0f4"]
-size = Vector2(30, 83)
+size = Vector2(24, 78)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qgewi"]
 size = Vector2(8, 8)
@@ -131,7 +131,7 @@ animation = &"standing"
 autoplay = "standing"
 
 [node name="BodyCollider" type="CollisionShape2D" parent="."]
-position = Vector2(-1, -3.5)
+position = Vector2(-1, -3)
 shape = SubResource("RectangleShape2D_ff0f4")
 
 [node name="Camera2D" type="Camera2D" parent="."]
