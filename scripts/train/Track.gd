@@ -13,7 +13,7 @@ signal bogie_at_tail(bogie: Bogie, extra: float, is_forward: bool)
 
 func _ready() -> void:
 	_update_points()
-	set_process(Engine.is_editor_hint())
+	#set_process(Engine.is_editor_hint())
 
 func _process(_delta: float) -> void:
 	# Update the sprites in the editor only if the curve has changed

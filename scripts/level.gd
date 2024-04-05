@@ -1,6 +1,5 @@
 extends Node2D
 
-@onready var train = $Train
 var player = preload("res://scenes/player.tscn")
 @onready var bullets = $Bullets
 
@@ -8,16 +7,42 @@ var player = preload("res://scenes/player.tscn")
 var build_menu_open: bool = false
 @onready var gadget_list = $UI/BuildMenu/MarginContainer/GadgetList
 
+@onready var test_track = $test_track
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	generate_track()
 	spawn_player()
 	populate_build_menu()
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	$UI/MoneyLabel.text = "Money: $" + str(PlayerInfo.money)
+
+func generate_track():
+	var index = 2
+	var last_pos = test_track.track.curve.get_point_position(index-1)
+	test_track.track.curve.set_point_out(index-1, Vector2(0,-1000))
+	for i in LevelInfo.level_parameters["distance"]:
+		match LevelInfo.level_parameters["direction"]:
+			"NW":
+				var pos_options = [Vector2(-3000,-3000), Vector2(-3000,0), Vector2(0,-3000)]
+				var random_pos = pos_options.pick_random()
+				test_track.track.curve.add_point(last_pos + random_pos)
+				test_track.track.curve.set_point_out(index, random_pos*.5)
+				test_track.track.curve.set_point_in(index, -random_pos*.2)
+				index += 1
+				last_pos += random_pos
+			"NE":
+				var pos_options = [Vector2(3000,-3000), Vector2(3000,0), Vector2(0,-3000)]
+				var random_pos = pos_options.pick_random()
+				test_track.track.curve.add_point(last_pos + random_pos)
+				test_track.track.curve.set_point_out(index, random_pos*.5)
+				test_track.track.curve.set_point_in(index, -random_pos*.5)
+				index += 1
+				last_pos += random_pos
 
 func spawn_player():
 	await get_tree().create_timer(1).timeout

@@ -23,18 +23,18 @@ func spawn_map(pos):
 	new_map.edge_reached.connect(edge_reached)
 	print("Map Spawned:" + str(new_map))
 
-func edge_reached(direction, body):
+func edge_reached(direction, body, entered_map):
 	if body.is_in_group("player"):
 		match direction:
 			"left":
-				if !LevelInfo.map_positions.has(LevelInfo.active_map.global_position + Vector2(-32*128,0)):
-					spawn_map(LevelInfo.active_map.global_position + Vector2(-32*128,0))
+				if !LevelInfo.map_positions.has(entered_map.global_position + Vector2(-32*128,0)):
+					spawn_map(entered_map.global_position + Vector2(-32*128,0))
 			"bottom":
-				if !LevelInfo.map_positions.has(LevelInfo.active_map.global_position + Vector2(0,32*128)):
-					spawn_map(LevelInfo.active_map.global_position + Vector2(0,32*128))
+				if !LevelInfo.map_positions.has(entered_map.global_position + Vector2(0,32*128)):
+					spawn_map(entered_map.global_position + Vector2(0,32*128))
 			"right":
-				if !LevelInfo.map_positions.has(LevelInfo.active_map.global_position + Vector2(32*128,0)):
-					spawn_map(LevelInfo.active_map.global_position + Vector2(32*128,0))
+				if !LevelInfo.map_positions.has(entered_map.global_position + Vector2(32*128,0)):
+					spawn_map(entered_map.global_position + Vector2(32*128,0))
 			"top":
-				if !LevelInfo.map_positions.has(LevelInfo.active_map.global_position + Vector2(0,-32*128)):
-					spawn_map(LevelInfo.active_map.global_position + Vector2(0,-32*128))
+				if !LevelInfo.map_positions.has(entered_map.global_position + Vector2(0,-32*128)):
+					spawn_map(entered_map.global_position + Vector2(0,-32*128))

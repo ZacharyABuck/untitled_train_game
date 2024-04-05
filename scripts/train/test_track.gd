@@ -5,9 +5,10 @@ extends Node
 
 @onready var engine : TrainEngine = $TrainEngine
 
+@onready var track = $Tracks/Track
+
 func _setup_train():
-	#engine.train_info.connect($TestWorld.update_train_info)
-	engine.add_to_track($Tracks/Track)
+	engine.add_to_track(track)
 	engine.car.top_collider.disabled = false
 	engine.car.type = "engine"
 	var last_vehicle = engine

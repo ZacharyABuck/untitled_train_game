@@ -28,7 +28,7 @@ func _process(_delta: float) -> void:
 	car.global_rotation_degrees += 270
 
 # Place this vehicle (and all of its bogies) on the track
-func add_to_track(track: Track, offset : float = 1.0) -> void:
+func add_to_track(track: Track, offset : float = 2000.0) -> void:
 	front_bogie.set_track(track)
 	back_bogie.set_track(track)
 	front_bogie.progress = offset

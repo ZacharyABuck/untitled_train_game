@@ -16,9 +16,11 @@ func get_input():
 	var input_direction = Input.get_vector("left", "right", "up", "down")
 	velocity = input_direction * speed
 	if get_global_mouse_position().x < global_position.x:
-		sprite.scale.x = -.3
+		#sprite.scale.x = -.7
+		pass
 	else:
-		sprite.scale.x = .3
+		pass
+		#sprite.scale.x = .7
 	if velocity.is_equal_approx(Vector2.ZERO):
 		sprite.play("standing")
 	else:
@@ -29,6 +31,7 @@ func _process(delta):
 
 func _physics_process(_delta):
 	global_rotation_degrees = 0
+	sprite.look_at(get_global_mouse_position())
 	get_input()
 	move_and_slide()
 

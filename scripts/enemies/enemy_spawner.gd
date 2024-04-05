@@ -1,7 +1,6 @@
 extends Node2D
 
 @onready var enemy_spawn_positions = $"../EnemySpawnPositions"
-@onready var train = $"../Train"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,7 +12,6 @@ func _process(_delta):
 		enemy_spawn_positions.global_position = PlayerInfo.active_player.global_position
 
 func _on_enemy_spawn_timer_timeout():
-	#$"../EnemySpawnTimer".wait_time *= .98
 	var valid = false
 	var random_number = randi_range(1,100)
 	var random_enemy

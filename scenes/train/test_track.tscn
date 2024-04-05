@@ -8,9 +8,9 @@
 [sub_resource type="Curve2D" id="1"]
 resource_local_to_scene = true
 _data = {
-"points": PackedVector2Array(-210.679, -245.611, 0, 0, 712, 933, 1010.86, -163.589, -1010.86, 163.589, -1186, 747, 8.08452, -760.679, -8.08452, 760.679, -2499, 2419, -1935.29, -117.466, 1935.29, 117.466, -523, 4036, -515.022, 1030.5, 515.022, -1030.5, 2052, 2806, 0, 0, 0, 0, 712, 933)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 2000, 0, 0, 0, 0, 0, 0)
 }
-point_count = 6
+point_count = 2
 
 [node name="test_track" type="Node2D"]
 script = ExtResource("1_voj2j")
