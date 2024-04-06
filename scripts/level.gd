@@ -9,8 +9,6 @@ var build_menu_open: bool = false
 
 @onready var test_track = $test_track
 
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	generate_track()
@@ -25,7 +23,7 @@ func generate_track():
 	var point_increment = 3000
 	var index = 2
 	var last_pos = test_track.track.curve.get_point_position(index-1)
-	test_track.track.curve.set_point_out(index-1, Vector2(0,-1000))
+	test_track.track.curve.set_point_position(index-1, last_pos*.5)
 	var random_pos
 	var pos_options
 	match LevelInfo.level_parameters["direction"]:
@@ -33,6 +31,12 @@ func generate_track():
 			pos_options = [Vector2(-point_increment,-point_increment), Vector2(-point_increment,0), Vector2(0,-point_increment)]
 		"NE":
 			pos_options = [Vector2(point_increment,-point_increment), Vector2(point_increment,0), Vector2(0,-point_increment)]
+		"SW":
+			test_track.track.curve.set_point_position(0, -test_track.track.curve.get_point_position(0))
+			pos_options = [Vector2(-point_increment,point_increment), Vector2(-point_increment,0), Vector2(0,point_increment)]
+		"SE":
+			test_track.track.curve.set_point_position(0, -test_track.track.curve.get_point_position(0))
+			pos_options = [Vector2(point_increment,point_increment), Vector2(point_increment,0), Vector2(0,point_increment)]
 	for i in LevelInfo.level_parameters["distance"]:
 		random_pos = pos_options.pick_random()
 		add_track_point(last_pos, index, random_pos)
@@ -40,9 +44,12 @@ func generate_track():
 		last_pos += random_pos
 
 func add_track_point(last_pos, index, random_pos):
-	test_track.track.curve.add_point(last_pos + random_pos)
-	test_track.track.curve.set_point_out(index, random_pos*.5)
+	test_track.track.curve.add_point(last_pos + random_pos*.5)
+	test_track.track.curve.set_point_out(index, random_pos*.3)
 	test_track.track.curve.set_point_in(index, -random_pos*.5)
+	if index == 2:
+		test_track.track.curve.set_point_out(index-1, random_pos*.3)
+		test_track.track.curve.set_point_in(index-1, -random_pos*.5)
 
 func spawn_player():
 	await get_tree().create_timer(1).timeout
