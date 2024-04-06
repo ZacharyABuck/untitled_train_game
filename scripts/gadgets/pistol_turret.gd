@@ -20,6 +20,16 @@ func _process(_delta):
 	if target != null:
 		look_at(target.global_position)
 
+func _on_enemy_detector_area_entered(area):
+	if area.get_parent().is_in_group("enemy"):
+		target = area.get_parent()
+		attack()
+#
+#func _on_enemy_detector_body_entered(body):
+	#if body.is_in_group("enemy"):
+		#target = body
+		#attack()
+
 func _on_attack_timer_timeout():
 	if target != null:
 		attack()
@@ -35,4 +45,7 @@ func attack():
 	new_bullet.global_position = global_position
 	new_bullet.type = "friendly"
 	new_bullet.target = target.global_position
-	LevelInfo.active_level.bullets.add_child(new_bullet)
+	LevelInfo.active_level.bullets.call_deferred("add_child", new_bullet)
+
+
+

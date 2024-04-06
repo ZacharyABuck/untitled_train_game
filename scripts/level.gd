@@ -1,60 +1,68 @@
 extends Node2D
 
-@onready var train = $Train
 var player = preload("res://scenes/player.tscn")
 @onready var bullets = $Bullets
 
+@onready var build_menu = $UI/BuildMenu
+var build_menu_open: bool = false
+@onready var gadget_list = $UI/BuildMenu/MarginContainer/GadgetList
+
+@onready var test_track = $test_track
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	spawn_train()
+	generate_track()
 	spawn_player()
 	populate_build_menu()
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	$UI/MoneyLabel.text = "Money: $" + str(PlayerInfo.money)
 
-func spawn_train():
-	var index = 0
-	for i in train.car_spawn_positions.get_children():
-		var new_car = train.car.instantiate()
-		new_car.position = i.position
-		train.cars.add_child(new_car)
-		if i == train.car_spawn_positions.get_child(0):
-			new_car.top_collider.disabled = false
-			new_car.type = "engine"
-		elif i == train.car_spawn_positions.get_child(train.car_spawn_positions.get_child_count()-1):
-			new_car.type = "caboose"
-			new_car.bottom_collider.disabled = false
-		else:
-			var valid = false
-			while valid == false:
-				var random_type = TrainInfo.cars_roster.keys().pick_random()
-				if random_type != "engine" and random_type != "caboose":
-					new_car.type = random_type
-					valid = true
-		new_car.index = index
-		TrainInfo.cars_inventory[index] = {"node" = null, "type" = new_car.type, "hard_points" = {}, "gadgets" = {},}
-		TrainInfo.cars_inventory[index]["node"] = new_car
-		new_car.set_parameters()
+func generate_track():
+	var point_increment = 3000
+	var index = 2
+	var last_pos = test_track.track.curve.get_point_position(index-1)
+	test_track.track.curve.set_point_position(index-1, last_pos*.5)
+	var random_pos
+	var pos_options
+	match LevelInfo.level_parameters["direction"]:
+		"NW":
+			pos_options = [Vector2(-point_increment,-point_increment), Vector2(-point_increment,0), Vector2(0,-point_increment)]
+		"NE":
+			pos_options = [Vector2(point_increment,-point_increment), Vector2(point_increment,0), Vector2(0,-point_increment)]
+		"SW":
+			test_track.track.curve.set_point_position(0, -test_track.track.curve.get_point_position(0))
+			pos_options = [Vector2(-point_increment,point_increment), Vector2(-point_increment,0), Vector2(0,point_increment)]
+		"SE":
+			test_track.track.curve.set_point_position(0, -test_track.track.curve.get_point_position(0))
+			pos_options = [Vector2(point_increment,point_increment), Vector2(point_increment,0), Vector2(0,point_increment)]
+	for i in LevelInfo.level_parameters["distance"]:
+		random_pos = pos_options.pick_random()
+		add_track_point(last_pos, index, random_pos)
 		index += 1
+		last_pos += random_pos
+
+func add_track_point(last_pos, index, random_pos):
+	test_track.track.curve.add_point(last_pos + random_pos*.5)
+	test_track.track.curve.set_point_out(index, random_pos*.3)
+	test_track.track.curve.set_point_in(index, -random_pos*.5)
+	if index == 2:
+		test_track.track.curve.set_point_out(index-1, random_pos*.3)
+		test_track.track.curve.set_point_in(index-1, -random_pos*.5)
 
 func spawn_player():
+	await get_tree().create_timer(1).timeout
 	var new_player = player.instantiate()
-	new_player.global_position = train.cars.get_child(0).global_position
+	new_player.global_position = TrainInfo.train_engine.global_position
 	add_child(new_player)
 
 func populate_build_menu():
 	for i in GadgetInfo.gadget_roster:
-		get_parent().item_list.add_item(GadgetInfo.gadget_roster[i]["name"], GadgetInfo.gadget_roster[i]["sprite"])
-		get_parent().item_list.set_item_metadata(get_parent().item_list.item_count-1, GadgetInfo.gadget_roster[i])
+		gadget_list.add_item(GadgetInfo.gadget_roster[i]["name"], GadgetInfo.gadget_roster[i]["sprite"])
+		gadget_list.set_item_metadata(gadget_list.item_count-1, GadgetInfo.gadget_roster[i])
 
-func request_gadget(gadget):
-	if PlayerInfo.money >= gadget["cost"]:
-		var hard_points = TrainInfo.cars_inventory[PlayerInfo.active_player.active_car]["node"].hard_points.get_children()
-		for i in hard_points:
-			i.get_child(0).animation_player.play("flash")
-			i.get_child(0).selection_sprite.texture = gadget["sprite"]
-		GadgetInfo.selected_gadget = gadget
-		GadgetInfo.selection_active = true
+func _on_gadget_list_item_clicked(index, _at_position, _mouse_button_index):
+	var gadget_info = LevelInfo.active_level.gadget_list.get_item_metadata(index)
+	GadgetFunctions.request_gadget(gadget_info)
+

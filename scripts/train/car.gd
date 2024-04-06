@@ -16,6 +16,8 @@ var health = 20
 var index
 var type
 
+var target
+
 var starting_color
 
 func _ready():

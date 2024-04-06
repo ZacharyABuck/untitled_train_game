@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bauu0fl50lkr5"]
 
-[ext_resource type="Script" path="res://scripts/train/car.gd" id="1_0r333"]
+[ext_resource type="Script" path="res://scripts/train/car.gd" id="1_oecw2"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_6wuvj"]
 
@@ -20,27 +20,31 @@ size = Vector2(162, 19)
 size = Vector2(161, 385)
 
 [node name="Car" type="Node2D" groups=["car"]]
-script = ExtResource("1_0r333")
+script = ExtResource("1_oecw2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.580392, 0.580392, 0.580392, 1)
+position = Vector2(0, 171)
 texture = SubResource("CanvasTexture_6wuvj")
 
 [node name="LeftWall" type="StaticBody2D" parent="."]
+position = Vector2(0, 171)
 collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
-position = Vector2(-70, -2)
+position = Vector2(-78, -2)
 shape = SubResource("RectangleShape2D_56ap2")
 
 [node name="RightWall" type="StaticBody2D" parent="."]
+position = Vector2(0, 171)
 collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
-position = Vector2(73, -2)
+position = Vector2(83, -2)
 shape = SubResource("RectangleShape2D_jbwp3")
 
 [node name="TopWall" type="StaticBody2D" parent="."]
+position = Vector2(0, 171)
 collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TopWall"]
@@ -49,6 +53,7 @@ shape = SubResource("RectangleShape2D_g76ik")
 disabled = true
 
 [node name="BottomWall" type="StaticBody2D" parent="."]
+position = Vector2(0, 171)
 collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BottomWall"]
@@ -57,6 +62,7 @@ shape = SubResource("RectangleShape2D_dsbl5")
 disabled = true
 
 [node name="PlayerDetector" type="Area2D" parent="."]
+position = Vector2(0, 171)
 collision_layer = 4
 collision_mask = 0
 
@@ -67,14 +73,16 @@ shape = SubResource("RectangleShape2D_a1ef6")
 [node name="HealthBar" type="ProgressBar" parent="."]
 modulate = Color(0, 0.807843, 0, 1)
 offset_left = -60.0
-offset_top = -13.0
+offset_top = 158.0
 offset_right = 62.0
-offset_bottom = 14.0
+offset_bottom = 185.0
 max_value = 20.0
 value = 20.0
+metadata/_edit_use_anchors_ = true
 
 [node name="HardPoints" type="Node2D" parent="."]
 process_mode = 2
+position = Vector2(0, 171)
 
 [node name="FrontLeft" type="Node2D" parent="HardPoints"]
 position = Vector2(-35, -192)

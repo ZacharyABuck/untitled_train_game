@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmtyta68uolwr"]
+
+[ext_resource type="Script" path="res://scripts/train/TrackJunction.gd" id="1_bit53"]
+
+[sub_resource type="CircleShape2D" id="1"]
+
+[node name="TrackJunction" type="Area2D" groups=["track_junctions"]]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_bit53")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("1")
+
+[connection signal="area_entered" from="." to="." method="_on_TrackJunction_area_entered"]

@@ -116,6 +116,3 @@ position = Vector2(-1.71969, 0)
 scale = Vector2(2.01894, 2)
 sprite_frames = SubResource("SpriteFrames_qurcu")
 animation = &"hit"
-
-[connection signal="area_entered" from="Hitbox" to="." method="_on_area_2d_area_entered"]
-[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

@@ -6,28 +6,35 @@ var tile_atlas_coords = [Vector2i(0,0), Vector2i(1,0), Vector2i(2,0)]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	generate_map(Vector2(0,0))
-	generate_map(Vector2(0,1536))
+	spawn_map(Vector2(0,0))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	for i in get_children():
-		i.global_position.y += TrainInfo.speed*delta
-		if i.top_marker != null and i.top_marker.global_position.y >= 0:
-			i.top_marker.queue_free()
-			generate_map(i.spawn_marker.global_position)
-		if i.despawn_marker.global_position.y >= 0:
-			i.queue_free()
+	pass
 
-func generate_map(pos):
+func spawn_map(pos):
 	var new_map = map.instantiate()
 	new_map.global_position = pos
-	add_child(new_map)
+	LevelInfo.map_positions.append(pos)
+	call_deferred("add_child", new_map)
 	for i in new_map.get_used_cells(0):
 		new_map.set_cell(0, i, 0, tile_atlas_coords.pick_random(), 0)
-	generate_track(new_map)
+	LevelInfo.active_map = new_map
+	new_map.edge_reached.connect(edge_reached)
+	print("Map Spawned:" + str(new_map))
 
-func generate_track(tilemap):
-	var y_values = range(-2,10)
-	for i in y_values:
-		tilemap.set_cell(1, Vector2i(7,i), 1, Vector2i(0,0), 0)
+func edge_reached(direction, body, entered_map):
+	if body.is_in_group("player"):
+		match direction:
+			"left":
+				if !LevelInfo.map_positions.has(entered_map.global_position + Vector2(-32*128,0)):
+					spawn_map(entered_map.global_position + Vector2(-32*128,0))
+			"bottom":
+				if !LevelInfo.map_positions.has(entered_map.global_position + Vector2(0,32*128)):
+					spawn_map(entered_map.global_position + Vector2(0,32*128))
+			"right":
+				if !LevelInfo.map_positions.has(entered_map.global_position + Vector2(32*128,0)):
+					spawn_map(entered_map.global_position + Vector2(32*128,0))
+			"top":
+				if !LevelInfo.map_positions.has(entered_map.global_position + Vector2(0,-32*128)):
+					spawn_map(entered_map.global_position + Vector2(0,-32*128))

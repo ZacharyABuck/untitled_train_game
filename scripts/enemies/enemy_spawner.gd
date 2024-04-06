@@ -1,7 +1,6 @@
 extends Node2D
 
 @onready var enemy_spawn_positions = $"../EnemySpawnPositions"
-@onready var train = $"../Train"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -9,7 +8,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	pass
+	if PlayerInfo.active_player != null:
+		enemy_spawn_positions.global_position = PlayerInfo.active_player.global_position
 
 func _on_enemy_spawn_timer_timeout():
 	var valid = false
@@ -23,4 +23,3 @@ func _on_enemy_spawn_timer_timeout():
 	add_child(new_enemy)
 	new_enemy.global_position = enemy_spawn_positions.get_children().pick_random().global_position
 	EnemyInfo.enemy_inventory[EnemyInfo.enemy_inventory.keys().size()] = new_enemy
-

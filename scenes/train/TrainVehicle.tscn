@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bjqtvbefblx2e"]
+
+[ext_resource type="Script" path="res://scripts/train/TrainVehicle.gd" id="1_0htxx"]
+[ext_resource type="PackedScene" uid="uid://dt488rqstaeu8" path="res://scenes/train/Bogie.tscn" id="2_y6dwk"]
+[ext_resource type="PackedScene" uid="uid://bauu0fl50lkr5" path="res://scenes/train/car.tscn" id="3_dlebi"]
+
+[node name="TrainVehicle" type="Node2D"]
+script = ExtResource("1_0htxx")
+bogie_distance = 300.0
+follow_distance = 100.0
+
+[node name="Bogie" parent="." groups=["train_front_wheels"] instance=ExtResource("2_y6dwk")]
+
+[node name="Bogie2" parent="." groups=["train_back_wheels"] instance=ExtResource("2_y6dwk")]
+
+[node name="Body" type="Node2D" parent="."]
+z_index = 10
+
+[node name="Car" parent="." instance=ExtResource("3_dlebi")]
