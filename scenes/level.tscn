@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_2a3mn"]
 [ext_resource type="Script" path="res://scripts/maps/map_manager.gd" id="1_lfsvw"]
-[ext_resource type="PackedScene" uid="uid://cb1r5v4vqyrx8" path="res://scenes/train/test_track.tscn" id="4_8xu7o"]
+[ext_resource type="PackedScene" uid="uid://cb1r5v4vqyrx8" path="res://scenes/train/TrainManager.tscn" id="3_3t5p5"]
 [ext_resource type="Script" path="res://scripts/enemies/enemy_spawner.gd" id="4_gtbnk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nfjy5"]
@@ -17,7 +17,7 @@ script = ExtResource("1_2a3mn")
 [node name="Maps" type="Node2D" parent="."]
 script = ExtResource("1_lfsvw")
 
-[node name="test_track" parent="." instance=ExtResource("4_8xu7o")]
+[node name="TrainManager" parent="." instance=ExtResource("3_3t5p5")]
 position = Vector2(747, 317)
 car_count = 4
 
@@ -29,31 +29,28 @@ script = ExtResource("4_gtbnk")
 [node name="EnemySpawnPositions" type="Node2D" parent="."]
 
 [node name="0" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(-1446, -95)
+position = Vector2(-910, -880)
 
 [node name="1" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(-1452, 103)
+position = Vector2(-1018, -509)
 
 [node name="2" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(-1305, 510)
+position = Vector2(-1075, -124)
 
 [node name="3" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(-711, 601)
+position = Vector2(-949, 121)
 
 [node name="4" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(-258, 609)
+position = Vector2(682, 24)
 
 [node name="5" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(384, 630)
+position = Vector2(966, -329)
 
 [node name="6" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(831, 613)
+position = Vector2(1076, -622)
 
 [node name="7" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(1074, 367)
-
-[node name="8" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(1077, 93)
+position = Vector2(1089, -909)
 
 [node name="EnemySpawnTimer" type="Timer" parent="."]
 wait_time = 3.0

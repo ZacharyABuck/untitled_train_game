@@ -39,6 +39,7 @@ func _physics_process(delta):
 func _on_wall_detector_body_entered(body):
 	if body.get_parent().is_in_group("car") and boarded == false and state != "boarding":
 		active_car = body.get_parent().index
+		call_deferred("reparent", TrainInfo.cars_inventory[active_car]["node"])
 		state = "boarding"
 		speed = speed - (speed * .75)
 

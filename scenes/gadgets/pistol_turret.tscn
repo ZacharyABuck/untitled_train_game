@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://j1ex3r7vq3i"]
+[gd_scene load_steps=6 format=3 uid="uid://j1ex3r7vq3i"]
 
 [ext_resource type="Script" path="res://scripts/gadgets/pistol_turret.gd" id="1_x11a8"]
 [ext_resource type="Texture2D" uid="uid://c1esbr41s7mmf" path="res://sprites/gadgets/pistol_turret.png" id="2_57lg3"]
+[ext_resource type="PackedScene" uid="uid://c76dtsauqnpia" path="res://components/projectile_attack_component.tscn" id="3_saoij"]
+[ext_resource type="PackedScene" uid="uid://cuvjtd33w3p7" path="res://scenes/projectiles/basic_bullet.tscn" id="4_4urt4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h5xqt"]
 radius = 325.002
@@ -23,6 +25,21 @@ shape = SubResource("CircleShape2D_h5xqt")
 
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 2.0
+
+[node name="ProjectileAttackComponent" parent="." node_paths=PackedStringArray("ATTACK_TIMER", "TARGET_AREA") instance=ExtResource("3_saoij")]
+TARGET_TYPES = {
+"car": false,
+"enemy": true,
+"player": false,
+"terrain": false
+}
+ATTACK_TIMER = NodePath("../AttackTimer")
+BULLET_SPEED = 50
+PROJECTILE = ExtResource("4_4urt4")
+TARGET_AREA = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ProjectileAttackComponent"]
+shape = SubResource("CircleShape2D_h5xqt")
 
 [connection signal="area_entered" from="EnemyDetector" to="." method="_on_enemy_detector_area_entered"]
 [connection signal="body_entered" from="EnemyDetector" to="." method="_on_enemy_detector_body_entered"]
