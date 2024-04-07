@@ -81,24 +81,28 @@ script = ExtResource("2_jsjxo")
 [node name="LeftArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftArea"]
+visible = false
 position = Vector2(514.5, 2079)
 shape = SubResource("RectangleShape2D_gauyu")
 
 [node name="RightArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightArea"]
+visible = false
 position = Vector2(3578.5, 2089)
 shape = SubResource("RectangleShape2D_o5r83")
 
 [node name="BottomArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BottomArea"]
+visible = false
 position = Vector2(2084, 3705.5)
 shape = SubResource("RectangleShape2D_nxe1e")
 
 [node name="TopArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TopArea"]
+visible = false
 position = Vector2(2005.5, 392.875)
 shape = SubResource("RectangleShape2D_qxdf4")
 

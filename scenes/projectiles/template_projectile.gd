@@ -28,7 +28,7 @@ func _ready():
 	linear_velocity = global_position.direction_to(target) * speed
 
 func _physics_process(_delta):
-		move_and_collide(linear_velocity)
+	move_and_collide(linear_velocity)
 
 func _on_area_2d_area_entered(area):
 	if area is HurtboxComponent:

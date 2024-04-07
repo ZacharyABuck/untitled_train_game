@@ -64,7 +64,6 @@ func _shoot():
 	var new_projectile = _instantiate_bullet()
 	# Add the bullet to the parent scene of the shooter, which fires the projectile.
 	shooter.get_parent().add_child(new_projectile)
-	new_projectile.global_position = shooter.global_position
 	attack_timer.start()
 
 func _instantiate_bullet():

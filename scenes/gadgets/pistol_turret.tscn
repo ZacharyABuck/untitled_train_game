@@ -36,6 +36,7 @@ TARGET_TYPES = {
 ATTACK_TIMER = NodePath("../AttackTimer")
 BULLET_SPEED = 50
 PROJECTILE = ExtResource("4_4urt4")
+MOBILE_ATTACK = true
 TARGET_AREA = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ProjectileAttackComponent"]

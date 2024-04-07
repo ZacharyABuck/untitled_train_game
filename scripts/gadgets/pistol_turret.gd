@@ -7,12 +7,7 @@ var damage = gadget_stats["damage"]
 var attack_cooldown = gadget_stats["attack_cooldown"]
 @onready var gun = $ProjectileAttackComponent
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _physics_process(delta):
 	if target != null:
 		look_at(target.global_position)
 		if gun.target_is_in_range(target):

@@ -15,6 +15,7 @@ var target
 var active_car
 var state = "moving"
 var boarded = false
+var boarding_time = 5
 
 func _ready():
 	target = PlayerInfo.active_player
@@ -41,13 +42,22 @@ func _on_wall_detector_body_entered(body):
 		active_car = body.get_parent().index
 		call_deferred("reparent", TrainInfo.cars_inventory[active_car]["node"])
 		state = "boarding"
-		speed = speed - (speed * .75)
+		speed = 0
+		#speed = speed - (speed * .75)
+		await get_tree().create_timer(boarding_time).timeout
+		finish_boarding()
 
-func _on_wall_detector_body_exited(body):
-	if state == "boarding" and body.get_parent().is_in_group("car"):
+func finish_boarding():
+	if state == "boarding":
 		state = "moving"
 		boarded = true
 		speed = enemy_stats["speed"]
+#
+#func _on_wall_detector_body_exited(body):
+	#if state == "boarding" and body.get_parent().is_in_group("car"):
+		#state = "moving"
+		#boarded = true
+		#speed = enemy_stats["speed"]
 
 func _on_zombie_sprite_sheet_animation_finished():
 	if animations.animation == "death":

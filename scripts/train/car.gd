@@ -7,7 +7,6 @@ extends Node2D
 @onready var hard_points = $HardPoints
 @onready var gadgets = $Gadgets
 
-
 var hard_point = preload("res://scenes/hard_point.tscn")
 
 var max_health = 20
@@ -24,7 +23,7 @@ func _ready():
 	starting_color = $Sprite2D.modulate
 	health_bar.max_value = max_health
 	health_bar.value = health
-
+	
 func take_damage(amount):
 	health -= amount
 	health_bar.value = health
