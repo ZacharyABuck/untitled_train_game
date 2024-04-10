@@ -43,7 +43,26 @@ func generate_track():
 		add_track_point(last_pos, index, random_pos)
 		index += 1
 		last_pos += random_pos
+		if i == LevelInfo.level_parameters["event_0"]["location"]:
+			generate_event_area(last_pos)
 
+func generate_event_area(pos):
+	var area = Area2D.new()
+	add_child(area)
+	var collision_shape = CollisionShape2D.new()
+	collision_shape.shape = load("res://shapes/shape_event_trigger.tres")
+	area.add_child(collision_shape)
+	area.set_collision_layer_value(8, true)
+	area.set_collision_mask_value(3, true)
+	area.set_collision_layer_value(1, false)
+	area.set_collision_mask_value(1, false)
+	collision_shape.debug_color = Color.DEEP_PINK
+	area.monitoring = true
+	area.monitorable = true
+	area.area_entered.connect(event_triggered)
+	area.body_entered.connect(event_triggered)
+	area.global_position = train_manager.track.curve.get_closest_point(to_local(pos))
+	
 func add_track_point(last_pos, index, random_pos):
 	train_manager.track.curve.add_point(last_pos + random_pos*.5)
 	train_manager.track.curve.set_point_out(index, random_pos*.3)
@@ -53,7 +72,7 @@ func add_track_point(last_pos, index, random_pos):
 		train_manager.track.curve.set_point_in(index-1, -random_pos*.5)
 
 func spawn_player():
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(.5).timeout
 	var new_player = player.instantiate()
 	new_player.global_position = TrainInfo.train_engine.global_position
 	add_child(new_player)
@@ -67,3 +86,7 @@ func _on_gadget_list_item_clicked(index, _at_position, _mouse_button_index):
 	var gadget_info = LevelInfo.active_level.gadget_list.get_item_metadata(index)
 	GadgetFunctions.request_gadget(gadget_info)
 
+func event_triggered(object):
+	if LevelInfo.level_parameters["event_0"]["triggered"] == false:
+		print("event triggered")
+		LevelInfo.level_parameters["event_0"]["triggered"] = true

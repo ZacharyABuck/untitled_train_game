@@ -13,4 +13,8 @@ var map_positions = []
 var level_parameters = {
 	"distance" = 10,
 	"direction" = "NW",
+	"event_0" = {
+		"location" = 0,
+		"triggered" = false,
+	}
 }
