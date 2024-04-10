@@ -6,6 +6,7 @@ var player = preload("res://scenes/player.tscn")
 @onready var build_menu = $UI/BuildMenu
 var build_menu_open: bool = false
 @onready var gadget_list = $UI/BuildMenu/MarginContainer/GadgetList
+@onready var alert_label = $UI/AlertLabel
 
 @onready var train_manager = $TrainManager
 
@@ -43,8 +44,10 @@ func generate_track():
 		add_track_point(last_pos, index, random_pos)
 		index += 1
 		last_pos += random_pos
-		if i == LevelInfo.level_parameters["event_0"]["location"]:
-			generate_event_area(last_pos)
+		for event in LevelInfo.events:
+			if i == LevelInfo.events[event]["distance"]:
+				var area = generate_event_area(last_pos)
+				LevelInfo.events[event]["area"] = area
 
 func generate_event_area(pos):
 	var area = Area2D.new()
@@ -62,6 +65,7 @@ func generate_event_area(pos):
 	area.area_entered.connect(event_triggered)
 	area.body_entered.connect(event_triggered)
 	area.global_position = train_manager.track.curve.get_closest_point(to_local(pos))
+	return area
 	
 func add_track_point(last_pos, index, random_pos):
 	train_manager.track.curve.add_point(last_pos + random_pos*.5)
@@ -87,6 +91,18 @@ func _on_gadget_list_item_clicked(index, _at_position, _mouse_button_index):
 	GadgetFunctions.request_gadget(gadget_info)
 
 func event_triggered(object):
-	if LevelInfo.level_parameters["event_0"]["triggered"] == false:
-		print("event triggered")
-		LevelInfo.level_parameters["event_0"]["triggered"] = true
+	for event in LevelInfo.events:
+		if LevelInfo.events[event]["triggered"] == false:
+			LevelInfo.events[event]["area"].queue_free()
+			print("event triggered")
+			LevelInfo.events[event]["triggered"] = true
+			TrainInfo.train_engine.brake_force = 5
+			var new_event = load("res://scenes/event.tscn").instantiate()
+			new_event.global_position = TrainInfo.train_engine.car.obstacle_spawn_position.global_position
+			LevelInfo.root.call_deferred("add_child", new_event)
+			alert_label.show()
+			break
+
+func event_finished():
+	TrainInfo.train_engine.brake_force = 0
+	alert_label.hide()

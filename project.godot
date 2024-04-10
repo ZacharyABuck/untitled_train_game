@@ -73,6 +73,7 @@ build={
 2d_physics/layer_6="Enemy Bullets"
 2d_physics/layer_7="Terrain"
 2d_physics/layer_8="Events"
+2d_physics/layer_9="Obstacles"
 
 [physics]
 

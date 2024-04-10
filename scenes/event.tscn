@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://bap44ioaorffm"]
+
+[ext_resource type="Texture2D" uid="uid://bu23627uusi80" path="res://sprites/obstacles/fallen_tree.png" id="1_vg2e6"]
+[ext_resource type="PackedScene" uid="uid://cyv57gynwtrmu" path="res://components/hurtbox_component.tscn" id="2_afp0q"]
+[ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://components/health_component.tscn" id="3_k1iej"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hgmr5"]
+size = Vector2(301, 132)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i6wce"]
+bg_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 10
+
+[node name="Event" type="Node2D" groups=["obstacle"]]
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("2_afp0q")]
+collision_layer = 256
+collision_mask = 0
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(4.5, -14)
+shape = SubResource("RectangleShape2D_hgmr5")
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("HEALTHBAR") instance=ExtResource("3_k1iej")]
+HEALTHBAR = NodePath("../HealthBar")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -142.0
+offset_top = -103.0
+offset_right = 151.0
+offset_bottom = -85.0
+tooltip_text = "Health"
+theme_override_styles/fill = SubResource("StyleBoxFlat_i6wce")
+max_value = 50.0
+step = 1.0
+value = 10.0
+show_percentage = false
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_vg2e6")

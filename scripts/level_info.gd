@@ -11,10 +11,21 @@ var track_cells = []
 var map_positions = []
 
 var level_parameters = {
-	"distance" = 10,
+	"distance" = 7,
 	"direction" = "NW",
-	"event_0" = {
-		"location" = 0,
+}
+
+var events = {
+	"0" = {
+		"distance" = 1,
 		"triggered" = false,
-	}
+		"type" = "ambush",
+		"area" = null,
+	},
+	"1" = {
+		"distance" = 3,
+		"triggered" = false,
+		"type" = "ambush",
+		"area" = null,
+	},
 }

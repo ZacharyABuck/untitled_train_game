@@ -54,6 +54,9 @@ func _handle_death():
 			PlayerInfo.money += character.money
 			character.state = "dead"
 			animation.play("death")
+		if character.is_in_group("obstacle"):
+			character.queue_free()
+			LevelInfo.active_level.event_finished()
 
 func _calculate_final_damage(damage, armor):
 	final_damage = damage - armor

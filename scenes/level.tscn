@@ -87,5 +87,17 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_sqh2c")
 max_columns = 3
 fixed_icon_size = Vector2i(64, 64)
 
+[node name="AlertLabel" type="Label" parent="UI"]
+visible = false
+offset_right = 1922.0
+offset_bottom = 186.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 50
+text = "Train Obstructed!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="timeout" from="EnemySpawnTimer" to="Enemies" method="_on_enemy_spawn_timer_timeout"]
 [connection signal="item_clicked" from="UI/BuildMenu/MarginContainer/GadgetList" to="." method="_on_gadget_list_item_clicked"]

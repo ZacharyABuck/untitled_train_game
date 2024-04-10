@@ -11,8 +11,8 @@ signal train_info(stats: Dictionary)
 @export var air_resistance_coefficient := 0.10
 @export var air_density := 1.0
 @export var velocity_multiplier := 1.5
-@export var brake_power := 12.0
-@export var brake_application_speed := 5.0
+@export var brake_power := 15.0
+@export var brake_application_speed := 50.0
 
 var friction_force := 0.0
 @export var target_force_percent := 0.0

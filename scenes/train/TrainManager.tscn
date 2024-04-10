@@ -26,6 +26,8 @@ curve = SubResource("1")
 [node name="TrainEngine" parent="." instance=ExtResource("4_6vjgm")]
 scale = Vector2(0.999998, 1)
 max_force = 150.0
+brake_power = 15.0
+brake_application_speed = 50.0
 target_force_percent = 2.5
 
 [node name="Timer" type="Timer" parent="."]
