@@ -13,18 +13,20 @@ var money = enemy_stats["money"]
 
 var target
 var active_car
-var state = "moving"
+#var state = "moving"
+@export_enum("moving", "boarding", "attacking", "idle", "dead") var state: String
 var boarded = false
 var boarding_time = 5
 
 func _ready():
-	target = PlayerInfo.active_player
+	if state != "idle":
+		target = PlayerInfo.active_player
 
 func _process(_delta):
 	pass
 
 func _physics_process(delta):
-	if state != "dead":
+	if state != "dead" and state != "idle":
 		if attack_component.target_is_in_range(target) and boarded:
 			state = "attacking"
 			attack_component.attack_if_target_in_range(target)
@@ -36,6 +38,8 @@ func _physics_process(delta):
 			animations.play("moving")
 			move_and_collide(global_position.direction_to(target.global_position)*(speed*delta))
 			look_at(target.global_position)
+	if state == "idle":
+		animations.play("idle")
 
 func _on_wall_detector_body_entered(body):
 	if body.get_parent().is_in_group("car") and boarded == false and state != "boarding":

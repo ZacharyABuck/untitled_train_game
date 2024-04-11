@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://dggkqekcvcnaf"]
+
+[ext_resource type="Script" path="res://scripts/events/event_zombie_horde.gd" id="1_w5c6x"]
+[ext_resource type="PackedScene" uid="uid://dlf3ut18w14gl" path="res://scenes/enemies/enemy_zombie.tscn" id="2_fviex"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wrsax"]
+size = Vector2(1038, 1048)
+
+[node name="EventZombieHorde" type="Area2D"]
+collision_layer = 128
+collision_mask = 4
+script = ExtResource("1_w5c6x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_wrsax")
+
+[node name="Zombies" type="Node2D" parent="."]
+
+[node name="EnemyZombie" parent="Zombies" instance=ExtResource("2_fviex")]
+state = "idle"
+
+[node name="EnemyZombie2" parent="Zombies" instance=ExtResource("2_fviex")]
+position = Vector2(98, -118)
+state = "idle"
+
+[node name="EnemyZombie3" parent="Zombies" instance=ExtResource("2_fviex")]
+position = Vector2(-115, -145)
+state = "idle"
+
+[node name="EnemyZombie4" parent="Zombies" instance=ExtResource("2_fviex")]
+position = Vector2(-100, -41)
+state = "idle"
+
+[node name="EnemyZombie5" parent="Zombies" instance=ExtResource("2_fviex")]
+position = Vector2(-103, 123)
+state = "idle"
+
+[node name="EnemyZombie6" parent="Zombies" instance=ExtResource("2_fviex")]
+position = Vector2(108, 81)
+state = "idle"

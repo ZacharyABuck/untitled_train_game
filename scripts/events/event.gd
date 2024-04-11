@@ -12,6 +12,7 @@ func _ready():
 func _process(delta):
 	pass
 
+#triggers when collision shape is entered
 func event_triggered(object):
 	match type:
 		"ambush":
@@ -23,6 +24,13 @@ func event_triggered(object):
 				var new_spawner = EnemySpawner.new()
 				LevelInfo.active_level.add_child(new_spawner)
 				new_spawner.spawn_enemy(5, "bandit", null)
+		"zombie_horde":
+			if object.get_parent().is_in_group("car") and triggered == false:
+				print("Event Triggered: Zombie Horde")
+				for i in $Zombies.get_children():
+					i.target = PlayerInfo.active_player
+					i.state = "moving"
+					i.call_deferred("reparent", LevelInfo.active_level.enemies)
 
 func event_finished():
 	TrainInfo.train_engine.brake_force = 0

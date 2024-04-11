@@ -19,7 +19,7 @@ var events = {
 	"0" = {
 		"distance" = 1,
 		"triggered" = false,
-		"type" = "ambush",
+		"type" = "zombie_horde",
 		"area" = null,
 	},
 	"1" = {
@@ -27,5 +27,14 @@ var events = {
 		"triggered" = false,
 		"type" = "ambush",
 		"area" = null,
+	},
+}
+
+var events_roster = {
+	"ambush" = {
+		"scene" = preload("res://scenes/events/event_ambush.tscn"),
+	},
+	"zombie_horde" = {
+		"scene" = preload("res://scenes/events/event_zombie_horde.tscn"),
 	},
 }

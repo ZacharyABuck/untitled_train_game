@@ -8,14 +8,12 @@ var type
 func _ready():
 	spawn_collision_shape()
 	set_collision_layers()
-	area_entered.connect(on_area_entered)
-	set_event()
+	spawn_event(type)
 
 func spawn_collision_shape():
 	var collision_shape = CollisionShape2D.new()
 	collision_shape.shape = load("res://shapes/shape_event_trigger.tres")
 	add_child(collision_shape)
-	
 	collision_shape.debug_color = Color(1,0,0,.5)
 
 func set_collision_layers():
@@ -26,21 +24,13 @@ func set_collision_layers():
 	monitoring = true
 	monitorable = true
 
-func on_area_entered(area):
-	pass
-
-func set_event():
-	match type:
-		"ambush":
-			spawn_ambush()
-
-func spawn_ambush():
+func spawn_event(type):
 	await get_tree().create_timer(.5).timeout
-	var new_event = load("res://scenes/events/event_ambush.tscn").instantiate()
+	var new_event = LevelInfo.events_roster[type]["scene"].instantiate()
 	for i in get_overlapping_areas():
 		if i.get_collision_layer_value(2) == true:
 			new_event.global_position = i.global_position
-			new_event.type = "ambush"
+			new_event.type = type
 			break
 	LevelInfo.root.call_deferred("add_child", new_event)
 	call_deferred("queue_free")
