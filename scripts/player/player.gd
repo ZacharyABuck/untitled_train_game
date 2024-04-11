@@ -3,6 +3,7 @@ extends CharacterBody2D
 @onready var sprite = $AnimatedSprite2D
 @onready var auto_fire_timer = $AutoFireTimer
 @onready var health_bar = $HealthBar
+@onready var gunshot = $GunshotSound
 
 var active_car
 var bullet = preload("res://scenes/projectiles/fiery_bullet.tscn")
@@ -43,6 +44,7 @@ func _input(event):
 func shoot():
 	can_shoot = false
 	if get_tree().paused == false:
+		gunshot.play()
 		var new_bullet = bullet.instantiate()
 		new_bullet.global_position = global_position
 		new_bullet.target = get_global_mouse_position()

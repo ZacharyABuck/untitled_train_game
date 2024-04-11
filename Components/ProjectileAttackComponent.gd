@@ -18,10 +18,12 @@ class_name ProjectileAttackComponent
 @export var ATTACK_TIMER := Timer
 @export var BULLET_SPEED := 30
 @export var DAMAGE_PER_BULLET := 2
-@export var NUMBER_OF_BULLETS := 1
+@export var NUMBER_OF_BULLETS := 1 
 @export var PROJECTILE : PackedScene # <--Must extend 'Projectile'
 @export var MOBILE_ATTACK := false
 @export var TARGET_AREA : CollisionShape2D
+@export var LIFETIME := 3
+@export var SHOOT_SOUND : AudioStreamPlayer2D
 
 var attack_timer
 var speed
@@ -33,15 +35,19 @@ var type
 var target_types
 var mobile_attack
 var attack_target
+var lifetime
+var shoot_sound
 
 func _ready():
 	attack_timer = ATTACK_TIMER
 	speed = BULLET_SPEED
 	projectile = PROJECTILE
 	damage = DAMAGE_PER_BULLET
+	shoot_sound = SHOOT_SOUND
 	number_of_bullets = NUMBER_OF_BULLETS
 	shooter = get_parent()
 	target_types = TARGET_TYPES
+	lifetime = LIFETIME
 	mobile_attack = MOBILE_ATTACK
 	attack_timer.timeout.connect(_on_attack_timer_timeout)
 	_set_layers(self)
@@ -61,6 +67,8 @@ func shoot_at_target(target):
 		_shoot()
 
 func _shoot():
+	if shoot_sound != null:
+		shoot_sound.play()
 	var new_projectile = _instantiate_bullet()
 	# Add the bullet to the parent scene of the shooter, which fires the projectile.
 	LevelInfo.root.add_child(new_projectile)
@@ -73,6 +81,8 @@ func _instantiate_bullet():
 	new_projectile.global_position = shooter.global_position
 	new_projectile.speed = speed
 	new_projectile.damage = damage
+	if lifetime > 0: # the default lifetime is 3 seconds.
+		new_projectile.lifetime = lifetime
 	new_projectile.target = attack_target.global_position
 	new_projectile.valid_hitbox_types = target_types
 

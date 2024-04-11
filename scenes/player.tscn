@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://bp38lfu2xg7sc"]
+[gd_scene load_steps=21 format=3 uid="uid://bp38lfu2xg7sc"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_1wp3v"]
 [ext_resource type="Script" path="res://components/HurtboxComponent.gd" id="3_pf8ut"]
 [ext_resource type="Texture2D" uid="uid://balwmqh8kog6n" path="res://sprites/player/tim_walk_sprite_sheet_mosaic_2.png" id="3_y5r7g"]
 [ext_resource type="Script" path="res://components/HealthComponent.gd" id="4_8hue6"]
+[ext_resource type="AudioStream" uid="uid://b5vhc2krrx8hf" path="res://sounds/gunshot_02.wav" id="5_6ji1c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6ukgh"]
 atlas = ExtResource("3_y5r7g")
@@ -161,6 +162,9 @@ MAX_HEALTH = 50
 IS_KILLABLE = false
 ANIMATION = NodePath("../AnimatedSprite2D")
 HEALTHBAR = NodePath("../HealthBar")
+
+[node name="GunshotSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_6ji1c")
 
 [connection signal="timeout" from="AutoFireTimer" to="." method="_on_auto_fire_timer_timeout"]
 [connection signal="area_entered" from="CarDetector" to="." method="_on_car_detector_area_entered"]

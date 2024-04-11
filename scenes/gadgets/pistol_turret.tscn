@@ -24,7 +24,6 @@ collision_mask = 8
 shape = SubResource("CircleShape2D_h5xqt")
 
 [node name="AttackTimer" type="Timer" parent="."]
-wait_time = 2.0
 
 [node name="ProjectileAttackComponent" parent="." node_paths=PackedStringArray("ATTACK_TIMER", "TARGET_AREA") instance=ExtResource("3_saoij")]
 TARGET_TYPES = {
@@ -35,7 +34,6 @@ TARGET_TYPES = {
 }
 ATTACK_TIMER = NodePath("../AttackTimer")
 PROJECTILE = ExtResource("4_4urt4")
-MOBILE_ATTACK = true
 TARGET_AREA = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ProjectileAttackComponent"]
