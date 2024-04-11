@@ -6,8 +6,6 @@ extends Node2D
 @onready var health_bar = $HealthBar
 @onready var hard_points = $HardPoints
 @onready var gadgets = $Gadgets
-@onready var obstacle_spawn_position = $ObstacleSpawnPosition
-
 
 var hard_point = preload("res://scenes/hard_point.tscn")
 

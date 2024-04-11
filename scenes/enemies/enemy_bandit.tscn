@@ -81,7 +81,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4v00t"]
-size = Vector2(36, 72.5)
+size = Vector2(36, 63)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fxxqh"]
 radius = 448.055
@@ -97,10 +97,8 @@ texture_filter = 1
 position = Vector2(-1, 7)
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_k0d6m")
-animation = &"death"
+animation = &"running"
 autoplay = "running"
-frame = 7
-frame_progress = 1.0
 
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 2.0
@@ -114,7 +112,7 @@ collision_mask = 4
 health_component = NodePath("../HealthComponent")
 
 [node name="Hurtbox" type="CollisionShape2D" parent="HurtboxComponent"]
-position = Vector2(0, 4.75)
+position = Vector2(0, 19.5)
 shape = SubResource("RectangleShape2D_4v00t")
 
 [node name="GunAttackComponent" parent="." node_paths=PackedStringArray("ATTACK_TIMER", "TARGET_AREA") instance=ExtResource("5_4b008")]

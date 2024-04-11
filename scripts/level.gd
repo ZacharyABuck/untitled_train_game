@@ -7,7 +7,7 @@ var player = preload("res://scenes/player.tscn")
 var build_menu_open: bool = false
 @onready var gadget_list = $UI/BuildMenu/MarginContainer/GadgetList
 @onready var alert_label = $UI/AlertLabel
-
+@onready var enemies = $Enemies
 @onready var train_manager = $TrainManager
 
 
@@ -46,25 +46,14 @@ func generate_track():
 		last_pos += random_pos
 		for event in LevelInfo.events:
 			if i == LevelInfo.events[event]["distance"]:
-				var area = generate_event_area(last_pos)
+				var area = generate_event_area(LevelInfo.events[event]["type"], last_pos)
 				LevelInfo.events[event]["area"] = area
 
-func generate_event_area(pos):
-	var area = Area2D.new()
-	add_child(area)
-	var collision_shape = CollisionShape2D.new()
-	collision_shape.shape = load("res://shapes/shape_event_trigger.tres")
-	area.add_child(collision_shape)
-	area.set_collision_layer_value(8, true)
-	area.set_collision_mask_value(3, true)
-	area.set_collision_layer_value(1, false)
-	area.set_collision_mask_value(1, false)
-	collision_shape.debug_color = Color.DEEP_PINK
-	area.monitoring = true
-	area.monitorable = true
-	area.area_entered.connect(event_triggered)
-	area.body_entered.connect(event_triggered)
+func generate_event_area(type, pos):
+	var area = EventArea.new()
 	area.global_position = train_manager.track.curve.get_closest_point(to_local(pos))
+	area.type = type
+	add_child(area)
 	return area
 	
 func add_track_point(last_pos, index, random_pos):
@@ -90,19 +79,8 @@ func _on_gadget_list_item_clicked(index, _at_position, _mouse_button_index):
 	var gadget_info = LevelInfo.active_level.gadget_list.get_item_metadata(index)
 	GadgetFunctions.request_gadget(gadget_info)
 
-func event_triggered(object):
-	for event in LevelInfo.events:
-		if LevelInfo.events[event]["triggered"] == false:
-			LevelInfo.events[event]["area"].queue_free()
-			print("event triggered")
-			LevelInfo.events[event]["triggered"] = true
-			TrainInfo.train_engine.brake_force = 5
-			var new_event = load("res://scenes/event.tscn").instantiate()
-			new_event.global_position = TrainInfo.train_engine.car.obstacle_spawn_position.global_position
-			LevelInfo.root.call_deferred("add_child", new_event)
-			alert_label.show()
-			break
-
-func event_finished():
-	TrainInfo.train_engine.brake_force = 0
-	alert_label.hide()
+func _on_enemy_spawn_timer_timeout():
+	var new_spawner = EnemySpawner.new()
+	add_child(new_spawner)
+	var random_enemy = new_spawner.find_random_enemy()
+	new_spawner.spawn_enemy(1, random_enemy, null)

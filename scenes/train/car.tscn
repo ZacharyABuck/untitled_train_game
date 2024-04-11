@@ -109,6 +109,3 @@ position = Vector2(-31, 191)
 position = Vector2(39, 189)
 
 [node name="Gadgets" type="Node2D" parent="."]
-
-[node name="ObstacleSpawnPosition" type="Node2D" parent="."]
-position = Vector2(0, -123)
