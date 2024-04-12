@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://02oiy550pacp"]
+[gd_scene load_steps=8 format=3 uid="uid://02oiy550pacp"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_2a3mn"]
 [ext_resource type="Script" path="res://scripts/maps/map_manager.gd" id="1_lfsvw"]
 [ext_resource type="PackedScene" uid="uid://cb1r5v4vqyrx8" path="res://scenes/train/TrainManager.tscn" id="3_3t5p5"]
+[ext_resource type="Texture2D" uid="uid://dutu0olvdwa37" path="res://sprites/images/Franch Token.png" id="4_jdl4j"]
+[ext_resource type="Texture2D" uid="uid://dymk6a1pjduj8" path="res://sprites/images/xpbar_blue.png" id="5_rhesw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nfjy5"]
 bg_color = Color(0.184314, 0.184314, 0.184314, 0.113725)
@@ -57,10 +59,10 @@ autostart = true
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="MoneyLabel" type="Label" parent="UI"]
-offset_left = 20.0
-offset_top = 26.0
-offset_right = 1902.0
-offset_bottom = 49.0
+offset_left = 140.0
+offset_top = 95.0
+offset_right = 2022.0
+offset_bottom = 137.0
 theme_override_font_sizes/font_size = 30
 text = "Money = 0"
 
@@ -96,6 +98,23 @@ theme_override_font_sizes/font_size = 50
 text = "Train Obstructed!"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="UI"]
+offset_left = 5.0
+offset_top = 3.0
+offset_right = 261.0
+offset_bottom = 259.0
+scale = Vector2(0.513544, 0.513544)
+texture = ExtResource("4_jdl4j")
+
+[node name="PlayerExperienceBar" type="TextureProgressBar" parent="UI"]
+offset_left = 145.0
+offset_top = 37.0
+offset_right = 931.0
+offset_bottom = 222.0
+scale = Vector2(0.221034, 0.255744)
+max_value = 20.0
+texture_progress = ExtResource("5_rhesw")
 
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
 [connection signal="item_clicked" from="UI/BuildMenu/MarginContainer/GadgetList" to="." method="_on_gadget_list_item_clicked"]

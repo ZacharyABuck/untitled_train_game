@@ -20,6 +20,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	$UI/MoneyLabel.text = "Money: $" + str(PlayerInfo.money)
+	$UI/PlayerExperienceBar.value = PlayerInfo.experience
 
 func generate_track():
 	var point_increment = 3000

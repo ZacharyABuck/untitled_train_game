@@ -7,6 +7,7 @@ extends RigidBody2D
 var enemy_stats = EnemyInfo.enemy_roster["bandit"]
 var speed = enemy_stats["speed"]
 var money = enemy_stats["money"]
+var experience = enemy_stats["experience"]
 
 var target
 var state = "moving"
