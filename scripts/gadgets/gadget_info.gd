@@ -9,6 +9,15 @@ var gadget_roster = {
 		"attack_cooldown" = 2,
 		"damage" = 2,
 	},
+	"barricade" = {
+		"name" = "Barricade",
+		"scene" = load("res://scenes/gadgets/barricade.tscn"),
+		"sprite" = load("res://sprites/gadgets/barricade_single.png"),
+		"cost" = 2,
+		#"health" = 15,
+		#"attack_cooldown" = 2,
+		#"damage" = 2,
+	},
 }
 
 var selection_active = false

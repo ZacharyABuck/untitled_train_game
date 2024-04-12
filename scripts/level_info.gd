@@ -11,7 +11,7 @@ var track_cells = []
 var map_positions = []
 
 var level_parameters = {
-	"distance" = 7,
+	"distance" = 3,
 	"direction" = "NW",
 }
 
@@ -23,7 +23,7 @@ var events = {
 		"area" = null,
 	},
 	"1" = {
-		"distance" = 3,
+		"distance" = 2,
 		"triggered" = false,
 		"type" = "ambush",
 		"area" = null,
@@ -38,3 +38,8 @@ var events_roster = {
 		"scene" = preload("res://scenes/events/event_zombie_horde.tscn"),
 	},
 }
+
+func clear_variables():
+	track_cells.clear()
+	map_positions.clear()
+	active_map = null

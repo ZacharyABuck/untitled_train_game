@@ -8,7 +8,7 @@ script = ExtResource("1_ghyap")
 
 [node name="MainMenu" type="CanvasLayer" parent="."]
 
-[node name="Button" type="Button" parent="MainMenu"]
+[node name="PlayButton" type="Button" parent="MainMenu"]
 offset_left = 848.0
 offset_top = 478.0
 offset_right = 1102.0
@@ -48,8 +48,19 @@ offset_right = 1396.0
 offset_bottom = 684.0
 text = "Travel Southeast"
 
-[connection signal="button_down" from="MainMenu/Button" to="." method="_on_button_button_down"]
+[node name="RestartButton" type="Button" parent="MainMenu"]
+process_mode = 2
+visible = false
+offset_left = 848.0
+offset_top = 479.0
+offset_right = 1101.0
+offset_bottom = 550.0
+theme_override_font_sizes/font_size = 30
+text = "Restart"
+
+[connection signal="button_down" from="MainMenu/PlayButton" to="." method="_on_play_button_down"]
 [connection signal="button_down" from="MainMenu/NW" to="." method="_on_nw_button_down"]
 [connection signal="button_down" from="MainMenu/NE" to="." method="_on_ne_button_down"]
 [connection signal="button_down" from="MainMenu/SW" to="." method="_on_sw_button_down"]
 [connection signal="button_down" from="MainMenu/SE" to="." method="_on_se_button_down"]
+[connection signal="button_down" from="MainMenu/RestartButton" to="." method="_on_restart_button_down"]

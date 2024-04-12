@@ -27,8 +27,9 @@ func add_gadget(gadget, hard_point, car):
 	
 	#instantiate the new gadget
 	var new_gadget = gadget["scene"].instantiate()
+	new_gadget.hard_point = hard_point
 	car.gadgets.add_child(new_gadget)
-	TrainInfo.cars_inventory[car.index]["gadgets"][TrainInfo.cars_inventory[car.index]["gadgets"].size()] = new_gadget
+	#TrainInfo.cars_inventory[car.index]["gadgets"][TrainInfo.cars_inventory[car.index]["gadgets"].size()] = new_gadget
 	new_gadget.global_position = hard_point.global_position
 	
 	#close build menu and unpause

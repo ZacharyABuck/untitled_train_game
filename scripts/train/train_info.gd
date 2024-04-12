@@ -27,3 +27,7 @@ var cars_roster = {
 }
 
 var hard_point_icon = preload("res://sprites/train/hard_point_icon.png")
+
+func clear_variables():
+	cars_inventory.clear()
+	#train_engine = null

@@ -5,6 +5,7 @@ extends Node2D
 @onready var selection_sprite = $SelectionSprite
 
 var gadget
+var location
 
 var car
 

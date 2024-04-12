@@ -26,7 +26,7 @@ func find_random_enemy():
 func spawn_enemy(amount, type, pos):
 	for i in amount:
 		var new_enemy = EnemyInfo.enemy_roster[type]["scene"].instantiate()
-		LevelInfo.active_level.enemies.add_child(new_enemy)
+		LevelInfo.active_level.enemies.call_deferred("add_child", new_enemy)
 		if pos == null:
 			new_enemy.global_position = enemy_spawn_positions.get_children().pick_random().global_position
 		else:

@@ -13,6 +13,7 @@ class_name ProjectileAttackComponent
 	"player":false,
 	"enemy":false,
 	"car":false,
+	"cover":false,
 	"terrain":false
 }
 @export var ATTACK_TIMER := Timer
@@ -109,6 +110,8 @@ func _set_layers(obj):
 		obj.set_collision_layer_value(1, true)
 	if target_types["car"]:
 		obj.set_collision_mask_value(3, true)
+	if target_types["cover"]:
+		obj.set_collision_mask_value(5, true)
 	if target_types["terrain"]:
 		obj.set_collision_mask_value(9, true)
 		pass

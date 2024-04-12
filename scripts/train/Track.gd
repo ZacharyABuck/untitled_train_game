@@ -47,7 +47,7 @@ func on_bogie_at_head(bogie: Bogie, extra: float, is_forward: bool) -> void:
 # The bogie has reached the tail
 func on_bogie_at_tail(bogie: Bogie, extra: float, is_forward: bool) -> void:
 	bogie_at_tail.emit(bogie, extra, is_forward)
-	LevelInfo.root.pause_game()
+	LevelInfo.root.level_complete()
 	print("Mission Complete")
 
 func _update_points():

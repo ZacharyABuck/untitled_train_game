@@ -56,3 +56,5 @@ show_percentage = false
 rotation = 1.5708
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("3_mckib")
+
+[connection signal="area_entered" from="." to="." method="ambush_triggered"]

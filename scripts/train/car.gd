@@ -37,6 +37,7 @@ func set_parameters():
 				i.add_child(new_hard_point)
 				i.get_child(0).sprite.texture = TrainInfo.hard_point_icon
 				TrainInfo.cars_inventory[index]["hard_points"][i.name] = new_hard_point
+				new_hard_point.location = i.name
 				new_hard_point.car = self
 			else:
 				i.queue_free()

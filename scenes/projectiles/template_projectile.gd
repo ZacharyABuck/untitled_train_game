@@ -57,6 +57,8 @@ func _set_collisions():
 		hitbox.set_collision_mask_value(1, true)
 	if valid_hitbox_types["car"]:
 		hitbox.set_collision_mask_value(3, true)
+	if valid_hitbox_types["cover"]:
+		hitbox.set_collision_mask_value(5, true)
 	if valid_hitbox_types["terrain"]:
 		# Add in collission mask for terrain if needed.
 		pass

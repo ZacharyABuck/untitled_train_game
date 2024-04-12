@@ -30,12 +30,12 @@ func _input(event):
 			LevelInfo.active_level.build_menu.show()
 
 #this starts a new game
-func _on_button_button_down():
+func _on_play_button_down():
 	$MainMenu/NW.show()
 	$MainMenu/NE.show()
 	$MainMenu/SW.show()
 	$MainMenu/SE.show()
-	$MainMenu/Button.hide()
+	$MainMenu/PlayButton.hide()
 
 func _on_ne_button_down():
 	start_game("NE")
@@ -50,7 +50,10 @@ func _on_se_button_down():
 	start_game("SE")
 
 func start_game(direction):
-	main_menu.hide()
+	LevelInfo.clear_variables()
+	TrainInfo.clear_variables()
+	for i in main_menu.get_children():
+		i.hide()
 	LevelInfo.level_parameters["direction"] = direction
 	for i in LevelInfo.events.keys():
 		LevelInfo.events[i]["type"] = LevelInfo.events_roster.keys().pick_random()
@@ -67,6 +70,15 @@ func pause_game():
 func unpause_game():
 	LevelInfo.active_level.get_tree().paused = false
 
+func level_complete():
+	pause_game()
+	$MainMenu/RestartButton.show()
 
-
-
+func _on_restart_button_down():
+	LevelInfo.active_level.queue_free()
+	#LevelInfo.clear_variables()
+	#TrainInfo.clear_variables()
+	in_game = false
+	$MainMenu/RestartButton.hide()
+	LevelInfo.active_level = null
+	_on_play_button_down()

@@ -1,6 +1,7 @@
 extends Node2D
 
 var target
+var hard_point
 
 var gadget_stats = GadgetInfo.gadget_roster["pistol_turret"]
 var damage = gadget_stats["damage"]

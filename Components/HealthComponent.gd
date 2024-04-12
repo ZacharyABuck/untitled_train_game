@@ -58,6 +58,9 @@ func _handle_death():
 		if character.is_in_group("event"):
 			character.queue_free()
 			character.event_finished()
+		if character.is_in_group("gadget"):
+			character.hard_point.gadget = null
+			character.queue_free()
 
 func _calculate_final_damage(damage, armor):
 	final_damage = damage - armor

@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://bse1rme7qjshm"]
+
+[ext_resource type="Texture2D" uid="uid://btdrtgyipi8jv" path="res://sprites/gadgets/barricade_sprite_sheet.png" id="1_qtqtt"]
+[ext_resource type="Script" path="res://scripts/gadgets/barricade.gd" id="1_xxu03"]
+[ext_resource type="PackedScene" uid="uid://cyv57gynwtrmu" path="res://components/hurtbox_component.tscn" id="2_5iwk3"]
+[ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://components/health_component.tscn" id="3_ssjoa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rxa71"]
+size = Vector2(32, 127)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_188vh"]
+bg_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 10
+
+[node name="Barricade" type="Node2D" groups=["gadget"]]
+script = ExtResource("1_xxu03")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("1_qtqtt")
+hframes = 5
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("2_5iwk3")]
+collision_layer = 16
+collision_mask = 0
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(-1, -0.5)
+shape = SubResource("RectangleShape2D_rxa71")
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("HEALTHBAR") instance=ExtResource("3_ssjoa")]
+MAX_HEALTH = 10
+HEALTHBAR = NodePath("../HealthBar")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+visible = false
+offset_left = -33.0
+offset_top = -51.0
+offset_right = 33.0
+offset_bottom = -46.0
+tooltip_text = "Health"
+theme_override_styles/fill = SubResource("StyleBoxFlat_188vh")
+max_value = 50.0
+step = 1.0
+value = 10.0
+show_percentage = false
+
+[connection signal="value_changed" from="HealthBar" to="." method="_on_health_bar_value_changed"]

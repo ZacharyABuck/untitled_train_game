@@ -27,10 +27,9 @@ debug_color = Color(0.243137, 0.607843, 0.529412, 0.419608)
 [node name="AttackTimer" type="Timer" parent="."]
 
 [node name="ProjectileAttackComponent" parent="." node_paths=PackedStringArray("ATTACK_TIMER", "TARGET_AREA") instance=ExtResource("3_saoij")]
-collision_layer = 0
-collision_mask = 0
 TARGET_TYPES = {
 "car": false,
+"cover": false,
 "enemy": true,
 "player": false,
 "terrain": false
