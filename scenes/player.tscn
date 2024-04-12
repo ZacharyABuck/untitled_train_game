@@ -165,6 +165,7 @@ HEALTHBAR = NodePath("../HealthBar")
 
 [node name="GunshotSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_6ji1c")
+bus = &"SFX"
 
 [connection signal="timeout" from="AutoFireTimer" to="." method="_on_auto_fire_timer_timeout"]
 [connection signal="area_entered" from="CarDetector" to="." method="_on_car_detector_area_entered"]

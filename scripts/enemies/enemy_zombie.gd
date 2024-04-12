@@ -14,7 +14,6 @@ var experience = enemy_stats["experience"]
 
 var target
 var active_car
-#var state = "moving"
 @export_enum("moving", "boarding", "attacking", "idle", "dead") var state: String
 var boarded = false
 var boarding_time = 5

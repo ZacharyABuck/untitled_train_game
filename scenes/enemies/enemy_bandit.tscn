@@ -140,6 +140,7 @@ shape = SubResource("CircleShape2D_fxxqh")
 [node name="Gunshot sound" type="AudioStreamPlayer2D" parent="GunAttackComponent"]
 stream = ExtResource("7_bew6k")
 volume_db = 5.012
+bus = &"SFX"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 light_mask = 0
