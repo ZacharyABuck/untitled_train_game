@@ -10,6 +10,7 @@ var enemy_stats = EnemyInfo.enemy_roster["zombie"]
 var speed = enemy_stats["speed"]
 var damage = enemy_stats["damage"]
 var money = enemy_stats["money"]
+var experience = enemy_stats["experience"]
 
 var target
 var active_car
@@ -40,6 +41,8 @@ func _physics_process(delta):
 			look_at(target.global_position)
 	if state == "idle":
 		animations.play("idle")
+	if state == "dead":
+		hurtbox.disabled = true
 
 func _on_wall_detector_body_entered(body):
 	if body.get_parent().is_in_group("car") and boarded == false and state != "boarding":

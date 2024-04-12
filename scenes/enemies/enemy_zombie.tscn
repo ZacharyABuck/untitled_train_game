@@ -341,6 +341,7 @@ position = Vector2(2, 7)
 shape = SubResource("RectangleShape2D_4v00t")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("ANIMATION") instance=ExtResource("4_52reb")]
+MAX_HEALTH = 10
 ANIMATION = NodePath("../ZombieSpriteSheet")
 
 [node name="WallDetector" type="Area2D" parent="."]
@@ -361,6 +362,8 @@ frame = 3
 frame_progress = 1.0
 
 [node name="MeleeAttackComponent" type="Area2D" parent="." node_paths=PackedStringArray("ATTACK_TIMER", "TARGET_AREA", "ANIMATIONS")]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("5_vxl1g")
 TARGET_TYPES = {
 "car": false,

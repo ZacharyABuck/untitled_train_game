@@ -17,6 +17,7 @@ var pierces = false
 var hitbox
 var animations
 var valid_hitbox_types
+var lifetime = 3
 
 func _ready():
 	hitbox = HITBOX
@@ -46,6 +47,8 @@ func _on_animated_sprite_2d_animation_finished():
 func _connect_signals():
 	hitbox.area_entered.connect(_on_area_2d_area_entered)
 	animations.animation_finished.connect(_on_animated_sprite_2d_animation_finished)
+	var lifetimer = get_tree().create_timer(lifetime)
+	lifetimer.timeout.connect(_on_lifetimer_timeout)
 
 func _set_collisions():
 	if valid_hitbox_types["enemy"]:
@@ -57,6 +60,9 @@ func _set_collisions():
 	if valid_hitbox_types["terrain"]:
 		# Add in collission mask for terrain if needed.
 		pass
+
+func _on_lifetimer_timeout():
+	queue_free()
 
 # not currently used by projectiles. We use physics process instead.
 func _process(_delta):

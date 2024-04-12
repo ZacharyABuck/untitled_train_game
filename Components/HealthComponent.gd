@@ -11,7 +11,7 @@
 extends Node2D
 class_name HealthComponent
 
-@export var MAX_HEALTH := 10
+@export var MAX_HEALTH : int
 @export var ARMOR_VALUE := 0
 @export var IS_KILLABLE := true
 @export var ANIMATION : AnimatedSprite2D
@@ -52,6 +52,7 @@ func _handle_death():
 		print(character.name, " killed.")
 		if character.is_in_group("enemy"):
 			PlayerInfo.money += character.money
+			PlayerInfo.experience += character.experience
 			character.state = "dead"
 			animation.play("death")
 		if character.is_in_group("event"):
