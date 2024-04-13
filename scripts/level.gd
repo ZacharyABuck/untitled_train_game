@@ -9,6 +9,10 @@ var build_menu_open: bool = false
 @onready var alert_label = $UI/AlertLabel
 @onready var enemies = $Enemies
 @onready var train_manager = $TrainManager
+@onready var xp_bar = $UI/PlayerExperienceBar
+@onready var level_label = $UI/LevelLabel
+@onready var xp_label = $UI/ExperienceLabel
+@onready var level_up_animation = $UI/LevelUpAnimation
 
 
 # Called when the node enters the scene tree for the first time.
@@ -16,11 +20,20 @@ func _ready():
 	generate_track()
 	spawn_player()
 	populate_build_menu()
+	
+	ExperienceSystem.level_up.connect(self.handle_level_up)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	$UI/MoneyLabel.text = "Money: $" + str(PlayerInfo.money)
-	$UI/PlayerExperienceBar.value = PlayerInfo.experience
+	# These XP functions will be moved to a dedicated node or func that handles all this.
+	xp_bar.value = PlayerInfo.currentExperience
+	xp_bar.max_value = PlayerInfo.nextLevelExperience
+	level_label.text = "Level: " + str(PlayerInfo.currentLevel)
+	xp_label.text = "XP: " + str(PlayerInfo.currentExperience) + " / " + str(PlayerInfo.nextLevelExperience)
+
+func handle_level_up():
+	level_up_animation.play("level_up")
 
 func generate_track():
 	var point_increment = 3000

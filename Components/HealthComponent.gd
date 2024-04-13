@@ -52,7 +52,7 @@ func _handle_death():
 		print(character.name, " killed.")
 		if character.is_in_group("enemy"):
 			PlayerInfo.money += character.money
-			PlayerInfo.experience += character.experience
+			ExperienceSystem.give_experience.emit(character.experience)
 			character.state = "dead"
 			animation.play("death")
 		if character.is_in_group("event"):
