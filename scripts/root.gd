@@ -50,8 +50,6 @@ func _on_se_button_down():
 	start_game("SE")
 
 func start_game(direction):
-	LevelInfo.clear_variables()
-	TrainInfo.clear_variables()
 	for i in main_menu.get_children():
 		i.hide()
 	LevelInfo.level_parameters["direction"] = direction
@@ -76,8 +74,8 @@ func level_complete():
 
 func _on_restart_button_down():
 	LevelInfo.active_level.queue_free()
-	#LevelInfo.clear_variables()
-	#TrainInfo.clear_variables()
+	LevelInfo.clear_variables()
+	TrainInfo.clear_variables()
 	in_game = false
 	$MainMenu/RestartButton.hide()
 	LevelInfo.active_level = null
