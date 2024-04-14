@@ -45,13 +45,19 @@ func get_input():
 		sprite.play("running")
 
 func _input(event):
-	if event.is_action_pressed("shoot"): #"and can_shoot"
+	if event.is_action_pressed("shoot"):
 		_shoot()
+	if event.is_action_pressed("strike"):
+		_strike()
 
 
 # -- ATTACK FUNCTIONS -- #
 func _shoot():
 	current_ranged_weapon.shoot()
+
+func _strike():
+	# current_melee_weapon.strike()
+	print("Strike button pressed.")
 
 
 
@@ -59,7 +65,7 @@ func _shoot():
 func _instantiate_ranged_weapon(gun_scene_location):
 	# Clear the existing ranged weapon so we can load the new one.
 	if is_instance_valid(current_ranged_weapon):
-		current_ranged_weapon.queufree()
+		current_ranged_weapon.queue_free()
 	
 	var gun_scene = load(gun_scene_location)
 	current_ranged_weapon = gun_scene.instantiate()
