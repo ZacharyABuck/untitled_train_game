@@ -8,7 +8,7 @@ var damage = gadget_stats["damage"]
 var attack_cooldown = gadget_stats["attack_cooldown"]
 @onready var gun = $ProjectileAttackComponent
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if target != null:
 		look_at(target.global_position)
 		if gun.target_is_in_range(target):

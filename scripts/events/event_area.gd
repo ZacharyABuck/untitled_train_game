@@ -24,13 +24,13 @@ func set_collision_layers():
 	monitoring = true
 	monitorable = true
 
-func spawn_event(type):
+func spawn_event(event_type):
 	await get_tree().create_timer(.5).timeout
-	var new_event = LevelInfo.events_roster[type]["scene"].instantiate()
+	var new_event = LevelInfo.events_roster[event_type]["scene"].instantiate()
 	for i in get_overlapping_areas():
 		if i.get_collision_layer_value(2) == true:
 			new_event.global_position = i.global_position
-			new_event.type = type
+			new_event.type = event_type
 			break
 	LevelInfo.root.call_deferred("add_child", new_event)
 	call_deferred("queue_free")

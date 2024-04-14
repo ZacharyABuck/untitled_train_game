@@ -35,10 +35,10 @@ func _on_area_2d_area_entered(area):
 	if area is HurtboxComponent:
 		linear_velocity = Vector2.ZERO
 		animations.play("hit")
-		var hitbox : HurtboxComponent = area
+		var new_hitbox : HurtboxComponent = area
 		var attack = Attack.new()
 		attack.attack_damage = damage
-		hitbox.damage(attack)
+		new_hitbox.damage(attack)
 
 func _on_animated_sprite_2d_animation_finished():
 	if animations.animation == "hit":

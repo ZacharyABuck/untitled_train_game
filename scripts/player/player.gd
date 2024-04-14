@@ -27,9 +27,6 @@ func get_input():
 	else:
 		sprite.play("running")
 
-func _process(delta):
-	pass
-
 func _physics_process(_delta):
 	global_rotation_degrees = 0
 	sprite.look_at(get_global_mouse_position())

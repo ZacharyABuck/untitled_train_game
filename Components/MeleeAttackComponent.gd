@@ -85,9 +85,9 @@ func _on_animated_sprite_2d_animation_finished():
 		var hurtboxes = _get_overlapping_hurtboxes()
 		for area in hurtboxes:
 			var hurtbox : HurtboxComponent = area
-			var attack = Attack.new()
-			attack.attack_damage = damage
-			hurtbox.damage(attack)
+			var new_attack = Attack.new()
+			new_attack.attack_damage = damage
+			hurtbox.damage(new_attack)
 	if animations.animation == "strike":
 		attack_timer.start()
 		animations.play("recovery")

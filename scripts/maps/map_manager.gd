@@ -8,10 +8,6 @@ var tile_atlas_coords = [Vector2i(0,0), Vector2i(1,0), Vector2i(2,0)]
 func _ready():
 	spawn_map(Vector2(0,0))
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 func spawn_map(pos):
 	var new_map = map.instantiate()
 	new_map.global_position = pos

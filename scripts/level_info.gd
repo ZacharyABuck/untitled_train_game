@@ -11,7 +11,7 @@ var track_cells = []
 var map_positions = []
 
 var level_parameters = {
-	"distance" = 3,
+	"distance" = 5,
 	"direction" = "NW",
 }
 
@@ -19,13 +19,19 @@ var events = {
 	"0" = {
 		"distance" = 1,
 		"triggered" = false,
-		"type" = "zombie_horde",
+		"type" = null,
 		"area" = null,
 	},
 	"1" = {
-		"distance" = 2,
+		"distance" = 3,
 		"triggered" = false,
-		"type" = "ambush",
+		"type" = null,
+		"area" = null,
+	},
+	"2" = {
+		"distance" = 5,
+		"triggered" = false,
+		"type" = null,
 		"area" = null,
 	},
 }

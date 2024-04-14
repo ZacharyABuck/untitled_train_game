@@ -9,7 +9,7 @@ func _ready():
 	area_entered.connect(event_triggered)
 
 #triggers when train enters the area. Specific event code is handled on the specific event scenes, e.g. event_ambush.gd
-func event_triggered(area):
+func event_triggered(_area):
 	pass
 
 func set_alert_text_and_play(text):
