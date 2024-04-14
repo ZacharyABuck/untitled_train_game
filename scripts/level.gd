@@ -34,6 +34,8 @@ func _process(_delta):
 
 func handle_level_up():
 	level_up_animation.play("level_up")
+	# Put call to Level Up Menu here (pause game, load menu, etc.)
+
 
 func generate_track():
 	var point_increment = 3000
