@@ -44,6 +44,7 @@ func shoot():
 		gunshot.play()
 		var new_bullet = bullet.instantiate()
 		new_bullet.global_position = global_position
+		new_bullet.damage = PlayerInfo.ranged_damage
 		new_bullet.target = get_global_mouse_position()
 		new_bullet.valid_hitbox_types = {"enemy":true, "player":false, "car":false, "cover":false,"terrain":false}
 		LevelInfo.active_level.bullets.add_child(new_bullet)

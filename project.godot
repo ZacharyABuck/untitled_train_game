@@ -25,6 +25,7 @@ EnemyInfo="*res://scripts/enemies/enemy_info.gd"
 GadgetFunctions="*res://scripts/gadgets/gadget_functions.gd"
 EnemyFunctions="*res://scripts/enemies/enemy_functions.gd"
 ExperienceSystem="*res://scripts/player/experience_system.gd"
+EdgeInfo="*res://scripts/edges/edge_info.gd"
 
 [display]
 
