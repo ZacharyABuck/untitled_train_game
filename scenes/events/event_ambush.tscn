@@ -38,6 +38,7 @@ position = Vector2(4.5, -14)
 shape = SubResource("RectangleShape2D_hgmr5")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("HEALTHBAR") instance=ExtResource("2_rpnys")]
+MAX_HEALTH = 20
 HEALTHBAR = NodePath("../HealthBar")
 
 [node name="HealthBar" type="ProgressBar" parent="."]

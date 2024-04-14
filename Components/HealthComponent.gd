@@ -51,7 +51,7 @@ func _handle_death():
 	if is_killable:
 		print(character.name, " killed.")
 		if character.is_in_group("enemy"):
-			PlayerInfo.money += character.money
+			PlayerInfo.current_money += character.money
 			ExperienceSystem.give_experience.emit(character.experience)
 			character.state = "dead"
 			animation.play("death")
