@@ -19,6 +19,13 @@ var gadget_roster = {
 		"sprite" = load("res://sprites/gadgets/barricade_single.png"),
 		"cost" = 2,
 	},
+	"medical_station" = {
+		"name" = "Medical Station",
+		"scene" = load("res://scenes/gadgets/medical_station.tscn"),
+		"sprite" = load("res://sprites/gadgets/medical_station.png"),
+		"cost" = 10,
+		"heal_amount" = 1,
+	},
 }
 
 var selection_active = false

@@ -33,13 +33,17 @@ func change_towed_mass(mass_delta: float) -> void:
 	super.change_towed_mass(mass_delta)
 	_update_frictions()
 
-# Emit a signal to update the HUD
 func _process(delta: float) -> void:
 	super(delta)
-	if LevelInfo.active_level.world_light.energy >= .25:
+	if LevelInfo.active_level.world_light.energy >= .25 and front_light.enabled == false:
 		front_light.enabled = true
-	else:
+		lights_on()
+	if LevelInfo.active_level.world_light.energy <= .25 and front_light.enabled == true:
 		front_light.enabled = false
+
+func lights_on():
+	await get_tree().create_timer(randi_range(.1,.3)).timeout
+	$AnimationPlayer.play("lights_on")
 
 # Apply forces
 func _physics_process(delta: float) -> void:

@@ -561,7 +561,7 @@ blend_mode = 1
 max_distance = 100.0
 
 [node name="DayCycleTimer" type="Timer" parent="WorldLight"]
-wait_time = 120.0
+wait_time = 10.0
 one_shot = true
 autostart = true
 

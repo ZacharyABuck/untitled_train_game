@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c2qsc24ng38ir"]
+[gd_scene load_steps=7 format=3 uid="uid://c2qsc24ng38ir"]
 
 [ext_resource type="PackedScene" uid="uid://bjqtvbefblx2e" path="res://scenes/train/TrainVehicle.tscn" id="1"]
 [ext_resource type="Script" path="res://scripts/train/TrainEngine.gd" id="2_ggyah"]
@@ -13,6 +13,26 @@ height = 90
 fill = 1
 fill_from = Vector2(0.492788, 0.606838)
 fill_to = Vector2(0.61899, 0.192308)
+
+[sub_resource type="Animation" id="Animation_p26ps"]
+resource_name = "lights_on"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Car/FrontLight:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tvwec"]
+_data = {
+"lights_on": SubResource("Animation_p26ps")
+}
 
 [node name="TrainEngine" groups=["train_engines"] instance=ExtResource("1")]
 script = ExtResource("2_ggyah")
@@ -32,3 +52,8 @@ position = Vector2(-0.5, -487)
 scale = Vector2(5.07813, 10.2344)
 energy = 1.5
 texture = SubResource("GradientTexture2D_pkob8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
+libraries = {
+"": SubResource("AnimationLibrary_tvwec")
+}
