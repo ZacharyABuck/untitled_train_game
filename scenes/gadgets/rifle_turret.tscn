@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://crake4aukxc4c"]
+
+[ext_resource type="Texture2D" uid="uid://daouu3cumm1lh" path="res://sprites/gadgets/rifle_turret.png" id="1_iilt3"]
+[ext_resource type="PackedScene" uid="uid://c76dtsauqnpia" path="res://components/projectile_attack_component.tscn" id="1_n67g2"]
+[ext_resource type="Script" path="res://scripts/gadgets/rifle_turret.gd" id="1_p51aq"]
+[ext_resource type="PackedScene" uid="uid://cuvjtd33w3p7" path="res://scenes/projectiles/basic_bullet.tscn" id="2_iivj0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bdfa2"]
+radius = 791.01
+
+[sub_resource type="Gradient" id="Gradient_kh2jo"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ot7qh"]
+gradient = SubResource("Gradient_kh2jo")
+height = 90
+fill = 1
+fill_from = Vector2(0.492788, 0.606838)
+fill_to = Vector2(0.61899, 0.192308)
+
+[node name="RifleTurret" type="Node2D"]
+script = ExtResource("1_p51aq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 3.14159
+texture = ExtResource("1_iilt3")
+
+[node name="ProjectileAttackComponent" parent="." node_paths=PackedStringArray("ATTACK_TIMER", "TARGET_AREA") instance=ExtResource("1_n67g2")]
+TARGET_TYPES = {
+"car": false,
+"cover": false,
+"enemy": true,
+"player": false,
+"terrain": false
+}
+ATTACK_TIMER = NodePath("../AttackTimer")
+BULLET_SPEED = 50
+DAMAGE_PER_BULLET = 4
+PROJECTILE = ExtResource("2_iivj0")
+TARGET_AREA = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ProjectileAttackComponent"]
+shape = SubResource("CircleShape2D_bdfa2")
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="FrontLight" type="PointLight2D" parent="."]
+position = Vector2(219.285, 2.62994)
+rotation = 1.5708
+scale = Vector2(3.56228, 5.0407)
+energy = 0.5
+texture = SubResource("GradientTexture2D_ot7qh")
+
+[connection signal="area_entered" from="ProjectileAttackComponent" to="." method="_on_projectile_attack_component_area_entered"]

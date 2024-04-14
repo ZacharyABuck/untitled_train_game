@@ -18,6 +18,10 @@ var edge_menu_open: bool = false
 @onready var level_up_animation = $UI/LevelUpAnimation
 var new_player
 
+@onready var world_light = $WorldLight
+@onready var day_cycle_timer = $WorldLight/DayCycleTimer
+var is_day = true
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,6 +38,28 @@ func _process(_delta):
 	xp_bar.max_value = PlayerInfo.nextLevelExperience
 	level_label.text = "Level: " + str(PlayerInfo.currentLevel)
 	xp_label.text = "XP: " + str(PlayerInfo.currentExperience) + " / " + str(PlayerInfo.nextLevelExperience)
+	calculate_day_cycle()
+	$UI/MoneyLabel.text = "Money: $" + str(PlayerInfo.money)
+	$UI/PlayerExperienceBar.value = PlayerInfo.experience
+#set the day time in the tree
+func calculate_day_cycle():
+	if !day_cycle_timer.is_stopped():
+		var max_night_light = .75
+		var percent = ((day_cycle_timer.wait_time-day_cycle_timer.time_left)/day_cycle_timer.wait_time)
+		#first go to night time
+		if is_day:
+			world_light.energy = clamp(max_night_light*percent, 0, max_night_light)
+		#then go back to daytime
+		else:
+			world_light.energy = clamp(max_night_light-(max_night_light*percent), 0, max_night_light)
+
+func _on_day_cycle_timer_timeout():
+	if is_day:
+		is_day = false
+	else:
+		is_day = true
+	await get_tree().create_timer(day_cycle_timer.wait_time*.25).timeout
+	day_cycle_timer.start()
 
 func generate_track():
 	var point_increment = 3000

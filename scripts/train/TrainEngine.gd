@@ -20,6 +20,9 @@ var applied_force := 0.0
 var brake_force := 0.0
 var velocity := 0.0
 
+@onready var front_light = $Car/FrontLight
+
+
 func _ready() -> void:
 	TrainInfo.train_engine = self
 	super()
@@ -33,16 +36,10 @@ func change_towed_mass(mass_delta: float) -> void:
 # Emit a signal to update the HUD
 func _process(delta: float) -> void:
 	super(delta)
-	#train_info.emit({
-		#"throttle": target_force_percent,
-		#"force_applied": applied_force,
-		#"force_max": max_force,
-		#"brake": brake_force,
-		#"total_mass": total_mass,
-		#"velocity": velocity,
-		#"friction": friction_force,
-		#"drag": _drag_force(),
-	#})
+	if LevelInfo.active_level.world_light.energy >= .25:
+		front_light.enabled = true
+	else:
+		front_light.enabled = false
 
 # Apply forces
 func _physics_process(delta: float) -> void:

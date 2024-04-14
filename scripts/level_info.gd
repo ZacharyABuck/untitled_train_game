@@ -10,6 +10,7 @@ var track_cells = []
 
 var map_positions = []
 
+
 var level_parameters = {
 	"distance" = 5,
 	"direction" = "NW",
