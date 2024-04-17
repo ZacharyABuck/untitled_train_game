@@ -20,19 +20,19 @@ var events = {
 	"0" = {
 		"distance" = 0,
 		"triggered" = false,
-		"type" = "stampede",
+		"type" = null,
 		"area" = null,
 	},
 	"1" = {
 		"distance" = 2,
 		"triggered" = false,
-		"type" = "stampede",
+		"type" = null,
 		"area" = null,
 	},
 	"2" = {
 		"distance" = 4,
 		"triggered" = false,
-		"type" = "stampede",
+		"type" = null,
 		"area" = null,
 	},
 }

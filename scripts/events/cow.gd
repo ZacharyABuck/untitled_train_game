@@ -10,7 +10,6 @@ func _physics_process(delta):
 		var velocity = global_position.direction_to(target) * move_speed * delta
 		move_and_collide(velocity)
 
-
 func _on_enemy_detector_area_entered(area):
 	if area is HurtboxComponent:
 		print("enemy hit by cow")
