@@ -24,13 +24,13 @@ var events = {
 		"area" = null,
 	},
 	"1" = {
-		"distance" = 3,
+		"distance" = 2,
 		"triggered" = false,
 		"type" = "stampede",
 		"area" = null,
 	},
 	"2" = {
-		"distance" = 5,
+		"distance" = 4,
 		"triggered" = false,
 		"type" = "stampede",
 		"area" = null,

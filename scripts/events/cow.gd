@@ -1,15 +1,16 @@
-extends CharacterBody2D
+extends RigidBody2D
 
 var target
 var move_speed: float = 200.0
-
-signal move_completed
+var damage = 5
 
 func _physics_process(delta):
 	if target != null:
 		look_at(target)
-		velocity = global_position.direction_to(target) * move_speed * delta
-	if global_position == target:
-		move_completed.emit()
-		queue_free()
-	move_and_collide(velocity)
+		var velocity = global_position.direction_to(target) * move_speed * delta
+		move_and_collide(velocity)
+
+
+func _on_enemy_detector_area_entered(area):
+	if area is HurtboxComponent:
+		print("enemy hit by cow")
