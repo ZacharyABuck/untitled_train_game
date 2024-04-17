@@ -18,21 +18,21 @@ var level_parameters = {
 
 var events = {
 	"0" = {
-		"distance" = 1,
+		"distance" = 0,
 		"triggered" = false,
-		"type" = null,
+		"type" = "stampede",
 		"area" = null,
 	},
 	"1" = {
 		"distance" = 3,
 		"triggered" = false,
-		"type" = null,
+		"type" = "stampede",
 		"area" = null,
 	},
 	"2" = {
 		"distance" = 5,
 		"triggered" = false,
-		"type" = null,
+		"type" = "stampede",
 		"area" = null,
 	},
 }
@@ -43,6 +43,9 @@ var events_roster = {
 	},
 	"zombie_horde" = {
 		"scene" = preload("res://scenes/events/event_zombie_horde.tscn"),
+	},
+	"stampede" = {
+		"scene" = preload("res://scenes/events/event_stampede.tscn"),
 	},
 }
 

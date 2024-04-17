@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bauu0fl50lkr5"]
+[gd_scene load_steps=10 format=3 uid="uid://bauu0fl50lkr5"]
 
 [ext_resource type="Script" path="res://scripts/train/car.gd" id="1_oecw2"]
 [ext_resource type="Texture2D" uid="uid://cw2iyknxfg77v" path="res://sprites/train/engine.png" id="2_hspvl"]
@@ -26,26 +26,6 @@ gradient = SubResource("Gradient_c7mik")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.965812, 0.042735)
-
-[sub_resource type="Animation" id="Animation_bydpe"]
-resource_name = "lights_on"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("RoomLight:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.4, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [true, false, true, false, true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_budby"]
-_data = {
-"lights_on": SubResource("Animation_bydpe")
-}
 
 [node name="Car" type="Node2D" groups=["car"]]
 script = ExtResource("1_oecw2")
@@ -146,9 +126,5 @@ position = Vector2(39, 189)
 [node name="RoomLight" type="PointLight2D" parent="."]
 position = Vector2(2.86102e-06, 171.5)
 scale = Vector2(2, 5.79687)
+enabled = false
 texture = SubResource("GradientTexture2D_gbbk1")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_budby")
-}

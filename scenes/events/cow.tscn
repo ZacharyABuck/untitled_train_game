@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://clnbaq7aq6gj2"]
+
+[ext_resource type="Script" path="res://scripts/events/cow.gd" id="1_f406r"]
+[ext_resource type="Texture2D" uid="uid://rc4uj76fe7d4" path="res://sprites/obstacles/cow_walk.png" id="2_7k1nr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ls4n6"]
+size = Vector2(34, 76)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mwcg0"]
+atlas = ExtResource("2_7k1nr")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7fl7c"]
+atlas = ExtResource("2_7k1nr")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_om0s3"]
+atlas = ExtResource("2_7k1nr")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7ifk"]
+atlas = ExtResource("2_7k1nr")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d5h5q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mwcg0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7fl7c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_om0s3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7ifk")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]
+
+[node name="Cow" type="CharacterBody2D"]
+collision_layer = 256
+collision_mask = 256
+script = ExtResource("1_f406r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-12, 2)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_ls4n6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_d5h5q")
+animation = &"walk"
+autoplay = "walk"
+frame = 2
+frame_progress = 0.717479

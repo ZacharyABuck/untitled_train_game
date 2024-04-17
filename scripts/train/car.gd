@@ -29,12 +29,8 @@ func _ready():
 func _process(delta):
 	if LevelInfo.active_level.world_light.energy >= .25 and room_light.enabled == false:
 		room_light.enabled = true
-		lights_on()
 	if LevelInfo.active_level.world_light.energy <= .25 and room_light.enabled == true:
 		room_light.enabled = false
-
-func lights_on():
-	$AnimationPlayer.play("lights_on")
 
 func take_damage(amount):
 	health -= amount
