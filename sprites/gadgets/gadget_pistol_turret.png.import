@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://caubw3r4ae34"
-path="res://.godot/imported/medical_station.png-579a1035b8935658a3a4704cecb84a3f.ctex"
+uid="uid://c1esbr41s7mmf"
+path="res://.godot/imported/gadget_pistol_turret.png-0c9dd517bd06821d5688c6637757a0f4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/gadgets/medical_station.png"
-dest_files=["res://.godot/imported/medical_station.png-579a1035b8935658a3a4704cecb84a3f.ctex"]
+source_file="res://sprites/gadgets/gadget_pistol_turret.png"
+dest_files=["res://.godot/imported/gadget_pistol_turret.png-0c9dd517bd06821d5688c6637757a0f4.ctex"]
 
 [params]
 

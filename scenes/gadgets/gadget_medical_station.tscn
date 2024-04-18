@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://ckg62mtdgq6ee"]
 
-[ext_resource type="Script" path="res://scripts/gadgets/medical_station.gd" id="1_13wjr"]
-[ext_resource type="Texture2D" uid="uid://caubw3r4ae34" path="res://sprites/gadgets/medical_station.png" id="2_40hwj"]
+[ext_resource type="Script" path="res://scripts/gadgets/gadget_medical_station.gd" id="1_13wjr"]
+[ext_resource type="Texture2D" uid="uid://caubw3r4ae34" path="res://sprites/gadgets/gadget_medical_station.png" id="2_40hwj"]
 
 [sub_resource type="Gradient" id="Gradient_gxtix"]
 offsets = PackedFloat32Array(0.407407, 0.514403, 0.62963)

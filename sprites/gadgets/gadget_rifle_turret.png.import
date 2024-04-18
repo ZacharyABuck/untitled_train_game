@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://14r1hfha05cd"
-path="res://.godot/imported/barricade_single.png-148df6b772dcecb7d51057e8fde0b201.ctex"
+uid="uid://daouu3cumm1lh"
+path="res://.godot/imported/gadget_rifle_turret.png-db1478d4a3535673594f85920bec751b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/gadgets/barricade_single.png"
-dest_files=["res://.godot/imported/barricade_single.png-148df6b772dcecb7d51057e8fde0b201.ctex"]
+source_file="res://sprites/gadgets/gadget_rifle_turret.png"
+dest_files=["res://.godot/imported/gadget_rifle_turret.png-db1478d4a3535673594f85920bec751b.ctex"]
 
 [params]
 

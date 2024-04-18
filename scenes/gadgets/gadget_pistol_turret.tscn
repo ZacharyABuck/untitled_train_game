@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://j1ex3r7vq3i"]
 
-[ext_resource type="Script" path="res://scripts/gadgets/pistol_turret.gd" id="1_x11a8"]
-[ext_resource type="Texture2D" uid="uid://c1esbr41s7mmf" path="res://sprites/gadgets/pistol_turret.png" id="2_57lg3"]
+[ext_resource type="Script" path="res://scripts/gadgets/gadget_pistol_turret.gd" id="1_x11a8"]
+[ext_resource type="Texture2D" uid="uid://c1esbr41s7mmf" path="res://sprites/gadgets/gadget_pistol_turret.png" id="2_57lg3"]
 [ext_resource type="PackedScene" uid="uid://c76dtsauqnpia" path="res://components/projectile_attack_component.tscn" id="3_saoij"]
 [ext_resource type="PackedScene" uid="uid://cuvjtd33w3p7" path="res://scenes/projectiles/basic_bullet.tscn" id="4_4urt4"]
 

@@ -19,8 +19,6 @@ func stampede_triggered(area):
 		rotation_degrees = area.owner.global_rotation_degrees + 90
 		start_pos = $StartPosition.global_position
 		end_pos = $EndPosition.global_position
-		triggered = true
-
 		print("Event Triggered: Stampede")
 		set_alert_text_and_play(alert_text)
 		TrainInfo.train_engine.brake_force = 5

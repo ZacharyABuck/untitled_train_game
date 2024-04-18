@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btdrtgyipi8jv"
-path="res://.godot/imported/barricade_sprite_sheet.png-e9cac51814a86152dd9752656d930a89.ctex"
+uid="uid://caubw3r4ae34"
+path="res://.godot/imported/gadget_medical_station.png-d2412e93cdbde1db5baba4b52d7ae66f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/gadgets/barricade_sprite_sheet.png"
-dest_files=["res://.godot/imported/barricade_sprite_sheet.png-e9cac51814a86152dd9752656d930a89.ctex"]
+source_file="res://sprites/gadgets/gadget_medical_station.png"
+dest_files=["res://.godot/imported/gadget_medical_station.png-d2412e93cdbde1db5baba4b52d7ae66f.ctex"]
 
 [params]
 

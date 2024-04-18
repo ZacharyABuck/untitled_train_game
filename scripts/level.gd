@@ -12,6 +12,7 @@ var edge_menu_open: bool = false
 @onready var alert_label = $UI/AlertLabel
 @onready var enemies = $Enemies
 @onready var train_manager = $TrainManager
+@onready var enemy_spawn_positions = $EnemySpawnPositions
 @onready var xp_bar = $UI/PlayerExperienceBar
 @onready var level_label = $UI/LevelLabel
 @onready var xp_label = $UI/ExperienceLabel
@@ -20,8 +21,8 @@ var new_player
 
 @onready var world_light = $WorldLight
 @onready var day_cycle_timer = $WorldLight/DayCycleTimer
-var is_day = true
-
+var is_day: bool = true
+var in_event: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -41,6 +42,9 @@ func _process(_delta):
 	calculate_day_cycle()
 	$UI/MoneyLabel.text = "Money: $" + str(PlayerInfo.money)
 	$UI/PlayerExperienceBar.value = PlayerInfo.experience
+	if PlayerInfo.active_player != null:
+		enemy_spawn_positions.global_position = PlayerInfo.active_player.global_position
+
 #set the day time in the tree
 func calculate_day_cycle():
 	if !day_cycle_timer.is_stopped():
