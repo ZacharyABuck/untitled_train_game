@@ -13,6 +13,7 @@ var build_menu_open: bool = false
 @onready var level_label = $UI/LevelLabel
 @onready var xp_label = $UI/ExperienceLabel
 @onready var level_up_animation = $UI/LevelUpAnimation
+var new_player
 
 
 # Called when the node enters the scene tree for the first time.
@@ -20,7 +21,6 @@ func _ready():
 	generate_track()
 	spawn_player()
 	populate_build_menu()
-	
 	ExperienceSystem.level_up.connect(self.handle_level_up)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -34,8 +34,6 @@ func _process(_delta):
 
 func handle_level_up():
 	level_up_animation.play("level_up")
-	# Put call to Level Up Menu here (pause game, load menu, etc.)
-
 
 func generate_track():
 	var point_increment = 3000
@@ -82,7 +80,7 @@ func add_track_point(last_pos, index, random_pos):
 
 func spawn_player():
 	await get_tree().create_timer(.5).timeout
-	var new_player = player.instantiate()
+	new_player = player.instantiate()
 	new_player.global_position = TrainInfo.train_engine.global_position
 	add_child(new_player)
 

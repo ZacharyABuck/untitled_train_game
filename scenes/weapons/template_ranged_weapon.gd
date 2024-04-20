@@ -49,6 +49,7 @@ func shoot():
 		gunshot_sound.play()
 		var new_bullet = _build_bullet(current_bullet.instantiate())
 		LevelInfo.active_level.bullets.add_child(new_bullet)
+		attack_delay_timer.wait_time = current_attack_delay
 		attack_delay_timer.start()
 
 func _on_attack_timer_timeout():
