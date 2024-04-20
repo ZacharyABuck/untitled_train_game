@@ -166,7 +166,6 @@ HEALTHBAR = NodePath("../HealthBar")
 
 [node name="GunshotSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_6ji1c")
-bus = &"SFX"
 
 [node name="EdgeHandler" type="Node" parent="."]
 script = ExtResource("6_6b4qp")

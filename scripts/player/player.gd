@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var health_bar = $HealthBar
 @onready var gunshot = $GunshotSound
 @onready var health_component = $HealthComponent
+@onready var edge_handler = $EdgeHandler
 
 var active_car
 var bullet = preload("res://scenes/projectiles/fiery_bullet.tscn")
@@ -18,8 +19,12 @@ func _ready():
 	health_component.MAX_HEALTH = PlayerInfo.base_max_health
 	health_component.ARMOR_VALUE = PlayerInfo.base_armor
 	_instantiate_ranged_weapon(base_gun_scene)
-	
+	ExperienceSystem.level_up.connect(self.handle_level_up)
+
 func _process(delta):
+	#if current_ranged_weapon.current_attack_delay != current_ranged_weapon.base_attack_delay * PlayerInfo.current_attack_delay_modifier:
+		#current_ranged_weapon.current_attack_delay *= PlayerInfo.current_attack_delay_modifier
+		#print("Weapon attack speed updated")
 	pass
 
 func _physics_process(_delta):
@@ -60,22 +65,31 @@ func _strike():
 	print("Strike button pressed.")
 
 
-
 # -- EQUIPMENT FUNCTIONS -- #
 func _instantiate_ranged_weapon(gun_scene_location):
 	# Clear the existing ranged weapon so we can load the new one.
 	if is_instance_valid(current_ranged_weapon):
 		current_ranged_weapon.queue_free()
-	
+
 	var gun_scene = load(gun_scene_location)
 	current_ranged_weapon = gun_scene.instantiate()
-	
 	# Modify base weapon by flat bonus and multiplier of character.
 	var damage = current_ranged_weapon.base_damage
 	damage += PlayerInfo.current_ranged_damage_bonus
 	damage *= PlayerInfo.current_ranged_damage_multiplier
 	current_ranged_weapon.base_damage = damage
+	current_ranged_weapon.base_attack_delay = current_ranged_weapon.base_attack_delay * PlayerInfo.current_attack_delay_modifier
+
 	add_child(current_ranged_weapon)
+
+func refresh_current_ranged_weapon_stats():
+	var damage = current_ranged_weapon.base_damage
+	damage += PlayerInfo.current_ranged_damage_bonus
+	damage *= PlayerInfo.current_ranged_damage_multiplier
+	current_ranged_weapon.current_damage = damage
+	current_ranged_weapon.current_attack_delay = current_ranged_weapon.base_attack_delay * PlayerInfo.current_attack_delay_modifier
+	
+	print("Current ranged weapon attack delay: ", current_ranged_weapon.current_attack_delay)
 
 
 # -- MOVEMENT FUNCTIONS -- #
@@ -91,3 +105,10 @@ func _on_car_detector_area_entered(area):
 func _on_car_detector_area_exited(area):
 	if area.get_parent().is_in_group("car"):
 		TrainInfo.cars_inventory[active_car]["node"].sprite.modulate = TrainInfo.cars_inventory[active_car]["node"].starting_color
+
+
+# -- EDGE AND LEVEL FUNCTIONS -- #
+
+func handle_level_up():
+	edge_handler.add_edge("fleet_of_foot")
+	refresh_current_ranged_weapon_stats()

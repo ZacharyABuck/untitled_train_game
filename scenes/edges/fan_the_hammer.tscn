@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjxp48dlxp4iw"]
+
+[ext_resource type="Script" path="res://scenes/edges/fan_the_hammer.gd" id="1_aktr1"]
+
+[node name="FanTheHammer" type="Node"]
+script = ExtResource("1_aktr1")
