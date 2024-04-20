@@ -16,6 +16,7 @@ const COW = preload("res://scenes/events/cow.tscn")
 
 func stampede_triggered(area):
 	if area.get_parent().is_in_group("car") and triggered == false:
+		event_triggered()
 		rotation_degrees = area.owner.global_rotation_degrees + 90
 		start_pos = $StartPosition.global_position
 		end_pos = $EndPosition.global_position

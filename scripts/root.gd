@@ -55,9 +55,9 @@ func start_game(direction):
 	for i in main_menu.get_children():
 		i.hide()
 	LevelInfo.level_parameters["direction"] = direction
-	for i in LevelInfo.events.keys():
-		LevelInfo.events[i]["type"] = LevelInfo.events_roster.keys().pick_random()
-		print("Event " + str(i) + " = " + str(LevelInfo.events[i]["type"]))
+	#for i in LevelInfo.events.keys():
+		#LevelInfo.events[i]["type"] = LevelInfo.events_roster.keys().pick_random()
+		#print("Event " + str(i) + " = " + str(LevelInfo.events[i]["type"]))
 	var new_level = level.instantiate()
 	add_child(new_level)
 	LevelInfo.active_level = new_level

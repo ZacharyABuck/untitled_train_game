@@ -10,9 +10,8 @@ var track_cells = []
 
 var map_positions = []
 
-
 var level_parameters = {
-	"distance" = 5,
+	"distance" = 6,
 	"direction" = "NW",
 }
 
@@ -20,19 +19,19 @@ var events = {
 	"0" = {
 		"distance" = 0,
 		"triggered" = false,
-		"type" = null,
+		"type" = "shop",
 		"area" = null,
 	},
 	"1" = {
 		"distance" = 2,
 		"triggered" = false,
-		"type" = null,
+		"type" = "shop",
 		"area" = null,
 	},
 	"2" = {
 		"distance" = 4,
 		"triggered" = false,
-		"type" = null,
+		"type" = "shop",
 		"area" = null,
 	},
 }
@@ -46,6 +45,9 @@ var events_roster = {
 	},
 	"stampede" = {
 		"scene" = preload("res://scenes/events/event_stampede.tscn"),
+	},
+	"shop" = {
+		"scene" = preload("res://scenes/events/event_shop.tscn"),
 	},
 }
 
