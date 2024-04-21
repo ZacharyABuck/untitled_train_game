@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://q2dd3frbnjgr"]
+[gd_scene load_steps=9 format=3 uid="uid://q2dd3frbnjgr"]
 
 [ext_resource type="Texture2D" uid="uid://u7ejb58upvfd" path="res://sprites/tiles/desert_tileset_512.png" id="1_b75gg"]
 [ext_resource type="Script" path="res://scripts/maps/map.gd" id="2_jsjxo"]
-[ext_resource type="Texture2D" uid="uid://c56tyd5qivm7n" path="res://sprites/tiles/track_tileset_512.png" id="2_tjrrk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vf8h2"]
 resource_name = "desert"
@@ -29,30 +28,12 @@ texture_region_size = Vector2i(128, 128)
 2:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 2:1/0/physics_layer_0/angular_velocity = 0.0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lsg8j"]
-resource_name = "track"
-texture = ExtResource("2_tjrrk")
-texture_region_size = Vector2i(128, 128)
-0:0/0 = 0
-0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:0/0/physics_layer_0/angular_velocity = 0.0
-1:0/0 = 0
-1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-1:0/0/physics_layer_0/angular_velocity = 0.0
-0:1/0 = 0
-0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:1/0/physics_layer_0/angular_velocity = 0.0
-1:1/0 = 0
-1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-1:1/0/physics_layer_0/angular_velocity = 0.0
-
 [sub_resource type="TileSet" id="TileSet_x5cjt"]
 tile_size = Vector2i(128, 128)
 physics_layer_0/collision_layer = 64
 physics_layer_0/collision_mask = 2
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_vf8h2")
-sources/1 = SubResource("TileSetAtlasSource_lsg8j")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gauyu"]
 size = Vector2(1033, 6844)

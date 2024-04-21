@@ -1,63 +1,38 @@
-[gd_scene load_steps=18 format=3 uid="uid://ys4jr28gfxkd"]
+[gd_scene load_steps=17 format=3 uid="uid://ys4jr28gfxkd"]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy_bandit.gd" id="1_488ir"]
-[ext_resource type="Texture2D" uid="uid://ccds4qrjst8a5" path="res://sprites/enemies/slasher_man_gb.png" id="2_oce6m"]
+[ext_resource type="Texture2D" uid="uid://bn0yom2xg0em1" path="res://sprites/enemies/enemy_bandit.png" id="2_oyuk1"]
 [ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://components/health_component.tscn" id="3_gpfls"]
 [ext_resource type="PackedScene" uid="uid://cyv57gynwtrmu" path="res://components/hurtbox_component.tscn" id="4_0ge5n"]
 [ext_resource type="PackedScene" uid="uid://c76dtsauqnpia" path="res://components/projectile_attack_component.tscn" id="5_4b008"]
 [ext_resource type="PackedScene" uid="uid://cuvjtd33w3p7" path="res://scenes/projectiles/basic_bullet.tscn" id="6_k5sjj"]
 [ext_resource type="AudioStream" uid="uid://n5co3ekiet4j" path="res://sounds/gunshot_01.wav" id="7_bew6k"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_v3x38"]
-atlas = ExtResource("2_oce6m")
-region = Rect2(96, 128, 24, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_dyraw"]
+atlas = ExtResource("2_oyuk1")
+region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ul17l"]
-atlas = ExtResource("2_oce6m")
-region = Rect2(120, 128, 24, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_udjoh"]
+atlas = ExtResource("2_oyuk1")
+region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ek46o"]
-atlas = ExtResource("2_oce6m")
-region = Rect2(96, 64, 24, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_gm7wd"]
+atlas = ExtResource("2_oyuk1")
+region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gbyij"]
-atlas = ExtResource("2_oce6m")
-region = Rect2(120, 64, 24, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3yd7"]
+atlas = ExtResource("2_oyuk1")
+region = Rect2(128, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qw0mb"]
-atlas = ExtResource("2_oce6m")
-region = Rect2(144, 64, 24, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lwujq"]
-atlas = ExtResource("2_oce6m")
-region = Rect2(168, 64, 24, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_82347"]
+atlas = ExtResource("2_oyuk1")
+region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_k0d6m"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_v3x38")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ul17l")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_v3x38")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ul17l")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_v3x38")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ul17l")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_v3x38")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ul17l")
+"texture": SubResource("AtlasTexture_dyraw")
 }],
 "loop": false,
 "name": &"death",
@@ -65,24 +40,24 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ek46o")
+"texture": SubResource("AtlasTexture_udjoh")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gbyij")
+"texture": SubResource("AtlasTexture_gm7wd")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qw0mb")
+"texture": SubResource("AtlasTexture_s3yd7")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_lwujq")
+"texture": SubResource("AtlasTexture_82347")
 }],
 "loop": true,
 "name": &"running",
-"speed": 10.0
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4v00t"]
-size = Vector2(36, 63)
+size = Vector2(36, 45)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fxxqh"]
 radius = 448.055
@@ -99,10 +74,12 @@ script = ExtResource("1_488ir")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 position = Vector2(-1, 7)
-scale = Vector2(3, 3)
+rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_k0d6m")
 animation = &"running"
 autoplay = "running"
+frame = 3
+frame_progress = 0.161986
 
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 2.0
@@ -117,7 +94,7 @@ collision_mask = 12
 health_component = NodePath("../HealthComponent")
 
 [node name="Hurtbox" type="CollisionShape2D" parent="HurtboxComponent"]
-position = Vector2(0, 19.5)
+position = Vector2(-2, 6.5)
 shape = SubResource("RectangleShape2D_4v00t")
 
 [node name="GunAttackComponent" parent="." node_paths=PackedStringArray("ATTACK_TIMER", "TARGET_AREA", "SHOOT_SOUND") instance=ExtResource("5_4b008")]

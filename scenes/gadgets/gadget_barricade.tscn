@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bse1rme7qjshm"]
 
-[ext_resource type="Texture2D" uid="uid://btdrtgyipi8jv" path="res://sprites/gadgets/barricade_sprite_sheet.png" id="1_qtqtt"]
-[ext_resource type="Script" path="res://scripts/gadgets/barricade.gd" id="1_xxu03"]
+[ext_resource type="Texture2D" uid="uid://btdrtgyipi8jv" path="res://sprites/gadgets/gadget_barricade_sprite_sheet.png" id="1_qtqtt"]
+[ext_resource type="Script" path="res://scripts/gadgets/gadget_barricade.gd" id="1_xxu03"]
 [ext_resource type="PackedScene" uid="uid://cyv57gynwtrmu" path="res://components/hurtbox_component.tscn" id="2_5iwk3"]
 [ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://components/health_component.tscn" id="3_ssjoa"]
 

@@ -4,8 +4,8 @@ var alert_text: String = "Ambush!"
 
 func ambush_triggered(area):
 	if area.get_parent().is_in_group("car") and triggered == false:
+		event_triggered()
 		print("Event Triggered: Ambush")
-		triggered = true
 		TrainInfo.train_engine.brake_force = 5
 		set_alert_text_and_play(alert_text)
 		var new_spawner = EnemySpawner.new()

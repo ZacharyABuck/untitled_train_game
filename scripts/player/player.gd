@@ -7,6 +7,9 @@ extends CharacterBody2D
 @onready var health_component = $HealthComponent
 @onready var edge_handler = $EdgeHandler
 
+@onready var health_component = $HealthComponent
+
+
 var active_car
 var bullet = preload("res://scenes/projectiles/fiery_bullet.tscn")
 var can_shoot = true

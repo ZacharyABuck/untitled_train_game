@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c56tyd5qivm7n"
-path="res://.godot/imported/track_tileset_512.png-d855d73843228d2a44b48d8248c63ee5.ctex"
+uid="uid://caubw3r4ae34"
+path="res://.godot/imported/gadget_medical_station.png-d2412e93cdbde1db5baba4b52d7ae66f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/tiles/track_tileset_512.png"
-dest_files=["res://.godot/imported/track_tileset_512.png-d855d73843228d2a44b48d8248c63ee5.ctex"]
+source_file="res://sprites/gadgets/gadget_medical_station.png"
+dest_files=["res://.godot/imported/gadget_medical_station.png-d2412e93cdbde1db5baba4b52d7ae66f.ctex"]
 
 [params]
 

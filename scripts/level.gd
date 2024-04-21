@@ -12,12 +12,18 @@ var edge_menu_open: bool = false
 @onready var alert_label = $UI/AlertLabel
 @onready var enemies = $Enemies
 @onready var train_manager = $TrainManager
+@onready var enemy_spawn_positions = $EnemySpawnPositions
 @onready var xp_bar = $UI/PlayerExperienceBar
 @onready var level_label = $UI/LevelLabel
 @onready var xp_label = $UI/ExperienceLabel
 @onready var level_up_animation = $UI/LevelUpAnimation
 var new_player
 
+@onready var world_light = $WorldLight
+@onready var day_cycle_timer = $WorldLight/DayCycleTimer
+var is_day: bool = true
+var in_event: bool = false
+var max_night_light: float = .75
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,6 +40,40 @@ func _process(_delta):
 	xp_bar.max_value = PlayerInfo.nextLevelExperience
 	level_label.text = "Level: " + str(PlayerInfo.currentLevel)
 	xp_label.text = "XP: " + str(PlayerInfo.currentExperience) + " / " + str(PlayerInfo.nextLevelExperience)
+	calculate_day_cycle()
+	$UI/MoneyLabel.text = "Money: $" + str(PlayerInfo.money)
+	$UI/PlayerExperienceBar.value = PlayerInfo.experience
+	if PlayerInfo.active_player != null:
+		enemy_spawn_positions.global_position = PlayerInfo.active_player.global_position
+
+#set the day time in the tree
+func calculate_day_cycle():
+	if !day_cycle_timer.is_stopped():
+		var percent = ((day_cycle_timer.wait_time-day_cycle_timer.time_left)/day_cycle_timer.wait_time)
+		#first go to night time
+		if is_day:
+			world_light.energy = clamp(max_night_light*percent, 0, max_night_light)
+		#then go back to daytime
+		else:
+			world_light.energy = clamp(max_night_light-(max_night_light*percent), 0, max_night_light)
+
+func instant_night():
+	day_cycle_timer.stop()
+	var tween = get_tree().create_tween().bind_node(self)
+	tween.tween_property(world_light, "energy", max_night_light, 1)
+
+func instant_day():
+	var tween = get_tree().create_tween().bind_node(self)
+	tween.tween_property(world_light, "energy", 0, 1)
+	day_cycle_timer.start()
+
+func _on_day_cycle_timer_timeout():
+	if is_day:
+		is_day = false
+	else:
+		is_day = true
+	await get_tree().create_timer(day_cycle_timer.wait_time*.25).timeout
+	day_cycle_timer.start()
 
 func generate_track():
 	var point_increment = 3000

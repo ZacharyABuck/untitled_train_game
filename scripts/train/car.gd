@@ -6,6 +6,8 @@ extends Node2D
 @onready var health_bar = $HealthBar
 @onready var hard_points = $HardPoints
 @onready var gadgets = $Gadgets
+@onready var room_light = $RoomLight
+
 
 var hard_point = preload("res://scenes/hard_point.tscn")
 
@@ -23,7 +25,13 @@ func _ready():
 	starting_color = $Sprite2D.modulate
 	health_bar.max_value = max_health
 	health_bar.value = health
-	
+
+func _process(delta):
+	if LevelInfo.active_level.world_light.energy >= .25 and room_light.enabled == false:
+		room_light.enabled = true
+	if LevelInfo.active_level.world_light.energy <= .25 and room_light.enabled == true:
+		room_light.enabled = false
+
 func take_damage(amount):
 	health -= amount
 	health_bar.value = health

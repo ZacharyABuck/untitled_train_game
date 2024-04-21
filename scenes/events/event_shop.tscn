@@ -1,0 +1,80 @@
+[gd_scene load_steps=8 format=3 uid="uid://c4nak430nkfsa"]
+
+[ext_resource type="Script" path="res://scripts/events/event_shop.gd" id="1_cnk1b"]
+[ext_resource type="Texture2D" uid="uid://so1nk7bc5pxv" path="res://sprites/obstacles/shop_shack.png" id="1_wsbf3"]
+[ext_resource type="Texture2D" uid="uid://c1esbr41s7mmf" path="res://sprites/gadgets/gadget_pistol_turret.png" id="3_o83n7"]
+[ext_resource type="Texture2D" uid="uid://daouu3cumm1lh" path="res://sprites/gadgets/gadget_rifle_turret.png" id="4_f2i1k"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xt6du"]
+radius = 329.038
+
+[sub_resource type="Gradient" id="Gradient_uis41"]
+offsets = PackedFloat32Array(0, 0.646091)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rrh8w"]
+gradient = SubResource("Gradient_uis41")
+fill = 1
+fill_from = Vector2(0.487179, 0.487179)
+
+[node name="EventShop" type="Area2D"]
+collision_layer = 128
+collision_mask = 4
+script = ExtResource("1_cnk1b")
+
+[node name="TrainDetector" type="CollisionShape2D" parent="."]
+position = Vector2(213, -203)
+shape = SubResource("CircleShape2D_xt6du")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(235, -206)
+texture = ExtResource("1_wsbf3")
+
+[node name="TrackDetector" type="RayCast2D" parent="Sprite2D"]
+target_position = Vector2(-142, 65)
+collision_mask = 2
+hit_from_inside = true
+collide_with_areas = true
+
+[node name="EnterButton" type="Button" parent="Sprite2D"]
+visible = false
+offset_left = -81.0
+offset_top = -20.0
+offset_right = 42.0
+offset_bottom = 24.0
+text = "Enter Shop"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ShopContainer" type="GridContainer" parent="CanvasLayer"]
+process_mode = 2
+offset_left = 850.0
+offset_top = 481.0
+offset_right = 1070.0
+offset_bottom = 616.0
+
+[node name="ItemList" type="ItemList" parent="CanvasLayer/ShopContainer"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+auto_height = true
+item_count = 2
+fixed_icon_size = Vector2i(32, 32)
+item_0/text = "Cool Weapon $5"
+item_0/icon = ExtResource("3_o83n7")
+item_1/text = "Cooler Weapon $10"
+item_1/icon = ExtResource("4_f2i1k")
+
+[node name="LeaveButton" type="Button" parent="CanvasLayer/ShopContainer"]
+layout_mode = 2
+text = "Leave"
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(232, -211)
+scale = Vector2(4.21875, 4.21875)
+energy = 0.5
+texture = SubResource("GradientTexture2D_rrh8w")
+
+[connection signal="area_entered" from="." to="." method="shop_triggered"]
+[connection signal="pressed" from="Sprite2D/EnterButton" to="." method="_on_enter_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/ShopContainer/LeaveButton" to="." method="_on_leave_button_pressed"]

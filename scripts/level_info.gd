@@ -11,7 +11,7 @@ var track_cells = []
 var map_positions = []
 
 var level_parameters = {
-	"distance" = 5,
+	"distance" = 6,
 	"direction" = "NW",
 }
 
@@ -29,7 +29,7 @@ var events = {
 		"area" = null,
 	},
 	"2" = {
-		"distance" = 5,
+		"distance" = 4,
 		"triggered" = false,
 		"type" = null,
 		"area" = null,
@@ -42,6 +42,15 @@ var events_roster = {
 	},
 	"zombie_horde" = {
 		"scene" = preload("res://scenes/events/event_zombie_horde.tscn"),
+	},
+	"stampede" = {
+		"scene" = preload("res://scenes/events/event_stampede.tscn"),
+	},
+	"shop" = {
+		"scene" = preload("res://scenes/events/event_shop.tscn"),
+	},
+	"haunting" = {
+		"scene" = preload("res://scenes/events/event_haunting.tscn"),
 	},
 }
 

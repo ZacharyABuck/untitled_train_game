@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://t3ahcqiswtrh"
-path="res://.godot/imported/track_tileset.png-01c34ff268db5b38e891af09e7fa8f67.ctex"
+uid="uid://daouu3cumm1lh"
+path="res://.godot/imported/gadget_rifle_turret.png-db1478d4a3535673594f85920bec751b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/tiles/track_tileset.png"
-dest_files=["res://.godot/imported/track_tileset.png-01c34ff268db5b38e891af09e7fa8f67.ctex"]
+source_file="res://sprites/gadgets/gadget_rifle_turret.png"
+dest_files=["res://.godot/imported/gadget_rifle_turret.png-db1478d4a3535673594f85920bec751b.ctex"]
 
 [params]
 

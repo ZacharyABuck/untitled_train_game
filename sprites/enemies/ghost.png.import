@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btdrtgyipi8jv"
-path="res://.godot/imported/barricade_sprite_sheet.png-e9cac51814a86152dd9752656d930a89.ctex"
+uid="uid://g4ap7gsn0j5p"
+path="res://.godot/imported/ghost.png-04bb1a0e3c16460787a0c691829e5d52.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/gadgets/barricade_sprite_sheet.png"
-dest_files=["res://.godot/imported/barricade_sprite_sheet.png-e9cac51814a86152dd9752656d930a89.ctex"]
+source_file="res://sprites/enemies/ghost.png"
+dest_files=["res://.godot/imported/ghost.png-04bb1a0e3c16460787a0c691829e5d52.ctex"]
 
 [params]
 
