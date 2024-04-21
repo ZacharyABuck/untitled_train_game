@@ -12,13 +12,14 @@ func _ready():
 
 
 func add_edge(edge_reference):
+	print("edge reference: ", edge_reference)
 
 	# loop through all Child Edges to see if one already exists.
 	# if it does exist, increase its level. Otherwise, add new Edge.
 	var existing_edge
 	var existing_edge_found = false
 	for child_edge in self.get_children():
-		if child_edge.edge_name == edge_reference:
+		if child_edge.edge_name == edge_reference["name"]:
 			print("Matching Edge found: ", child_edge.edge_name)
 			existing_edge = child_edge
 			existing_edge_found = true
@@ -26,8 +27,8 @@ func add_edge(edge_reference):
 		_increase_edge_level(existing_edge)
 		print(existing_edge.edge_name, " is now level ", existing_edge.edge_level)
 	else:
-		print("Edge to load: ",EdgeInfo.edge_roster[edge_reference]["scene"] )
-		var edge_scene = EdgeInfo.edge_roster[edge_reference]["scene"].instantiate()
+		print("Edge to load: ", edge_reference["scene"])
+		var edge_scene = edge_reference["scene"].instantiate()
 		add_child(edge_scene)
 		print("New Edge added: ", edge_scene.edge_name)
 

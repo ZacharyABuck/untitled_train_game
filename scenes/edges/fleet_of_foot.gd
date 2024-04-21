@@ -1,5 +1,5 @@
 extends Edge
-var edge_name = "fleet_of_foot"
+var edge_name = "Fleet of Foot"
 # 20% increased move speed
 var move_speed_multiplier: float = 1.2
 
