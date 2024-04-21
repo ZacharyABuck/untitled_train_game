@@ -33,7 +33,7 @@ func _physics_process(delta):
 		if global_position.distance_to(target.global_position) <= 5:
 			money_stolen = true
 			target = start_pos
-			PlayerInfo.money -= steal_amount
+			PlayerInfo.current_money -= steal_amount
 	if target != null and money_stolen and state == "moving":
 		look_at(target)
 		move_and_collide(global_position.direction_to(target)*(speed*delta))
@@ -44,6 +44,6 @@ func _physics_process(delta):
 func _on_animated_sprite_2d_animation_finished():
 	if $AnimatedSprite2D.animation == "death":
 		if money_stolen:
-			PlayerInfo.money += steal_amount
+			PlayerInfo.current_money += steal_amount
 		ghost_freed.emit()
 		queue_free()

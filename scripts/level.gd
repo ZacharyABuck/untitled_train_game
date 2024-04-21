@@ -41,8 +41,7 @@ func _process(_delta):
 	level_label.text = "Level: " + str(PlayerInfo.currentLevel)
 	xp_label.text = "XP: " + str(PlayerInfo.currentExperience) + " / " + str(PlayerInfo.nextLevelExperience)
 	calculate_day_cycle()
-	$UI/MoneyLabel.text = "Money: $" + str(PlayerInfo.money)
-	$UI/PlayerExperienceBar.value = PlayerInfo.experience
+	$UI/PlayerExperienceBar.value = PlayerInfo.currentExperience
 	if PlayerInfo.active_player != null:
 		enemy_spawn_positions.global_position = PlayerInfo.active_player.global_position
 
