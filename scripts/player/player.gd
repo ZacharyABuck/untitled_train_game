@@ -22,9 +22,6 @@ func _ready():
 	ExperienceSystem.level_up.connect(self.handle_level_up)
 
 func _process(delta):
-	#if current_ranged_weapon.current_attack_delay != current_ranged_weapon.base_attack_delay * PlayerInfo.current_attack_delay_modifier:
-		#current_ranged_weapon.current_attack_delay *= PlayerInfo.current_attack_delay_modifier
-		#print("Weapon attack speed updated")
 	pass
 
 func _physics_process(_delta):
@@ -110,5 +107,4 @@ func _on_car_detector_area_exited(area):
 # -- EDGE AND LEVEL FUNCTIONS -- #
 
 func handle_level_up():
-	#edge_handler.add_edge("fleet_of_foot")
 	refresh_current_ranged_weapon_stats()
