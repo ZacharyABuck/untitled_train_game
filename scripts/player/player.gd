@@ -110,5 +110,5 @@ func _on_car_detector_area_exited(area):
 # -- EDGE AND LEVEL FUNCTIONS -- #
 
 func handle_level_up():
-	edge_handler.add_edge("fleet_of_foot")
+	#edge_handler.add_edge("fleet_of_foot")
 	refresh_current_ranged_weapon_stats()

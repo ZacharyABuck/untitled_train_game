@@ -6,14 +6,14 @@ var edge_roster = {
 		"category" = "Gunslinger",
 		"description" = "Increase ranged attack speed by 20%",
 		"scene" = load("res://scenes/edges/fan_the_hammer.tscn"),
-		"sprite" = load("XXXX"),
+		"sprite" = load("res://sprites/edges/fan_the_hammer_icon.png"),
 	},
 	"fleet_of_foot" = {
 		"name" = "Fleet of Foot",
 		"category" = "Survivalist",
 		"description" = "Increase your move speed by 20%",
 		"scene" = load("res://scenes/edges/fleet_of_foot.tscn"),
-		"sprite" = load("XXXX"),
+		"sprite" = load("res://sprites/edges/fleet_of_foot_icon.png"),
 	}
 }
 

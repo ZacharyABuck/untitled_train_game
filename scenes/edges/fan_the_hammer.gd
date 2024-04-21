@@ -1,6 +1,6 @@
 extends Edge
-var edge_name = "fan_the_hammer"
-#20% attack speed
+var edge_name = "Fan the Hammer"
+# 20% attack speed
 var attack_speed_multiplier: float = 0.2
 
 # Called when the node enters the scene tree for the first time.

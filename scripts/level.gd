@@ -5,7 +5,10 @@ var player = preload("res://scenes/player.tscn")
 
 @onready var build_menu = $UI/BuildMenu
 var build_menu_open: bool = false
+@onready var edge_menu = $UI/EdgeMenu
+var edge_menu_open: bool = false
 @onready var gadget_list = $UI/BuildMenu/MarginContainer/GadgetList
+@onready var edge_list = $UI/EdgeMenu/EdgeContainer/EdgeList
 @onready var alert_label = $UI/AlertLabel
 @onready var enemies = $Enemies
 @onready var train_manager = $TrainManager
@@ -31,9 +34,6 @@ func _process(_delta):
 	xp_bar.max_value = PlayerInfo.nextLevelExperience
 	level_label.text = "Level: " + str(PlayerInfo.currentLevel)
 	xp_label.text = "XP: " + str(PlayerInfo.currentExperience) + " / " + str(PlayerInfo.nextLevelExperience)
-
-func handle_level_up():
-	level_up_animation.play("level_up")
 
 func generate_track():
 	var point_increment = 3000
@@ -98,3 +98,31 @@ func _on_enemy_spawn_timer_timeout():
 	add_child(new_spawner)
 	var random_enemy = new_spawner.find_random_enemy()
 	new_spawner.spawn_enemy(1, random_enemy, null)
+
+
+func handle_level_up():
+	level_up_animation.play("level_up")
+	pause_game()
+	populate_edge_menu()
+	LevelInfo.active_level.edge_menu.show()
+	edge_menu_open = true
+
+# Edge Menu
+func populate_edge_menu():
+	for edge in EdgeInfo.edge_roster:
+		edge_list.add_item(EdgeInfo.edge_roster[edge]["name"], EdgeInfo.edge_roster[edge]["sprite"])
+		edge_list.set_item_metadata(edge_list.item_count-1, EdgeInfo.edge_roster[edge])
+
+func _on_edge_list_item_clicked(index, at_position, mouse_button_index):
+	var edge_info = LevelInfo.active_level.edge_list.get_item_metadata(index)
+	new_player.edge_handler.add_edge(edge_info)
+	LevelInfo.active_level.edge_menu.hide()
+	edge_list.clear()
+	unpause_game()
+
+func pause_game():
+	LevelInfo.active_level.get_tree().paused = true
+
+func unpause_game():
+	LevelInfo.active_level.get_tree().paused = false
+
