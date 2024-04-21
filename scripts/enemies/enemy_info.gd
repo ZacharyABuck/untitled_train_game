@@ -5,10 +5,10 @@ var enemy_roster = {
 		"scene" = load("res://scenes/enemies/enemy_bandit.tscn"),
 		"rarity" = 50,
 		"health" = 5,
-		"damage" = 1,
+		"damage" = 2,
 		"money" = 2,
 		"speed" = 150,
-		"experience" = 10,
+		"experience" = 3,
 	},
 	"zombie" = {
 		"scene" = load("res://scenes/enemies/enemy_zombie.tscn"),
@@ -17,7 +17,7 @@ var enemy_roster = {
 		"damage" = 5,
 		"money" = 2,
 		"speed" = 100,
-		"experience" = 10,
+		"experience" = 5,
 	},
 }
 
