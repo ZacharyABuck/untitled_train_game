@@ -23,6 +23,7 @@ var new_player
 @onready var day_cycle_timer = $WorldLight/DayCycleTimer
 var is_day: bool = true
 var in_event: bool = false
+var max_night_light: float = .75
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -48,7 +49,6 @@ func _process(_delta):
 #set the day time in the tree
 func calculate_day_cycle():
 	if !day_cycle_timer.is_stopped():
-		var max_night_light = .75
 		var percent = ((day_cycle_timer.wait_time-day_cycle_timer.time_left)/day_cycle_timer.wait_time)
 		#first go to night time
 		if is_day:
@@ -56,6 +56,16 @@ func calculate_day_cycle():
 		#then go back to daytime
 		else:
 			world_light.energy = clamp(max_night_light-(max_night_light*percent), 0, max_night_light)
+
+func instant_night():
+	day_cycle_timer.stop()
+	var tween = get_tree().create_tween().bind_node(self)
+	tween.tween_property(world_light, "energy", max_night_light, 1)
+
+func instant_day():
+	var tween = get_tree().create_tween().bind_node(self)
+	tween.tween_property(world_light, "energy", 0, 1)
+	day_cycle_timer.start()
 
 func _on_day_cycle_timer_timeout():
 	if is_day:

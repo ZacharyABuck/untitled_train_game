@@ -19,6 +19,15 @@ var enemy_roster = {
 		"speed" = 100,
 		"experience" = 5,
 	},
+	"ghost" = {
+		"scene" = load("res://scenes/enemies/enemy_ghost.tscn"),
+		"rarity" = 80,
+		"health" = 1,
+		"damage" = 0,
+		"money" = 0,
+		"speed" = 150,
+		"experience" = 2,
+	},
 }
 
 var enemy_inventory = {

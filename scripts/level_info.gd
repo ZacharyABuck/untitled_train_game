@@ -17,21 +17,21 @@ var level_parameters = {
 
 var events = {
 	"0" = {
-		"distance" = 0,
+		"distance" = 1,
 		"triggered" = false,
-		"type" = "shop",
+		"type" = null,
 		"area" = null,
 	},
 	"1" = {
-		"distance" = 2,
+		"distance" = 3,
 		"triggered" = false,
-		"type" = "shop",
+		"type" = null,
 		"area" = null,
 	},
 	"2" = {
 		"distance" = 4,
 		"triggered" = false,
-		"type" = "shop",
+		"type" = null,
 		"area" = null,
 	},
 }
@@ -48,6 +48,9 @@ var events_roster = {
 	},
 	"shop" = {
 		"scene" = preload("res://scenes/events/event_shop.tscn"),
+	},
+	"haunting" = {
+		"scene" = preload("res://scenes/events/event_haunting.tscn"),
 	},
 }
 
