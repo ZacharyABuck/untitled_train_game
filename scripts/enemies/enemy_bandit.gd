@@ -23,6 +23,7 @@ func _process(_delta):
 
 func _physics_process(delta):
 	if state != "dead":
+		look_at(target.global_position)
 		if gun.target_is_in_range(target):
 			state = "attacking"
 			gun.shoot_if_target_in_range(target)
