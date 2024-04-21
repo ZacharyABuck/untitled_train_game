@@ -20,6 +20,7 @@ func add_edge(edge_reference):
 	else:
 		var edge_scene = edge_reference["scene"].instantiate()
 		add_child(edge_scene)
+	Player.handle_level_up()
 
 func _increase_edge_level(edge : Edge):
 	edge.edge_level += 1

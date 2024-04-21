@@ -21,7 +21,6 @@ func _ready():
 	health_component.MAX_HEALTH = PlayerInfo.base_max_health
 	health_component.ARMOR_VALUE = PlayerInfo.base_armor
 	_instantiate_ranged_weapon(base_gun_scene)
-	ExperienceSystem.level_up.connect(self.handle_level_up)
 
 func _process(delta):
 	pass
