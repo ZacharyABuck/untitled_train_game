@@ -40,7 +40,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vmhlk"]
-radius = 14.0
+radius = 26.0
 
 [sub_resource type="Gradient" id="Gradient_5ru6r"]
 offsets = PackedFloat32Array(0, 0.329218, 0.596708, 1)
@@ -58,6 +58,7 @@ script = ExtResource("1_vhgvf")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 rotation = 1.5708
+scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_axxmt")
 animation = &"death"
 autoplay = "moving"

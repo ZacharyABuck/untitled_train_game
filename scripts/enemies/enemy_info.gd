@@ -25,7 +25,7 @@ var enemy_roster = {
 		"health" = 1,
 		"damage" = 0,
 		"money" = 0,
-		"speed" = 150,
+		"speed" = 200,
 		"experience" = 2,
 	},
 }

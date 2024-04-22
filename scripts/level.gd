@@ -66,8 +66,9 @@ func instant_night():
 	tween.tween_property(world_light, "energy", max_night_light, 1)
 
 func instant_day():
+	is_day = true
 	var tween = get_tree().create_tween().bind_node(self)
-	tween.tween_property(world_light, "energy", 0, 1)
+	await tween.tween_property(world_light, "energy", 0, 1)
 	day_cycle_timer.start()
 
 func _on_day_cycle_timer_timeout():
