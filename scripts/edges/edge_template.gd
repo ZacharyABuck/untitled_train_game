@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 class_name Edge
 
 @onready var player = PlayerInfo.active_player

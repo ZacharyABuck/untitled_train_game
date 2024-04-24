@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctkq56njovp5g"]
+
+[ext_resource type="Script" path="res://scenes/edges/tough_hide.gd" id="1_3ivog"]
+
+[node name="ToughHide" type="Node"]
+script = ExtResource("1_3ivog")

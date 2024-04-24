@@ -166,6 +166,7 @@ func _on_edge_list_item_clicked(index, at_position, mouse_button_index):
 	new_player.edge_handler.add_edge(edge_info)
 	LevelInfo.active_level.edge_menu.hide()
 	edge_list.clear()
+	edge_menu_open = false
 	unpause_game()
 
 func pause_game():

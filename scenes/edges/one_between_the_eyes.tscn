@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfvnr5k0u0nbr"]
+
+[ext_resource type="Script" path="res://scenes/edges/one_between_the_eyes.gd" id="1_kr8y7"]
+
+[node name="OneBetweenTheEyes" type="Node"]
+script = ExtResource("1_kr8y7")

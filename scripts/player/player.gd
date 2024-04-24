@@ -91,6 +91,8 @@ func refresh_current_ranged_weapon_stats():
 	current_ranged_weapon.current_attack_delay = current_ranged_weapon.base_attack_delay * PlayerInfo.current_attack_delay_modifier
 	
 	print("Current ranged weapon attack delay: ", current_ranged_weapon.current_attack_delay)
+	print("Current ranged weapon damage: ", current_ranged_weapon.current_damage)
+	
 
 
 # -- MOVEMENT FUNCTIONS -- #

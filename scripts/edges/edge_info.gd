@@ -14,7 +14,28 @@ var edge_roster = {
 		"description" = "Increase your move speed by 20%",
 		"scene" = load("res://scenes/edges/fleet_of_foot.tscn"),
 		"sprite" = load("res://sprites/edges/fleet_of_foot_icon.png"),
-	}
+	},
+	"one_between_the_eyes" = {
+		"name" = "One Between the Yes",
+		"category" = "Gunslinger",
+		"description" = "Increase ranged damage bonus by +1",
+		"scene" = load("res://scenes/edges/one_between_the_eyes.tscn"),
+		"sprite" = load("res://sprites/edges/one_between_the_eyes_icon.jpg"),
+	},
+	"tough_hide" = {
+		"name" = "Tough Hide",
+		"category" = "Survivalist",
+		"description" = "Increase armor by +1",
+		"scene" = load("res://scenes/edges/tough_hide.tscn"),
+		"sprite" = load("res://sprites/edges/tough_hide_icon.jpg"),
+	},
+	"eldritch_grasp" = {
+		"name" = "Eldritch Grasp",
+		"category" = "Supernatural",
+		"description" = "Grow a tentacle that attacks nearby enemies for 5 damage",
+		"scene" = load("res://sprites/edges/eldritch_grasp.tscn"),
+		"sprite" = load("res://sprites/edges/eldritch_grasp_icon.png"),
+	},
 }
 
 var selection_active = false
