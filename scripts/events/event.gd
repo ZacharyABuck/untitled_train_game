@@ -3,6 +3,7 @@ class_name Event
 
 var triggered: bool = false
 var type: String
+var difficulty
 
 func _ready():
 	triggered = false
@@ -11,6 +12,7 @@ func _ready():
 func event_triggered():
 	triggered = true
 	LevelInfo.active_level.in_event = true
+	difficulty = LevelInfo.difficulty
 
 func set_alert_text_and_play(text):
 	var label = LevelInfo.active_level.alert_label

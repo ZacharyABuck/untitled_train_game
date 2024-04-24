@@ -13,6 +13,7 @@ var edge_menu_open: bool = false
 @onready var enemies = $Enemies
 @onready var train_manager = $TrainManager
 @onready var enemy_spawn_positions = $EnemySpawnPositions
+@onready var enemy_spawn_timer = $EnemySpawnTimer
 @onready var xp_bar = $UI/PlayerExperienceBar
 @onready var level_label = $UI/LevelLabel
 @onready var xp_label = $UI/ExperienceLabel
@@ -33,7 +34,7 @@ func _ready():
 	ExperienceSystem.level_up.connect(self.handle_level_up)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _process(delta):
 	$UI/MoneyLabel.text = "Money: $" + str(PlayerInfo.current_money)
 	# These XP functions will be moved to a dedicated node or func that handles all this.
 	xp_bar.value = PlayerInfo.currentExperience
@@ -44,6 +45,9 @@ func _process(_delta):
 	$UI/PlayerExperienceBar.value = PlayerInfo.currentExperience
 	if PlayerInfo.active_player != null:
 		enemy_spawn_positions.global_position = PlayerInfo.active_player.global_position
+	
+	#set difficulty level
+	LevelInfo.difficulty = Time.get_ticks_msec()*LevelInfo.difficulty_increase_rate
 
 #set the day time in the tree
 func calculate_day_cycle():
@@ -62,8 +66,9 @@ func instant_night():
 	tween.tween_property(world_light, "energy", max_night_light, 1)
 
 func instant_day():
+	is_day = true
 	var tween = get_tree().create_tween().bind_node(self)
-	tween.tween_property(world_light, "energy", 0, 1)
+	await tween.tween_property(world_light, "energy", 0, 1)
 	day_cycle_timer.start()
 
 func _on_day_cycle_timer_timeout():
@@ -133,6 +138,10 @@ func _on_gadget_list_item_clicked(index, _at_position, _mouse_button_index):
 	GadgetFunctions.request_gadget(gadget_info)
 
 func _on_enemy_spawn_timer_timeout():
+	var start_time = 5
+	#adjust to difficulty level
+	enemy_spawn_timer.wait_time = clamp(start_time - LevelInfo.difficulty,.5,5)
+	
 	var new_spawner = EnemySpawner.new()
 	add_child(new_spawner)
 	var random_enemy = new_spawner.find_random_enemy()

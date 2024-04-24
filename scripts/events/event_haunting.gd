@@ -2,7 +2,7 @@ extends Event
 
 var alert_text: String = "Haunting!"
 
-var spawn_count: int = 10
+var start_spawn_count: int = 10
 
 func trigger_haunting(area):
 	if area.get_parent().is_in_group("car") and triggered == false:
@@ -14,6 +14,7 @@ func trigger_haunting(area):
 		$NightTimer.start()
 
 func spawn_ghosts():
+	var spawn_count = start_spawn_count + round(LevelInfo.difficulty)
 	var spawner = EnemySpawner.new()
 	spawner.spawn_enemy(spawn_count, "ghost", null)
 

@@ -10,6 +10,9 @@ var track_cells = []
 
 var map_positions = []
 
+var difficulty = 1
+var difficulty_increase_rate = .00002
+
 var level_parameters = {
 	"distance" = 6,
 	"direction" = "NW",

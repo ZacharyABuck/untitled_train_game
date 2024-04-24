@@ -415,28 +415,28 @@ car_count = 4
 [node name="EnemySpawnPositions" type="Node2D" parent="."]
 
 [node name="0" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(-910, -880)
+position = Vector2(-691, -751)
 
 [node name="1" type="Node2D" parent="EnemySpawnPositions"]
 position = Vector2(-1018, -509)
 
 [node name="2" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(-1075, -124)
+position = Vector2(-1021, -31)
 
 [node name="3" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(-949, 121)
+position = Vector2(-697, 567)
 
 [node name="4" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(682, 24)
+position = Vector2(694, 596)
 
 [node name="5" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(966, -329)
+position = Vector2(1026, -215)
 
 [node name="6" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(1076, -622)
+position = Vector2(782, -631)
 
 [node name="7" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(1089, -909)
+position = Vector2(202, -816)
 
 [node name="EnemySpawnTimer" type="Timer" parent="."]
 wait_time = 5.0
