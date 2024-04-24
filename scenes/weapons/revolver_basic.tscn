@@ -10,5 +10,7 @@ gunshot_sound = NodePath("Gunshot")
 
 [node name="Gunshot" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_hcb81")
+volume_db = -15.0
+bus = &"SFX"
 
 [node name="AttackTimer" type="Timer" parent="."]

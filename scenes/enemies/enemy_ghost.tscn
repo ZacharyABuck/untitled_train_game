@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://du246q5lb1mpt"]
+[gd_scene load_steps=13 format=3 uid="uid://du246q5lb1mpt"]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy_ghost.gd" id="1_vhgvf"]
 [ext_resource type="Texture2D" uid="uid://g4ap7gsn0j5p" path="res://sprites/enemies/ghost.png" id="2_rchno"]
 [ext_resource type="Script" path="res://components/HurtboxComponent.gd" id="3_hwx2y"]
+[ext_resource type="AudioStream" uid="uid://qdyuud18a2c4" path="res://sounds/combat/hit_01.wav" id="4_d57vj"]
 [ext_resource type="Script" path="res://components/HealthComponent.gd" id="4_qxpqc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rea2c"]
@@ -64,14 +65,20 @@ animation = &"death"
 autoplay = "moving"
 frame_progress = 1.0
 
-[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component", "hurt_sfx")]
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("3_hwx2y")
 health_component = NodePath("../HealthComponent")
+hurt_sfx = NodePath("Hurt SFX")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 shape = SubResource("CircleShape2D_vmhlk")
+
+[node name="Hurt SFX" type="AudioStreamPlayer" parent="HurtboxComponent"]
+stream = ExtResource("4_d57vj")
+volume_db = -15.0
+bus = &"SFX"
 
 [node name="HealthComponent" type="Node2D" parent="." node_paths=PackedStringArray("ANIMATION")]
 script = ExtResource("4_qxpqc")
