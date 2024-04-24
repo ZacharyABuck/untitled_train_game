@@ -3,9 +3,11 @@ extends CharacterBody2D
 @onready var sprite = $AnimatedSprite2D
 @onready var auto_fire_timer = $AutoFireTimer
 @onready var health_bar = $HealthBar
-@onready var gunshot = $GunshotSound
+#@onready var gunshot = $GunshotSound
 @onready var health_component = $HealthComponent
 @onready var edge_handler = $EdgeHandler
+@onready var running_sfx = $"Running SFX"
+
 
 var active_car
 var bullet = preload("res://scenes/projectiles/fiery_bullet.tscn")
@@ -43,8 +45,11 @@ func get_input():
 		#sprite.scale.x = .7
 	if velocity.is_equal_approx(Vector2.ZERO):
 		sprite.play("standing")
+		running_sfx.stop()
 	else:
 		sprite.play("running")
+		if !running_sfx.playing:
+			running_sfx.play()
 
 func _input(event):
 	if event.is_action_pressed("shoot"):

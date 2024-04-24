@@ -1,6 +1,7 @@
-[gd_scene load_steps=47 format=3 uid="uid://dlf3ut18w14gl"]
+[gd_scene load_steps=48 format=3 uid="uid://dlf3ut18w14gl"]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie.gd" id="1_sfyon"]
+[ext_resource type="AudioStream" uid="uid://qdyuud18a2c4" path="res://sounds/combat/hit_01.wav" id="3_04jho"]
 [ext_resource type="PackedScene" uid="uid://cyv57gynwtrmu" path="res://components/hurtbox_component.tscn" id="3_aknae"]
 [ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://components/health_component.tscn" id="4_52reb"]
 [ext_resource type="Texture2D" uid="uid://cduo5m6k4p2ln" path="res://sprites/enemies/zombie.png" id="5_4qa5l"]
@@ -330,15 +331,21 @@ shape = SubResource("CapsuleShape2D_nyh8v")
 
 [node name="AttackTimer" type="Timer" parent="."]
 
-[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_aknae")]
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component", "hurt_sfx") instance=ExtResource("3_aknae")]
 collision_layer = 8
 collision_mask = 4
 health_component = NodePath("../HealthComponent")
+hurt_sfx = NodePath("Hurt SFX")
 
 [node name="Hurtbox" type="CollisionShape2D" parent="HurtboxComponent"]
 visible = false
 position = Vector2(2, 7)
 shape = SubResource("RectangleShape2D_4v00t")
+
+[node name="Hurt SFX" type="AudioStreamPlayer" parent="HurtboxComponent"]
+stream = ExtResource("3_04jho")
+volume_db = -15.0
+bus = &"SFX"
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("ANIMATION") instance=ExtResource("4_52reb")]
 MAX_HEALTH = 10

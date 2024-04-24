@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cb1r5v4vqyrx8"]
+[gd_scene load_steps=7 format=3 uid="uid://cb1r5v4vqyrx8"]
 
 [ext_resource type="Script" path="res://scripts/train/train_manager.gd" id="1_jou52"]
 [ext_resource type="PackedScene" uid="uid://bjqtvbefblx2e" path="res://scenes/train/TrainVehicle.tscn" id="2_8qejh"]
 [ext_resource type="PackedScene" uid="uid://isd3o7ji1m5j" path="res://scenes/train/Track.tscn" id="3_l4c2w"]
 [ext_resource type="PackedScene" uid="uid://c2qsc24ng38ir" path="res://scenes/train/TrainEngine.tscn" id="4_6vjgm"]
+[ext_resource type="AudioStream" uid="uid://ft8up8pxwwbp" path="res://sounds/train/train_chugging.wav" id="5_inko4"]
 
 [sub_resource type="Curve2D" id="1"]
 resource_local_to_scene = true
@@ -29,6 +30,12 @@ max_force = 150.0
 brake_power = 15.0
 brake_application_speed = 50.0
 target_force_percent = 2.5
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="TrainEngine"]
+stream = ExtResource("5_inko4")
+volume_db = -23.484
+autoplay = true
+bus = &"Train"
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.05

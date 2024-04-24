@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bse1rme7qjshm"]
+[gd_scene load_steps=8 format=3 uid="uid://bse1rme7qjshm"]
 
 [ext_resource type="Texture2D" uid="uid://btdrtgyipi8jv" path="res://sprites/gadgets/gadget_barricade_sprite_sheet.png" id="1_qtqtt"]
 [ext_resource type="Script" path="res://scripts/gadgets/gadget_barricade.gd" id="1_xxu03"]
 [ext_resource type="PackedScene" uid="uid://cyv57gynwtrmu" path="res://components/hurtbox_component.tscn" id="2_5iwk3"]
 [ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://components/health_component.tscn" id="3_ssjoa"]
+[ext_resource type="AudioStream" uid="uid://bopg4h4b115n1" path="res://sounds/combat/hit_metal.wav" id="4_hiwrg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rxa71"]
 size = Vector2(32, 127)
@@ -25,14 +26,20 @@ scale = Vector2(2, 2)
 texture = ExtResource("1_qtqtt")
 hframes = 5
 
-[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("2_5iwk3")]
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component", "hurt_sfx") instance=ExtResource("2_5iwk3")]
 collision_layer = 16
 collision_mask = 0
 health_component = NodePath("../HealthComponent")
+hurt_sfx = NodePath("Hurt SFX")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(-1, -0.5)
 shape = SubResource("RectangleShape2D_rxa71")
+
+[node name="Hurt SFX" type="AudioStreamPlayer" parent="HitboxComponent"]
+stream = ExtResource("4_hiwrg")
+volume_db = -15.0
+bus = &"SFX"
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("HEALTHBAR") instance=ExtResource("3_ssjoa")]
 MAX_HEALTH = 10
