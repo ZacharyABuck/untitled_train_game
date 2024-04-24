@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://scenes/edges/tough_hide.gd" id="1_3ivog"]
 
-[node name="ToughHide" type="Node"]
+[node name="ToughHide" type="Node2D"]
 script = ExtResource("1_3ivog")
