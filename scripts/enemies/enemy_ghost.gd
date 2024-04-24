@@ -32,8 +32,8 @@ func _physics_process(delta):
 		if global_position.distance_to(target.global_position) <= 5:
 			money_stolen = true
 			target = start_pos
-			if PlayerInfo.current_money >= steal_amount:
-				PlayerInfo.current_money -= steal_amount
+			if PlayerInfo.current_money >= 0:
+				PlayerInfo.current_money -= clamp(steal_amount,0,PlayerInfo.current_money)
 				return_amount = steal_amount
 	if target != null and money_stolen and state == "moving":
 		look_at(target)

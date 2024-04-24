@@ -10,7 +10,7 @@ var money = enemy_stats["money"]
 var experience = enemy_stats["experience"]
 
 var target
-var state = "moving"
+@export_enum("moving", "boarding", "attacking", "idle", "dead") var state: String
 
 func _ready():
 	#var random_target = TrainInfo.cars_inventory.keys().pick_random()
