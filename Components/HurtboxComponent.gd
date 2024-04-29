@@ -15,4 +15,4 @@ func damage(attack: Attack):
 
 func play_sfx():
 	if hurt_sfx and !hurt_sfx.playing:
-		hurt_sfx.play()
+		hurt_sfx.call_deferred("play")

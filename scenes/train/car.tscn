@@ -94,7 +94,6 @@ value = 20.0
 metadata/_edit_use_anchors_ = true
 
 [node name="HardPoints" type="Node2D" parent="."]
-process_mode = 2
 position = Vector2(0, 171)
 
 [node name="FrontLeft" type="Node2D" parent="HardPoints"]

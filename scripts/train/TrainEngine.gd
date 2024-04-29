@@ -21,6 +21,8 @@ var brake_force := 0.0
 var velocity := 0.0
 
 @onready var front_light = $Car/FrontLight
+@onready var train_whistle_sfx = $TrainWhistleSFX
+
 
 
 func _ready() -> void:

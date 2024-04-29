@@ -13,21 +13,21 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	pass
-
-func _input(event):
-	if event.is_action_pressed("build") and in_game:
-		if LevelInfo.active_level.build_menu_open:
-			unpause_game()
-			LevelInfo.active_level.build_menu_open = false
-			LevelInfo.active_level.build_menu.hide()
-			for i in TrainInfo.cars_inventory[PlayerInfo.active_player.active_car]["node"].hard_points.get_children():
-				var hard_point = i.get_child(0)
-				hard_point.animation_player.play("still")
-				hard_point.sprite.modulate = Color.WHITE
-		else:
-			pause_game()
-			LevelInfo.active_level.build_menu_open = true
-			LevelInfo.active_level.build_menu.show()
+#
+#func _input(event):
+	#if event.is_action_pressed("build") and in_game:
+		#if LevelInfo.active_level.build_menu_open:
+			#unpause_game()
+			#LevelInfo.active_level.build_menu_open = false
+			#LevelInfo.active_level.build_menu.hide()
+			#for i in TrainInfo.cars_inventory[PlayerInfo.active_player.active_car]["node"].hard_points.get_children():
+				#var hard_point = i.get_child(0)
+				#hard_point.animation_player.play("still")
+				#hard_point.sprite.modulate = Color.WHITE
+		#else:
+			#pause_game()
+			#LevelInfo.active_level.build_menu_open = true
+			#LevelInfo.active_level.build_menu.show()
 
 #this starts a new game
 func _on_play_button_down():

@@ -52,11 +52,17 @@ func get_input():
 			running_sfx.play()
 
 func _input(event):
-	if event.is_action_pressed("shoot"):
-		_shoot()
-	if event.is_action_pressed("strike"):
-		_strike()
-
+	#mouse events when ui is closed
+	if event is InputEventMouseButton and event.pressed and \
+	LevelInfo.active_level.ui_open == false and GadgetInfo.selected_gadget == null:
+		if event.is_action_pressed("shoot"):
+			_shoot()
+		if event.is_action_pressed("strike"):
+			_strike()
+	#if ui is open
+	elif event is InputEventMouseButton and event.pressed and \
+	LevelInfo.active_level.ui_open == true and GadgetInfo.selected_gadget == null:
+		LevelInfo.active_level.close_all_ui()
 
 # -- ATTACK FUNCTIONS -- #
 func _shoot():

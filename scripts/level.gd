@@ -3,11 +3,8 @@ extends Node2D
 var player = preload("res://scenes/player.tscn")
 @onready var bullets = $Bullets
 
-@onready var build_menu = $UI/BuildMenu
-var build_menu_open: bool = false
 @onready var edge_menu = $UI/EdgeMenu
 var edge_menu_open: bool = false
-@onready var gadget_list = $UI/BuildMenu/MarginContainer/GadgetList
 @onready var edge_list = $UI/EdgeMenu/EdgeContainer/EdgeList
 @onready var alert_label = $UI/AlertLabel
 @onready var enemies = $Enemies
@@ -20,6 +17,8 @@ var edge_menu_open: bool = false
 @onready var level_up_animation = $UI/LevelUpAnimation
 var new_player
 
+var ui_open: bool = false
+
 @onready var world_light = $WorldLight
 @onready var day_cycle_timer = $WorldLight/DayCycleTimer
 var is_day: bool = true
@@ -30,7 +29,6 @@ var max_night_light: float = .75
 func _ready():
 	generate_track()
 	spawn_player()
-	populate_build_menu()
 	ExperienceSystem.level_up.connect(self.handle_level_up)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -43,8 +41,10 @@ func _process(delta):
 	xp_label.text = "XP: " + str(PlayerInfo.currentExperience) + " / " + str(PlayerInfo.nextLevelExperience)
 	calculate_day_cycle()
 	$UI/PlayerExperienceBar.value = PlayerInfo.currentExperience
-	if PlayerInfo.active_player != null:
-		enemy_spawn_positions.global_position = PlayerInfo.active_player.global_position
+	
+	#set enemy spawn positions to follow train
+	if TrainInfo.train_engine != null:
+		enemy_spawn_positions.global_position = TrainInfo.train_engine.global_position
 	
 	#set difficulty level
 	LevelInfo.difficulty = Time.get_ticks_msec()*LevelInfo.difficulty_increase_rate
@@ -128,15 +128,6 @@ func spawn_player():
 	new_player.global_position = TrainInfo.train_engine.global_position
 	add_child(new_player)
 
-func populate_build_menu():
-	for i in GadgetInfo.gadget_roster:
-		gadget_list.add_item(GadgetInfo.gadget_roster[i]["name"], GadgetInfo.gadget_roster[i]["sprite"])
-		gadget_list.set_item_metadata(gadget_list.item_count-1, GadgetInfo.gadget_roster[i])
-
-func _on_gadget_list_item_clicked(index, _at_position, _mouse_button_index):
-	var gadget_info = LevelInfo.active_level.gadget_list.get_item_metadata(index)
-	GadgetFunctions.request_gadget(gadget_info)
-
 func _on_enemy_spawn_timer_timeout():
 	var start_time = 5
 	#adjust to difficulty level
@@ -167,6 +158,12 @@ func _on_edge_list_item_clicked(index, at_position, mouse_button_index):
 	LevelInfo.active_level.edge_menu.hide()
 	edge_list.clear()
 	unpause_game()
+
+func close_all_ui():
+	ui_open = false
+	Engine.time_scale = 1
+	for i in TrainInfo.cars_inventory:
+		TrainInfo.cars_inventory[i]["node"].hide_radial_menus()
 
 func pause_game():
 	LevelInfo.active_level.get_tree().paused = true

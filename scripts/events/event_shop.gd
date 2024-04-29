@@ -18,11 +18,13 @@ func shop_triggered(area):
 
 func _on_enter_button_pressed():
 	$Sprite2D/EnterButton.hide()
+	LevelInfo.active_level.ui_open = true
 	LevelInfo.root.pause_game()
 	$CanvasLayer.show()
 
 func _on_leave_button_pressed():
 	LevelInfo.root.unpause_game()
+	LevelInfo.active_level.ui_open = false
 	$CanvasLayer.hide()
 	event_finished()
 
