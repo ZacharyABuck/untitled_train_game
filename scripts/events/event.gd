@@ -10,6 +10,7 @@ func _ready():
 
 #triggers when train enters the area. Specific event code is handled on the specific event scenes, e.g. event_ambush.gd
 func event_triggered():
+	TrainInfo.train_engine.train_whistle_sfx.play()
 	triggered = true
 	LevelInfo.active_level.in_event = true
 	difficulty = LevelInfo.difficulty

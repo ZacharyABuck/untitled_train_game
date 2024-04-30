@@ -16,7 +16,7 @@ func outer_area_entered(area):
 
 		for z in new_zombie_count:
 			var new_zombie = zombie.instantiate()
-			$Zombies.add_child(new_zombie)
+			$Zombies.call_deferred("add_child", new_zombie)
 			new_zombie.global_position = global_position + Vector2(randi_range(-500,500), randi_range(-500,500))
 			new_zombie.state = "idle"
 

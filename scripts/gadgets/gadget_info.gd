@@ -28,5 +28,4 @@ var gadget_roster = {
 	},
 }
 
-var selection_active = false
 var selected_gadget = null
