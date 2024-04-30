@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://0sbdevh4bi3d"]
+[gd_scene load_steps=9 format=3 uid="uid://0sbdevh4bi3d"]
 
 [ext_resource type="Script" path="res://scripts/radial_menu.gd" id="1_po4ci"]
+[ext_resource type="AudioStream" uid="uid://cieppqnjopqnc" path="res://sounds/ui/menu-selection.wav" id="2_m5rva"]
+[ext_resource type="Texture2D" uid="uid://dbh8csan7xuox" path="res://sprites/ui/indicator_right_click.png" id="3_gmg6m"]
 
 [sub_resource type="Gradient" id="Gradient_np4qb"]
 offsets = PackedFloat32Array(0.694215, 0.702479)
@@ -13,8 +15,46 @@ height = 256
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[node name="RadialMenu" type="Node2D"]
+[sub_resource type="Animation" id="Animation_jen2g"]
+resource_name = "flash"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MouseIndicator:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.694118), Color(1, 1, 1, 1), Color(1, 1, 1, 0.694118)]
+}
+
+[sub_resource type="Animation" id="Animation_wyict"]
+resource_name = "still"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MouseIndicator:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rauy8"]
+_data = {
+"flash": SubResource("Animation_jen2g"),
+"still": SubResource("Animation_wyict")
+}
+
+[node name="RadialMenu" type="Area2D"]
 z_index = 10
+collision_mask = 0
 script = ExtResource("1_po4ci")
 menu_type = "gadgets"
 radius = 100
@@ -22,7 +62,7 @@ radius = 100
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("GradientTexture2D_buoqf")
 
-[node name="GadgetName" type="Label" parent="."]
+[node name="TopText" type="Label" parent="."]
 texture_filter = 1
 offset_left = -60.0
 offset_top = -24.0
@@ -32,7 +72,7 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_outline_size = 5
 horizontal_alignment = 1
 
-[node name="GadgetCost" type="Label" parent="."]
+[node name="BottomText" type="Label" parent="."]
 texture_filter = 1
 offset_left = -60.0
 offset_top = 1.0
@@ -44,3 +84,24 @@ theme_override_constants/shadow_outline_size = 5
 horizontal_alignment = 1
 
 [node name="Items" type="Node2D" parent="."]
+
+[node name="MenuOpenSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_m5rva")
+volume_db = -10.0
+bus = &"Train"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_rauy8")
+}
+autoplay = "still"
+
+[node name="MouseIndicator" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.694118)
+texture_filter = 1
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("3_gmg6m")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

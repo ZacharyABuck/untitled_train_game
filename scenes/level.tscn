@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://02oiy550pacp"]
+[gd_scene load_steps=65 format=3 uid="uid://02oiy550pacp"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_2a3mn"]
 [ext_resource type="Script" path="res://scripts/maps/map_manager.gd" id="1_lfsvw"]
@@ -7,6 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://dhwaeohssorbn" path="res://sprites/images/xbar_yellow.png" id="5_av7jw"]
 [ext_resource type="Texture2D" uid="uid://jidnhqo2mpwb" path="res://sprites/images/xpbar_blue2.png" id="6_mrm4f"]
 [ext_resource type="Texture2D" uid="uid://pyystfefde4c" path="res://sprites/bullets/explosion1.png" id="7_wc2yx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tx5uk"]
+radius = 35.0571
 
 [sub_resource type="Animation" id="Animation_h2wgm"]
 resource_name = "alert_flash"
@@ -432,28 +435,60 @@ car_count = 4
 [node name="EnemySpawnPositions" type="Node2D" parent="."]
 
 [node name="0" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(-691, -751)
+position = Vector2(-595, -930)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/0"]
+shape = SubResource("CircleShape2D_tx5uk")
+debug_color = Color(0.705882, 0, 0.156863, 0.835294)
 
 [node name="1" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(-1018, -509)
+position = Vector2(-950, -617)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/1"]
+shape = SubResource("CircleShape2D_tx5uk")
+debug_color = Color(0.705882, 0, 0.156863, 0.835294)
 
 [node name="2" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(-1021, -31)
+position = Vector2(-1187, -157)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/2"]
+shape = SubResource("CircleShape2D_tx5uk")
+debug_color = Color(0.705882, 0, 0.156863, 0.835294)
 
 [node name="3" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(-697, 567)
+position = Vector2(-1178, 321)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/3"]
+shape = SubResource("CircleShape2D_tx5uk")
+debug_color = Color(0.705882, 0, 0.156863, 0.835294)
 
 [node name="4" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(694, 596)
+position = Vector2(1174, 171)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/4"]
+shape = SubResource("CircleShape2D_tx5uk")
+debug_color = Color(0.705882, 0, 0.156863, 0.835294)
 
 [node name="5" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(1026, -215)
+position = Vector2(1134, -202)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/5"]
+shape = SubResource("CircleShape2D_tx5uk")
+debug_color = Color(0.705882, 0, 0.156863, 0.835294)
 
 [node name="6" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(782, -631)
+position = Vector2(878, -649)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/6"]
+shape = SubResource("CircleShape2D_tx5uk")
+debug_color = Color(0.705882, 0, 0.156863, 0.835294)
 
 [node name="7" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(202, -816)
+position = Vector2(383, -942)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/7"]
+shape = SubResource("CircleShape2D_tx5uk")
+debug_color = Color(0.705882, 0, 0.156863, 0.835294)
 
 [node name="EnemySpawnTimer" type="Timer" parent="."]
 wait_time = 5.0

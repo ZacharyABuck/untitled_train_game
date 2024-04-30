@@ -45,6 +45,7 @@ func _process(delta):
 	#set enemy spawn positions to follow train
 	if TrainInfo.train_engine != null:
 		enemy_spawn_positions.global_position = TrainInfo.train_engine.global_position
+		enemy_spawn_positions.global_rotation = TrainInfo.train_engine.car.global_rotation
 	
 	#set difficulty level
 	LevelInfo.difficulty = Time.get_ticks_msec()*LevelInfo.difficulty_increase_rate

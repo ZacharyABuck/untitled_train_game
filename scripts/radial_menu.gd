@@ -1,22 +1,44 @@
-extends Node2D
+# YOU MUST CREATE AND ASSIGN A COLLISION SHAPE IN THE SCENE WHERE YOU PUT THIS
+extends Area2D
 
 @export_enum("gadgets", "edges") var menu_type: String
 @export var radius: int
+@export var collision_shape: CollisionShape2D
+
+var open: bool = false
 
 var menu_item = preload("res://scenes/menu_item.tscn")
 
-@onready var gadget_name_label = $GadgetName
-@onready var gadget_cost_label = $GadgetCost
+@onready var top_text = $TopText
+@onready var bottom_text = $BottomText
 @onready var items = $Items
 
+func _on_mouse_entered():
+	if LevelInfo.active_level.ui_open == false:
+		$AnimationPlayer.play("flash")
+	else:
+		$AnimationPlayer.play("still")
+
+func _on_mouse_exited():
+	$AnimationPlayer.play("still")
 
 
-# Called when the node enters the scene tree for the first time.
+func _on_input_event(_viewport, event, _shape_idx):
+	if event.is_action_pressed("strike"):
+		#hide menu
+		if open == true:
+			LevelInfo.active_level.close_all_ui()
+		#show menu
+		else:
+			open_menu()
+
 func _ready():
+	$Sprite2D.texture.width = radius * 2.6
+	$Sprite2D.texture.height = radius * 2.6
+	$Sprite2D.modulate = Color.TRANSPARENT
 	if menu_type == "gadgets":
 		spawn_gadgets_menu()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	global_rotation = 0
 
@@ -29,21 +51,31 @@ func spawn_gadgets_menu():
 		new_item.gadget = GadgetInfo.gadget_roster[i]
 		new_item.clicked.connect(get_parent().add_gadget)
 		new_item.hovered.connect(show_gadget_info)
+		new_item.hide()
 
 func show_gadget_info(gadget_name, gadget_cost):
 	if gadget_name == null:
-		gadget_name_label.hide()
-		gadget_cost_label.hide()
+		top_text.hide()
+		bottom_text.hide()
 	else:
-		gadget_name_label.text = gadget_name
-		gadget_cost_label.text = "Cost: $" + str(gadget_cost)
-		gadget_name_label.show()
-		gadget_cost_label.show()
+		top_text.text = gadget_name
+		bottom_text.text = "Cost: $" + str(gadget_cost)
+		top_text.show()
+		bottom_text.show()
 
 func open_menu():
+	#LevelInfo.active_level.close_all_ui()
+	open = true
+	$MenuOpenSound.play()
+	$AnimationPlayer.play("still")
+	LevelInfo.active_level.ui_open = true
+	Engine.set_time_scale(.2)
 	var spacing = TAU / GadgetInfo.gadget_roster.keys().size()
 	var index = 1
+	var bg_tween = get_tree().create_tween().bind_node(self)
+	bg_tween.tween_property($Sprite2D, "modulate", Color.WHITE, .03)
 	for i in items.get_children():
+		i.show()
 		var angle = spacing*index - PI/2
 		index += 1
 		var tween = get_tree().create_tween().bind_node(self)
@@ -53,6 +85,9 @@ func open_menu():
 		i.active = true
 
 func close_menu():
+	open = false
+	$Sprite2D.modulate = Color.TRANSPARENT
 	for i in items.get_children():
+		i.hide()
 		i.active = false
 		i.position = position

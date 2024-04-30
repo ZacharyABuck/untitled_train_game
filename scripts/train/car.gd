@@ -54,5 +54,5 @@ func set_parameters():
 
 func hide_radial_menus():
 	for i in hard_points.get_children():
-		i.get_child(0).radial_menu.hide()
-		i.get_child(0).radial_menu.close_menu()
+		if i.get_child(0).radial_menu != null:
+			i.get_child(0).radial_menu.close_menu()

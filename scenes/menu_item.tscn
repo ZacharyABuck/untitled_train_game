@@ -4,7 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://d2nwj7vu6t12t" path="res://sounds/ui/menu-select-tick.wav" id="2_kksh5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sjh5r"]
-radius = 28.0
+radius = 44.0114
 
 [node name="MenuItem" type="Area2D"]
 collision_mask = 0
