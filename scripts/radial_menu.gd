@@ -13,6 +13,15 @@ var menu_item = preload("res://scenes/menu_item.tscn")
 @onready var bottom_text = $BottomText
 @onready var items = $Items
 
+var car
+
+func _ready():
+	$Sprite2D.texture.width = radius * 2.6
+	$Sprite2D.texture.height = radius * 2.6
+	$Sprite2D.modulate = Color.TRANSPARENT
+	if menu_type == "gadgets":
+		spawn_gadgets_menu()
+
 func _on_mouse_entered():
 	if LevelInfo.active_level.ui_open == false:
 		$AnimationPlayer.play("flash")
@@ -29,17 +38,10 @@ func _on_input_event(_viewport, event, _shape_idx):
 		if open == true:
 			LevelInfo.active_level.close_all_ui()
 		#show menu
-		else:
+		elif PlayerInfo.active_player.active_car == get_parent().car.index:
 			open_menu()
 
-func _ready():
-	$Sprite2D.texture.width = radius * 2.6
-	$Sprite2D.texture.height = radius * 2.6
-	$Sprite2D.modulate = Color.TRANSPARENT
-	if menu_type == "gadgets":
-		spawn_gadgets_menu()
-
-func _process(delta):
+func _process(_delta):
 	global_rotation = 0
 
 func spawn_gadgets_menu():

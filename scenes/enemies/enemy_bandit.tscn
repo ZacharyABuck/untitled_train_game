@@ -114,7 +114,7 @@ TARGET_TYPES = {
 "terrain": false
 }
 ATTACK_TIMER = NodePath("../AttackTimer")
-BULLET_SPEED = 15
+BULLET_SPEED = 700
 PROJECTILE = ExtResource("6_k5sjj")
 TARGET_AREA = NodePath("CollisionShape2D")
 SHOOT_SOUND = NodePath("Gunshot sound")

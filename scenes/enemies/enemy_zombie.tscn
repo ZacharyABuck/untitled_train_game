@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://dlf3ut18w14gl"]
+[gd_scene load_steps=57 format=3 uid="uid://dlf3ut18w14gl"]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie.gd" id="1_sfyon"]
 [ext_resource type="AudioStream" uid="uid://qdyuud18a2c4" path="res://sounds/combat/hit_01.wav" id="3_04jho"]
@@ -13,6 +13,8 @@
 size = Vector2(26, 40)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1tdci"]
+radius = 6.5
+height = 24.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_elxgy"]
 atlas = ExtResource("5_4qa5l")
@@ -37,6 +39,22 @@ region = Rect2(2432, 640, 128, 128)
 [sub_resource type="AtlasTexture" id="AtlasTexture_aekpe"]
 atlas = ExtResource("5_4qa5l")
 region = Rect2(2560, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ey568"]
+atlas = ExtResource("5_4qa5l")
+region = Rect2(2304, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nonmh"]
+atlas = ExtResource("5_4qa5l")
+region = Rect2(2432, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tnj5k"]
+atlas = ExtResource("5_4qa5l")
+region = Rect2(2560, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bju2k"]
+atlas = ExtResource("5_4qa5l")
+region = Rect2(2688, 640, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d6skp"]
 atlas = ExtResource("5_4qa5l")
@@ -69,6 +87,22 @@ region = Rect2(4352, 640, 128, 128)
 [sub_resource type="AtlasTexture" id="AtlasTexture_4qra1"]
 atlas = ExtResource("5_4qa5l")
 region = Rect2(4480, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t0bue"]
+atlas = ExtResource("5_4qa5l")
+region = Rect2(3200, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xeypb"]
+atlas = ExtResource("5_4qa5l")
+region = Rect2(3072, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m2m74"]
+atlas = ExtResource("5_4qa5l")
+region = Rect2(2944, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mi7xx"]
+atlas = ExtResource("5_4qa5l")
+region = Rect2(2816, 640, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eeq0r"]
 atlas = ExtResource("5_4qa5l")
@@ -185,6 +219,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ey568")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nonmh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tnj5k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bju2k")
+}],
+"loop": false,
+"name": &"boarding",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_d6skp")
 }, {
 "duration": 1.0,
@@ -220,6 +271,23 @@ animations = [{
 "loop": false,
 "name": &"death",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t0bue")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xeypb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m2m74")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mi7xx")
+}],
+"loop": false,
+"name": &"finish_boarding",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -316,6 +384,8 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mv14h"]
 size = Vector2(28, 36)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_wmt3c"]
+
 [node name="EnemyZombie" type="RigidBody2D" groups=["enemy"]]
 z_index = 1
 position = Vector2(0, 6)
@@ -364,7 +434,7 @@ texture_filter = 1
 position = Vector2(2, 8)
 scale = Vector2(0.617188, 0.6875)
 sprite_frames = SubResource("SpriteFrames_8jdkj")
-animation = &"recovery"
+animation = &"finish_boarding"
 frame = 3
 frame_progress = 1.0
 
@@ -387,8 +457,13 @@ ANIMATIONS = NodePath("../ZombieSpriteSheet")
 position = Vector2(20, 9)
 shape = SubResource("RectangleShape2D_mv14h")
 
+[node name="target_vis" type="Node2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="target_vis"]
+shape = SubResource("CircleShape2D_wmt3c")
+debug_color = Color(0.988235, 0, 0.298039, 0.419608)
+
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="body_entered" from="WallDetector" to="." method="_on_wall_detector_body_entered"]
-[connection signal="body_exited" from="WallDetector" to="." method="_on_wall_detector_body_exited"]
 [connection signal="animation_finished" from="ZombieSpriteSheet" to="." method="_on_zombie_sprite_sheet_animation_finished"]
 [connection signal="frame_changed" from="ZombieSpriteSheet" to="." method="_on_zombie_sprite_sheet_frame_changed"]

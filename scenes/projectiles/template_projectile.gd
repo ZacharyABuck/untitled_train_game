@@ -11,7 +11,8 @@ class_name Projectile
 @export var ANIMATIONS : AnimatedSprite2D
 
 var target
-var speed = 30
+var continuous_target
+var speed = 600
 var damage = 2
 var pierces = false
 var hitbox
@@ -26,10 +27,12 @@ func _ready():
 	_set_collisions()
 	look_at(target)
 	animations.play("travel")
-	linear_velocity = global_position.direction_to(target) * speed
+	continuous_target = global_position.direction_to(target)
+	#linear_velocity = global_position.direction_to(target) * speed
 
-func _physics_process(_delta):
-	move_and_collide(linear_velocity)
+func _physics_process(delta):
+	if animations.animation == "travel":
+		move_and_collide(continuous_target * speed * delta)
 
 func _on_area_2d_area_entered(area):
 	if area is HurtboxComponent:

@@ -12,7 +12,7 @@ var car
 func _ready():
 	pass
 
-func _process(delta):
+func _process(_delta):
 	pass
 
 func add_gadget(requested_gadget):

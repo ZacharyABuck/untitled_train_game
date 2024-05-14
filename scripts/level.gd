@@ -32,7 +32,7 @@ func _ready():
 	ExperienceSystem.level_up.connect(self.handle_level_up)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	$UI/MoneyLabel.text = "Money: $" + str(PlayerInfo.current_money)
 	# These XP functions will be moved to a dedicated node or func that handles all this.
 	xp_bar.value = PlayerInfo.currentExperience
@@ -69,7 +69,7 @@ func instant_night():
 func instant_day():
 	is_day = true
 	var tween = get_tree().create_tween().bind_node(self)
-	await tween.tween_property(world_light, "energy", 0, 1)
+	tween.tween_property(world_light, "energy", 0, 1)
 	day_cycle_timer.start()
 
 func _on_day_cycle_timer_timeout():
@@ -153,7 +153,7 @@ func populate_edge_menu():
 		edge_list.add_item(EdgeInfo.edge_roster[edge]["name"], EdgeInfo.edge_roster[edge]["sprite"])
 		edge_list.set_item_metadata(edge_list.item_count-1, EdgeInfo.edge_roster[edge])
 
-func _on_edge_list_item_clicked(index, at_position, mouse_button_index):
+func _on_edge_list_item_clicked(index, at_position, _mouse_button_index):
 	var edge_info = LevelInfo.active_level.edge_list.get_item_metadata(index)
 	new_player.edge_handler.add_edge(edge_info)
 	LevelInfo.active_level.edge_menu.hide()

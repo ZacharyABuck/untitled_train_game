@@ -44,7 +44,6 @@ func _process(delta: float) -> void:
 		front_light.enabled = false
 
 func lights_on():
-	await get_tree().create_timer(randi_range(.1,.3)).timeout
 	$AnimationPlayer.play("lights_on")
 
 # Apply forces

@@ -14,9 +14,8 @@ var experience = enemy_stats["experience"]
 
 var target
 var active_car
-@export_enum("moving", "boarding", "attacking", "idle", "dead") var state: String
+@export_enum("moving", "boarding", "finish_boarding", "attacking", "idle", "dead") var state: String
 var boarded = false
-var boarding_time = 5
 
 func _ready():
 	if state != "idle":
@@ -30,9 +29,13 @@ func _physics_process(delta):
 		if attack_component.target_is_in_range(target) and boarded:
 			state = "attacking"
 			attack_component.attack_if_target_in_range(target)
-		elif state == "boarding":
-			move_and_collide(global_position.direction_to(Vector2(target.global_position.x, global_position.y))*(speed*delta))
-			animations.play("idle")
+		elif state == "boarding" and active_car != null:
+			var car = TrainInfo.cars_inventory[active_car]["node"]
+			var pos = car.boarding_final_position.global_position
+			$target_vis.global_position = pos
+			animations.play("boarding")
+		elif state == "finish_boarding":
+			animations.play("finish_boarding")
 		else:
 			state = "moving"
 			animations.play("moving")
@@ -43,28 +46,37 @@ func _physics_process(delta):
 	if state == "dead":
 		hurtbox.disabled = true
 
+#board train
 func _on_wall_detector_body_entered(body):
 	if body.get_parent().is_in_group("car") and boarded == false and state != "boarding":
 		active_car = body.get_parent().index
 		call_deferred("reparent", TrainInfo.cars_inventory[active_car]["node"])
 		state = "boarding"
-		speed = 0
-		#speed = speed - (speed * .75)
-		await get_tree().create_timer(boarding_time).timeout
-		finish_boarding()
 
 func finish_boarding():
 	if state == "boarding":
-		state = "moving"
 		boarded = true
-		speed = enemy_stats["speed"]
-#
-#func _on_wall_detector_body_exited(body):
-	#if state == "boarding" and body.get_parent().is_in_group("car"):
-		#state = "moving"
-		#boarded = true
-		#speed = enemy_stats["speed"]
+		state = "finish_boarding"
+		var car = TrainInfo.cars_inventory[active_car]["node"]
+		car.boarding_sfx.play()
+		var point = car.boarding_points.get_child(0)
+		for i in car.boarding_points.get_children():
+			if position.distance_to(i.position) < position.distance_to(point.position):
+				point = i
+		look_at(point.global_position)
+		var tween = get_tree().create_tween()
+		tween.tween_property(self, "position", point.position, .6)
 
 func _on_zombie_sprite_sheet_animation_finished():
 	if animations.animation == "death":
 		queue_free()
+	if animations.animation == "boarding":
+		TrainInfo.cars_inventory[active_car]["node"].take_damage(damage)
+		if TrainInfo.cars_inventory[active_car]["node"].health <= 0:
+			finish_boarding()
+		else:
+			animations.play("boarding")
+	if animations.animation == "finish_boarding":
+		state = "moving"
+		speed = enemy_stats["speed"]
+		set_collision_mask_value(3, true)

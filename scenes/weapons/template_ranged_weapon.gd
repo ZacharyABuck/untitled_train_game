@@ -40,7 +40,7 @@ func _set_current_variables_and_connect_timer():
 	attack_delay_timer.wait_time = current_attack_delay
 	attack_delay_timer.timeout.connect(_on_attack_timer_timeout)
 
-func _process(delta):
+func _process(_delta):
 	pass
 
 func shoot():
