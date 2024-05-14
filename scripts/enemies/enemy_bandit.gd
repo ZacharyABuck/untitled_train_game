@@ -13,9 +13,6 @@ var target
 @export_enum("moving", "boarding", "attacking", "idle", "dead") var state: String
 
 func _ready():
-	#var random_target = TrainInfo.cars_inventory.keys().pick_random()
-	#target = TrainInfo.cars_inventory[random_target]["node"]
-	#print("Bandit target: ", target.name)
 	target = PlayerInfo.active_player
 
 func _process(_delta):

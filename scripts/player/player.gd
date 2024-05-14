@@ -23,7 +23,7 @@ func _ready():
 	_instantiate_ranged_weapon(base_gun_scene)
 	ExperienceSystem.level_up.connect(self.handle_level_up)
 
-func _process(delta):
+func _process(_delta):
 	pass
 
 func _physics_process(_delta):

@@ -8,7 +8,7 @@ func _ready():
 	update_player_info()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 
 func _calculate_attack_speed_multiplier():

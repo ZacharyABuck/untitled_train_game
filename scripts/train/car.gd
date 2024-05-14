@@ -7,12 +7,14 @@ extends Node2D
 @onready var hard_points = $HardPoints
 @onready var gadgets = $Gadgets
 @onready var room_light = $RoomLight
-
+@onready var boarding_final_position = $BoardingFinalPosition
+@onready var boarding_points = $BoardingPoints
+@onready var boarding_sfx = $BoardingSFX
 
 var hard_point = preload("res://scenes/hard_point.tscn")
 
-var max_health = 20
-var health = 20
+var max_health = 50
+var health = 50
 
 var index
 var type
@@ -26,7 +28,7 @@ func _ready():
 	health_bar.max_value = max_health
 	health_bar.value = health
 
-func _process(delta):
+func _process(_delta):
 	if LevelInfo.active_level.world_light.energy >= .25 and room_light.enabled == false:
 		room_light.enabled = true
 	if LevelInfo.active_level.world_light.energy <= .25 and room_light.enabled == true:
