@@ -29,6 +29,7 @@ func _ready():
 	health_bar.value = health
 
 func _process(_delta):
+	health_bar.value = health
 	if LevelInfo.active_level.world_light.energy >= .25 and room_light.enabled == false:
 		room_light.enabled = true
 	if LevelInfo.active_level.world_light.energy <= .25 and room_light.enabled == true:
@@ -36,7 +37,6 @@ func _process(_delta):
 
 func take_damage(amount):
 	health -= amount
-	health_bar.value = health
 
 func set_parameters():
 	if TrainInfo.cars_roster.has(type):

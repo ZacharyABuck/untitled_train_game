@@ -11,7 +11,7 @@ func _physics_process(_delta):
 		look_at(target.global_position)
 		if gun.target_is_in_range(target):
 			gun.shoot_if_target_in_range(target)
-	else:
+	if target == null or !gun.target_is_in_range(target):
 		check_for_targets()
 
 func _on_projectile_attack_component_area_entered(area):
