@@ -16,7 +16,7 @@ var can_shoot = true
 var current_ranged_weapon
 var base_gun_scene = "res://scenes/weapons/revolver_basic.tscn"
 var repairing: bool = false
-var repair_rate: int = 3
+var repair_rate: float = 0.01
 
 # -- BASE FUNCTIONS -- #
 func _ready():
@@ -29,7 +29,6 @@ func _ready():
 func _process(delta):
 	if Input.is_action_pressed("repair"):
 		repair()
-		TrainInfo.cars_inventory[active_car]["node"].health += repair_rate * delta
 	else:
 		stop_repair()
 
@@ -86,6 +85,7 @@ func _strike():
 func repair():
 	if TrainInfo.cars_inventory[active_car]["node"].health < TrainInfo.cars_inventory[active_car]["node"].max_health:
 		repairing = true
+		TrainInfo.cars_inventory[active_car]["node"].repair(repair_rate)
 		sprite.play("repairing")
 		if !repair_sfx.playing:
 			repair_sfx.play()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://dlf3ut18w14gl"]
+[gd_scene load_steps=56 format=3 uid="uid://dlf3ut18w14gl"]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie.gd" id="1_sfyon"]
 [ext_resource type="AudioStream" uid="uid://qdyuud18a2c4" path="res://sounds/combat/hit_01.wav" id="3_04jho"]
@@ -384,8 +384,6 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mv14h"]
 size = Vector2(28, 36)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_wmt3c"]
-
 [node name="EnemyZombie" type="RigidBody2D" groups=["enemy"]]
 z_index = 1
 position = Vector2(0, 6)
@@ -456,12 +454,6 @@ ANIMATIONS = NodePath("../ZombieSpriteSheet")
 [node name="TargetArea" type="CollisionShape2D" parent="MeleeAttackComponent"]
 position = Vector2(20, 9)
 shape = SubResource("RectangleShape2D_mv14h")
-
-[node name="target_vis" type="Node2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="target_vis"]
-shape = SubResource("CircleShape2D_wmt3c")
-debug_color = Color(0.988235, 0, 0.298039, 0.419608)
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="body_entered" from="WallDetector" to="." method="_on_wall_detector_body_entered"]

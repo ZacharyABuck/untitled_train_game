@@ -85,6 +85,7 @@ position = Vector2(1.5, 1.5)
 shape = SubResource("RectangleShape2D_a1ef6")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
+process_mode = 3
 modulate = Color(0, 0.807843, 0, 1)
 offset_left = -60.0
 offset_top = 158.0
@@ -183,4 +184,5 @@ position = Vector2(0, 350)
 modulate = Color(0.752941, 0.752941, 0.752941, 1)
 stream = ExtResource("3_jpwrk")
 volume_db = -20.0
+max_polyphony = 10
 bus = &"Train"

@@ -13,8 +13,8 @@ extends Node2D
 
 var hard_point = preload("res://scenes/hard_point.tscn")
 
-var max_health = 50
-var health = 50
+var max_health: float = 50.0
+var health: float = 50.0
 
 var index
 var type
@@ -29,7 +29,9 @@ func _ready():
 	health_bar.value = health
 
 func _process(_delta):
+	
 	health_bar.value = health
+	
 	if LevelInfo.active_level.world_light.energy >= .25 and room_light.enabled == false:
 		room_light.enabled = true
 	if LevelInfo.active_level.world_light.energy <= .25 and room_light.enabled == true:
@@ -37,6 +39,9 @@ func _process(_delta):
 
 func take_damage(amount):
 	health -= amount
+
+func repair(amount):
+	health += amount
 
 func set_parameters():
 	if TrainInfo.cars_roster.has(type):

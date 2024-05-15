@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://components/HealthComponent.gd" id="4_8hue6"]
 [ext_resource type="Script" path="res://scenes/EdgeHandler.gd" id="6_6b4qp"]
 [ext_resource type="AudioStream" uid="uid://bm8ntouv5ol6l" path="res://sounds/player/running_wood.wav" id="7_t6e6q"]
-[ext_resource type="AudioStream" uid="uid://qfat1bopyfc1" path="res://sounds/player/repair.wav" id="8_nrx0r"]
+[ext_resource type="AudioStream" uid="uid://cpnffnc4clg7y" path="res://sounds/player/repair.mp3" id="8_5qdj5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m0gpd"]
 atlas = ExtResource("3_y5r7g")
@@ -207,7 +207,7 @@ volume_db = -15.0
 bus = &"SFX"
 
 [node name="RepairSFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("8_nrx0r")
+stream = ExtResource("8_5qdj5")
 volume_db = -15.0
 bus = &"Train"
 
