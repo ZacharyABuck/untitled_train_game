@@ -3,10 +3,11 @@ extends CharacterBody2D
 @onready var sprite = $AnimatedSprite2D
 @onready var auto_fire_timer = $AutoFireTimer
 @onready var health_bar = $HealthBar
-#@onready var gunshot = $GunshotSound
 @onready var health_component = $HealthComponent
 @onready var edge_handler = $EdgeHandler
-@onready var running_sfx = $"Running SFX"
+@onready var running_sfx = $RunningSFX
+@onready var repair_sfx = $RepairSFX
+
 
 
 var active_car
@@ -14,6 +15,8 @@ var bullet = preload("res://scenes/projectiles/fiery_bullet.tscn")
 var can_shoot = true
 var current_ranged_weapon
 var base_gun_scene = "res://scenes/weapons/revolver_basic.tscn"
+var repairing: bool = false
+var repair_rate: float = 0.01
 
 # -- BASE FUNCTIONS -- #
 func _ready():
@@ -23,8 +26,11 @@ func _ready():
 	_instantiate_ranged_weapon(base_gun_scene)
 	ExperienceSystem.level_up.connect(self.handle_level_up)
 
-func _process(_delta):
-	pass
+func _process(delta):
+	if Input.is_action_pressed("repair"):
+		repair()
+	else:
+		stop_repair()
 
 func _physics_process(_delta):
 	global_rotation_degrees = 0
@@ -35,34 +41,37 @@ func _physics_process(_delta):
 
 # -- INPUT FUNCTIONS -- #
 func get_input():
+	
+	# -- DIRECTIONAL INPUT -- #
 	var input_direction = Input.get_vector("left", "right", "up", "down")
 	velocity = input_direction * PlayerInfo.current_movespeed
-	if get_global_mouse_position().x < global_position.x:
-		#sprite.scale.x = -.7
-		pass
-	else:
-		pass
-		#sprite.scale.x = .7
-	if velocity.is_equal_approx(Vector2.ZERO):
-		sprite.play("standing")
-		running_sfx.stop()
-	else:
-		sprite.play("running")
-		if !running_sfx.playing:
-			running_sfx.play()
+	
+	# -- MOVEMENT ANIMATIONS -- #
+	if !repairing:
+		if velocity.is_equal_approx(Vector2.ZERO):
+			sprite.play("standing")
+			running_sfx.stop()
+		else:
+			sprite.play("running")
+			if !running_sfx.playing:
+				running_sfx.play()
 
 func _input(event):
 	#mouse events when ui is closed
-	if event is InputEventMouseButton and event.pressed and \
-	LevelInfo.active_level.ui_open == false and GadgetInfo.selected_gadget == null:
-		if event.is_action_pressed("shoot"):
+	if LevelInfo.active_level.ui_open == false and GadgetInfo.selected_gadget == null:
+		if event.is_action_pressed("shoot") and !repairing:
 			_shoot()
-		if event.is_action_pressed("strike"):
+		elif event.is_action_pressed("strike") and !repairing:
 			_strike()
+		elif event.is_action_pressed("repair"):
+			repair()
 	#if ui is open
 	elif event is InputEventMouseButton and event.pressed and \
 	LevelInfo.active_level.ui_open == true and GadgetInfo.selected_gadget == null:
 		LevelInfo.active_level.close_all_ui()
+
+	if event.is_action_released("repair"):
+		stop_repair()
 
 # -- ATTACK FUNCTIONS -- #
 func _shoot():
@@ -70,8 +79,20 @@ func _shoot():
 
 func _strike():
 	# current_melee_weapon.strike()
-	print("Strike button pressed.")
+	pass
 
+# -- REPAIR -- #
+func repair():
+	if TrainInfo.cars_inventory[active_car]["node"].health < TrainInfo.cars_inventory[active_car]["node"].max_health:
+		repairing = true
+		TrainInfo.cars_inventory[active_car]["node"].repair(repair_rate)
+		sprite.play("repairing")
+		if !repair_sfx.playing:
+			repair_sfx.play()
+
+func stop_repair():
+	repairing = false
+	repair_sfx.stop()
 
 # -- EQUIPMENT FUNCTIONS -- #
 func _instantiate_ranged_weapon(gun_scene_location):

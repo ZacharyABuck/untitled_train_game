@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bp38lfu2xg7sc"]
+[gd_scene load_steps=27 format=3 uid="uid://bp38lfu2xg7sc"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_1wp3v"]
 [ext_resource type="Script" path="res://components/HurtboxComponent.gd" id="3_pf8ut"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://components/HealthComponent.gd" id="4_8hue6"]
 [ext_resource type="Script" path="res://scenes/EdgeHandler.gd" id="6_6b4qp"]
 [ext_resource type="AudioStream" uid="uid://bm8ntouv5ol6l" path="res://sounds/player/running_wood.wav" id="7_t6e6q"]
+[ext_resource type="AudioStream" uid="uid://cpnffnc4clg7y" path="res://sounds/player/repair.mp3" id="8_5qdj5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m0gpd"]
 atlas = ExtResource("3_y5r7g")
@@ -146,8 +147,8 @@ scale = Vector2(0.7, 0.7)
 sprite_frames = SubResource("SpriteFrames_r2lml")
 animation = &"repairing"
 autoplay = "standing"
-frame = 1
-frame_progress = 0.614218
+frame = 2
+frame_progress = 0.479335
 
 [node name="BodyCollider" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 2)
@@ -200,10 +201,15 @@ HEALTHBAR = NodePath("../HealthBar")
 [node name="EdgeHandler" type="Node" parent="."]
 script = ExtResource("6_6b4qp")
 
-[node name="Running SFX" type="AudioStreamPlayer" parent="."]
+[node name="RunningSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_t6e6q")
 volume_db = -15.0
 bus = &"SFX"
+
+[node name="RepairSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_5qdj5")
+volume_db = -15.0
+bus = &"Train"
 
 [connection signal="timeout" from="AutoFireTimer" to="." method="_on_auto_fire_timer_timeout"]
 [connection signal="area_entered" from="CarDetector" to="." method="_on_car_detector_area_entered"]

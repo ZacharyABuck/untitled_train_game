@@ -22,19 +22,19 @@ var events = {
 	"0" = {
 		"distance" = 1,
 		"triggered" = false,
-		"type" = null,
+		"type" = "shop",
 		"area" = null,
 	},
 	"1" = {
 		"distance" = 3,
 		"triggered" = false,
-		"type" = null,
+		"type" = "shop",
 		"area" = null,
 	},
 	"2" = {
 		"distance" = 4,
 		"triggered" = false,
-		"type" = null,
+		"type" = "shop",
 		"area" = null,
 	},
 }

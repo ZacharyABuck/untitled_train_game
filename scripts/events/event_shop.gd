@@ -2,11 +2,48 @@ extends Event
 
 var alert_text: String = "Shop"
 
+@onready var item_list = $CanvasLayer/ShopContainer/ItemList
+
+var items_count: int = 1
+
+var items_roster = {
+	"Repair Train" = {
+		"cost" = 20,
+		"icon" = preload("res://sprites/train/hard_point_icon.png"),
+	},
+}
+
+
+
+
 func _ready():
+	generate_items()
 	await get_tree().create_timer(.5).timeout
 	if $Sprite2D/TrackDetector.is_colliding():
 		if $Sprite2D/TrackDetector.get_collider().get_collision_layer_value(2) == true:
 			$Sprite2D.global_position.x += 300
+
+func generate_items():
+	for i in items_count:
+		var random_item = items_roster.keys().pick_random()
+		var text = random_item + "   $" + str(items_roster[random_item]["cost"])
+		item_list.add_item(text, items_roster[random_item]["icon"])
+		item_list.set_item_metadata(i, random_item)
+
+func _on_item_clicked(index, _at_position, _mouse_button_index):
+	var item = item_list.get_item_metadata(index)
+	if items_roster[item]["cost"] <= PlayerInfo.current_money:
+		PlayerInfo.current_money -= items_roster[item]["cost"]
+		match item:
+			"Repair Train":
+				repair_train()
+		item_list.remove_item(index)
+	Engine.set_time_scale(.2)
+
+func repair_train():
+	print("Repair Train")
+	for i in TrainInfo.cars_inventory:
+		TrainInfo.cars_inventory[i]["node"].health = TrainInfo.cars_inventory[i]["node"].max_health
 
 func shop_triggered(area):
 	if area.get_parent().is_in_group("car") and triggered == false:
@@ -19,12 +56,12 @@ func shop_triggered(area):
 func _on_enter_button_pressed():
 	$Sprite2D/EnterButton.hide()
 	LevelInfo.active_level.ui_open = true
-	LevelInfo.root.pause_game()
+	Engine.set_time_scale(.2)
 	$CanvasLayer.show()
 
 func _on_leave_button_pressed():
-	LevelInfo.root.unpause_game()
+	print("Leave Button Pressed")
+	Engine.set_time_scale(1)
 	LevelInfo.active_level.ui_open = false
 	$CanvasLayer.hide()
 	event_finished()
-

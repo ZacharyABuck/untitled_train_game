@@ -32,7 +32,6 @@ func _physics_process(delta):
 		elif state == "boarding" and active_car != null:
 			var car = TrainInfo.cars_inventory[active_car]["node"]
 			var pos = car.boarding_final_position.global_position
-			$target_vis.global_position = pos
 			animations.play("boarding")
 		elif state == "finish_boarding":
 			animations.play("finish_boarding")
@@ -44,6 +43,7 @@ func _physics_process(delta):
 	if state == "idle":
 		animations.play("idle")
 	if state == "dead":
+		attack_timer.stop()
 		hurtbox.disabled = true
 
 #board train

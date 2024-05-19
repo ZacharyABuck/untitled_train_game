@@ -1,9 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://c4nak430nkfsa"]
+[gd_scene load_steps=6 format=3 uid="uid://c4nak430nkfsa"]
 
 [ext_resource type="Script" path="res://scripts/events/event_shop.gd" id="1_cnk1b"]
 [ext_resource type="Texture2D" uid="uid://so1nk7bc5pxv" path="res://sprites/obstacles/shop_shack.png" id="1_wsbf3"]
-[ext_resource type="Texture2D" uid="uid://c1esbr41s7mmf" path="res://sprites/gadgets/gadget_pistol_turret.png" id="3_o83n7"]
-[ext_resource type="Texture2D" uid="uid://daouu3cumm1lh" path="res://sprites/gadgets/gadget_rifle_turret.png" id="4_f2i1k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xt6du"]
 radius = 329.038
@@ -48,7 +46,6 @@ text = "Enter Shop"
 visible = false
 
 [node name="ShopContainer" type="GridContainer" parent="CanvasLayer"]
-process_mode = 2
 offset_left = 850.0
 offset_top = 481.0
 offset_right = 1070.0
@@ -58,12 +55,7 @@ offset_bottom = 616.0
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 auto_height = true
-item_count = 2
 fixed_icon_size = Vector2i(32, 32)
-item_0/text = "Cool Weapon $5"
-item_0/icon = ExtResource("3_o83n7")
-item_1/text = "Cooler Weapon $10"
-item_1/icon = ExtResource("4_f2i1k")
 
 [node name="LeaveButton" type="Button" parent="CanvasLayer/ShopContainer"]
 layout_mode = 2
@@ -77,4 +69,5 @@ texture = SubResource("GradientTexture2D_rrh8w")
 
 [connection signal="area_entered" from="." to="." method="shop_triggered"]
 [connection signal="pressed" from="Sprite2D/EnterButton" to="." method="_on_enter_button_pressed"]
+[connection signal="item_clicked" from="CanvasLayer/ShopContainer/ItemList" to="." method="_on_item_clicked"]
 [connection signal="pressed" from="CanvasLayer/ShopContainer/LeaveButton" to="." method="_on_leave_button_pressed"]
