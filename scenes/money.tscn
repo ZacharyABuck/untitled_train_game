@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dphvykl8vq0y8"]
+
+[ext_resource type="Script" path="res://scripts/money.gd" id="1_2kksr"]
+[ext_resource type="Texture2D" uid="uid://ccc7b2dox26h2" path="res://sprites/ui/coin_1.png" id="1_ck4p0"]
+[ext_resource type="AudioStream" uid="uid://d3cu6rso7qa33" path="res://sounds/ui/get_money.mp3" id="3_761bl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wvagx"]
+
+[node name="Money" type="RigidBody2D"]
+collision_layer = 0
+script = ExtResource("1_2kksr")
+state = "initial_force"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_ck4p0")
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+shape = SubResource("CircleShape2D_wvagx")
+
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_761bl")
+volume_db = -10.0
+bus = &"SFX"
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]

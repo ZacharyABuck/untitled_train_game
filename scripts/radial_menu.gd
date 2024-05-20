@@ -82,7 +82,7 @@ func open_menu():
 		index += 1
 		var tween = get_tree().create_tween().bind_node(self)
 		tween.tween_property(i, "position", position + Vector2(radius,0).rotated(angle), .05).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	await get_tree().create_timer(.05).timeout
+	await get_tree().create_timer(.02).timeout
 	for i in items.get_children():
 		i.active = true
 

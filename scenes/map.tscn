@@ -50,6 +50,7 @@ size = Vector2(6913, 774.25)
 [node name="Map" type="TileMap"]
 tile_set = SubResource("TileSet_x5cjt")
 rendering_quadrant_size = 64
+collision_visibility_mode = 2
 format = 2
 layer_0/name = "terrain"
 layer_0/z_index = -2

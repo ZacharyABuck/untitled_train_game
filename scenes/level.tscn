@@ -425,7 +425,6 @@ script = ExtResource("1_2a3mn")
 script = ExtResource("1_lfsvw")
 
 [node name="TrainManager" parent="." instance=ExtResource("3_3t5p5")]
-position = Vector2(747, 317)
 car_count = 4
 
 [node name="Bullets" type="Node2D" parent="."]
