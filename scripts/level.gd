@@ -146,9 +146,11 @@ func handle_level_up():
 	populate_edge_menu()
 	edge_menu.set_position(Vector2(0, -2000))
 	LevelInfo.active_level.edge_menu.show()
+
 	var pos_tween = create_tween()
 	pos_tween.tween_property(edge_menu, "position", Vector2.ZERO, 1).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_IN)
 	await pos_tween.finished
+
 	$EdgeSFX.play()
 	edge_menu_open = true
 	pause_game()

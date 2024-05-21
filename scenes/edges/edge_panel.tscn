@@ -24,7 +24,6 @@ offset_right = -1632.0
 offset_bottom = -680.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(144, 200)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_w746y")
