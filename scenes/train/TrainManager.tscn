@@ -10,7 +10,7 @@
 [sub_resource type="Curve2D" id="1"]
 resource_local_to_scene = true
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 2000, 0, 0, 10.6787, -340.723, 0, 0)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 3000, 0, 0, 10.6787, -340.723, 0, 0)
 }
 point_count = 2
 
@@ -22,7 +22,6 @@ train_vehicle_reference = ExtResource("2_8qejh")
 [node name="Tracks" type="Node2D" parent="."]
 
 [node name="Track" parent="Tracks" instance=ExtResource("3_l4c2w")]
-position = Vector2(256, 128)
 curve = SubResource("1")
 
 [node name="TrainEngine" parent="." instance=ExtResource("4_6vjgm")]
@@ -48,4 +47,16 @@ wait_time = 0.05
 one_shot = true
 autostart = true
 
+[node name="MeshTimer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="TrainCollision" type="StaticBody2D" parent="." groups=["car"]]
+collision_layer = 32
+collision_mask = 9
+
+[node name="MeshVis" type="CollisionPolygon2D" parent="TrainCollision"]
+build_mode = 1
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="MeshTimer" to="." method="add_to_mesh"]

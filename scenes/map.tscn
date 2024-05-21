@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://q2dd3frbnjgr"]
+[gd_scene load_steps=11 format=3 uid="uid://q2dd3frbnjgr"]
 
 [ext_resource type="Texture2D" uid="uid://u7ejb58upvfd" path="res://sprites/tiles/desert_tileset_512.png" id="1_b75gg"]
+[ext_resource type="Texture2D" uid="uid://gaavxa8xw7e7" path="res://sprites/tiles/tileset_simple.png" id="2_1jfrw"]
 [ext_resource type="Script" path="res://scripts/maps/map.gd" id="2_jsjxo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vf8h2"]
@@ -28,12 +29,81 @@ texture_region_size = Vector2i(128, 128)
 2:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 2:1/0/physics_layer_0/angular_velocity = 0.0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vsc50"]
+texture = ExtResource("2_1jfrw")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/terrains_peering_bit/right_side = 1
+1:0/0/terrains_peering_bit/bottom_side = 1
+1:0/0/terrains_peering_bit/left_side = 1
+1:0/0/terrains_peering_bit/top_side = 1
+2:0/0 = 0
+2:0/0/terrain_set = 0
+2:0/0/terrain = 1
+2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:0/0/physics_layer_0/angular_velocity = 0.0
+2:0/0/terrains_peering_bit/right_side = 1
+2:0/0/terrains_peering_bit/bottom_side = 1
+2:0/0/terrains_peering_bit/left_side = 1
+2:0/0/terrains_peering_bit/top_side = 1
+3:0/0 = 0
+3:0/0/terrain_set = 0
+3:0/0/terrain = 2
+3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:0/0/physics_layer_0/angular_velocity = 0.0
+3:0/0/terrains_peering_bit/right_side = 1
+3:0/0/terrains_peering_bit/bottom_side = 1
+3:0/0/terrains_peering_bit/left_side = 1
+3:0/0/terrains_peering_bit/top_side = 1
+0:1/0 = 0
+0:1/0/terrain_set = 0
+0:1/0/terrain = 3
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0/terrains_peering_bit/right_side = 1
+0:1/0/terrains_peering_bit/bottom_side = 1
+0:1/0/terrains_peering_bit/left_side = 1
+0:1/0/terrains_peering_bit/top_side = 1
+1:1/0 = 0
+1:1/0/terrain_set = 0
+1:1/0/terrain = 4
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+1:1/0/terrains_peering_bit/right_side = 1
+1:1/0/terrains_peering_bit/bottom_side = 1
+1:1/0/terrains_peering_bit/left_side = 1
+1:1/0/terrains_peering_bit/top_side = 1
+2:1/0 = 0
+2:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:1/0/physics_layer_0/angular_velocity = 0.0
+
 [sub_resource type="TileSet" id="TileSet_x5cjt"]
 tile_size = Vector2i(128, 128)
 physics_layer_0/collision_layer = 64
 physics_layer_0/collision_mask = 2
+terrain_set_0/mode = 2
+terrain_set_0/terrain_0/name = "Mud"
+terrain_set_0/terrain_0/color = Color(0.27451, 0.211765, 0.133333, 1)
+terrain_set_0/terrain_1/name = "Dark Sand"
+terrain_set_0/terrain_1/color = Color(0.658824, 0.466667, 0.215686, 1)
+terrain_set_0/terrain_2/name = "Light Sand"
+terrain_set_0/terrain_2/color = Color(0.737255, 0.576471, 0.0156863, 1)
+terrain_set_0/terrain_3/name = "Water to Mud"
+terrain_set_0/terrain_3/color = Color(0.156863, 0.592157, 0.643137, 1)
+terrain_set_0/terrain_4/name = "Mud to Dark Sand"
+terrain_set_0/terrain_4/color = Color(0.27451, 0.211765, 0.133333, 1)
+terrain_set_0/terrain_5/name = "Terrain 5"
+terrain_set_0/terrain_5/color = Color(0.25, 0.5, 0.3125, 1)
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_vf8h2")
+sources/1 = SubResource("TileSetAtlasSource_vsc50")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gauyu"]
 size = Vector2(1033, 6844)
@@ -50,6 +120,7 @@ size = Vector2(6913, 774.25)
 [node name="Map" type="TileMap"]
 tile_set = SubResource("TileSet_x5cjt")
 rendering_quadrant_size = 64
+collision_visibility_mode = 2
 format = 2
 layer_0/name = "terrain"
 layer_0/z_index = -2

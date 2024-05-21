@@ -2,6 +2,7 @@ extends Node
 
 var speed = 30
 
+var train_manager
 var train_engine
 
 var cars_inventory = {

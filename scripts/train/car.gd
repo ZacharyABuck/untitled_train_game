@@ -10,6 +10,13 @@ extends Node2D
 @onready var boarding_final_position = $BoardingFinalPosition
 @onready var boarding_points = $BoardingPoints
 @onready var boarding_sfx = $BoardingSFX
+#CORNER POINTS FOR MESH
+@onready var top_left = $CornerPoints/TopLeft
+@onready var top_right = $CornerPoints/TopRight
+@onready var bottom_left = $CornerPoints/BottomLeft
+@onready var bottom_right = $CornerPoints/BottomRight
+@onready var top_center = $CornerPoints/TopCenter
+
 
 var hard_point = preload("res://scenes/hard_point.tscn")
 

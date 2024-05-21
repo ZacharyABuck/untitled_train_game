@@ -11,7 +11,7 @@ var track_cells = []
 var map_positions = []
 
 var difficulty = 1
-var difficulty_increase_rate = .00002
+var difficulty_increase_rate = .000025
 
 var level_parameters = {
 	"distance" = 6,
@@ -22,19 +22,19 @@ var events = {
 	"0" = {
 		"distance" = 1,
 		"triggered" = false,
-		"type" = "shop",
+		"type" = null,
 		"area" = null,
 	},
 	"1" = {
 		"distance" = 3,
 		"triggered" = false,
-		"type" = "shop",
+		"type" = null,
 		"area" = null,
 	},
 	"2" = {
 		"distance" = 4,
 		"triggered" = false,
-		"type" = "shop",
+		"type" = null,
 		"area" = null,
 	},
 }
@@ -61,3 +61,11 @@ func clear_variables():
 	track_cells.clear()
 	map_positions.clear()
 	active_map = null
+
+
+var money = preload("res://scenes/money.tscn")
+func spawn_money(pos, amount):
+	for i in amount:
+		var new_money = money.instantiate()
+		new_money.global_position = pos
+		active_level.call_deferred("add_child", new_money)

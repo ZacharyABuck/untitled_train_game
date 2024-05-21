@@ -36,10 +36,27 @@ modulate = Color(0.580392, 0.580392, 0.580392, 1)
 position = Vector2(0, 171)
 texture = ExtResource("2_hspvl")
 
+[node name="CornerPoints" type="Node2D" parent="."]
+
+[node name="TopLeft" type="Node2D" parent="CornerPoints"]
+position = Vector2(-63, -16)
+
+[node name="TopRight" type="Node2D" parent="CornerPoints"]
+position = Vector2(63, -18)
+
+[node name="BottomLeft" type="Node2D" parent="CornerPoints"]
+position = Vector2(-63, 363)
+
+[node name="BottomRight" type="Node2D" parent="CornerPoints"]
+position = Vector2(63, 364)
+
+[node name="TopCenter" type="Node2D" parent="CornerPoints"]
+
 [node name="LeftWall" type="StaticBody2D" parent="."]
 visible = false
 position = Vector2(0, 171)
 collision_layer = 4
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
 position = Vector2(-73.5, 1)
@@ -49,6 +66,7 @@ shape = SubResource("RectangleShape2D_56ap2")
 visible = false
 position = Vector2(0, 171)
 collision_layer = 4
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
 position = Vector2(77.5, 1)
@@ -58,6 +76,7 @@ shape = SubResource("RectangleShape2D_jbwp3")
 visible = false
 position = Vector2(0, 171)
 collision_layer = 4
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TopWall"]
 position = Vector2(2, -188.75)
@@ -68,6 +87,7 @@ disabled = true
 visible = false
 position = Vector2(0, 171)
 collision_layer = 4
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BottomWall"]
 position = Vector2(2, 190.75)

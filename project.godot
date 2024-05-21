@@ -82,6 +82,7 @@ repair={
 2d_physics/layer_3="Car"
 2d_physics/layer_4="Enemy"
 2d_physics/layer_5="Cover"
+2d_physics/layer_6="PlayerAllowedArea"
 2d_physics/layer_7="Terrain"
 2d_physics/layer_8="Events"
 2d_physics/layer_9="Obstacles"

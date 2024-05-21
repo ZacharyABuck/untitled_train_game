@@ -5,10 +5,11 @@ var player = preload("res://scenes/player.tscn")
 
 @onready var edge_menu = $UI/EdgeMenu
 var edge_menu_open: bool = false
-@onready var edge_list = $UI/EdgeMenu/EdgeContainer/EdgeList
+const edge_panel = preload("res://scenes/edges/edge_panel.tscn")
 @onready var alert_label = $UI/AlertLabel
 @onready var enemies = $Enemies
 @onready var train_manager = $TrainManager
+@onready var maps = $Maps
 @onready var enemy_spawn_positions = $EnemySpawnPositions
 @onready var enemy_spawn_timer = $EnemySpawnTimer
 @onready var xp_bar = $UI/PlayerExperienceBar
@@ -142,22 +143,35 @@ func _on_enemy_spawn_timer_timeout():
 
 func handle_level_up():
 	level_up_animation.play("level_up")
-	pause_game()
 	populate_edge_menu()
+	edge_menu.set_position(Vector2(0, -2000))
 	LevelInfo.active_level.edge_menu.show()
+	var pos_tween = create_tween()
+	pos_tween.tween_property(edge_menu, "position", Vector2.ZERO, 1).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_IN)
+	await pos_tween.finished
+	$EdgeSFX.play()
 	edge_menu_open = true
+	pause_game()
 
 # Edge Menu
 func populate_edge_menu():
-	for edge in EdgeInfo.edge_roster:
-		edge_list.add_item(EdgeInfo.edge_roster[edge]["name"], EdgeInfo.edge_roster[edge]["sprite"])
-		edge_list.set_item_metadata(edge_list.item_count-1, EdgeInfo.edge_roster[edge])
+	for i in 3:
+		var new_panel = edge_panel.instantiate()
+		edge_menu.add_child(new_panel)
+		new_panel.populate(EdgeInfo.edge_roster.keys().pick_random())
+		new_panel.clicked.connect(edge_selected)
 
-func _on_edge_list_item_clicked(index, at_position, _mouse_button_index):
-	var edge_info = LevelInfo.active_level.edge_list.get_item_metadata(index)
-	new_player.edge_handler.add_edge(edge_info)
+func edge_selected(edge):
+	new_player.edge_handler.add_edge(EdgeInfo.edge_roster[edge])
+	var tween = create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween.tween_property(edge_menu, "modulate", Color.TRANSPARENT, .5)
+	await tween.finished
 	LevelInfo.active_level.edge_menu.hide()
-	edge_list.clear()
+	for i in edge_menu.get_children():
+		i.queue_free()
+	edge_menu.modulate = Color.WHITE
+	edge_menu_open = false
 	unpause_game()
 
 func close_all_ui():
@@ -167,8 +181,10 @@ func close_all_ui():
 		TrainInfo.cars_inventory[i]["node"].hide_radial_menus()
 
 func pause_game():
-	LevelInfo.active_level.get_tree().paused = true
+	if LevelInfo.active_level.get_tree().paused == false:
+		LevelInfo.active_level.get_tree().paused = true
 
 func unpause_game():
-	LevelInfo.active_level.get_tree().paused = false
+	if LevelInfo.active_level.get_tree().paused == true:
+		LevelInfo.active_level.get_tree().paused = false
 

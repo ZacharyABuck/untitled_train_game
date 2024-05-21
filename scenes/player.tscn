@@ -139,7 +139,7 @@ size = Vector2(36, 46)
 z_index = 5
 z_as_relative = false
 collision_layer = 9
-collision_mask = 5
+collision_mask = 33
 script = ExtResource("1_1wp3v")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

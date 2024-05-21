@@ -17,6 +17,8 @@ class_name HealthComponent
 @export var ANIMATION : AnimatedSprite2D
 @export var HEALTHBAR : ProgressBar
 
+var money = preload("res://scenes/money.tscn")
+
 var health
 var armor : int
 var final_damage : int
@@ -51,7 +53,10 @@ func _handle_death():
 	if is_killable:
 		print(character.name, " killed.")
 		if character.is_in_group("enemy"):
-			PlayerInfo.current_money += character.money
+			
+			LevelInfo.spawn_money(character.global_position, character.money)
+
+			#PlayerInfo.current_money += character.money
 			ExperienceSystem.give_experience.emit(character.experience)
 			character.state = "dead"
 			animation.play("death")
