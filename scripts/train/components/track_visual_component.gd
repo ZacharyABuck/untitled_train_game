@@ -47,12 +47,12 @@ func generate_collision_area(i, crossties):
 	area.global_transform = _crosstie_multimesh.global_transform * crossties.get_instance_transform_2d(i)
 	collision_shape.shape = RectangleShape2D.new()
 	var coords = LevelInfo.active_map.local_to_map(area.global_position)
-	LevelInfo.active_map.set_cell(1, coords, 0, Vector2i(2,0), 0)
+	LevelInfo.active_map.set_cell(1, coords, 1, Vector2i(2,0), 0)
 	LevelInfo.track_cells.append(coords)
 	for c in LevelInfo.active_map.get_surrounding_cells(coords):
 		if !LevelInfo.track_cells.has(c):
 			LevelInfo.track_cells.append(c)
-			LevelInfo.active_map.set_cell(1, c, 0, Vector2i(2,0), 0)
+			LevelInfo.active_map.set_cell(1, c, 1, Vector2i(2,0), 0)
 
 func set_crosstie_distance(new_dist: float) -> void:
 	crosstie_distance = new_dist

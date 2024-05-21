@@ -53,7 +53,7 @@ func _on_timer_timeout() -> void:
 	_setup_train()
 
 func add_to_mesh():
-	var verts: PackedVector2Array
+	var verts: PackedVector2Array = []
 	
 	verts.append(TrainInfo.cars_inventory[0]["node"].top_left.global_position)
 	verts.append(TrainInfo.cars_inventory[0]["node"].top_right.global_position)

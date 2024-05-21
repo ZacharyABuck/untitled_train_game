@@ -69,10 +69,8 @@ func finish_boarding():
 
 func _on_zombie_sprite_sheet_animation_finished():
 	if animations.animation == "death":
-		print("death animation finished")
 		queue_free()
 	if animations.animation == "boarding":
-		print("boarding animation finished")
 		TrainInfo.cars_inventory[active_car]["node"].take_damage(damage)
 		if TrainInfo.cars_inventory[active_car]["node"].health <= 0:
 			finish_boarding()
