@@ -5,6 +5,8 @@ var speed = 30
 var train_manager
 var train_engine
 
+var track_positions: Array = []
+
 var cars_inventory = {
 }
 

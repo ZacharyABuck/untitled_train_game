@@ -27,7 +27,7 @@ func add_gadget(requested_gadget):
 		new_gadget.hard_point = self
 		car.gadgets.add_child(new_gadget)
 		new_gadget.global_position = global_position
-		radial_menu.queue_free()
+		radial_menu.hide()
 	else:
 		var label = LevelInfo.active_level.alert_label
 		label.text = "Not Enough Money!"

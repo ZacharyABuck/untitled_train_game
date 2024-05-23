@@ -9,13 +9,14 @@ const edge_panel = preload("res://scenes/edges/edge_panel.tscn")
 @onready var alert_label = $UI/AlertLabel
 @onready var enemies = $Enemies
 @onready var train_manager = $TrainManager
-@onready var maps = $Maps
+@onready var map = $Map
 @onready var enemy_spawn_positions = $EnemySpawnPositions
 @onready var enemy_spawn_timer = $EnemySpawnTimer
 @onready var xp_bar = $UI/PlayerExperienceBar
 @onready var level_label = $UI/LevelLabel
 @onready var xp_label = $UI/ExperienceLabel
-@onready var level_up_animation = $UI/LevelUpAnimation
+@onready var level_up_button = $UI/LevelUpButton
+
 var new_player
 
 var ui_open: bool = false
@@ -31,6 +32,7 @@ func _ready():
 	generate_track()
 	spawn_player()
 	ExperienceSystem.level_up.connect(self.handle_level_up)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -142,18 +144,30 @@ func _on_enemy_spawn_timer_timeout():
 
 
 func handle_level_up():
-	level_up_animation.play("level_up")
+	$LevelUpSFX.play()
+	level_up_button.scale = Vector2(1.2, 1.2)
+	level_up_button.disabled = false
+	level_up_button.show()
+	var tween = create_tween()
+	tween.tween_property(level_up_button, "scale", Vector2(1, 1), .2).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_IN)
+
+func _on_level_up_button_button_up():
+	
+	level_up_button.disabled = true
+	level_up_button.hide()
+	
 	populate_edge_menu()
 	edge_menu.set_position(Vector2(0, -2000))
 	LevelInfo.active_level.edge_menu.show()
 
 	var pos_tween = create_tween()
-	pos_tween.tween_property(edge_menu, "position", Vector2.ZERO, 1).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_IN)
+	pos_tween.tween_property(edge_menu, "position", Vector2.ZERO, .5).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_IN)
 	await pos_tween.finished
 
 	$EdgeSFX.play()
 	edge_menu_open = true
 	pause_game()
+
 
 # Edge Menu
 func populate_edge_menu():
@@ -189,4 +203,3 @@ func pause_game():
 func unpause_game():
 	if LevelInfo.active_level.get_tree().paused == true:
 		LevelInfo.active_level.get_tree().paused = false
-

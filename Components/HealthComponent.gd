@@ -51,20 +51,19 @@ func damage(attack : Attack):
 
 func _handle_death():
 	if is_killable:
-		print(character.name, " killed.")
 		if character.is_in_group("enemy"):
-			
 			LevelInfo.spawn_money(character.global_position, character.money)
-
-			#PlayerInfo.current_money += character.money
 			ExperienceSystem.give_experience.emit(character.experience)
 			character.state = "dead"
 			animation.play("death")
+		
 		if character.is_in_group("event"):
 			character.queue_free()
 			character.event_finished()
+		
 		if character.is_in_group("gadget"):
 			character.hard_point.gadget = null
+			character.hard_point.radial_menu.show()
 			character.queue_free()
 
 func _calculate_final_damage(damage, armor):
