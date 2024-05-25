@@ -19,6 +19,13 @@ var level_parameters = {
 	"terrain" = null,
 }
 
+var terrain_roster: Dictionary = {
+	0: "Flooded Land",
+	4: "Sands",
+	7: "Mesa",
+	11: "Canyon",
+}
+
 var events = {
 	"0" = {
 		"distance" = 0,
@@ -56,12 +63,6 @@ var events_roster = {
 	"haunting" = {
 		"scene" = preload("res://scenes/events/event_haunting.tscn"),
 	},
-}
-
-var terrain_roster: Dictionary = {
-	0: "Open Land",
-	2: "Mesa",
-	5: "Mountains",
 }
 
 func clear_variables():

@@ -8,6 +8,8 @@
 [ext_resource type="Script" path="res://components/MeleeAttackComponent.gd" id="5_vxl1g"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nyh8v"]
+radius = 9.5
+height = 19.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4v00t"]
 size = Vector2(26, 40)

@@ -2,10 +2,11 @@ extends TileMap
 
 var altitude = FastNoiseLite.new()
 
-var chunk_width = 11
+var chunk_width = 13
 var chunk_height = 9
 var loaded_chunks: Array = []
 var level_terrain: int
+var last_pos: Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,7 +15,8 @@ func _ready():
 	altitude.seed = randi()
 
 func _process(delta):
-	if PlayerInfo.active_player:
+	if PlayerInfo.active_player and PlayerInfo.active_player.global_position.distance_to(last_pos) > 256:
+		last_pos = PlayerInfo.active_player.global_position
 		var new_cells = spawn_chunk(local_to_map(PlayerInfo.active_player.global_position))
 		BetterTerrain.update_terrain_cells(self, 0, new_cells)
 		
@@ -26,9 +28,9 @@ func spawn_chunk(coords):
 			var cell = Vector2i(coords.x - (chunk_width / 2) + x, coords.y - (chunk_height / 2) + y)
 			var alt = altitude.get_noise_2d(cell.x, cell.y) * 10
 			if alt < 0 and !LevelInfo.track_cells.has(cell):
-				BetterTerrain.set_cell(self, 0, cell, 0)
+				BetterTerrain.set_cell(self, 0, cell, 1)
 			elif !LevelInfo.track_cells.has(cell):
-				var terrain = round(2 * (alt+level_terrain) / 20)
+				var terrain = round(3 * (alt+level_terrain) / 20)
 				BetterTerrain.set_cell(self, 0, cell, terrain)
 			if coords not in loaded_chunks:
 				loaded_chunks.append(coords)
@@ -39,16 +41,16 @@ func spawn_chunk(coords):
 
 func set_track_cell(pos):
 	var coords = local_to_map(pos)
-	BetterTerrain.set_cell(self, 0, coords, 0)
+	BetterTerrain.set_cell(self, 0, coords, 1)
 	LevelInfo.track_cells.append(coords)
 	for c in get_surrounding_cells(coords):
 		if !LevelInfo.track_cells.has(c):
 			LevelInfo.track_cells.append(c)
-			BetterTerrain.set_cell(self, 0, c, 0)
+			BetterTerrain.set_cell(self, 0, c, 1)
 			for cc in get_surrounding_cells(c):
 				if !LevelInfo.track_cells.has(cc):
 					LevelInfo.track_cells.append(cc)
-					BetterTerrain.set_cell(self, 0, cc, 0)
+					BetterTerrain.set_cell(self, 0, cc, 1)
 
 func edge_reached(direction, body, entered_map):
 	if body.is_in_group("player"):
