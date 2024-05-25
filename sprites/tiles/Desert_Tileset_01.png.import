@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0ee1vp5ol0hy"
-path="res://.godot/imported/ground_temp_2.png-20135161924e759dc6ec6f4aad051569.ctex"
+uid="uid://bi5i4fe8imr7h"
+path="res://.godot/imported/Desert_Tileset_01.png-f611ff3b14d4683081ecdb99855db738.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/tiles/ground_temp_2.png"
-dest_files=["res://.godot/imported/ground_temp_2.png-20135161924e759dc6ec6f4aad051569.ctex"]
+source_file="res://sprites/tiles/Desert_Tileset_01.png"
+dest_files=["res://.godot/imported/Desert_Tileset_01.png-f611ff3b14d4683081ecdb99855db738.ctex"]
 
 [params]
 

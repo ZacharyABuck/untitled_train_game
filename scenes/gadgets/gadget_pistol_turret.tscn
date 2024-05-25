@@ -38,6 +38,7 @@ TARGET_TYPES = {
 "terrain": false
 }
 ATTACK_TIMER = NodePath("../AttackTimer")
+BULLET_SPEED = 1500
 PROJECTILE = ExtResource("4_4urt4")
 TARGET_AREA = NodePath("ProjectileTargetArea")
 

@@ -1,21 +1,24 @@
-[gd_scene load_steps=19 format=3 uid="uid://02oiy550pacp"]
+[gd_scene load_steps=21 format=3 uid="uid://02oiy550pacp"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_2a3mn"]
-[ext_resource type="Texture2D" uid="uid://c3rk8acy5r15p" path="res://sprites/tiles/Trane_Game_48_Tilesset_v3.png" id="2_ksbbk"]
 [ext_resource type="PackedScene" uid="uid://cb1r5v4vqyrx8" path="res://scenes/train/TrainManager.tscn" id="3_3t5p5"]
+[ext_resource type="Texture2D" uid="uid://bi5i4fe8imr7h" path="res://sprites/tiles/Desert_Tileset_01.png" id="3_mbth6"]
 [ext_resource type="Script" path="res://scripts/maps/map.gd" id="3_nn34h"]
 [ext_resource type="Texture2D" uid="uid://dutu0olvdwa37" path="res://sprites/images/Franch Token.png" id="4_jdl4j"]
 [ext_resource type="Texture2D" uid="uid://dhwaeohssorbn" path="res://sprites/images/xbar_yellow.png" id="5_av7jw"]
+[ext_resource type="FontFile" uid="uid://lxcj83h6gsu7" path="res://fonts/JMH Typewriter-Black.otf" id="5_uxjuw"]
 [ext_resource type="Texture2D" uid="uid://jidnhqo2mpwb" path="res://sprites/images/xpbar_blue2.png" id="6_mrm4f"]
 [ext_resource type="AudioStream" uid="uid://c8nvxqfmljdop" path="res://sounds/ui/book_skimming_short.wav" id="8_g00h4"]
 [ext_resource type="Texture2D" uid="uid://cjq45x38ts8mf" path="res://sprites/ui/level_up_button.png" id="9_kk0cw"]
+[ext_resource type="FontFile" uid="uid://c8paya3d441k7" path="res://fonts/JMH Typewriter-Bold.otf" id="9_msw3l"]
 [ext_resource type="Shader" path="res://shaders/levelupbutton.gdshader" id="9_peqgl"]
 [ext_resource type="AudioStream" uid="uid://d3wi2punv8qyu" path="res://sounds/ui/bell.wav" id="11_5nccy"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cohkt"]
-texture = ExtResource("2_ksbbk")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_in3y1"]
+texture = ExtResource("3_mbth6")
 texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
+0:0/0/probability = 0.03
 0:0/0/metadata/_better_terrain = {
 "type": 0
 }
@@ -70,12 +73,8 @@ texture_region_size = Vector2i(256, 256)
 }
 7:0/0 = 0
 7:0/0/metadata/_better_terrain = {
-0: [0],
 3: [1],
-4: [0],
-8: [0],
 11: [1],
-12: [0],
 15: [1],
 "type": 0
 }
@@ -197,7 +196,6 @@ texture_region_size = Vector2i(256, 256)
 0: [0],
 8: [0],
 12: [1],
-"symmetry": 0,
 "type": 0
 }
 5:2/0 = 0
@@ -235,22 +233,20 @@ texture_region_size = Vector2i(256, 256)
 }
 1:3/0 = 0
 1:3/0/metadata/_better_terrain = {
-3: [1],
+0: [1],
 4: [0],
 7: [1],
 8: [0],
 12: [0],
-15: [1],
 "type": 0
 }
 2:3/0 = 0
 2:3/0/metadata/_better_terrain = {
-3: [1],
+0: [1],
 4: [0],
 8: [0],
 11: [1],
 12: [0],
-15: [1],
 "type": 0
 }
 3:3/0 = 0
@@ -416,6 +412,35 @@ texture_region_size = Vector2i(256, 256)
 7:5/0/metadata/_better_terrain = {
 "type": 1
 }
+0:6/0 = 0
+0:6/0/probability = 0.03
+0:6/0/metadata/_better_terrain = {
+"type": 0
+}
+1:6/0 = 0
+1:6/0/probability = 0.03
+1:6/0/metadata/_better_terrain = {
+"type": 0
+}
+2:6/0 = 0
+2:6/0/metadata/_better_terrain = {
+"type": 0
+}
+3:6/0 = 0
+3:6/0/probability = 0.03
+3:6/0/metadata/_better_terrain = {
+"type": 0
+}
+4:6/0 = 0
+4:6/0/probability = 0.03
+4:6/0/metadata/_better_terrain = {
+"type": 0
+}
+5:6/0 = 0
+5:6/0/probability = 0.03
+5:6/0/metadata/_better_terrain = {
+"type": 0
+}
 
 [sub_resource type="TileSet" id="TileSet_7qj15"]
 tile_size = Vector2i(256, 256)
@@ -428,12 +453,12 @@ terrain_set_0/terrain_2/name = "light_dirt"
 terrain_set_0/terrain_2/color = Color(0.46875, 0.5, 0.25, 1)
 terrain_set_0/terrain_3/name = "sand"
 terrain_set_0/terrain_3/color = Color(0.375, 0.5, 0.25, 1)
-sources/0 = SubResource("TileSetAtlasSource_cohkt")
+sources/0 = SubResource("TileSetAtlasSource_in3y1")
 metadata/_better_terrain = {
 "decoration": ["Decoration", Color(0.411765, 0.411765, 0.411765, 1), 3, [], {
 "path": "res://addons/better-terrain/icons/Decoration.svg"
 }],
-"terrains": [["Dirt", Color(0.992188, 0.816135, 0.519348, 1), 0, [], {
+"terrains": [["Dirt", Color(0.472717, 1, 0.363281, 1), 0, [], {
 "path": ""
 }], ["Mountain", Color(0.28269, 0.588104, 0.900331, 1), 0, [], {
 "path": ""
@@ -583,9 +608,10 @@ autostart = true
 
 [node name="MoneyLabel" type="Label" parent="UI"]
 offset_left = 140.0
-offset_top = 95.0
+offset_top = 98.0
 offset_right = 2022.0
 offset_bottom = 137.0
+theme_override_fonts/font = ExtResource("5_uxjuw")
 theme_override_font_sizes/font_size = 30
 text = "Money = 0"
 
@@ -629,15 +655,17 @@ offset_left = 141.0
 offset_top = 16.0
 offset_right = 203.0
 offset_bottom = 41.0
+theme_override_fonts/font = ExtResource("5_uxjuw")
 theme_override_font_sizes/font_size = 30
 text = "Level: 1"
 
 [node name="ExperienceLabel" type="Label" parent="UI"]
 offset_left = 181.0
-offset_top = 55.0
-offset_right = 307.0
+offset_top = 58.0
+offset_right = 310.0
 offset_bottom = 97.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_msw3l")
 theme_override_font_sizes/font_size = 30
 text = "XP: 0 / 0"
 

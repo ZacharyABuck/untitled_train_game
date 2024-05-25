@@ -1,7 +1,8 @@
 # YOU MUST CREATE AND ASSIGN A COLLISION SHAPE IN THE SCENE WHERE YOU PUT THIS
 extends Area2D
 
-@export_enum("gadgets", "edges") var menu_type: String
+@export_enum("gadgets", "pistol_turret", "none") var menu_type: String
+var possible_types = ["gadgets", "pistol_turret", "none"]
 @export var radius: int
 @export var collision_shape: CollisionShape2D
 
@@ -19,8 +20,7 @@ func _ready():
 	$Sprite2D.texture.width = radius * 2.6
 	$Sprite2D.texture.height = radius * 2.6
 	$Sprite2D.modulate = Color.TRANSPARENT
-	if menu_type == "gadgets":
-		spawn_gadgets_menu()
+	spawn_menu(menu_type)
 
 func _on_mouse_entered():
 	if LevelInfo.active_level.ui_open == false:
@@ -38,22 +38,30 @@ func _on_input_event(_viewport, event, _shape_idx):
 		if open == true:
 			LevelInfo.active_level.close_all_ui()
 		#show menu
-		elif PlayerInfo.active_player.active_car == get_parent().car.index:
+		elif PlayerInfo.active_player.active_car == get_parent().car.index and menu_type != "none":
 			open_menu()
 
 func _process(_delta):
 	global_rotation = 0
 
-func spawn_gadgets_menu():
-	for i in GadgetInfo.gadget_roster:
-		var new_item = menu_item.instantiate()
-		new_item.position = position
-		items.add_child(new_item)
-		new_item.sprite.texture = GadgetInfo.gadget_roster[i]["sprite"]
-		new_item.gadget = GadgetInfo.gadget_roster[i]
-		new_item.clicked.connect(get_parent().add_gadget)
-		new_item.hovered.connect(show_gadget_info)
-		new_item.hide()
+func spawn_menu(type):
+	match type:
+		"gadgets":
+			for i in GadgetInfo.gadget_roster:
+				add_item(GadgetInfo.gadget_roster[i])
+		"pistol_turret":
+			for i in GadgetInfo.turret_upgrade_roster:
+				add_item(GadgetInfo.turret_upgrade_roster[i])
+
+func add_item(item):
+	var new_item = menu_item.instantiate()
+	new_item.position = position
+	items.add_child(new_item)
+	new_item.sprite.texture = item["sprite"]
+	new_item.gadget = item
+	new_item.clicked.connect(get_parent().add_gadget)
+	new_item.hovered.connect(show_gadget_info)
+	new_item.hide()
 
 func show_gadget_info(gadget_name, gadget_cost):
 	if gadget_name == null:
@@ -66,7 +74,6 @@ func show_gadget_info(gadget_name, gadget_cost):
 		bottom_text.show()
 
 func open_menu():
-	#LevelInfo.active_level.close_all_ui()
 	open = true
 	$MenuOpenSound.play()
 	$AnimationPlayer.play("still")
@@ -89,7 +96,22 @@ func open_menu():
 func close_menu():
 	open = false
 	$Sprite2D.modulate = Color.TRANSPARENT
+	top_text.text = ""
+	top_text.hide()
+	bottom_text.text = ""
+	bottom_text.hide()
 	for i in items.get_children():
 		i.hide()
 		i.active = false
 		i.position = position
+
+func update_menu(gadget):
+	if possible_types.has(gadget):
+		menu_type = gadget
+		for i in items.get_children():
+			i.queue_free()
+		spawn_menu(gadget)
+	else:
+		menu_type = "none"
+		$MouseIndicator.hide()
+	

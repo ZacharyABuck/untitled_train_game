@@ -7,7 +7,7 @@ var nextLevelExperience: int = 10
 var totalExperience: int = 0
 
 # Base Variables
-var base_money: int = 5
+var base_money: int = 15
 var active_player
 var base_max_health = 50
 var animation

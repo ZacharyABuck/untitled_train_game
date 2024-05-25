@@ -41,6 +41,7 @@ mesh = SubResource("7")
 texture = ExtResource("2_ocdnr")
 
 [node name="MultiMeshInstance2D" type="MultiMeshInstance2D" parent="."]
+modulate = Color(0.43861, 0.230916, 0.0454654, 1)
 show_behind_parent = true
 multimesh = SubResource("6")
 texture = ExtResource("2_ocdnr")

@@ -17,6 +17,7 @@ const edge_panel = preload("res://scenes/edges/edge_panel.tscn")
 @onready var xp_label = $UI/ExperienceLabel
 @onready var level_up_button = $UI/LevelUpButton
 
+
 var new_player
 
 var ui_open: bool = false
@@ -174,14 +175,16 @@ func populate_edge_menu():
 	for i in 3:
 		var new_panel = edge_panel.instantiate()
 		edge_menu.add_child(new_panel)
-		new_panel.populate(EdgeInfo.edge_roster.keys().pick_random())
+		var random_edge = EdgeInfo.edge_roster.keys().pick_random()
+		new_panel.populate(random_edge)
+		print(random_edge)
 		new_panel.clicked.connect(edge_selected)
 
 func edge_selected(edge):
 	new_player.edge_handler.add_edge(EdgeInfo.edge_roster[edge])
 	var tween = create_tween()
 	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	tween.tween_property(edge_menu, "modulate", Color.TRANSPARENT, .5)
+	tween.tween_property(edge_menu, "modulate", Color.TRANSPARENT, .2)
 	await tween.finished
 	LevelInfo.active_level.edge_menu.hide()
 	for i in edge_menu.get_children():

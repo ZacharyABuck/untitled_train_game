@@ -16,4 +16,4 @@ func handle_level_up():
 
 func update_player_info():
 	PlayerInfo.current_movespeed *= move_speed_multiplier
-	print("Updated player attack delay modifier: ", PlayerInfo.current_movespeed)
+	print("Updated player move speed modifier: ", PlayerInfo.current_movespeed)

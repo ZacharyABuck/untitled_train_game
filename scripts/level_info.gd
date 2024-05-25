@@ -11,22 +11,23 @@ var track_cells = []
 var map_positions = []
 
 var difficulty = 1
-var difficulty_increase_rate = .000025
+var difficulty_increase_rate = .00002
 
 var level_parameters = {
 	"distance" = 6,
 	"direction" = "NW",
+	"terrain" = null,
 }
 
 var events = {
 	"0" = {
-		"distance" = 1,
+		"distance" = 0,
 		"triggered" = false,
 		"type" = null,
 		"area" = null,
 	},
 	"1" = {
-		"distance" = 3,
+		"distance" = 2,
 		"triggered" = false,
 		"type" = null,
 		"area" = null,
@@ -55,6 +56,12 @@ var events_roster = {
 	"haunting" = {
 		"scene" = preload("res://scenes/events/event_haunting.tscn"),
 	},
+}
+
+var terrain_roster: Dictionary = {
+	0: "Open Land",
+	2: "Mesa",
+	5: "Mountains",
 }
 
 func clear_variables():
