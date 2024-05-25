@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3rk8acy5r15p"
-path="res://.godot/imported/Trane_Game_48_Tilesset_v3.png-1b1fab1c11ef50a667d75287332a93da.ctex"
+uid="uid://ckqity4bna848"
+path="res://.godot/imported/fire_bullets_red_16x6.png-035404fffe0e4b1b0c2e3cf99088c80b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/tiles/Trane_Game_48_Tilesset_v3.png"
-dest_files=["res://.godot/imported/Trane_Game_48_Tilesset_v3.png-1b1fab1c11ef50a667d75287332a93da.ctex"]
+source_file="res://sprites/bullets/fire_bullets_red_16x6.png"
+dest_files=["res://.godot/imported/fire_bullets_red_16x6.png-035404fffe0e4b1b0c2e3cf99088c80b.ctex"]
 
 [params]
 

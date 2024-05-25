@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cyv57gynwtrmu" path="res://components/hurtbox_component.tscn" id="4_0ge5n"]
 [ext_resource type="PackedScene" uid="uid://c76dtsauqnpia" path="res://components/projectile_attack_component.tscn" id="5_4b008"]
 [ext_resource type="AudioStream" uid="uid://qdyuud18a2c4" path="res://sounds/combat/hit_01.wav" id="5_xva2q"]
-[ext_resource type="PackedScene" uid="uid://cuvjtd33w3p7" path="res://scenes/projectiles/basic_bullet.tscn" id="6_k5sjj"]
+[ext_resource type="PackedScene" uid="uid://cuvjtd33w3p7" path="res://scenes/projectiles/red_bullet.tscn" id="6_k5sjj"]
 [ext_resource type="AudioStream" uid="uid://n5co3ekiet4j" path="res://sounds/gunshot_01.wav" id="7_bew6k"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dyraw"]

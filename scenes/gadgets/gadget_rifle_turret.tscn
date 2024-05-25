@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://daouu3cumm1lh" path="res://sprites/gadgets/gadget_rifle_turret.png" id="1_iilt3"]
 [ext_resource type="PackedScene" uid="uid://c76dtsauqnpia" path="res://components/projectile_attack_component.tscn" id="1_n67g2"]
 [ext_resource type="Script" path="res://scripts/gadgets/gadget_rifle_turret.gd" id="1_p51aq"]
-[ext_resource type="PackedScene" uid="uid://cuvjtd33w3p7" path="res://scenes/projectiles/basic_bullet.tscn" id="2_iivj0"]
+[ext_resource type="PackedScene" uid="uid://7oojou0r8v4u" path="res://scenes/projectiles/green_bullet.tscn" id="4_ytb32"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bdfa2"]
 radius = 791.01
@@ -37,7 +37,7 @@ TARGET_TYPES = {
 ATTACK_TIMER = NodePath("../AttackTimer")
 BULLET_SPEED = 1500
 DAMAGE_PER_BULLET = 4
-PROJECTILE = ExtResource("2_iivj0")
+PROJECTILE = ExtResource("4_ytb32")
 TARGET_AREA = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ProjectileAttackComponent"]
