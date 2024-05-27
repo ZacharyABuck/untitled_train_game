@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://02oiy550pacp"]
+[gd_scene load_steps=28 format=3 uid="uid://02oiy550pacp"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_2a3mn"]
 [ext_resource type="PackedScene" uid="uid://cb1r5v4vqyrx8" path="res://scenes/train/TrainManager.tscn" id="3_3t5p5"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/maps/map.gd" id="3_nn34h"]
 [ext_resource type="Texture2D" uid="uid://dutu0olvdwa37" path="res://sprites/images/Franch Token.png" id="4_jdl4j"]
 [ext_resource type="Texture2D" uid="uid://dhwaeohssorbn" path="res://sprites/images/xbar_yellow.png" id="5_av7jw"]
+[ext_resource type="Shader" path="res://shaders/tilt_shift.gdshader" id="5_qayv6"]
 [ext_resource type="FontFile" uid="uid://lxcj83h6gsu7" path="res://fonts/JMH Typewriter-Black.otf" id="5_uxjuw"]
 [ext_resource type="Texture2D" uid="uid://jidnhqo2mpwb" path="res://sprites/images/xpbar_blue2.png" id="6_mrm4f"]
 [ext_resource type="AudioStream" uid="uid://c8nvxqfmljdop" path="res://sounds/ui/book_skimming_short.wav" id="8_g00h4"]
@@ -866,6 +867,11 @@ metadata/_better_terrain = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_tx5uk"]
 radius = 35.0571
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cqxjf"]
+shader = ExtResource("5_qayv6")
+shader_parameter/limit = 0.2
+shader_parameter/blur = 2.0
+
 [sub_resource type="Animation" id="Animation_h2wgm"]
 resource_name = "alert_flash"
 length = 5.0
@@ -1022,6 +1028,15 @@ wait_time = 5.0
 autostart = true
 
 [node name="UI" type="CanvasLayer" parent="."]
+
+[node name="TiltShift" type="ColorRect" parent="UI"]
+material = SubResource("ShaderMaterial_cqxjf")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="MoneyLabel" type="Label" parent="UI"]
 offset_left = 140.0

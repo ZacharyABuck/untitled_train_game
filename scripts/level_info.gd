@@ -23,7 +23,7 @@ var terrain_roster: Dictionary = {
 	0: "Flooded Land",
 	4: "Sands",
 	7: "Mesa",
-	11: "Canyon",
+	10: "Canyon",
 }
 
 var events = {

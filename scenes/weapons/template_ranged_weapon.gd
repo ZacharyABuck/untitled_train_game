@@ -9,7 +9,7 @@ class_name Ranged_Weapon
 # -- BASE WEAPON STATS -- #
 var base_attack_delay: float = 1.0
 var base_projectile_speed: int = 30
-var base_damage: int = 0
+var base_damage: float = 0
 var base_lifetime: float = 3.0
 var can_shoot : bool = true
 var base_bullet = preload("res://scenes/projectiles/fiery_bullet.tscn")
@@ -17,7 +17,7 @@ var base_bullet = preload("res://scenes/projectiles/fiery_bullet.tscn")
 # -- CURRENT WEAPON STATS -- #
 var current_attack_delay: float
 var current_projectile_speed: int
-var current_damage: int
+var current_damage: float
 var current_lifetime: float
 var current_bullet
 

@@ -11,7 +11,7 @@
 extends Node2D
 class_name HealthComponent
 
-@export var MAX_HEALTH : int
+@export var MAX_HEALTH : float
 @export var ARMOR_VALUE := 0
 @export var IS_KILLABLE := true
 @export var ANIMATION : AnimatedSprite2D
@@ -19,9 +19,9 @@ class_name HealthComponent
 
 var money = preload("res://scenes/money.tscn")
 
-var health
-var armor : int
-var final_damage : int
+var health : float
+var armor : float
+var final_damage : float
 var is_killable : bool
 var has_healthbar : bool
 var character

@@ -1,9 +1,9 @@
 extends Ranged_Weapon
 
 func _ready():
-	base_attack_delay = 1.0
+	base_attack_delay = .7
 	base_projectile_speed = 1000
-	base_damage = 2
+	base_damage = 1.5
 	base_lifetime = 3.0
 	base_bullet = preload("res://scenes/projectiles/fiery_bullet.tscn")
 	

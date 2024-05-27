@@ -418,7 +418,7 @@ volume_db = -15.0
 bus = &"SFX"
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("ANIMATION") instance=ExtResource("4_52reb")]
-MAX_HEALTH = 10
+MAX_HEALTH = 10.0
 ANIMATION = NodePath("../ZombieSpriteSheet")
 
 [node name="WallDetector" type="Area2D" parent="."]

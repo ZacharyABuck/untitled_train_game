@@ -11,10 +11,9 @@ extends CharacterBody2D
 
 
 var active_car
-var bullet = preload("res://scenes/projectiles/fiery_bullet.tscn")
+
 var can_shoot = true
 var current_ranged_weapon
-var base_gun_scene = "res://scenes/weapons/revolver_basic.tscn"
 var repairing: bool = false
 var repair_rate: float = 0.01
 
@@ -23,7 +22,7 @@ func _ready():
 	PlayerInfo.active_player = self
 	health_component.MAX_HEALTH = PlayerInfo.base_max_health
 	health_component.ARMOR_VALUE = PlayerInfo.base_armor
-	_instantiate_ranged_weapon(base_gun_scene)
+	_instantiate_ranged_weapon(WeaponInfo.weapons_roster["hatchet"]["scene"])
 	ExperienceSystem.level_up.connect(self.handle_level_up)
 
 func _process(delta):
@@ -100,7 +99,7 @@ func _instantiate_ranged_weapon(gun_scene_location):
 	if is_instance_valid(current_ranged_weapon):
 		current_ranged_weapon.queue_free()
 
-	var gun_scene = load(gun_scene_location)
+	var gun_scene = gun_scene_location
 	current_ranged_weapon = gun_scene.instantiate()
 	# Modify base weapon by flat bonus and multiplier of character.
 	var damage = current_ranged_weapon.base_damage

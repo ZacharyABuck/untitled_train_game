@@ -1,0 +1,91 @@
+[gd_scene load_steps=12 format=3 uid="uid://cneki1tf207r4"]
+
+[ext_resource type="Script" path="res://scenes/projectiles/hatchet_projectile.gd" id="1_jhtyj"]
+[ext_resource type="Texture2D" uid="uid://dj7cgo278hpcy" path="res://sprites/projectiles/hatchet_sprite_sheet.png" id="2_teolg"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4us0t"]
+radius = 3.5198
+height = 12.854
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hlpgo"]
+atlas = ExtResource("2_teolg")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p58af"]
+atlas = ExtResource("2_teolg")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s0ox8"]
+atlas = ExtResource("2_teolg")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ksvd6"]
+atlas = ExtResource("2_teolg")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iuh3s"]
+atlas = ExtResource("2_teolg")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n5t5g"]
+atlas = ExtResource("2_teolg")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h77ht"]
+atlas = ExtResource("2_teolg")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1kiwn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hlpgo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p58af")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s0ox8")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ksvd6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iuh3s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n5t5g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h77ht")
+}],
+"loop": true,
+"name": &"travel",
+"speed": 8.0
+}]
+
+[node name="HatchetProjectile" type="RigidBody2D" node_paths=PackedStringArray("HITBOX", "ANIMATIONS")]
+script = ExtResource("1_jhtyj")
+HITBOX = NodePath("Hitbox")
+ANIMATIONS = NodePath("AnimatedSprite2D")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(3.62661e-10, 1.55732)
+rotation = 1.56875
+scale = Vector2(2.036, 2)
+shape = SubResource("CapsuleShape2D_4us0t")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1.71969, 0)
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_1kiwn")
+animation = &"travel"

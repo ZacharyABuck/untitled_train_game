@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cgyhdedd2plqr"]
+
+[ext_resource type="Script" path="res://scenes/weapons/hatchet.gd" id="1_wiq5i"]
+
+[node name="Hatchet" type="Node2D" node_paths=PackedStringArray("attack_delay_timer", "gunshot_sound")]
+script = ExtResource("1_wiq5i")
+attack_delay_timer = NodePath("AttackTimer")
+gunshot_sound = NodePath("ThrowSFX")
+
+[node name="AttackTimer" type="Timer" parent="."]
+
+[node name="ThrowSFX" type="AudioStreamPlayer2D" parent="."]
