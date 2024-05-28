@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/repair.mp3-3ac0b139c60b7e6e8ff2237237d5b14a.m
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0.0
 bpm=0.0
 beat_count=0

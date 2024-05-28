@@ -8,12 +8,12 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_bdfa2"]
 radius = 791.01
 
-[sub_resource type="Gradient" id="Gradient_kh2jo"]
+[sub_resource type="Gradient" id="Gradient_h2hu2"]
 interpolation_mode = 2
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ot7qh"]
-gradient = SubResource("Gradient_kh2jo")
+gradient = SubResource("Gradient_h2hu2")
 height = 90
 fill = 1
 fill_from = Vector2(0.492788, 0.606838)
@@ -23,6 +23,7 @@ fill_to = Vector2(0.61899, 0.192308)
 script = ExtResource("1_p51aq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
 rotation = 3.14159
 texture = ExtResource("1_iilt3")
 
@@ -36,7 +37,7 @@ TARGET_TYPES = {
 }
 ATTACK_TIMER = NodePath("../AttackTimer")
 BULLET_SPEED = 1500
-DAMAGE_PER_BULLET = 4
+DAMAGE_PER_BULLET = 3.0
 PROJECTILE = ExtResource("4_ytb32")
 TARGET_AREA = NodePath("CollisionShape2D")
 

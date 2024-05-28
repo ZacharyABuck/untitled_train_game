@@ -1,46 +1,46 @@
 [gd_scene load_steps=14 format=3 uid="uid://lu27a4gu1761"]
 
 [ext_resource type="Script" path="res://scenes/projectiles/fiery_bullet.gd" id="1_rbxsi"]
-[ext_resource type="Texture2D" uid="uid://bmqgch1rewd60" path="res://sprites/bullets/fire_bullets_orange_16x16.png" id="3_btbm8"]
+[ext_resource type="Texture2D" uid="uid://bmqgch1rewd60" path="res://sprites/projectiles/fire_bullets_orange_16x16.png" id="2_87r62"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3f3kf"]
 radius = 3.5198
 height = 12.854
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1snu8"]
-atlas = ExtResource("3_btbm8")
+atlas = ExtResource("2_87r62")
 region = Rect2(224, 64, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_crcmj"]
-atlas = ExtResource("3_btbm8")
+atlas = ExtResource("2_87r62")
 region = Rect2(208, 288, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yoqou"]
-atlas = ExtResource("3_btbm8")
+atlas = ExtResource("2_87r62")
 region = Rect2(224, 288, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o2wp8"]
-atlas = ExtResource("3_btbm8")
+atlas = ExtResource("2_87r62")
 region = Rect2(256, 288, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8n2k2"]
-atlas = ExtResource("3_btbm8")
+atlas = ExtResource("2_87r62")
 region = Rect2(240, 288, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_34sy7"]
-atlas = ExtResource("3_btbm8")
+atlas = ExtResource("2_87r62")
 region = Rect2(96, 160, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qegvm"]
-atlas = ExtResource("3_btbm8")
+atlas = ExtResource("2_87r62")
 region = Rect2(112, 160, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ttj75"]
-atlas = ExtResource("3_btbm8")
+atlas = ExtResource("2_87r62")
 region = Rect2(128, 160, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6n3kp"]
-atlas = ExtResource("3_btbm8")
+atlas = ExtResource("2_87r62")
 region = Rect2(144, 160, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qurcu"]
@@ -115,4 +115,4 @@ shape = SubResource("CapsuleShape2D_3f3kf")
 position = Vector2(-1.71969, 0)
 scale = Vector2(2.01894, 2)
 sprite_frames = SubResource("SpriteFrames_qurcu")
-animation = &"hit"
+animation = &"travel"

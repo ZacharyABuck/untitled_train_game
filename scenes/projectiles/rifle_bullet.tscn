@@ -1,0 +1,82 @@
+[gd_scene load_steps=11 format=3 uid="uid://dem1tmi3w6fjl"]
+
+[ext_resource type="Script" path="res://scenes/projectiles/rifle_bullet.gd" id="1_wvhhv"]
+[ext_resource type="Texture2D" uid="uid://bmqgch1rewd60" path="res://sprites/projectiles/fire_bullets_orange_16x16.png" id="2_4sb57"]
+[ext_resource type="Texture2D" uid="uid://cxuupqp0iolbo" path="res://sprites/projectiles/bullet_rifle.png" id="3_5hsj6"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qdgdv"]
+radius = 3.5198
+height = 23.0009
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1snu8"]
+atlas = ExtResource("2_4sb57")
+region = Rect2(224, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_crcmj"]
+atlas = ExtResource("2_4sb57")
+region = Rect2(208, 288, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yoqou"]
+atlas = ExtResource("2_4sb57")
+region = Rect2(224, 288, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o2wp8"]
+atlas = ExtResource("2_4sb57")
+region = Rect2(256, 288, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8n2k2"]
+atlas = ExtResource("2_4sb57")
+region = Rect2(240, 288, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_61xi1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1snu8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_crcmj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yoqou")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2wp8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8n2k2")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_5hsj6")
+}],
+"loop": true,
+"name": &"travel",
+"speed": 10.0
+}]
+
+[node name="RifleBullet" type="RigidBody2D" node_paths=PackedStringArray("HITBOX", "ANIMATIONS")]
+script = ExtResource("1_wvhhv")
+HITBOX = NodePath("Hitbox")
+ANIMATIONS = NodePath("AnimatedSprite2D")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(14, 0)
+rotation = 1.56875
+scale = Vector2(2.036, 2)
+shape = SubResource("CapsuleShape2D_qdgdv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(17, -6.65057e-14)
+rotation = 1.5708
+scale = Vector2(0.05, 0.05)
+sprite_frames = SubResource("SpriteFrames_61xi1")
+animation = &"travel"

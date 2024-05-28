@@ -12,7 +12,7 @@ extends Node2D
 class_name HealthComponent
 
 @export var MAX_HEALTH : float
-@export var ARMOR_VALUE := 0
+@export var ARMOR_VALUE : float = 0.0
 @export var IS_KILLABLE := true
 @export var ANIMATION : AnimatedSprite2D
 @export var HEALTHBAR : ProgressBar
@@ -68,8 +68,8 @@ func _handle_death():
 
 func _calculate_final_damage(damage, armor):
 	final_damage = damage - armor
-	if final_damage < 0:
-		final_damage = 0
+	if final_damage < 0.0:
+		final_damage = 0.0
 	return final_damage
 
 func _initialize_healthbar():

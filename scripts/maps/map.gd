@@ -2,8 +2,8 @@ extends TileMap
 
 var altitude = FastNoiseLite.new()
 
-var chunk_width = 13
-var chunk_height = 9
+var chunk_width = 13.0
+var chunk_height = 10.0
 var loaded_chunks: Array = []
 var level_terrain: int
 var last_pos: Vector2
@@ -14,18 +14,17 @@ func _ready():
 	altitude.frequency = .5
 	altitude.seed = randi()
 
-func _process(delta):
+func _process(_delta):
 	if PlayerInfo.active_player and PlayerInfo.active_player.global_position.distance_to(last_pos) > 256:
 		last_pos = PlayerInfo.active_player.global_position
 		var new_cells = spawn_chunk(local_to_map(PlayerInfo.active_player.global_position))
 		BetterTerrain.update_terrain_cells(self, 0, new_cells)
 		
-
 func spawn_chunk(coords):
 	var new_cells = []
 	for x in range(chunk_width):
 		for y in range(chunk_height):
-			var cell = Vector2i(coords.x - (chunk_width / 2) + x, coords.y - (chunk_height / 2) + y)
+			var cell = Vector2i(coords.x - (chunk_width * .5) + x, coords.y - (chunk_height * .5) + y)
 			var alt = altitude.get_noise_2d(cell.x, cell.y) * 10
 			if alt < 0 and !LevelInfo.track_cells.has(cell):
 				BetterTerrain.set_cell(self, 0, cell, 1)

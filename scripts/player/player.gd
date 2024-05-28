@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 @onready var sprite = $AnimatedSprite2D
 @onready var auto_fire_timer = $AutoFireTimer
@@ -8,69 +9,26 @@ extends CharacterBody2D
 @onready var running_sfx = $RunningSFX
 @onready var repair_sfx = $RepairSFX
 
-
-
 var active_car
 
 var can_shoot = true
 var current_ranged_weapon
-var repairing: bool = false
+
 var repair_rate: float = 0.01
+
+#Many functions have been moved to the StateMachine. 
+##Each child of Statemachine has the relevant behavior for that state.
+##PlayerInfo contains the different state options
 
 # -- BASE FUNCTIONS -- #
 func _ready():
 	PlayerInfo.active_player = self
 	health_component.MAX_HEALTH = PlayerInfo.base_max_health
 	health_component.ARMOR_VALUE = PlayerInfo.base_armor
-	_instantiate_ranged_weapon(WeaponInfo.weapons_roster["hatchet"]["scene"])
+	var random_weapon = WeaponInfo.weapons_roster.keys().pick_random()
+	print(random_weapon)
+	_instantiate_ranged_weapon(WeaponInfo.weapons_roster[random_weapon]["scene"])
 	ExperienceSystem.level_up.connect(self.handle_level_up)
-
-func _process(delta):
-	if Input.is_action_pressed("repair"):
-		repair()
-	else:
-		stop_repair()
-
-func _physics_process(_delta):
-	global_rotation_degrees = 0
-	sprite.look_at(get_global_mouse_position())
-	get_input()
-	move_and_slide()
-
-
-# -- INPUT FUNCTIONS -- #
-func get_input():
-	
-	# -- DIRECTIONAL INPUT -- #
-	var input_direction = Input.get_vector("left", "right", "up", "down")
-	velocity = input_direction * PlayerInfo.current_movespeed
-	
-	# -- MOVEMENT ANIMATIONS -- #
-	if !repairing:
-		if velocity.is_equal_approx(Vector2.ZERO):
-			sprite.play("standing")
-			running_sfx.stop()
-		else:
-			sprite.play("running")
-			if !running_sfx.playing:
-				running_sfx.play()
-
-func _input(event):
-	#mouse events when ui is closed
-	if LevelInfo.active_level.ui_open == false and GadgetInfo.selected_gadget == null:
-		if event.is_action_pressed("shoot") and !repairing:
-			_shoot()
-		elif event.is_action_pressed("strike") and !repairing:
-			_strike()
-		elif event.is_action_pressed("repair"):
-			repair()
-	#if ui is open
-	elif event is InputEventMouseButton and event.pressed and \
-	LevelInfo.active_level.ui_open == true and GadgetInfo.selected_gadget == null:
-		LevelInfo.active_level.close_all_ui()
-
-	if event.is_action_released("repair"):
-		stop_repair()
 
 # -- ATTACK FUNCTIONS -- #
 func _shoot():
@@ -83,15 +41,10 @@ func _strike():
 # -- REPAIR -- #
 func repair():
 	if TrainInfo.cars_inventory[active_car]["node"].health < TrainInfo.cars_inventory[active_car]["node"].max_health:
-		repairing = true
 		TrainInfo.cars_inventory[active_car]["node"].repair(repair_rate)
 		sprite.play("repairing")
 		if !repair_sfx.playing:
 			repair_sfx.play()
-
-func stop_repair():
-	repairing = false
-	repair_sfx.stop()
 
 # -- EQUIPMENT FUNCTIONS -- #
 func _instantiate_ranged_weapon(gun_scene_location):
@@ -119,7 +72,6 @@ func refresh_current_ranged_weapon_stats():
 	
 	print("Current ranged weapon attack delay: ", current_ranged_weapon.current_attack_delay)
 
-
 # -- MOVEMENT FUNCTIONS -- #
 func _on_car_detector_area_entered(area):
 	if area.get_parent().is_in_group("car"):
@@ -133,7 +85,6 @@ func _on_car_detector_area_entered(area):
 func _on_car_detector_area_exited(area):
 	if area.get_parent().is_in_group("car"):
 		TrainInfo.cars_inventory[active_car]["node"].sprite.modulate = TrainInfo.cars_inventory[active_car]["node"].starting_color
-
 
 # -- EDGE AND LEVEL FUNCTIONS -- #
 

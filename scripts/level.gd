@@ -4,7 +4,6 @@ var player = preload("res://scenes/player.tscn")
 @onready var bullets = $Bullets
 
 @onready var edge_menu = $UI/EdgeMenu
-var edge_menu_open: bool = false
 const edge_panel = preload("res://scenes/edges/edge_panel.tscn")
 @onready var alert_label = $UI/AlertLabel
 @onready var enemies = $Enemies
@@ -51,8 +50,8 @@ func _process(_delta):
 		enemy_spawn_positions.global_position = TrainInfo.train_engine.global_position
 		enemy_spawn_positions.global_rotation = TrainInfo.train_engine.car.global_rotation
 	
-	#set difficulty level
-	LevelInfo.difficulty = Time.get_ticks_msec()*LevelInfo.difficulty_increase_rate
+	##set difficulty level
+	#LevelInfo.difficulty = Time.get_ticks_msec()*LevelInfo.difficulty_increase_rate
 
 #set the day time in the tree
 func calculate_day_cycle():
@@ -134,15 +133,14 @@ func spawn_player():
 	add_child(new_player)
 
 func _on_enemy_spawn_timer_timeout():
-	var start_time = 5
-	#adjust to difficulty level
-	enemy_spawn_timer.wait_time = clamp(start_time - LevelInfo.difficulty,.5,5)
-	
+	enemy_spawn_timer.wait_time += .5
+	var spawn_count = LevelInfo.difficulty
 	var new_spawner = EnemySpawner.new()
 	add_child(new_spawner)
 	var random_enemy = new_spawner.find_random_enemy()
-	new_spawner.spawn_enemy(1, random_enemy, null)
-
+	new_spawner.spawn_enemy(round(spawn_count), random_enemy, null)
+	LevelInfo.difficulty += 1.5
+	enemy_spawn_timer.start()
 
 func handle_level_up():
 	$LevelUpSFX.play()
@@ -152,7 +150,7 @@ func handle_level_up():
 	var tween = create_tween()
 	tween.tween_property(level_up_button, "scale", Vector2(1, 1), .2).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_IN)
 
-func _on_level_up_button_button_up():
+func level_up_button_pressed():
 	
 	level_up_button.disabled = true
 	level_up_button.hide()
@@ -166,9 +164,7 @@ func _on_level_up_button_button_up():
 	await pos_tween.finished
 
 	$EdgeSFX.play()
-	edge_menu_open = true
 	pause_game()
-
 
 # Edge Menu
 func populate_edge_menu():
@@ -190,11 +186,10 @@ func edge_selected(edge):
 	for i in edge_menu.get_children():
 		i.queue_free()
 	edge_menu.modulate = Color.WHITE
-	edge_menu_open = false
 	unpause_game()
+	PlayerInfo.state = "default"
 
 func close_all_ui():
-	ui_open = false
 	Engine.time_scale = 1
 	for i in TrainInfo.cars_inventory:
 		TrainInfo.cars_inventory[i]["node"].hide_radial_menus()

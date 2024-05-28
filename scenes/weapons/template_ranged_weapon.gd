@@ -21,7 +21,6 @@ var current_damage: float
 var current_lifetime: float
 var current_bullet
 
-
 func _ready():
 	current_attack_delay = base_attack_delay
 	current_projectile_speed = base_projectile_speed

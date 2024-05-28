@@ -21,3 +21,4 @@ func handle_level_up():
 func update_player_info():
 	PlayerInfo.current_attack_delay_modifier  *= _calculate_attack_speed_multiplier()
 	print("Updated player attack delay modifier: ", PlayerInfo.current_attack_delay_modifier)
+	PlayerInfo.active_player.refresh_current_ranged_weapon_stats()

@@ -20,17 +20,19 @@ var base_armor: float = 0
 var base_attack_delay_modifier: float = 1.0
 
 # Current Variables
-var current_health: int
-var current_max_health: int
+var current_health: float
+var current_max_health: float
 var current_money: int
 var current_ranged_damage_multiplier: float
 var current_melee_damage_multiplier: float
 var current_ranged_damage_bonus: float
 var current_melee_damage_bonus: float
 var current_movespeed: int
-var current_armor: int
+var current_armor: float
 var current_attack_delay_modifier: float
 
+# Current state in player state machine node
+@export_enum("default", "repairing", "ui_default", "ui_edge_selection") var state: String = "default"
 
 func _ready():
 	ExperienceSystem.give_experience.connect(self.handle_give_experience_signal)

@@ -4,48 +4,48 @@
 [ext_resource type="Texture2D" uid="uid://dj7cgo278hpcy" path="res://sprites/projectiles/hatchet_sprite_sheet.png" id="2_teolg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4us0t"]
-radius = 3.5198
-height = 12.854
+radius = 11.999
+height = 23.9979
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hlpgo"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_styjt"]
 atlas = ExtResource("2_teolg")
-region = Rect2(64, 64, 64, 64)
+region = Rect2(0, 192, 192, 192)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_p58af"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_mipj6"]
 atlas = ExtResource("2_teolg")
-region = Rect2(128, 64, 64, 64)
+region = Rect2(192, 192, 192, 192)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_s0ox8"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_6xtpw"]
 atlas = ExtResource("2_teolg")
-region = Rect2(192, 64, 64, 64)
+region = Rect2(384, 192, 192, 192)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ksvd6"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_lux6w"]
 atlas = ExtResource("2_teolg")
-region = Rect2(0, 0, 64, 64)
+region = Rect2(0, 0, 192, 192)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_iuh3s"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_go37r"]
 atlas = ExtResource("2_teolg")
-region = Rect2(64, 0, 64, 64)
+region = Rect2(192, 0, 192, 192)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_n5t5g"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqryf"]
 atlas = ExtResource("2_teolg")
-region = Rect2(128, 0, 64, 64)
+region = Rect2(384, 0, 192, 192)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_h77ht"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_wxvuh"]
 atlas = ExtResource("2_teolg")
-region = Rect2(192, 0, 64, 64)
+region = Rect2(576, 0, 192, 192)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1kiwn"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hlpgo")
+"texture": SubResource("AtlasTexture_styjt")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_p58af")
+"texture": SubResource("AtlasTexture_mipj6")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_s0ox8")
+"texture": SubResource("AtlasTexture_6xtpw")
 }],
 "loop": false,
 "name": &"hit",
@@ -53,16 +53,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ksvd6")
+"texture": SubResource("AtlasTexture_lux6w")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_iuh3s")
+"texture": SubResource("AtlasTexture_go37r")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_n5t5g")
+"texture": SubResource("AtlasTexture_gqryf")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_h77ht")
+"texture": SubResource("AtlasTexture_wxvuh")
 }],
 "loop": true,
 "name": &"travel",
@@ -79,13 +79,15 @@ collision_layer = 0
 collision_mask = 256
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(3.62661e-10, 1.55732)
+position = Vector2(-1, -6)
 rotation = 1.56875
 scale = Vector2(2.036, 2)
 shape = SubResource("CapsuleShape2D_4us0t")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1.71969, 0)
-scale = Vector2(0.7, 0.7)
+scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_1kiwn")
 animation = &"travel"
+frame = 2
+frame_progress = 0.0777555

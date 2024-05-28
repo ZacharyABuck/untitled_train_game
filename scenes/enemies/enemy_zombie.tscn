@@ -1,11 +1,18 @@
-[gd_scene load_steps=56 format=3 uid="uid://dlf3ut18w14gl"]
+[gd_scene load_steps=63 format=3 uid="uid://dlf3ut18w14gl"]
 
-[ext_resource type="Script" path="res://scripts/enemies/enemy_zombie.gd" id="1_sfyon"]
+[ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/enemy_zombie.gd" id="1_kv2s3"]
 [ext_resource type="AudioStream" uid="uid://qdyuud18a2c4" path="res://sounds/combat/hit_01.wav" id="3_04jho"]
 [ext_resource type="PackedScene" uid="uid://cyv57gynwtrmu" path="res://components/hurtbox_component.tscn" id="3_aknae"]
+[ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/zombie_state_moving.gd" id="4_2i8mr"]
 [ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://components/health_component.tscn" id="4_52reb"]
+[ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/zombie_state_boarding.gd" id="4_hu3u8"]
 [ext_resource type="Texture2D" uid="uid://cduo5m6k4p2ln" path="res://sprites/enemies/zombie.png" id="5_4qa5l"]
 [ext_resource type="Script" path="res://components/MeleeAttackComponent.gd" id="5_vxl1g"]
+[ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/zombie_state_finish_boarding.gd" id="6_go37q"]
+[ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/zombie_state_attacking.gd" id="7_e0hqb"]
+[ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/zombie_state_machine.gd" id="7_onk6g"]
+[ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/zombie_state_dead.gd" id="8_httoe"]
+[ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/zombie_state_idle.gd" id="8_pu41x"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nyh8v"]
 radius = 9.5
@@ -15,8 +22,8 @@ height = 19.0
 size = Vector2(26, 40)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1tdci"]
-radius = 6.5
-height = 24.0
+radius = 19.5
+height = 39.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_elxgy"]
 atlas = ExtResource("5_4qa5l")
@@ -392,7 +399,7 @@ position = Vector2(0, 6)
 collision_layer = 8
 collision_mask = 8
 lock_rotation = true
-script = ExtResource("1_sfyon")
+script = ExtResource("1_kv2s3")
 state = "moving"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -434,9 +441,7 @@ texture_filter = 1
 position = Vector2(2, 8)
 scale = Vector2(0.617188, 0.6875)
 sprite_frames = SubResource("SpriteFrames_8jdkj")
-animation = &"finish_boarding"
-frame = 3
-frame_progress = 1.0
+animation = &"recovery"
 
 [node name="MeleeAttackComponent" type="Area2D" parent="." node_paths=PackedStringArray("ATTACK_TIMER", "TARGET_AREA", "ANIMATIONS")]
 collision_layer = 0
@@ -449,7 +454,6 @@ TARGET_TYPES = {
 "terrain": false
 }
 ATTACK_TIMER = NodePath("../AttackTimer")
-DAMAGE = 5
 TARGET_AREA = NodePath("TargetArea")
 ANIMATIONS = NodePath("../ZombieSpriteSheet")
 
@@ -457,7 +461,36 @@ ANIMATIONS = NodePath("../ZombieSpriteSheet")
 position = Vector2(20, 9)
 shape = SubResource("RectangleShape2D_mv14h")
 
+[node name="StateMachine" type="Node2D" parent="."]
+script = ExtResource("7_onk6g")
+
+[node name="idle" type="Node2D" parent="StateMachine"]
+process_mode = 4
+script = ExtResource("8_pu41x")
+
+[node name="moving" type="Node2D" parent="StateMachine"]
+process_mode = 4
+script = ExtResource("4_2i8mr")
+
+[node name="boarding" type="Node2D" parent="StateMachine"]
+process_mode = 4
+script = ExtResource("4_hu3u8")
+
+[node name="finish_boarding" type="Node2D" parent="StateMachine"]
+process_mode = 4
+script = ExtResource("6_go37q")
+
+[node name="attacking" type="Node2D" parent="StateMachine"]
+process_mode = 4
+script = ExtResource("7_e0hqb")
+
+[node name="dead" type="Node2D" parent="StateMachine"]
+process_mode = 4
+script = ExtResource("8_httoe")
+
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="body_entered" from="WallDetector" to="." method="_on_wall_detector_body_entered"]
-[connection signal="animation_finished" from="ZombieSpriteSheet" to="." method="_on_zombie_sprite_sheet_animation_finished"]
-[connection signal="frame_changed" from="ZombieSpriteSheet" to="." method="_on_zombie_sprite_sheet_frame_changed"]
+[connection signal="animation_finished" from="ZombieSpriteSheet" to="StateMachine/boarding" method="animation_finished"]
+[connection signal="animation_finished" from="ZombieSpriteSheet" to="StateMachine/finish_boarding" method="animation_finished"]
+[connection signal="animation_finished" from="ZombieSpriteSheet" to="StateMachine/attacking" method="animation_finished"]
+[connection signal="animation_finished" from="ZombieSpriteSheet" to="StateMachine/dead" method="animation_finished"]

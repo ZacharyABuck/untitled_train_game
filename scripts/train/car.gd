@@ -36,7 +36,6 @@ func _ready():
 	health_bar.value = health
 
 func _process(_delta):
-	
 	health_bar.value = health
 	
 	if LevelInfo.active_level.world_light.energy >= .25 and room_light.enabled == false:

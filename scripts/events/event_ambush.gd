@@ -1,7 +1,7 @@
 extends Event
 
 var alert_text: String = "Ambush!"
-var starting_spawn_amount: int = 3
+var starting_spawn_amount: int = 2
 
 func ambush_triggered(area):
 	if area.get_parent().is_in_group("car") and triggered == false:
@@ -11,5 +11,4 @@ func ambush_triggered(area):
 		set_alert_text_and_play(alert_text)
 		var new_spawner = EnemySpawner.new()
 		LevelInfo.active_level.add_child(new_spawner)
-		print(starting_spawn_amount+difficulty)
-		new_spawner.spawn_enemy(round(starting_spawn_amount+difficulty), "bandit", null)
+		new_spawner.spawn_enemy(round(starting_spawn_amount+(difficulty*.5)), "bandit", null)

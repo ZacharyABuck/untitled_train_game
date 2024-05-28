@@ -18,7 +18,7 @@ class_name ProjectileAttackComponent
 }
 @export var ATTACK_TIMER := Timer
 @export var BULLET_SPEED := 800
-@export var DAMAGE_PER_BULLET := 2
+@export var DAMAGE_PER_BULLET : float = 2.0
 @export var NUMBER_OF_BULLETS := 1 
 @export var PROJECTILE : PackedScene # <--Must extend 'Projectile'
 @export var MOBILE_ATTACK := false

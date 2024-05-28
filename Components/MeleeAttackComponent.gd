@@ -8,7 +8,7 @@ class_name MeleeAttackComponent
 	"terrain":false
 }
 @export var ATTACK_TIMER := Timer
-@export var DAMAGE := 2
+@export var DAMAGE : float = 2.0
 @export var MOBILE_ATTACK := false #<-- Not currently functional.
 @export var TARGET_AREA : CollisionShape2D #<-- The area of the attack, both for targeting and damaging.
 @export var ANIMATIONS : AnimatedSprite2D #<-- needs "windup", "strike", and "recovery" animations.
@@ -37,6 +37,8 @@ func attack_if_target_in_range(target):
 	attack_target = target
 	if target_is_in_range(attack_target):
 		attack(attack_target)
+	else:
+		owner.state = "moving"
 
 # This method performs an initial attack if there's no Timer running.
 # This is generally only called internally, as it does not validate that a target is in range.

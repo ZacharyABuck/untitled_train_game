@@ -29,6 +29,12 @@ var turret_upgrade_roster = {
 		"sprite" = load("res://sprites/gadgets/gadget_rifle_turret.png"),
 		"cost" = 10,
 	},
+	"explosive_turret" = {
+		"name" = "Explosive Turret",
+		"scene" = load("res://scenes/gadgets/gadget_explosive_turret.tscn"),
+		"sprite" = load("res://sprites/gadgets/gadget_explosive_turret.png"),
+		"cost" = 10,
+	},
 }
 
 var selected_gadget = null

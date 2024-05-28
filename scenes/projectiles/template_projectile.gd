@@ -9,6 +9,7 @@ class_name Projectile
 
 @export var HITBOX : Area2D
 @export var ANIMATIONS : AnimatedSprite2D
+@export var SFX : AudioStreamPlayer2D
 
 var target
 var continuous_target
@@ -42,8 +43,13 @@ func _on_area_2d_area_entered(area):
 		var attack = Attack.new()
 		attack.attack_damage = damage
 		new_hitbox.damage(attack)
+		if SFX:
+			SFX.play()
 
 func _on_animated_sprite_2d_animation_finished():
+	if SFX:
+		await SFX.finished
+		queue_free()
 	if animations.animation == "hit":
 		queue_free()
 

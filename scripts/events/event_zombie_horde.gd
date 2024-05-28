@@ -12,7 +12,7 @@ func outer_area_entered(area):
 		zombies_spawned = true
 		
 		#add new zombies based on current difficulty
-		var new_zombie_count = round(LevelInfo.difficulty*2)
+		var new_zombie_count = round(LevelInfo.difficulty*.3)
 
 		for z in new_zombie_count:
 			var new_zombie = zombie.instantiate()

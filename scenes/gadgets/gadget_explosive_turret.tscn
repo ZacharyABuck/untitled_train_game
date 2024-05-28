@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=3 uid="uid://dda0g57pwmdsr"]
+
+[ext_resource type="Script" path="res://scripts/gadgets/gadget_explosive_turret.gd" id="1_jy713"]
+[ext_resource type="Texture2D" uid="uid://8rcl46gf5h4f" path="res://sprites/gadgets/gadget_explosive_turret.png" id="2_w3wx5"]
+[ext_resource type="PackedScene" uid="uid://c76dtsauqnpia" path="res://components/projectile_attack_component.tscn" id="3_qn26i"]
+[ext_resource type="PackedScene" uid="uid://ikqkup712f5b" path="res://scenes/projectiles/explosive_bullet.tscn" id="4_wfv1s"]
+[ext_resource type="AudioStream" uid="uid://24x7wkoobr7a" path="res://sounds/combat/canon_01.wav" id="5_b836n"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3blwe"]
+radius = 469.01
+
+[sub_resource type="Gradient" id="Gradient_kh2jo"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qdf2j"]
+gradient = SubResource("Gradient_kh2jo")
+height = 90
+fill = 1
+fill_from = Vector2(0.492788, 0.606838)
+fill_to = Vector2(0.61899, 0.192308)
+
+[node name="GadgetExplosiveTurret" type="Node2D"]
+script = ExtResource("1_jy713")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+rotation = 3.14159
+texture = ExtResource("2_w3wx5")
+
+[node name="ProjectileAttackComponent" parent="." node_paths=PackedStringArray("ATTACK_TIMER", "TARGET_AREA", "SHOOT_SOUND") instance=ExtResource("3_qn26i")]
+TARGET_TYPES = {
+"car": false,
+"cover": false,
+"enemy": true,
+"player": false,
+"terrain": false
+}
+ATTACK_TIMER = NodePath("../AttackTimer")
+BULLET_SPEED = 500
+DAMAGE_PER_BULLET = 3.5
+PROJECTILE = ExtResource("4_wfv1s")
+TARGET_AREA = NodePath("CollisionShape2D")
+LIFETIME = 1
+SHOOT_SOUND = NodePath("../CanonSFX")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ProjectileAttackComponent"]
+shape = SubResource("CircleShape2D_3blwe")
+debug_color = Color(0.73002, 0.466927, 0.21692, 0.42)
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="FrontLight" type="PointLight2D" parent="."]
+position = Vector2(219.285, 2.62994)
+rotation = 1.5708
+scale = Vector2(3.56228, 5.0407)
+energy = 0.5
+texture = SubResource("GradientTexture2D_qdf2j")
+
+[node name="CanonSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_b836n")
+volume_db = -12.0
+bus = &"SFX"

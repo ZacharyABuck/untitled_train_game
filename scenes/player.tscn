@@ -1,11 +1,16 @@
-[gd_scene load_steps=27 format=3 uid="uid://bp38lfu2xg7sc"]
+[gd_scene load_steps=32 format=3 uid="uid://bp38lfu2xg7sc"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_1wp3v"]
+[ext_resource type="Script" path="res://scripts/player/player_state_machine.gd" id="2_i7lma"]
+[ext_resource type="Script" path="res://scripts/player/player_state_default.gd" id="3_8m2s2"]
 [ext_resource type="Script" path="res://components/HurtboxComponent.gd" id="3_pf8ut"]
 [ext_resource type="Texture2D" uid="uid://balwmqh8kog6n" path="res://sprites/player/tim_walk_sprite_sheet_mosaic_2.png" id="3_y5r7g"]
 [ext_resource type="AudioStream" uid="uid://b2qst461ri4d4" path="res://sounds/combat/oof.wav" id="4_04bu8"]
+[ext_resource type="Script" path="res://scripts/player/player_state_repairing.gd" id="4_7ckig"]
 [ext_resource type="Script" path="res://components/HealthComponent.gd" id="4_8hue6"]
+[ext_resource type="Script" path="res://scripts/player/player_state_ui.gd" id="5_sovp7"]
 [ext_resource type="Script" path="res://scenes/EdgeHandler.gd" id="6_6b4qp"]
+[ext_resource type="Script" path="res://scripts/player/player_state_edge_selection.gd" id="6_p80ja"]
 [ext_resource type="AudioStream" uid="uid://bm8ntouv5ol6l" path="res://sounds/player/running_wood.wav" id="7_t6e6q"]
 [ext_resource type="AudioStream" uid="uid://cpnffnc4clg7y" path="res://sounds/player/repair.mp3" id="8_5qdj5"]
 
@@ -142,6 +147,25 @@ collision_layer = 9
 collision_mask = 33
 script = ExtResource("1_1wp3v")
 
+[node name="StateMachine" type="Node2D" parent="."]
+script = ExtResource("2_i7lma")
+
+[node name="default" type="Node2D" parent="StateMachine"]
+process_mode = 4
+script = ExtResource("3_8m2s2")
+
+[node name="repairing" type="Node2D" parent="StateMachine"]
+process_mode = 4
+script = ExtResource("4_7ckig")
+
+[node name="ui_default" type="Node2D" parent="StateMachine"]
+process_mode = 4
+script = ExtResource("5_sovp7")
+
+[node name="ui_edge_selection" type="Node2D" parent="StateMachine"]
+process_mode = 4
+script = ExtResource("6_p80ja")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.7, 0.7)
 sprite_frames = SubResource("SpriteFrames_r2lml")
@@ -193,6 +217,7 @@ bus = &"SFX"
 
 [node name="HealthComponent" type="Node2D" parent="." node_paths=PackedStringArray("ANIMATION", "HEALTHBAR")]
 script = ExtResource("4_8hue6")
+MAX_HEALTH = 50.0
 IS_KILLABLE = false
 ANIMATION = NodePath("../AnimatedSprite2D")
 HEALTHBAR = NodePath("../HealthBar")

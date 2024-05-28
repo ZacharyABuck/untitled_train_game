@@ -1,11 +1,5 @@
 extends Node
 
-@onready var Player = owner
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
 func add_edge(edge_reference):
 	# loop through all Child Edges to see if one already exists.
 	# if it does exist, increase its level. Otherwise, add new Edge.

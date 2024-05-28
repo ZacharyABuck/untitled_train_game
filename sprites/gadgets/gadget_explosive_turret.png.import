@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmqgch1rewd60"
-path="res://.godot/imported/fire_bullets_orange_16x16.png-5a7bd860928a46842e13e700a7beb9fd.ctex"
+uid="uid://8rcl46gf5h4f"
+path="res://.godot/imported/gadget_explosive_turret.png-c475ef01cdb68cc080319fb739517653.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/bullets/fire_bullets_orange_16x16.png"
-dest_files=["res://.godot/imported/fire_bullets_orange_16x16.png-5a7bd860928a46842e13e700a7beb9fd.ctex"]
+source_file="res://sprites/gadgets/gadget_explosive_turret.png"
+dest_files=["res://.godot/imported/gadget_explosive_turret.png-c475ef01cdb68cc080319fb739517653.ctex"]
 
 [params]
 
