@@ -29,7 +29,6 @@ func _ready():
 	look_at(target)
 	animations.play("travel")
 	continuous_target = global_position.direction_to(target)
-	#linear_velocity = global_position.direction_to(target) * speed
 
 func _physics_process(delta):
 	if animations.animation == "travel":

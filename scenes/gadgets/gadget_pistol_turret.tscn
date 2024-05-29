@@ -55,4 +55,3 @@ energy = 0.5
 texture = SubResource("GradientTexture2D_y8sjb")
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
-[connection signal="area_entered" from="ProjectileAttackComponent" to="." method="_on_projectile_attack_component_area_entered"]

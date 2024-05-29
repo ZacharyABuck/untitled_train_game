@@ -91,7 +91,6 @@ func _instantiate_bullet():
 
 func _on_attack_timer_timeout():
 	attack_timer.stop()
-	shoot_if_target_in_range(attack_target)
 
 func target_is_in_range(target):
 	attack_target = target

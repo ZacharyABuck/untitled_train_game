@@ -58,7 +58,7 @@ collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
-position = Vector2(-50.5, 1)
+position = Vector2(-42, 1)
 shape = SubResource("RectangleShape2D_56ap2")
 
 [node name="RightWall" type="StaticBody2D" parent="."]
@@ -67,7 +67,7 @@ collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
-position = Vector2(50.5, 1)
+position = Vector2(38, 1)
 shape = SubResource("RectangleShape2D_jbwp3")
 
 [node name="TopWall" type="StaticBody2D" parent="."]

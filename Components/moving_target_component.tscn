@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpe7uj0omv03o"]
+
+[ext_resource type="Script" path="res://components/moving_target_component.gd" id="1_ay0d4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xolje"]
+
+[node name="MovingTargetComponent" type="RigidBody2D"]
+collision_mask = 0
+script = ExtResource("1_ay0d4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+modulate = Color(1, 0, 1, 1)
+shape = SubResource("CircleShape2D_xolje")
+disabled = true
+debug_color = Color(0.976471, 0, 1, 1)
