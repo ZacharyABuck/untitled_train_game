@@ -1,15 +1,6 @@
 extends Edge
-var edge_name = "Fan the Hammer"
 # 20% attack speed
 var attack_speed_multiplier: float = 0.2
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	update_player_info()
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	pass
 
 func _calculate_attack_speed_multiplier():
 	var final_multiplier = 1 - attack_speed_multiplier

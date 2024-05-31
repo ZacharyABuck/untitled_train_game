@@ -1,0 +1,55 @@
+[gd_scene load_steps=10 format=3 uid="uid://d30isb1qv43jx"]
+
+[ext_resource type="Script" path="res://scenes/fx/blood_fx.gd" id="1_5h13a"]
+
+[sub_resource type="Curve" id="Curve_wefpy"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.540698, 0.148633), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_m105d"]
+_data = [Vector2(0, 0.518793), 0.0, 0.0, 0, 0, Vector2(0.575581, 0.511389), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_cn3vv"]
+curve_x = SubResource("Curve_wefpy")
+curve_y = SubResource("Curve_m105d")
+
+[sub_resource type="Curve" id="Curve_0ipob"]
+_data = [Vector2(0.497093, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0079726), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_shey6"]
+curve = SubResource("Curve_0ipob")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_atymf"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = -100.0
+initial_velocity_max = 100.0
+directional_velocity_min = -100.0
+directional_velocity_max = 100.0
+directional_velocity_curve = SubResource("CurveXYZTexture_cn3vv")
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_shey6")
+
+[sub_resource type="Gradient" id="Gradient_imeao"]
+offsets = PackedFloat32Array(0.362069, 0.364943)
+colors = PackedColorArray(0.462745, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_b2jg0"]
+gradient = SubResource("Gradient_imeao")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.602564, 0.380342)
+
+[node name="BloodFx" type="GPUParticles2D"]
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_atymf")
+texture = SubResource("GradientTexture2D_b2jg0")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 0.99
+script = ExtResource("1_5h13a")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

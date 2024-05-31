@@ -37,7 +37,6 @@ func spawn_chunk(coords):
 	
 	return new_cells
 
-
 func set_track_cell(pos):
 	var coords = local_to_map(pos)
 	BetterTerrain.set_cell(self, 0, coords, 1)

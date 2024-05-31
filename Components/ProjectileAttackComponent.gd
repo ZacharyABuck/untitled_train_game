@@ -68,12 +68,12 @@ func shoot_at_target(target):
 		_shoot()
 
 func _shoot():
+	attack_timer.start()
 	if shoot_sound != null:
 		shoot_sound.play()
 	var new_projectile = _instantiate_bullet()
 	# Add the bullet to the parent scene of the shooter, which fires the projectile.
 	LevelInfo.root.add_child(new_projectile)
-	attack_timer.start()
 
 func _instantiate_bullet():
 	# Set core variables of Bullet. The Bullet needs to always have these variables.

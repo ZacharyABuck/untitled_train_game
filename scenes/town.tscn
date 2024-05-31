@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwgn51i4160nt"]
+
+[ext_resource type="Script" path="res://scripts/town.gd" id="1_mviet"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q0ns8"]
+size = Vector2(64, 64)
+
+[node name="Town" type="Area2D"]
+script = ExtResource("1_mviet")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_q0ns8")
+debug_color = Color(0.993255, 0, 0.240295, 0.42)
+
+[node name="NameLabel" type="Label" parent="."]
+visible = false
+offset_left = -45.0
+offset_top = -69.0
+offset_right = 46.0
+offset_bottom = -46.0
+text = "townsville"
+horizontal_alignment = 1
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

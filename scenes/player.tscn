@@ -175,6 +175,7 @@ frame = 2
 frame_progress = 0.479335
 
 [node name="BodyCollider" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-1, 2)
 shape = SubResource("RectangleShape2D_ff0f4")
 
@@ -188,6 +189,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CarDetector"]
+visible = false
 shape = SubResource("RectangleShape2D_qgewi")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
@@ -208,6 +210,7 @@ health_component = NodePath("../HealthComponent")
 hurt_sfx = NodePath("Hurt SFX")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+visible = false
 position = Vector2(-1, 2)
 shape = SubResource("RectangleShape2D_m2jei")
 
@@ -222,7 +225,7 @@ IS_KILLABLE = false
 ANIMATION = NodePath("../AnimatedSprite2D")
 HEALTHBAR = NodePath("../HealthBar")
 
-[node name="EdgeHandler" type="Node" parent="."]
+[node name="EdgeHandler" type="Node2D" parent="."]
 script = ExtResource("6_6b4qp")
 
 [node name="RunningSFX" type="AudioStreamPlayer" parent="."]

@@ -16,7 +16,6 @@ const edge_panel = preload("res://scenes/edges/edge_panel.tscn")
 @onready var xp_label = $UI/ExperienceLabel
 @onready var level_up_button = $UI/LevelUpButton
 
-
 var new_player
 
 var ui_open: bool = false
@@ -95,12 +94,21 @@ func generate_track():
 			pos_options = [Vector2(-point_increment,-point_increment), Vector2(-point_increment,0), Vector2(0,-point_increment)]
 		"NE":
 			pos_options = [Vector2(point_increment,-point_increment), Vector2(point_increment,0), Vector2(0,-point_increment)]
+		"N":
+			pos_options = [Vector2(point_increment,-point_increment), Vector2(point_increment,-point_increment), Vector2(0,-point_increment)]
+		"E":
+			pos_options = [Vector2(point_increment,point_increment), Vector2(point_increment,0), Vector2(point_increment,-point_increment)]
 		"SW":
 			train_manager.track.curve.set_point_position(0, -train_manager.track.curve.get_point_position(0))
 			pos_options = [Vector2(-point_increment,point_increment), Vector2(-point_increment,0), Vector2(0,point_increment)]
 		"SE":
 			train_manager.track.curve.set_point_position(0, -train_manager.track.curve.get_point_position(0))
 			pos_options = [Vector2(point_increment,point_increment), Vector2(point_increment,0), Vector2(0,point_increment)]
+		"S":
+			train_manager.track.curve.set_point_position(0, -train_manager.track.curve.get_point_position(0))
+			pos_options = [Vector2(point_increment,point_increment), Vector2(-point_increment,point_increment), Vector2(0,point_increment)]
+		"W":
+			pos_options = [Vector2(-point_increment,point_increment), Vector2(-point_increment,0), Vector2(-point_increment,-point_increment)]
 	for i in LevelInfo.level_parameters["distance"]:
 		random_pos = pos_options.pick_random()
 		add_track_point(last_pos, index, random_pos)
@@ -173,11 +181,10 @@ func populate_edge_menu():
 		edge_menu.add_child(new_panel)
 		var random_edge = EdgeInfo.edge_roster.keys().pick_random()
 		new_panel.populate(random_edge)
-		print(random_edge)
 		new_panel.clicked.connect(edge_selected)
 
 func edge_selected(edge):
-	new_player.edge_handler.add_edge(EdgeInfo.edge_roster[edge])
+	new_player.edge_handler.add_edge(edge)
 	var tween = create_tween()
 	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.tween_property(edge_menu, "modulate", Color.TRANSPARENT, .2)

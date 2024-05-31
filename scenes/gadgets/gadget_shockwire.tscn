@@ -1,0 +1,110 @@
+[gd_scene load_steps=12 format=3 uid="uid://brk3equh55yf8"]
+
+[ext_resource type="Texture2D" uid="uid://5oibvmfi0u0f" path="res://sprites/gadgets/gadget_shockwire.png" id="1_eltfx"]
+[ext_resource type="Script" path="res://scripts/gadgets/gadget_shockwire.gd" id="1_li5ym"]
+[ext_resource type="Texture2D" uid="uid://dicxlkldy05ib" path="res://sprites/gadgets/gadget_shockwire_icon.png" id="3_3d852"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26cu8"]
+atlas = ExtResource("1_eltfx")
+region = Rect2(0, 0, 160, 416)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xhewd"]
+atlas = ExtResource("1_eltfx")
+region = Rect2(160, 0, 160, 416)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wwwvu"]
+atlas = ExtResource("1_eltfx")
+region = Rect2(320, 0, 160, 416)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_grulk"]
+atlas = ExtResource("1_eltfx")
+region = Rect2(480, 0, 160, 416)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8twdo"]
+atlas = ExtResource("1_eltfx")
+region = Rect2(640, 0, 160, 416)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x68qf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_26cu8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xhewd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wwwvu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_grulk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8twdo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xhewd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wwwvu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_grulk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8twdo")
+}],
+"loop": false,
+"name": &"shock_visible",
+"speed": 15.0
+}]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_g62rt"]
+a = Vector2(-70, -200)
+b = Vector2(-70, 202)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_vixr5"]
+a = Vector2(-212, 201)
+b = Vector2(-70, 201)
+
+[node name="GadgetShockwire" type="Node2D"]
+script = ExtResource("1_li5ym")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 171)
+sprite_frames = SubResource("SpriteFrames_x68qf")
+
+[node name="DamageTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, 171)
+shape = SubResource("SegmentShape2D_g62rt")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(142, 171)
+shape = SubResource("SegmentShape2D_g62rt")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(142, 171)
+shape = SubResource("SegmentShape2D_vixr5")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(142, -228)
+shape = SubResource("SegmentShape2D_vixr5")
+
+[node name="IconSprite" type="Sprite2D" parent="."]
+texture = ExtResource("3_3d852")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="animation_finished"]
+[connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]

@@ -3,6 +3,7 @@ class_name Player
 
 @onready var sprite = $AnimatedSprite2D
 @onready var auto_fire_timer = $AutoFireTimer
+@onready var hurtbox_component = $HurtboxComponent
 @onready var health_bar = $HealthBar
 @onready var health_component = $HealthComponent
 @onready var edge_handler = $EdgeHandler
@@ -45,6 +46,13 @@ func repair():
 		sprite.play("repairing")
 		if !repair_sfx.playing:
 			repair_sfx.play()
+
+# -- EDGE FUNCTIONS -- #
+func player_hurt():
+	#check for shadowstep
+	if EdgeInfo.edge_inventory.has("shadowstep"):
+		var shadowstep_scene = EdgeInfo.edge_inventory["shadowstep"]
+		shadowstep_scene.enable_shadow()
 
 # -- EQUIPMENT FUNCTIONS -- #
 func _instantiate_ranged_weapon(gun_scene_location):

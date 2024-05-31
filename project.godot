@@ -26,6 +26,8 @@ ExperienceSystem="*res://scripts/player/experience_system.gd"
 EdgeInfo="*res://scripts/edges/edge_info.gd"
 BetterTerrain="*res://addons/better-terrain/BetterTerrain.gd"
 WeaponInfo="*res://scripts/weapon_info.gd"
+WorldInfo="*res://scripts/world_info.gd"
+MissionInfo="*res://scripts/mission_info.gd"
 
 [display]
 

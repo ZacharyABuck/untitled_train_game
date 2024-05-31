@@ -1,0 +1,53 @@
+[gd_scene load_steps=10 format=3 uid="uid://bt5t3a2mdevba"]
+
+[ext_resource type="Script" path="res://scenes/edges/shadowstep.gd" id="1_rlnre"]
+[ext_resource type="Shader" path="res://shaders/shadowstep.gdshader" id="2_hmgak"]
+[ext_resource type="AudioStream" uid="uid://buuh4f21harlo" path="res://sounds/edges/shadowstep_enable_shadow.wav" id="3_efhh2"]
+
+[sub_resource type="Gradient" id="Gradient_vckwb"]
+offsets = PackedFloat32Array(0, 0.724684)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0h5kf"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3pmpa"]
+seamless = true
+seamless_blend_skirt = 0.758
+color_ramp = SubResource("Gradient_vckwb")
+noise = SubResource("FastNoiseLite_0h5kf")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vcaig"]
+shader = ExtResource("2_hmgak")
+shader_parameter/density = 1.0
+shader_parameter/speed = Vector2(0.3, 0.01)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_3pmpa")
+
+[sub_resource type="Gradient" id="Gradient_jrfq5"]
+offsets = PackedFloat32Array(0.548851, 0.807471, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.21656, 0.21656, 0.21656, 0.78344, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2f27m"]
+gradient = SubResource("Gradient_jrfq5")
+fill = 1
+fill_from = Vector2(0.504274, 0.487179)
+fill_to = Vector2(0.760684, 0.166667)
+
+[node name="Shadowstep" type="Node2D"]
+script = ExtResource("1_rlnre")
+edge_name = "Shadowstep"
+
+[node name="ShadowTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="Shadow" type="Sprite2D" parent="."]
+visible = false
+z_index = 10
+material = SubResource("ShaderMaterial_vcaig")
+position = Vector2(0.5, -0.5)
+texture = SubResource("GradientTexture2D_2f27m")
+
+[node name="ShadowSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_efhh2")
+bus = &"SFX"
+
+[connection signal="timeout" from="ShadowTimer" to="." method="_on_shadow_timer_timeout"]

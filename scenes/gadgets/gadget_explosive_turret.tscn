@@ -7,7 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://24x7wkoobr7a" path="res://sounds/combat/canon_01.wav" id="5_b836n"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3blwe"]
-radius = 469.01
+radius = 355.114
 
 [sub_resource type="Gradient" id="Gradient_kh2jo"]
 interpolation_mode = 2

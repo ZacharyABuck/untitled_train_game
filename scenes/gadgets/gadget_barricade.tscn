@@ -26,23 +26,23 @@ scale = Vector2(2, 2)
 texture = ExtResource("1_qtqtt")
 hframes = 5
 
-[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component", "hurt_sfx") instance=ExtResource("2_5iwk3")]
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component", "hurt_sfx") instance=ExtResource("2_5iwk3")]
 collision_layer = 16
 collision_mask = 0
 health_component = NodePath("../HealthComponent")
 hurt_sfx = NodePath("Hurt SFX")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 position = Vector2(-1, -0.5)
 shape = SubResource("RectangleShape2D_rxa71")
 
-[node name="Hurt SFX" type="AudioStreamPlayer" parent="HitboxComponent"]
+[node name="Hurt SFX" type="AudioStreamPlayer" parent="HurtboxComponent"]
 stream = ExtResource("4_hiwrg")
 volume_db = -15.0
 bus = &"SFX"
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("HEALTHBAR") instance=ExtResource("3_ssjoa")]
-MAX_HEALTH = 10
+MAX_HEALTH = 10.0
 HEALTHBAR = NodePath("../HealthBar")
 
 [node name="HealthBar" type="ProgressBar" parent="."]

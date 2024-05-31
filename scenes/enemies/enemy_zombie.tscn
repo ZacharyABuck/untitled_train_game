@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://dlf3ut18w14gl"]
+[gd_scene load_steps=66 format=3 uid="uid://dlf3ut18w14gl"]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/enemy_zombie.gd" id="1_kv2s3"]
 [ext_resource type="AudioStream" uid="uid://qdyuud18a2c4" path="res://sounds/combat/hit_01.wav" id="3_04jho"]
@@ -112,6 +112,18 @@ region = Rect2(2944, 640, 128, 128)
 [sub_resource type="AtlasTexture" id="AtlasTexture_mi7xx"]
 atlas = ExtResource("5_4qa5l")
 region = Rect2(2816, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wyeww"]
+atlas = ExtResource("5_4qa5l")
+region = Rect2(1536, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iodo6"]
+atlas = ExtResource("5_4qa5l")
+region = Rect2(1664, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ejfud"]
+atlas = ExtResource("5_4qa5l")
+region = Rect2(1792, 640, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eeq0r"]
 atlas = ExtResource("5_4qa5l")
@@ -300,6 +312,20 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_wyeww")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iodo6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ejfud")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_eeq0r")
 }, {
 "duration": 1.0,
@@ -441,7 +467,7 @@ texture_filter = 1
 position = Vector2(2, 8)
 scale = Vector2(0.617188, 0.6875)
 sprite_frames = SubResource("SpriteFrames_8jdkj")
-animation = &"recovery"
+animation = &"windup"
 
 [node name="MeleeAttackComponent" type="Area2D" parent="." node_paths=PackedStringArray("ATTACK_TIMER", "TARGET_AREA", "ANIMATIONS")]
 collision_layer = 0

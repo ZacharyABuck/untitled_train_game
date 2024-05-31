@@ -108,6 +108,7 @@ func update_menu(gadget):
 		for i in items.get_children():
 			i.queue_free()
 		spawn_menu(gadget)
+		$MouseIndicator.show()
 	else:
 		menu_type = "none"
 		$MouseIndicator.hide()

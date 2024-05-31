@@ -1,18 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://cn6vg7o7rr1vj"]
+[gd_scene load_steps=7 format=3 uid="uid://cn6vg7o7rr1vj"]
 
 [ext_resource type="Script" path="res://scripts/edges/edge_panel.gd" id="1_w746y"]
 [ext_resource type="Texture2D" uid="uid://3pmjvwnuc8ea" path="res://sprites/ui/edge_background.png" id="1_wiljd"]
-[ext_resource type="FontFile" uid="uid://bt4836ueqhi58" path="res://fonts/WesternBangBang-Regular.ttf" id="2_oyo3j"]
-[ext_resource type="FontFile" uid="uid://c8paya3d441k7" path="res://fonts/JMH Typewriter-Bold.otf" id="4_fl6nr"]
-[ext_resource type="Texture2D" uid="uid://dqjnnhr5gxjsr" path="res://sprites/edges/fan_the_hammer_icon.png" id="4_k3a0t"]
-[ext_resource type="FontFile" uid="uid://lxcj83h6gsu7" path="res://fonts/JMH Typewriter-Black.otf" id="5_mqjjf"]
+[ext_resource type="Texture2D" uid="uid://bryl5lllmerhu" path="res://sprites/edges/fan_the_hammer.png" id="3_18veo"]
 [ext_resource type="AudioStream" uid="uid://d2nwj7vu6t12t" path="res://sounds/ui/menu-select-tick.wav" id="7_1jbep"]
 [ext_resource type="AudioStream" uid="uid://8tpb33eto2wu" path="res://sounds/ui/book_close.wav" id="8_kwwyw"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kawf7"]
-texture = ExtResource("1_wiljd")
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8qlhr"]
+texture = ExtResource("3_18veo")
 
 [node name="EdgePanel" type="Control"]
 process_mode = 3
@@ -48,75 +43,11 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 13.0
+offset_right = 12.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxTexture_kawf7")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="BG"]
-layout_mode = 0
-offset_left = 23.0
-offset_top = 44.0
-offset_right = 277.0
-offset_bottom = 360.0
-theme_override_constants/separation = 0
-
-[node name="EdgeName" type="RichTextLabel" parent="BG/VBoxContainer"]
-custom_minimum_size = Vector2(120, 0)
-layout_mode = 2
-mouse_filter = 1
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_fonts/normal_font = ExtResource("2_oyo3j")
-theme_override_font_sizes/normal_font_size = 40
-bbcode_enabled = true
-text = "[center]Fan the Hammer[/center]"
-fit_content = true
-scroll_active = false
-
-[node name="EdgeIcon" type="TextureRect" parent="BG/VBoxContainer"]
-modulate = Color(1, 1, 1, 0.882353)
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-texture = ExtResource("4_k3a0t")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="MarginContainer" type="MarginContainer" parent="BG/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-
-[node name="EdgeFlavor" type="RichTextLabel" parent="BG/VBoxContainer/MarginContainer"]
-layout_mode = 2
-mouse_filter = 1
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_constants/line_separation = -5
-theme_override_constants/outline_size = 0
-theme_override_fonts/normal_font = ExtResource("4_fl6nr")
-theme_override_font_sizes/normal_font_size = 15
-text = "The preferred upgrade for speed enthusiasts. Engineers and Conductors agree: if the Zombie can't catch you, it can't eat you!"
-fit_content = true
-scroll_active = false
-shortcut_keys_enabled = false
-deselect_on_focus_loss_enabled = false
-drag_and_drop_selection_enabled = false
-
-[node name="HSeparator" type="HSeparator" parent="BG/VBoxContainer"]
-layout_mode = 2
-mouse_filter = 1
-theme_override_constants/separation = 10
-theme_override_styles/separator = SubResource("StyleBoxEmpty_8qlhr")
-
-[node name="EdgeDescription" type="RichTextLabel" parent="BG/VBoxContainer"]
-layout_mode = 2
-mouse_filter = 1
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_fonts/normal_font = ExtResource("5_mqjjf")
-theme_override_font_sizes/normal_font_size = 20
-bbcode_enabled = true
-text = "[center]Movement Speed +20%[/center]"
-fit_content = true
 
 [node name="HoverSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_1jbep")

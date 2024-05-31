@@ -6,10 +6,16 @@ var hard_point
 var car
 
 var raycast: RayCast2D
+var cooldown: Timer
 
 @onready var gun = $ProjectileAttackComponent
 
 func _ready():
+	cooldown = Timer.new()
+	add_child(cooldown)
+	cooldown.wait_time = gun.attack_timer.wait_time
+	cooldown.one_shot = true
+
 	hard_point = get_parent()
 	car = hard_point.get_parent().owner
 	initialize_raycast()
@@ -26,7 +32,9 @@ func _physics_process(_delta):
 	else:
 		if gun.target_is_in_range(target) and !raycast.is_colliding():
 			look_at(target.global_position)
-			gun.shoot_if_target_in_range(target)
+			if cooldown.is_stopped():
+				gun.shoot_if_target_in_range(target)
+				cooldown.start()
 		else: 
 			check_for_targets()
 			gun.attack_timer.stop()

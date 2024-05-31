@@ -2,5 +2,6 @@
 
 [ext_resource type="Script" path="res://scenes/edges/fleet_of_foot.gd" id="1_73gpo"]
 
-[node name="FleetOfFoot" type="Node"]
+[node name="FleetOfFoot" type="Node2D"]
 script = ExtResource("1_73gpo")
+edge_name = "Fleet of Foot"

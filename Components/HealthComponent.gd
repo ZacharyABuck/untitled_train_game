@@ -18,6 +18,7 @@ class_name HealthComponent
 @export var HEALTHBAR : ProgressBar
 
 var money = preload("res://scenes/money.tscn")
+var blood_fx = preload("res://scenes/fx/blood_fx.tscn")
 
 var health : float
 var armor : float
@@ -40,14 +41,21 @@ func _ready():
 	
 func damage(attack : Attack):
 	_calculate_final_damage(attack.attack_damage, armor)
-	if final_damage >= health:
-		health = 0
-	else:
-		health -= final_damage
+	
+	health -= clamp(final_damage, 0, MAX_HEALTH)
+	
+	if character.is_in_group("enemy"):
+		var new_blood_fx = blood_fx.instantiate()
+		LevelInfo.active_level.add_child(new_blood_fx)
+		new_blood_fx.global_position = character.global_position
+		new_blood_fx.emitting = true
+	
 	if has_healthbar:
 		healthbar.value = health
 	if health <= 0:
 		_handle_death()
+	if character is Player:
+		character.player_hurt()
 
 func _handle_death():
 	if is_killable:
@@ -63,6 +71,7 @@ func _handle_death():
 		
 		if character.is_in_group("gadget"):
 			character.hard_point.gadget = null
+			character.hard_point.radial_menu.update_menu("gadgets")
 			character.hard_point.radial_menu.show()
 			character.queue_free()
 
