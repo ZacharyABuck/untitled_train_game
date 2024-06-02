@@ -12,9 +12,6 @@ extends Node2D
 
 func _ready():
 	TrainInfo.train_manager = self
-#
-#func _process(delta):
-	#mesh_vis.global_position = engine.car.top_center.position
 
 func _setup_train():
 	engine.add_to_track(track)
@@ -22,9 +19,16 @@ func _setup_train():
 	engine.car.type = "engine"
 	var last_vehicle = engine
 	last_vehicle.car.index = 0
-	TrainInfo.cars_inventory[0] = {"node" = null, "type" = last_vehicle.car.type, "hard_points" = {}, "gadgets" = {},}
+	if TrainInfo.cars_inventory.keys().size() == 0:
+		TrainInfo.cars_inventory[0] = {"node" = null, "type" = last_vehicle.car.type, "hard_points" = {}, "gadgets" = {},}
 	TrainInfo.cars_inventory[0]["node"] = last_vehicle.car
 	last_vehicle.car.set_parameters()
+	last_vehicle.car.check_for_gadgets()
+	
+	var need_passenger_car: bool = false
+	for i in MissionInfo.mission_inventory:
+		if MissionInfo.mission_inventory[i]["type"] == "escort":
+			need_passenger_car = true
 	
 	for index in range(car_count):
 		if index == 0:
@@ -37,17 +41,20 @@ func _setup_train():
 			if index == car_count - 1:
 				last_vehicle.car.type = "caboose"
 				last_vehicle.car.bottom_collider.disabled = false
+			elif need_passenger_car:
+				last_vehicle.car.type = "passenger"
+				need_passenger_car = false
+				last_vehicle.car.spawn_characters()
 			else:
-				var valid = false
-				while valid == false:
-					var random_type = TrainInfo.cars_roster.keys().pick_random()
-					if random_type != "engine" and random_type != "caboose":
-						last_vehicle.car.type = random_type
-						valid = true
+				last_vehicle.car.type = "coal"
 			last_vehicle.car.index = index
-			TrainInfo.cars_inventory[index] = {"node" = null, "type" = last_vehicle.car.type, "hard_points" = {}, "gadgets" = {},}
+			if TrainInfo.cars_inventory.keys().size() - 1 < index:
+				TrainInfo.cars_inventory[index] = {"node" = null, "type" = last_vehicle.car.type, "hard_points" = {}, "gadgets" = {},}
+			else:
+				pass
 			TrainInfo.cars_inventory[index]["node"] = last_vehicle.car
 			last_vehicle.car.set_parameters()
+			last_vehicle.car.check_for_gadgets()
 
 func _on_timer_timeout() -> void:
 	_setup_train()

@@ -60,7 +60,9 @@ func damage(attack : Attack):
 func _handle_death():
 	if is_killable:
 		if character.is_in_group("enemy"):
-			LevelInfo.spawn_money(character.global_position, character.money)
+			var rng = randi_range(1,10)
+			if rng > 5:
+				LevelInfo.spawn_money(character.global_position, character.money)
 			ExperienceSystem.give_experience.emit(character.experience)
 			character.state = "dead"
 			animation.play("death")
@@ -74,6 +76,17 @@ func _handle_death():
 			character.hard_point.radial_menu.update_menu("gadgets")
 			character.hard_point.radial_menu.show()
 			character.queue_free()
+		
+		if character.is_in_group("character"):
+			for i in MissionInfo.mission_inventory:
+				if MissionInfo.mission_inventory[i]["character"] == character.character_name:
+					print("Mission Failed: " + str(character.character_name) + " killed!")
+					MissionInfo.mission_inventory.erase(i)
+					for p in LevelInfo.root.mission_inventory_container.get_children():
+						if p.mission_id == i:
+							p.queue_free()
+					PlayerInfo.targets.erase(i)
+					character.queue_free()
 
 func _calculate_final_damage(damage, armor):
 	final_damage = damage - armor

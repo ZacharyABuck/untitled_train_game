@@ -44,17 +44,18 @@ func _process(_delta):
 func spawn_menu(type):
 	match type:
 		"gadgets":
-			for i in GadgetInfo.gadget_roster:
-				add_item(GadgetInfo.gadget_roster[i])
+			for i in GadgetInfo.default_roster:
+				add_item(i)
 		"pistol_turret":
 			for i in GadgetInfo.turret_upgrade_roster:
-				add_item(GadgetInfo.turret_upgrade_roster[i])
+				add_item(i)
 
 func add_item(item):
+	var item_info = GadgetInfo.gadget_roster[item]
 	var new_item = menu_item.instantiate()
 	new_item.position = position
 	items.add_child(new_item)
-	new_item.sprite.texture = item["sprite"]
+	new_item.sprite.texture = item_info["sprite"]
 	new_item.gadget = item
 	new_item.clicked.connect(get_parent().add_gadget)
 	new_item.hovered.connect(show_gadget_info)
@@ -76,7 +77,7 @@ func open_menu():
 	$AnimationPlayer.play("still")
 	LevelInfo.active_level.ui_open = true
 	Engine.set_time_scale(.2)
-	var spacing = TAU / GadgetInfo.gadget_roster.keys().size()
+	var spacing = TAU / items.get_children().size()
 	var index = 1
 	var bg_tween = get_tree().create_tween().bind_node(self)
 	bg_tween.tween_property($Sprite2D, "modulate", Color.WHITE, .03)

@@ -28,6 +28,7 @@ BetterTerrain="*res://addons/better-terrain/BetterTerrain.gd"
 WeaponInfo="*res://scripts/weapon_info.gd"
 WorldInfo="*res://scripts/world_info.gd"
 MissionInfo="*res://scripts/mission_info.gd"
+CharacterInfo="*res://scripts/character_info.gd"
 
 [display]
 
@@ -93,6 +94,7 @@ repair={
 2d_physics/layer_7="Terrain"
 2d_physics/layer_8="Events"
 2d_physics/layer_9="Obstacles"
+2d_physics/layer_10="Characters"
 
 [physics]
 

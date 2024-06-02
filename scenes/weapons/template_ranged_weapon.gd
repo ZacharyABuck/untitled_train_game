@@ -7,10 +7,10 @@ class_name Ranged_Weapon
 @onready var player = PlayerInfo.active_player
 
 # -- BASE WEAPON STATS -- #
-var base_attack_delay: float = 1.0
-var base_projectile_speed: int = 30
-var base_damage: float = 0
-var base_lifetime: float = 3.0
+var base_attack_delay: float
+var base_projectile_speed: int
+var base_damage: float
+var base_lifetime: float
 var can_shoot : bool = true
 var base_bullet = preload("res://scenes/projectiles/fiery_bullet.tscn")
 
@@ -21,17 +21,8 @@ var current_damage: float
 var current_lifetime: float
 var current_bullet
 
-func _ready():
-	current_attack_delay = base_attack_delay
-	current_projectile_speed = base_projectile_speed
-	current_damage = base_damage
-	current_lifetime = base_lifetime
-	current_bullet = base_bullet
-	attack_delay_timer.wait_time = current_attack_delay
-	attack_delay_timer.timeout.connect(_on_attack_timer_timeout)
-
 func _set_current_variables_and_connect_timer():
-	current_attack_delay = base_attack_delay
+	current_attack_delay = base_attack_delay * PlayerInfo.current_attack_delay_modifier
 	current_projectile_speed = base_projectile_speed
 	current_damage = base_damage
 	current_lifetime = base_lifetime

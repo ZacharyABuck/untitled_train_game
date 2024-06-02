@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://scripts/player/player_state_repairing.gd" id="4_7ckig"]
 [ext_resource type="Script" path="res://components/HealthComponent.gd" id="4_8hue6"]
 [ext_resource type="Script" path="res://scripts/player/player_state_ui.gd" id="5_sovp7"]
-[ext_resource type="Script" path="res://scenes/EdgeHandler.gd" id="6_6b4qp"]
+[ext_resource type="Script" path="res://scripts/edges/EdgeHandler.gd" id="6_6b4qp"]
 [ext_resource type="Script" path="res://scripts/player/player_state_edge_selection.gd" id="6_p80ja"]
 [ext_resource type="AudioStream" uid="uid://bm8ntouv5ol6l" path="res://sounds/player/running_wood.wav" id="7_t6e6q"]
 [ext_resource type="AudioStream" uid="uid://cpnffnc4clg7y" path="res://sounds/player/repair.mp3" id="8_5qdj5"]

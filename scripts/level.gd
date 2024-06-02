@@ -15,6 +15,7 @@ const edge_panel = preload("res://scenes/edges/edge_panel.tscn")
 @onready var level_label = $UI/LevelLabel
 @onready var xp_label = $UI/ExperienceLabel
 @onready var level_up_button = $UI/LevelUpButton
+@onready var level_complete_button = $UI/LevelCompleteButton
 
 var new_player
 
@@ -147,7 +148,7 @@ func _on_enemy_spawn_timer_timeout():
 	add_child(new_spawner)
 	var random_enemy = new_spawner.find_random_enemy()
 	new_spawner.spawn_enemy(round(spawn_count), random_enemy, null)
-	LevelInfo.difficulty += 1.5
+	LevelInfo.difficulty += .5
 	enemy_spawn_timer.start()
 
 func handle_level_up():

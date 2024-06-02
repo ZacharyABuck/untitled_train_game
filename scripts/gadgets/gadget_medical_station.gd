@@ -13,12 +13,13 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if car.index == PlayerInfo.active_player.active_car and \
-	PlayerInfo.active_player.health_component.health < PlayerInfo.active_player.health_component.MAX_HEALTH:
-		heal_player(GadgetInfo.gadget_roster["medical_station"]["heal_amount"]*delta)
-	else:
-		$AnimationPlayer.stop()
-		$Ring.hide()
+	if PlayerInfo.active_player != null:
+		if car.index == PlayerInfo.active_player.active_car and \
+		PlayerInfo.active_player.health_component.health < PlayerInfo.active_player.health_component.MAX_HEALTH:
+			heal_player(GadgetInfo.gadget_roster["medical_station"]["heal_amount"]*delta)
+		else:
+			$AnimationPlayer.stop()
+			$Ring.hide()
 
 func heal_player(amount):
 	PlayerInfo.active_player.health_component.health += amount

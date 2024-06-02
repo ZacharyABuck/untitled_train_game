@@ -1,7 +1,8 @@
 extends Node2D
 
 func _physics_process(_delta):
-	owner.attack_component.attack_if_target_in_range(owner.target)
+	if owner.target != null:
+		owner.attack_component.attack_if_target_in_range(owner.target)
 
 func animation_finished():
 	if owner.animations.animation == "recovery":

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bauu0fl50lkr5"]
+[gd_scene load_steps=13 format=3 uid="uid://bauu0fl50lkr5"]
 
 [ext_resource type="Script" path="res://scripts/train/car.gd" id="1_oecw2"]
 [ext_resource type="Texture2D" uid="uid://cw2iyknxfg77v" path="res://sprites/train/engine.png" id="2_hspvl"]
@@ -27,6 +27,12 @@ gradient = SubResource("Gradient_c7mik")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.965812, 0.042735)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_635ql"]
+b = Vector2(-1, 370)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_aoju7"]
+b = Vector2(117, 0)
 
 [node name="Car" type="Node2D" groups=["car"]]
 script = ExtResource("1_oecw2")
@@ -151,9 +157,6 @@ scale = Vector2(2, 5.79687)
 enabled = false
 texture = SubResource("GradientTexture2D_gbbk1")
 
-[node name="BoardingFinalPosition" type="Node2D" parent="."]
-position = Vector2(0, 171)
-
 [node name="BoardingPoints" type="Node2D" parent="."]
 
 [node name="0" type="Node2D" parent="BoardingPoints"]
@@ -206,3 +209,26 @@ stream = ExtResource("3_jpwrk")
 volume_db = -20.0
 max_polyphony = 10
 bus = &"Train"
+
+[node name="CharacterBoundary" type="StaticBody2D" parent="."]
+collision_layer = 1024
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBoundary"]
+position = Vector2(-59, -11)
+shape = SubResource("SegmentShape2D_635ql")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBoundary"]
+position = Vector2(58, -11)
+shape = SubResource("SegmentShape2D_635ql")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="CharacterBoundary"]
+position = Vector2(-59, -11)
+shape = SubResource("SegmentShape2D_aoju7")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="CharacterBoundary"]
+position = Vector2(-59, 356)
+shape = SubResource("SegmentShape2D_aoju7")
+
+[node name="CharacterSpawnPoint" type="Node2D" parent="."]
+position = Vector2(0, 171)

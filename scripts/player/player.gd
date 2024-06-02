@@ -9,6 +9,8 @@ class_name Player
 @onready var edge_handler = $EdgeHandler
 @onready var running_sfx = $RunningSFX
 @onready var repair_sfx = $RepairSFX
+@onready var camera = $Camera2D
+
 
 var active_car
 
@@ -24,12 +26,22 @@ var repair_rate: float = 0.01
 # -- BASE FUNCTIONS -- #
 func _ready():
 	PlayerInfo.active_player = self
+	PlayerInfo.targets.append(self)
+	camera.make_current()
 	health_component.MAX_HEALTH = PlayerInfo.base_max_health
 	health_component.ARMOR_VALUE = PlayerInfo.base_armor
-	var random_weapon = WeaponInfo.weapons_roster.keys().pick_random()
-	print(random_weapon)
-	_instantiate_ranged_weapon(WeaponInfo.weapons_roster[random_weapon]["scene"])
+	
+	var weapon
+	if PlayerInfo.current_ranged_weapon_reference.is_empty():
+		weapon = WeaponInfo.weapons_roster.keys().pick_random()
+		PlayerInfo.current_ranged_weapon_reference = weapon
+	else:
+		weapon = PlayerInfo.current_ranged_weapon_reference
+	_instantiate_ranged_weapon(WeaponInfo.weapons_roster[weapon]["scene"])
+
 	ExperienceSystem.level_up.connect(self.handle_level_up)
+	
+	edge_handler.check_for_edges()
 
 # -- ATTACK FUNCTIONS -- #
 func _shoot():
@@ -51,7 +63,7 @@ func repair():
 func player_hurt():
 	#check for shadowstep
 	if EdgeInfo.edge_inventory.has("shadowstep"):
-		var shadowstep_scene = EdgeInfo.edge_inventory["shadowstep"]
+		var shadowstep_scene = EdgeInfo.edge_inventory["shadowstep"]["scene"]
 		shadowstep_scene.enable_shadow()
 
 # -- EQUIPMENT FUNCTIONS -- #
@@ -62,13 +74,12 @@ func _instantiate_ranged_weapon(gun_scene_location):
 
 	var gun_scene = gun_scene_location
 	current_ranged_weapon = gun_scene.instantiate()
+
 	# Modify base weapon by flat bonus and multiplier of character.
 	var damage = current_ranged_weapon.base_damage
 	damage += PlayerInfo.current_ranged_damage_bonus
 	damage *= PlayerInfo.current_ranged_damage_multiplier
 	current_ranged_weapon.base_damage = damage
-	current_ranged_weapon.base_attack_delay = current_ranged_weapon.base_attack_delay * PlayerInfo.current_attack_delay_modifier
-
 	add_child(current_ranged_weapon)
 
 func refresh_current_ranged_weapon_stats():
@@ -77,8 +88,6 @@ func refresh_current_ranged_weapon_stats():
 	damage *= PlayerInfo.current_ranged_damage_multiplier
 	current_ranged_weapon.current_damage = damage
 	current_ranged_weapon.current_attack_delay = current_ranged_weapon.base_attack_delay * PlayerInfo.current_attack_delay_modifier
-	
-	print("Current ranged weapon attack delay: ", current_ranged_weapon.current_attack_delay)
 
 # -- MOVEMENT FUNCTIONS -- #
 func _on_car_detector_area_entered(area):

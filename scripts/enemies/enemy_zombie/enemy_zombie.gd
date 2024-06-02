@@ -20,7 +20,15 @@ var boarded = false
 
 func _ready():
 	if state != "idle":
-		target = PlayerInfo.active_player
+		target = find_target()
+
+func _physics_process(delta):
+	if target == null and state != "idle":
+		target = find_target()
+
+func find_target():
+	var rng = PlayerInfo.targets.pick_random()
+	return rng
 
 func _on_wall_detector_body_entered(body):
 	if body.get_parent().is_in_group("car") and boarded == false and state != "dead":

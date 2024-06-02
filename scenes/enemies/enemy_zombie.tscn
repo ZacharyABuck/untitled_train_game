@@ -475,6 +475,7 @@ collision_mask = 0
 script = ExtResource("5_vxl1g")
 TARGET_TYPES = {
 "car": false,
+"character": true,
 "enemy": false,
 "player": true,
 "terrain": false

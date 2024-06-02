@@ -4,4 +4,4 @@
 
 [node name="FanTheHammer" type="Node2D"]
 script = ExtResource("1_aktr1")
-edge_name = "Fan the Hammer"
+edge_reference = "fan_the_hammer"

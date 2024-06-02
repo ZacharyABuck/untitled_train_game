@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://cpuojfe775650"]
+
+[ext_resource type="Script" path="res://scripts/ui/mission_inventory_panel.gd" id="1_bp06l"]
+[ext_resource type="Texture2D" uid="uid://dutu0olvdwa37" path="res://sprites/characters/Franch Token.png" id="1_pja34"]
+[ext_resource type="FontFile" uid="uid://tpmg7wha0yio" path="res://fonts/JMH Typewriter-Bold.ttf" id="2_0nndr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhcox"]
+bg_color = Color(0.746985, 0.54955, 0.448167, 0.258824)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3033b"]
+font = ExtResource("2_0nndr")
+outline_size = 5
+outline_color = Color(0.435294, 0.388235, 0, 1)
+
+[node name="MissionInventoryPanel" type="PanelContainer"]
+custom_minimum_size = Vector2(256, 64)
+theme_override_styles/panel = SubResource("StyleBoxFlat_rhcox")
+script = ExtResource("1_bp06l")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="CharacterIcon" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_pja34")
+expand_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MissionDescriptionLabel" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Escort Franch to Franchtown"
+label_settings = SubResource("LabelSettings_3033b")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2

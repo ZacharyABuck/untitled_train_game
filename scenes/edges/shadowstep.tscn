@@ -33,7 +33,7 @@ fill_to = Vector2(0.760684, 0.166667)
 
 [node name="Shadowstep" type="Node2D"]
 script = ExtResource("1_rlnre")
-edge_name = "Shadowstep"
+edge_reference = "shadowstep"
 
 [node name="ShadowTimer" type="Timer" parent="."]
 wait_time = 3.0

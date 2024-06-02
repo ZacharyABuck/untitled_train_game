@@ -32,5 +32,5 @@ func spawn_event(event_type):
 			new_event.global_position = i.global_position
 			new_event.type = event_type
 			break
-	LevelInfo.root.call_deferred("add_child", new_event)
+	LevelInfo.active_level.call_deferred("add_child", new_event)
 	call_deferred("queue_free")

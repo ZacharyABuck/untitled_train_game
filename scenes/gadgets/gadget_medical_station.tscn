@@ -88,7 +88,7 @@ _data = {
 "flash_ring": SubResource("Animation_dpdbm")
 }
 
-[node name="MedicalStation" type="Node2D"]
+[node name="MedicalStation" type="Node2D" groups=["gadget"]]
 script = ExtResource("1_13wjr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -4,6 +4,7 @@ class_name MeleeAttackComponent
 @export var TARGET_TYPES = {
 	"player":false,
 	"enemy":false,
+	"character":false,
 	"car":false,
 	"terrain":false
 }
@@ -104,6 +105,8 @@ func _set_layers(obj):
 		obj.set_collision_mask_value(4, true)
 	if target_types["player"]:
 		obj.set_collision_mask_value(1, true)
+	if target_types["character"]:
+		obj.set_collision_mask_value(10, true)
 	if target_types["car"]:
 		obj.set_collision_mask_value(3, true)
 	if target_types["terrain"]:

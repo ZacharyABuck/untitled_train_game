@@ -4,4 +4,4 @@
 
 [node name="FleetOfFoot" type="Node2D"]
 script = ExtResource("1_73gpo")
-edge_name = "Fleet of Foot"
+edge_reference = "fleet_of_foot"

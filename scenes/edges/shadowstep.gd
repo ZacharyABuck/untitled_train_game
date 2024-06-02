@@ -16,7 +16,6 @@ func handle_level_up():
 	shadow_time *= shadow_upgrade_rate
 
 func enable_shadow():
-	print("shadow enabled")
 	shadow_sfx.play()
 	player_hurtbox.process_mode = Node.PROCESS_MODE_DISABLED
 	shadow.show()
@@ -24,7 +23,6 @@ func enable_shadow():
 	shadow_timer.start()
 	
 func _on_shadow_timer_timeout():
-	print("shadow disabled")
 	player_hurtbox.process_mode = Node.PROCESS_MODE_INHERIT
 	shadow.hide()
 	player_hurtbox.monitoring = true

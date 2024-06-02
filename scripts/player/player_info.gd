@@ -23,6 +23,7 @@ var base_attack_delay_modifier: float = 1.0
 var current_health: float
 var current_max_health: float
 var current_money: int
+var current_ranged_weapon_reference: String
 var current_ranged_damage_multiplier: float
 var current_melee_damage_multiplier: float
 var current_ranged_damage_bonus: float
@@ -34,9 +35,10 @@ var current_attack_delay_modifier: float
 # Current state in player state machine node
 @export_enum("default", "repairing", "ui_default", "ui_edge_selection") var state: String = "default"
 
+var targets = []
+
 func _ready():
 	ExperienceSystem.give_experience.connect(self.handle_give_experience_signal)
-	set_current_variables_to_base_value()
 
 func set_current_variables_to_base_value():
 	current_ranged_damage_multiplier = base_ranged_damage_multiplier

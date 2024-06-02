@@ -61,7 +61,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"shock_visible",
-"speed": 15.0
+"speed": 10.0
 }]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_g62rt"]
@@ -72,7 +72,7 @@ b = Vector2(-70, 202)
 a = Vector2(-212, 201)
 b = Vector2(-70, 201)
 
-[node name="GadgetShockwire" type="Node2D"]
+[node name="GadgetShockwire" type="Node2D" groups=["gadget"]]
 script = ExtResource("1_li5ym")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

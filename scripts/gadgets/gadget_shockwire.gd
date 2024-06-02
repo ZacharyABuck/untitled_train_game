@@ -18,12 +18,10 @@ func _on_damage_timer_timeout():
 
 func damage_enemies():
 	for i in hitbox.get_overlapping_areas():
-		print(i)
 		var new_attack = Attack.new()
 		new_attack.attack_damage = damage
 		if i is HurtboxComponent and i.get_parent().is_in_group("enemy"):
 			i.damage(new_attack)
-			print(new_attack)
 
 func animation_finished():
 	if animations.animation == "shock_visible":

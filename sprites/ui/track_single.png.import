@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dutu0olvdwa37"
-path="res://.godot/imported/Franch Token.png-543b4b43e30bcaa1429aa3f9a5589286.ctex"
+uid="uid://c0ctx778y5g3i"
+path="res://.godot/imported/track_single.png-288eb9dded90cac1b102bf7289ebf274.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/images/Franch Token.png"
-dest_files=["res://.godot/imported/Franch Token.png-543b4b43e30bcaa1429aa3f9a5589286.ctex"]
+source_file="res://sprites/ui/track_single.png"
+dest_files=["res://.godot/imported/track_single.png-288eb9dded90cac1b102bf7289ebf274.ctex"]
 
 [params]
 

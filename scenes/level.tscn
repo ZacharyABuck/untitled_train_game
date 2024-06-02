@@ -4,11 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://cb1r5v4vqyrx8" path="res://scenes/train/TrainManager.tscn" id="3_3t5p5"]
 [ext_resource type="Texture2D" uid="uid://bi5i4fe8imr7h" path="res://sprites/tiles/Desert_Tileset_01.png" id="3_mbth6"]
 [ext_resource type="Script" path="res://scripts/maps/map.gd" id="3_nn34h"]
-[ext_resource type="Texture2D" uid="uid://dutu0olvdwa37" path="res://sprites/images/Franch Token.png" id="4_jdl4j"]
 [ext_resource type="Texture2D" uid="uid://dhwaeohssorbn" path="res://sprites/images/xbar_yellow.png" id="5_av7jw"]
 [ext_resource type="Shader" path="res://shaders/tilt_shift.gdshader" id="5_qayv6"]
 [ext_resource type="FontFile" uid="uid://lxcj83h6gsu7" path="res://fonts/JMH Typewriter-Black.otf" id="5_uxjuw"]
 [ext_resource type="Texture2D" uid="uid://jidnhqo2mpwb" path="res://sprites/images/xpbar_blue2.png" id="6_mrm4f"]
+[ext_resource type="Texture2D" uid="uid://dutu0olvdwa37" path="res://sprites/characters/Franch Token.png" id="7_ubu34"]
 [ext_resource type="AudioStream" uid="uid://c8nvxqfmljdop" path="res://sounds/ui/book_skimming_short.wav" id="8_g00h4"]
 [ext_resource type="Texture2D" uid="uid://cjq45x38ts8mf" path="res://sprites/ui/level_up_button.png" id="9_kk0cw"]
 [ext_resource type="FontFile" uid="uid://c8paya3d441k7" path="res://fonts/JMH Typewriter-Bold.otf" id="9_msw3l"]
@@ -899,10 +899,10 @@ tracks/0/path = NodePath(".:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1, 1.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [true, false, true, false]
+"values": [true, false, true, false, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bqojy"]
@@ -1050,14 +1050,12 @@ theme_override_font_sizes/font_size = 30
 text = "Money = 0"
 
 [node name="AlertLabel" type="Label" parent="UI"]
-visible = false
 offset_right = 1922.0
 offset_bottom = 186.0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 50
-text = "Train Obstructed!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1072,7 +1070,7 @@ offset_top = 3.0
 offset_right = 261.0
 offset_bottom = 259.0
 scale = Vector2(0.513544, 0.513544)
-texture = ExtResource("4_jdl4j")
+texture = ExtResource("7_ubu34")
 
 [node name="PlayerExperienceBar" type="TextureProgressBar" parent="UI"]
 offset_left = 142.0
@@ -1139,6 +1137,21 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
+
+[node name="LevelCompleteButton" type="Button" parent="UI"]
+process_mode = 3
+visible = false
+top_level = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 860.0
+offset_top = 460.0
+offset_right = -760.0
+offset_bottom = -520.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Route Complete!"
 
 [node name="EdgeSFX" type="AudioStreamPlayer" parent="."]
 process_mode = 3
