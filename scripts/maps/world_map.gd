@@ -2,8 +2,8 @@ extends TileMap
 
 var altitude = FastNoiseLite.new()
 @onready var astar = AStar2D.new()
-var chunk_width = 38.0
-var chunk_height = 22.0
+var chunk_width = 37.0
+var chunk_height = 21.0
 var loaded_chunks: Array = []
 
 @onready var route_line = $RouteLine
@@ -13,7 +13,7 @@ var starting_coords = Vector2i.ZERO
 
 var road_cells = []
 var road_count: int = 1
-var town_count: int = 7
+var town_count: int = 10
 
 var town_cells = []
 
@@ -43,27 +43,28 @@ func handle_roads():
 func handle_towns():
 	for i in town_count:
 		var new_town_pos = spawn_town()
-		town_cells.append(new_town_pos)
-		BetterTerrain.set_cell(self, 0, new_town_pos, 3)
+		if new_town_pos:
+			town_cells.append(new_town_pos)
+			BetterTerrain.set_cell(self, 0, new_town_pos, 3)
+			
+			var new_town = town.instantiate()
+			new_town.global_position = map_to_local(new_town_pos)
+			add_child(new_town)
+			
+			var valid_town: bool = false
+			while valid_town == false:
+				var town_info = WorldInfo.towns_roster.keys().pick_random()
+				if WorldInfo.towns_inventory.keys().has(town_info):
+					pass
+				else:
+					WorldInfo.towns_inventory[town_info] = WorldInfo.towns_roster[town_info]
+					WorldInfo.towns_inventory[town_info]["scene"] = new_town
+					new_town.set_town_info(town_info)
+					valid_town = true
 		
-		var new_town = town.instantiate()
-		new_town.global_position = map_to_local(new_town_pos)
-		add_child(new_town)
-		
-		var valid_town: bool = false
-		while valid_town == false:
-			var town_info = WorldInfo.towns_roster.keys().pick_random()
-			if WorldInfo.towns_inventory.keys().has(town_info):
-				pass
-			else:
-				WorldInfo.towns_inventory[town_info] = WorldInfo.towns_roster[town_info]
-				WorldInfo.towns_inventory[town_info]["scene"] = new_town
-				new_town.set_town_info(town_info)
-				valid_town = true
-		
-		new_town.clicked.connect(get_parent().town_clicked.bind(new_town))
-		new_town.mouse_entered.connect(town_mouse_entered.bind(new_town))
-		new_town.mouse_exited.connect(town_mouse_exited.bind(new_town))
+			new_town.clicked.connect(get_parent().town_clicked.bind(new_town))
+			new_town.mouse_entered.connect(town_mouse_entered.bind(new_town))
+			new_town.mouse_exited.connect(town_mouse_exited.bind(new_town))
 
 func spawn_map(coords):
 	var new_cells = []

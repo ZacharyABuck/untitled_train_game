@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://bauu0fl50lkr5"]
+[gd_scene load_steps=14 format=3 uid="uid://bauu0fl50lkr5"]
 
 [ext_resource type="Script" path="res://scripts/train/car.gd" id="1_oecw2"]
 [ext_resource type="Texture2D" uid="uid://cw2iyknxfg77v" path="res://sprites/train/engine.png" id="2_hspvl"]
 [ext_resource type="AudioStream" uid="uid://dpq8xqakb6724" path="res://sounds/train/glass_break.ogg" id="3_jpwrk"]
+[ext_resource type="Script" path="res://scripts/train/cargo_container.gd" id="4_sh43r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_56ap2"]
 size = Vector2(17, 386)
@@ -232,3 +233,6 @@ shape = SubResource("SegmentShape2D_aoju7")
 
 [node name="CharacterSpawnPoint" type="Node2D" parent="."]
 position = Vector2(0, 171)
+
+[node name="CargoContainer" type="Node2D" parent="."]
+script = ExtResource("4_sh43r")

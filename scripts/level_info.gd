@@ -11,7 +11,7 @@ var destination
 var difficulty = 1.0
 
 var level_parameters = {
-	"distance" = 6,
+	"distance" = 1,
 	"direction" = "NW",
 	"terrain" = null,
 }

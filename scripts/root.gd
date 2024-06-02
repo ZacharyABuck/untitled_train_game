@@ -14,6 +14,7 @@ var mission_reward_panel = preload("res://scenes/ui/mission_reward_panel.tscn")
 
 
 var in_game = false
+var missions_spawned: bool = false
 
 func start_game(direction, terrain):
 	$WorldUI.hide()
@@ -26,7 +27,6 @@ func start_game(direction, terrain):
 		PlayerInfo.set_current_variables_to_base_value()
 	print("Terrain Type: " + LevelInfo.terrain_roster[terrain])
 	print("Destination: " + LevelInfo.destination)
-	print(MissionInfo.mission_inventory)
 	for i in LevelInfo.events.keys():
 		LevelInfo.events[i]["type"] = LevelInfo.events_roster.keys().pick_random()
 		print("Event " + str(i) + " = " + str(LevelInfo.events[i]["type"]))
@@ -45,7 +45,16 @@ func unpause_game():
 	LevelInfo.active_level.get_tree().paused = false
 
 func town_clicked(town):
+	$TownsUI/MarginContainer/TabContainer.current_tab = 0
 	towns_ui.populate_town_info(town)
+	if WorldInfo.active_town == town.town_name:
+		towns_ui.trainyard_items_list.show()
+		if missions_spawned == false:
+			missions_spawned = true
+			towns_ui.spawn_missions(3)
+			towns_ui.spawn_trainyard_items()
+	else:
+		towns_ui.trainyard_items_list.hide()
 
 func _on_travel_button_pressed():
 	var direction = find_direction()
@@ -82,6 +91,7 @@ func level_complete():
 	money_label.text = "Money = $" + str(PlayerInfo.current_money)
 	check_missions()
 	$WorldMap.show()
+	missions_spawned = false
 
 func despawn_level():
 	LevelInfo.active_level.queue_free()
@@ -100,9 +110,23 @@ func check_missions():
 func complete_mission(mission):
 	PlayerInfo.current_money += MissionInfo.mission_inventory[mission]["reward"]
 	money_label.text = "Money = $" + str(PlayerInfo.current_money)
-	world_ui.spawn_reward_panel(MissionInfo.mission_inventory[mission]["character"], MissionInfo.mission_inventory[mission]["reward"])
+	if MissionInfo.mission_inventory[mission].keys().has("icon"):
+		world_ui.spawn_reward_panel(MissionInfo.mission_inventory[mission]["icon"], MissionInfo.mission_inventory[mission]["reward"])
+	else: 
+		var character_icon = CharacterInfo.characters_roster[MissionInfo.mission_inventory[mission]["character"]]["icon"]
+		world_ui.spawn_reward_panel(character_icon, MissionInfo.mission_inventory[mission]["reward"])
 	for i in mission_inventory_container.get_children():
 		if i.mission_id == mission:
 			i.queue_free()
 			break
-	MissionInfo.mission_inventory.erase(mission)
+	if MissionInfo.mission_inventory.keys().has(mission):
+		MissionInfo.mission_inventory.erase(mission)
+
+func upgrade_train(upgrade):
+	if TrainInfo.train_stats.keys().has(upgrade):
+		TrainInfo.train_stats[upgrade] += TrainInfo.train_upgrade_roster[upgrade]["value"]
+		if upgrade == "car_count":
+			if TrainInfo.cars_inventory.keys().size() > 1:
+				var caboose_index = TrainInfo.cars_inventory.keys().size() - 1
+				TrainInfo.cars_inventory[caboose_index + 1] = TrainInfo.cars_inventory[caboose_index]
+				TrainInfo.cars_inventory[caboose_index] = {"node" = null, "type" = null, "hard_points" = {}, "gadgets" = {},}

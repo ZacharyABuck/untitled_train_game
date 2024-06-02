@@ -48,6 +48,7 @@ material = SubResource("ShaderMaterial_8ked5")
 texture = SubResource("GradientTexture2D_2sev8")
 
 [node name="DamageTimer" type="Timer" parent="."]
+wait_time = 2.0
 autostart = true
 
 [node name="HitBox" type="Area2D" parent="."]

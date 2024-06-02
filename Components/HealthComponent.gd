@@ -81,12 +81,32 @@ func _handle_death():
 			for i in MissionInfo.mission_inventory:
 				if MissionInfo.mission_inventory[i]["character"] == character.character_name:
 					print("Mission Failed: " + str(character.character_name) + " killed!")
-					MissionInfo.mission_inventory.erase(i)
-					for p in LevelInfo.root.mission_inventory_container.get_children():
-						if p.mission_id == i:
-							p.queue_free()
+					remove_mission(i)
 					PlayerInfo.targets.erase(i)
 					character.queue_free()
+		
+		if character.is_in_group("cargo"):
+			for i in MissionInfo.mission_inventory.keys():
+				if i == character.mission:
+					print("Cargo Destroyed!")
+					if character.get_parent().destroyed_cargo.keys().has(i):
+						character.get_parent().destroyed_cargo[i] += 1
+					else:
+						character.get_parent().destroyed_cargo[i] = 1
+					var destroyed: int = character.get_parent().destroyed_cargo[i]
+					var count: int = character.get_parent().cargo_count[i]
+					if destroyed >= count:
+						remove_mission(i)
+						print("Mission Failed: Delivery")
+					else:
+						MissionInfo.mission_inventory[i]["reward"] *= .75
+					character.queue_free()
+
+func remove_mission(mission_id):
+	MissionInfo.mission_inventory.erase(mission_id)
+	for p in LevelInfo.root.mission_inventory_container.get_children():
+		if p.mission_id == mission_id:
+			p.queue_free()
 
 func _calculate_final_damage(damage, armor):
 	final_damage = damage - armor

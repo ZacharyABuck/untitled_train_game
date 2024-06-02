@@ -16,7 +16,6 @@ point_count = 2
 
 [node name="TrainManager" type="Node2D"]
 script = ExtResource("1_jou52")
-car_count = 3
 train_vehicle_reference = ExtResource("2_8qejh")
 
 [node name="Tracks" type="Node2D" parent="."]
@@ -29,7 +28,6 @@ scale = Vector2(0.999998, 1)
 max_force = 150.0
 brake_power = 15.0
 brake_application_speed = 50.0
-target_force_percent = 2.5
 
 [node name="TrainChuggingSFX" type="AudioStreamPlayer" parent="TrainEngine"]
 stream = ExtResource("5_inko4")

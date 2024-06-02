@@ -1,12 +1,15 @@
 extends Edge
 
-var damage = 2
+var damage = 1
 @onready var damage_timer = $DamageTimer
 @onready var hitbox = $HitBox
 
 
 func handle_level_up():
-	damage += 1
+	if edge_level % 2 == 1:
+		damage += 1
+	if edge_level % 2 == 0:
+		damage_timer.wait_time *= .8
 
 func _on_damage_timer_timeout():
 	damage_enemies()

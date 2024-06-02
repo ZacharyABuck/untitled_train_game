@@ -27,6 +27,7 @@ var velocity := 0.0
 
 func _ready() -> void:
 	TrainInfo.train_engine = self
+	target_force_percent = TrainInfo.train_stats["speed"]
 	super()
 	_update_frictions()
 

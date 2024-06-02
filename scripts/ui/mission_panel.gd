@@ -16,7 +16,11 @@ func find_random_mission():
 	
 	var random_character = CharacterInfo.characters_roster.keys().pick_random()
 	character = random_character
-	$HBoxContainer/MissionIcon.texture = CharacterInfo.characters_roster[random_character]["icon"]
+	if random_mission.keys().has("icon"):
+		$HBoxContainer/MissionIcon.texture = random_mission["icon"]
+	else:
+		$HBoxContainer/MissionIcon.texture = CharacterInfo.characters_roster[random_character]["icon"]
+			
 	
 	$HBoxContainer/VBoxContainer/MissionName.text = "[center]" + random_mission["name"] + ": " + str(random_character) + "[/center]"
 	$HBoxContainer/VBoxContainer/MissionDescription.text = random_mission["description"] + str(destination)
@@ -44,6 +48,7 @@ func _on_gui_input(event):
 		{"type" = mission_type,
 		"destination" = destination,
 		"character" = character,
-		"reward" = reward,}
+		"reward" = reward,
+		"icon" = $HBoxContainer/MissionIcon.texture,}
 		clicked.emit(id)
 		queue_free()

@@ -5,7 +5,18 @@
 [ext_resource type="FontFile" uid="uid://tpmg7wha0yio" path="res://fonts/JMH Typewriter-Bold.ttf" id="2_0nndr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhcox"]
-bg_color = Color(0.746985, 0.54955, 0.448167, 0.258824)
+bg_color = Color(0.745098, 0.54902, 0.447059, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0, 0, 0, 0.352941)
+shadow_offset = Vector2(5, 5)
 
 [sub_resource type="LabelSettings" id="LabelSettings_3033b"]
 font = ExtResource("2_0nndr")

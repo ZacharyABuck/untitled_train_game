@@ -8,10 +8,10 @@ var mission_inventory_panel = preload("res://scenes/ui/mission_inventory_panel.t
 
 
 
-func spawn_reward_panel(character, reward):
+func spawn_reward_panel(sprite, reward):
 	var new_panel = mission_reward_panel.instantiate()
 	rewards_container.add_child(new_panel)
-	new_panel.populate(CharacterInfo.characters_roster[character]["icon"], reward)
+	new_panel.populate(sprite, reward)
 
 func spawn_mission_inventory_panel(mission):
 	var new_panel = mission_inventory_panel.instantiate()

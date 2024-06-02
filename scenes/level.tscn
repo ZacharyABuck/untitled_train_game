@@ -960,7 +960,6 @@ format = 2
 script = ExtResource("3_nn34h")
 
 [node name="TrainManager" parent="." instance=ExtResource("3_3t5p5")]
-car_count = 4
 
 [node name="Bullets" type="Node2D" parent="."]
 

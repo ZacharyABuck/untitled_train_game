@@ -1,9 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8yvelgj3rqi6"]
+[gd_scene load_steps=6 format=3 uid="uid://c8yvelgj3rqi6"]
 
 [ext_resource type="Script" path="res://scripts/ui/mission_panel.gd" id="1_pgc7n"]
 [ext_resource type="Texture2D" uid="uid://dutu0olvdwa37" path="res://sprites/characters/Franch Token.png" id="2_du86k"]
+[ext_resource type="FontFile" uid="uid://dxx340jybsylj" path="res://fonts/JMH Typewriter-Black.ttf" id="3_3emmr"]
+[ext_resource type="FontFile" uid="uid://tpmg7wha0yio" path="res://fonts/JMH Typewriter-Bold.ttf" id="3_phhcq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tvhib"]
+bg_color = Color(0.6, 0.415686, 0.278431, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.473103, 0.320347, 0.205979, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="MissionPanel" type="PanelContainer"]
 theme_override_styles/panel = SubResource("StyleBoxFlat_tvhib")
@@ -25,12 +38,14 @@ stretch_mode = 5
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
+theme_override_constants/separation = 10
 
 [node name="MissionName" type="RichTextLabel" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 20
+theme_override_fonts/normal_font = ExtResource("3_3emmr")
+theme_override_font_sizes/normal_font_size = 15
 bbcode_enabled = true
 text = "Escort Mission"
 fit_content = true
@@ -40,7 +55,8 @@ scroll_active = false
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 10
+theme_override_fonts/normal_font = ExtResource("3_phhcq")
+theme_override_font_sizes/normal_font_size = 12
 text = "Mission Description Mission Description Mission Description Mission Description Mission Description "
 fit_content = true
 scroll_active = false
@@ -49,6 +65,8 @@ scroll_active = false
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
+theme_override_colors/default_color = Color(0.787569, 0.787569, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_3emmr")
 text = "Reward: 200"
 fit_content = true
 scroll_active = false

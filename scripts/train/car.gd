@@ -16,7 +16,11 @@ extends Node2D
 @onready var bottom_right = $CornerPoints/BottomRight
 @onready var top_center = $CornerPoints/TopCenter
 
+@onready var cargo_container = $CargoContainer
+
+
 var character = preload("res://scenes/characters/character.tscn")
+var cargo = preload("res://scenes/train/cargo.tscn")
 var hard_point = preload("res://scenes/hard_point.tscn")
 
 var max_health: float = 50.0
@@ -29,10 +33,14 @@ var target
 
 var starting_color
 
+var cargo_count: int
+
 func _ready():
 	starting_color = $Sprite2D.modulate
+	
+	max_health = TrainInfo.train_stats["car_health"]
 	health_bar.max_value = max_health
-	health_bar.value = health
+	health = max_health
 
 func _process(_delta):
 	health_bar.value = health
@@ -79,11 +87,24 @@ func hide_radial_menus():
 			i.get_child(0).radial_menu.close_menu()
 
 func spawn_characters():
-	await get_tree().create_timer(.5).timeout
 	for i in MissionInfo.mission_inventory:
-		if MissionInfo.mission_inventory[i]["character"] != null:
+		if MissionInfo.mission_inventory[i]["type"] == "escort":
 			var new_character = character.instantiate()
 			new_character.character_name = MissionInfo.mission_inventory[i]["character"]
-			new_character.position = $CharacterSpawnPoint.position + Vector2(randi_range(-25,25),randi_range(-75,75))
+			new_character.position = $CharacterSpawnPoint.position + Vector2(randi_range(-25,25),randi_range(-100,100))
 			add_child(new_character)
 			PlayerInfo.targets.append(new_character)
+
+func spawn_cargo():
+	for i in MissionInfo.mission_inventory.keys():
+		if MissionInfo.mission_inventory[i]["type"] == "delivery":
+			var new_cargo_count = randi_range(1,3)
+			cargo_container.cargo_count[i] = new_cargo_count
+			for c in new_cargo_count:
+				var new_cargo = cargo.instantiate()
+				cargo_container.add_child(new_cargo)
+				var random_pos = boarding_points.get_children().pick_random().global_position
+				var random_pos_mods = [-25,25]
+				new_cargo.global_position = Vector2(random_pos.x + random_pos_mods.pick_random(), random_pos.y)
+				new_cargo.mission = i
+				

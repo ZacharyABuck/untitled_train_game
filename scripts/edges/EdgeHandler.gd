@@ -4,15 +4,15 @@ func check_for_edges():
 	for edge in EdgeInfo.edge_inventory.keys():
 		respawn_edge(edge)
 		if EdgeInfo.edge_roster[edge]["update"] == true:
-			for level in EdgeInfo.edge_inventory[edge]["level"]:
-				_increase_edge_level(EdgeInfo.edge_inventory[edge]["scene"])
+			for level in range(1, EdgeInfo.edge_inventory[edge]["level"]):
+				var new_level = _increase_edge_level(EdgeInfo.edge_inventory[edge]["scene"])
+				if new_level == EdgeInfo.edge_inventory[edge]["level"]:
+					break
 
 func respawn_edge(edge):
 	var edge_scene = EdgeInfo.edge_roster[edge]["scene"].instantiate()
 	add_child(edge_scene)
 	EdgeInfo.edge_inventory[edge]["scene"] = edge_scene
-	
-
 
 func add_edge(edge_reference):
 	# loop through all Child Edges to see if one already exists.

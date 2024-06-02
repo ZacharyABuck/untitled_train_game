@@ -16,7 +16,7 @@ var cars_roster = {
 		"sprite" = preload("res://sprites/train/engine.png"),
 		"possible_hard_points" = ["FrontLeft","FrontRight"],
 	},
-	"coal" = {
+	"cargo" = {
 		"sprite" = preload("res://sprites/train/coal_car.png"),
 		"possible_hard_points" = ["LeftUpper", "LeftLower", "RightUpper", "RightLower"],
 	},
@@ -30,10 +30,38 @@ var cars_roster = {
 	},
 }
 
+var train_stats = {
+	"car_count": 4,
+	"speed": 2.5,
+	"car_health": 50,
+}
+
+var train_upgrade_roster = {
+	"car_count" = {
+		"name" = "Purchase Train Car",
+		"cost" = 100,
+		"icon" = preload("res://sprites/ui/track_single.png"),
+		"value" = 1,
+	},
+	"speed" = {
+		"name" = "Upgrade Train Speed",
+		"cost" = 50,
+		"icon" = preload("res://sprites/ui/track_single.png"),
+		"value" = .5,
+	},
+	"car_health" = {
+		"name" = "Upgrade Train Car Health",
+		"cost" = 40,
+		"icon" = preload("res://sprites/ui/track_single.png"),
+		"value" = 10,
+	},
+}
+
 var hard_point_icon = preload("res://sprites/train/hard_point_icon.png")
 
 func clear_variables():
 	for car in cars_inventory:
-		for hard_point in cars_inventory[car]["hard_points"]:
-			cars_inventory[car]["hard_points"][hard_point] = null
-		cars_inventory[car]["node"] = null
+		if cars_inventory[car].keys().has("hard_points"):
+			for hard_point in cars_inventory[car]["hard_points"]:
+				cars_inventory[car]["hard_points"][hard_point] = null
+			cars_inventory[car]["node"] = null

@@ -1,6 +1,5 @@
 extends Node2D
 
-@export var car_count = 8
 @export var train_vehicle_reference : PackedScene
 
 @onready var engine : TrainEngine = $TrainEngine
@@ -30,7 +29,12 @@ func _setup_train():
 		if MissionInfo.mission_inventory[i]["type"] == "escort":
 			need_passenger_car = true
 	
-	for index in range(car_count):
+	var need_cargo_car: bool = false
+	for i in MissionInfo.mission_inventory:
+		if MissionInfo.mission_inventory[i]["type"] == "delivery":
+			need_cargo_car = true
+	
+	for index in range(TrainInfo.train_stats["car_count"]):
 		if index == 0:
 			pass
 		else:
@@ -38,15 +42,19 @@ func _setup_train():
 			add_child(train_vehicle)
 			last_vehicle.set_follower_car(train_vehicle)
 			last_vehicle = train_vehicle
-			if index == car_count - 1:
+			if index == TrainInfo.train_stats["car_count"] - 1:
 				last_vehicle.car.type = "caboose"
 				last_vehicle.car.bottom_collider.disabled = false
 			elif need_passenger_car:
 				last_vehicle.car.type = "passenger"
 				need_passenger_car = false
 				last_vehicle.car.spawn_characters()
+			elif need_cargo_car:
+				last_vehicle.car.type = "cargo"
+				need_cargo_car = false
+				last_vehicle.car.spawn_cargo()
 			else:
-				last_vehicle.car.type = "coal"
+				last_vehicle.car.type = "cargo"
 			last_vehicle.car.index = index
 			if TrainInfo.cars_inventory.keys().size() - 1 < index:
 				TrainInfo.cars_inventory[index] = {"node" = null, "type" = last_vehicle.car.type, "hard_points" = {}, "gadgets" = {},}
@@ -74,6 +82,20 @@ func add_to_mesh():
 	
 	verts.append(TrainInfo.cars_inventory[3]["node"].top_right.global_position)
 	verts.append(TrainInfo.cars_inventory[3]["node"].bottom_right.global_position)
+	
+	if TrainInfo.cars_inventory.keys().has(4):
+		verts.append(TrainInfo.cars_inventory[4]["node"].top_right.global_position)
+		verts.append(TrainInfo.cars_inventory[4]["node"].bottom_right.global_position)
+		
+		if TrainInfo.cars_inventory.keys().has(5):
+			verts.append(TrainInfo.cars_inventory[5]["node"].top_right.global_position)
+			verts.append(TrainInfo.cars_inventory[5]["node"].bottom_right.global_position)
+			verts.append(TrainInfo.cars_inventory[5]["node"].bottom_left.global_position)
+			verts.append(TrainInfo.cars_inventory[5]["node"].top_left.global_position)
+		
+		verts.append(TrainInfo.cars_inventory[4]["node"].bottom_left.global_position)
+		verts.append(TrainInfo.cars_inventory[4]["node"].top_left.global_position)
+		
 	verts.append(TrainInfo.cars_inventory[3]["node"].bottom_left.global_position)
 	verts.append(TrainInfo.cars_inventory[3]["node"].top_left.global_position)
 	

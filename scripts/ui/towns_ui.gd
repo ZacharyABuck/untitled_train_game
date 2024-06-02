@@ -1,14 +1,18 @@
 extends CanvasLayer
 
 @onready var town_name_label = %TownNameLabel
-@onready var town_description = $MarginContainer/MarginContainer/HBoxContainer/TownDetails/TownDescription
-@onready var town_image = $MarginContainer/MarginContainer/HBoxContainer/TownDetails/TownImage
+@onready var town_description = %TownDescription
+@onready var town_image = %TownImage
 @onready var travel_button = %TravelButton
 
-@onready var missions_container = $MarginContainer/MarginContainer/HBoxContainer/MissionDetails/MarginContainer/MissionsContainer
-@onready var missions_label = $MarginContainer/MarginContainer/HBoxContainer/MissionDetails/MarginContainer/MissionsContainer/MissionsLabel
-@onready var no_missions_label = $MarginContainer/MarginContainer/HBoxContainer/MissionDetails/MarginContainer/NoMissionsLabel
+@onready var missions_container = %MissionsContainer
+@onready var missions_label = %MissionsLabel
+@onready var no_missions_label = %NoMissionsLabel
+@onready var trainyard_items_list = %TrainyardItemsList
 
+
+
+var trainyard_item = preload("res://scenes/ui/trainyard_item.tscn")
 var mission_panel = preload("res://scenes/ui/mission_panel.tscn")
 
 func populate_town_info(town):
@@ -16,24 +20,37 @@ func populate_town_info(town):
 	WorldInfo.selected_town = town
 	if WorldInfo.active_town == town.town_name:
 		no_missions_label.hide()
-		%TravelButton.hide()
-		if missions_container.get_child_count() > 1:
-			pass
-		else:
-			var mission_count = 3
-			for i in mission_count:
-				var new_mission = mission_panel.instantiate()
-				missions_container.add_child(new_mission)
-				new_mission.find_random_mission()
-				new_mission.clicked.connect(get_parent().world_ui.spawn_mission_inventory_panel)
-	#non active town clicked
+		travel_button.hide()
+		for i in missions_container.get_children():
+			i.show()
 	else:
 		for i in missions_container.get_children():
-			i.queue_free()
+			i.hide()
 		no_missions_label.show()
-		%TravelButton.show()
-	%TownNameLabel.text = "[center]" + town.town_name + "[/center]"
+		travel_button.show()
+	town_name_label.text = "[center]" + town.town_name + "[/center]"
 	show()
 
 func _on_close_button_pressed():
 	hide()
+
+func spawn_missions(count):
+	for i in missions_container.get_children():
+		if i == missions_label:
+			pass
+		else:
+			i.queue_free()
+	for i in count:
+		var new_mission = mission_panel.instantiate()
+		missions_container.add_child(new_mission)
+		new_mission.find_random_mission()
+		new_mission.clicked.connect(get_parent().world_ui.spawn_mission_inventory_panel)
+
+func spawn_trainyard_items():
+	for i in trainyard_items_list.get_children():
+		i.queue_free()
+	for i in TrainInfo.train_upgrade_roster.keys():
+		var new_item = trainyard_item.instantiate()
+		trainyard_items_list.add_child(new_item)
+		new_item.populate(i)
+		new_item.clicked.connect(get_parent().upgrade_train)
