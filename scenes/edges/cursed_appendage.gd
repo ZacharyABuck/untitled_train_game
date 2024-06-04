@@ -33,7 +33,7 @@ func animation_changed():
 			var fade_tween = create_tween()
 			fade_tween.tween_property(animations, "modulate", Color.WHITE, .3)
 		"strike":
-			pass
+			$AttackSFX.play()
 		"recovery":
 			var fade_tween = create_tween()
 			fade_tween.tween_property(animations, "modulate", Color.TRANSPARENT, .3)

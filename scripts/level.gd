@@ -95,7 +95,6 @@ func generate_track():
 		var random_mod = Vector2(randf_range(-point_increment*turn_radius, point_increment*turn_radius), \
 							randf_range(-point_increment*turn_radius, point_increment*turn_radius))
 		var random_pos = increment+random_mod
-		print(random_pos)
 		add_track_point(last_pos, index, random_pos)
 		index += 1
 		last_pos += random_pos

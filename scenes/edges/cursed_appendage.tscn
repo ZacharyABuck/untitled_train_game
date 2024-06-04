@@ -1,8 +1,9 @@
-[gd_scene load_steps=37 format=3 uid="uid://c3mlyaj5mydr1"]
+[gd_scene load_steps=38 format=3 uid="uid://c3mlyaj5mydr1"]
 
 [ext_resource type="Script" path="res://scenes/edges/cursed_appendage.gd" id="1_mcoad"]
 [ext_resource type="Texture2D" uid="uid://gw68bg12t2wf" path="res://sprites/edges/tentacle_attack_sprite_sheet.png" id="2_5i02y"]
 [ext_resource type="PackedScene" uid="uid://babs3p1w6j40u" path="res://components/melee_attack_component.tscn" id="3_lt00t"]
+[ext_resource type="AudioStream" uid="uid://cbrabnyndxae1" path="res://sounds/edges/cursed_appendage.wav" id="4_lvbfi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tpqcu"]
 atlas = ExtResource("2_5i02y")
@@ -280,5 +281,10 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TargetRangeArea"]
 shape = SubResource("CircleShape2D_wlwyb")
 debug_color = Color(0.294704, 0.615303, 0.38173, 0.42)
+
+[node name="AttackSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_lvbfi")
+volume_db = -10.0
+bus = &"SFX"
 
 [connection signal="animation_changed" from="AnimatedSprite2D" to="." method="animation_changed"]
