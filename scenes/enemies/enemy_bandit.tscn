@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://ys4jr28gfxkd"]
+[gd_scene load_steps=18 format=3 uid="uid://ys4jr28gfxkd"]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy_bandit.gd" id="1_488ir"]
 [ext_resource type="Texture2D" uid="uid://bn0yom2xg0em1" path="res://sprites/enemies/enemy_bandit.png" id="2_oyuk1"]
@@ -7,8 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c76dtsauqnpia" path="res://components/projectile_attack_component.tscn" id="5_4b008"]
 [ext_resource type="AudioStream" uid="uid://qdyuud18a2c4" path="res://sounds/combat/hit_01.wav" id="5_xva2q"]
 [ext_resource type="PackedScene" uid="uid://cuvjtd33w3p7" path="res://scenes/projectiles/red_bullet.tscn" id="6_k5sjj"]
-[ext_resource type="AudioStream" uid="uid://n5co3ekiet4j" path="res://sounds/gunshot_01.wav" id="7_bew6k"]
-[ext_resource type="PackedScene" uid="uid://cpe7uj0omv03o" path="res://components/moving_target_component.tscn" id="9_lsen0"]
+[ext_resource type="AudioStream" uid="uid://n5co3ekiet4j" path="res://sounds/combat/gunshot_01.wav" id="7_bew6k"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dyraw"]
 atlas = ExtResource("2_oyuk1")
@@ -88,7 +87,7 @@ frame_progress = 0.161986
 wait_time = 2.0
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("ANIMATION") instance=ExtResource("3_gpfls")]
-MAX_HEALTH = 5
+MAX_HEALTH = 5.0
 ANIMATION = NodePath("../AnimatedSprite2D")
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component", "hurt_sfx") instance=ExtResource("4_0ge5n")]
@@ -133,8 +132,6 @@ light_mask = 0
 visibility_layer = 0
 position = Vector2(0, 17)
 shape = SubResource("CapsuleShape2D_p76yt")
-
-[node name="MovingTargetComponent" parent="." instance=ExtResource("9_lsen0")]
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

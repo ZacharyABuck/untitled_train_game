@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dda0g57pwmdsr"]
+[gd_scene load_steps=10 format=3 uid="uid://dda0g57pwmdsr"]
 
 [ext_resource type="Script" path="res://scripts/gadgets/gadget_explosive_turret.gd" id="1_jy713"]
 [ext_resource type="Texture2D" uid="uid://8rcl46gf5h4f" path="res://sprites/gadgets/gadget_explosive_turret.png" id="2_w3wx5"]
 [ext_resource type="PackedScene" uid="uid://c76dtsauqnpia" path="res://components/projectile_attack_component.tscn" id="3_qn26i"]
 [ext_resource type="PackedScene" uid="uid://ikqkup712f5b" path="res://scenes/projectiles/explosive_bullet.tscn" id="4_wfv1s"]
 [ext_resource type="AudioStream" uid="uid://24x7wkoobr7a" path="res://sounds/combat/canon_01.wav" id="5_b836n"]
+[ext_resource type="PackedScene" uid="uid://cpe7uj0omv03o" path="res://components/moving_target_component.tscn" id="6_tekxd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3blwe"]
 radius = 355.114
@@ -20,8 +21,9 @@ fill = 1
 fill_from = Vector2(0.492788, 0.606838)
 fill_to = Vector2(0.61899, 0.192308)
 
-[node name="GadgetExplosiveTurret" type="Node2D" groups=["gadget"]]
+[node name="GadgetExplosiveTurret" type="Node2D" node_paths=PackedStringArray("moving_target_component") groups=["gadget"]]
 script = ExtResource("1_jy713")
+moving_target_component = NodePath("MovingTargetComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -62,3 +64,7 @@ texture = SubResource("GradientTexture2D_qdf2j")
 stream = ExtResource("5_b836n")
 volume_db = -12.0
 bus = &"SFX"
+
+[node name="MovingTargetComponent" parent="." instance=ExtResource("6_tekxd")]
+collision_layer = 8
+collision_mask = 0

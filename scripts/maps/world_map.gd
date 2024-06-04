@@ -108,23 +108,23 @@ func find_random_road():
 	var mid_x = rect.x*.5
 	var mid_y = rect.y*.5
 	
-	var random_start_x = mid_x+randi_range(-3,3)
-	var random_end_x = mid_y+randi_range(-3,3)
+	var random_start_x = int(mid_x+randi_range(-3,3))
+	var random_end_x = int(mid_y+randi_range(-3,3))
 	var new_road_cells = spawn_road(Vector2i(random_start_x,0), Vector2i(random_end_x, chunk_height - 1))
 	
-	var random_start_y = mid_y+randi_range(-3,3)
-	var random_end_y = mid_y+randi_range(-3,3)
+	var random_start_y = int(mid_y+randi_range(-3,3))
+	var random_end_y = int(mid_y+randi_range(-3,3))
 	new_road_cells.append_array(spawn_road(Vector2i(0, random_start_y), Vector2i(chunk_width-1, random_end_y)))
 	BetterTerrain.update_terrain_cells(self, 0, new_road_cells)
 	return new_road_cells
 
 func spawn_road(start, end) -> PackedVector2Array:
-	var road_cells: PackedVector2Array = []
+	var new_road_cells: PackedVector2Array = []
 	var path = astar.get_point_path(id(start),id(end))
 	for i in path:
-		road_cells.append(i)
+		new_road_cells.append(i)
 		BetterTerrain.set_cell(self, 0, i, 2)
-	return road_cells
+	return new_road_cells
 
 func spawn_town():
 	for road in road_cells:
@@ -138,9 +138,9 @@ func spawn_town():
 						return neighbor
 					else:
 						var index = 0
-						for town in town_cells:
+						for town_cell in town_cells:
 							var this_pos = map_to_local(neighbor)
-							var that_pos = map_to_local(town)
+							var that_pos = map_to_local(town_cell)
 							if this_pos.distance_to(that_pos) >= 300:
 								index += 1
 						if index >= town_cells.size():
@@ -180,14 +180,14 @@ func find_closest_road(town_pos):
 		if terrain == 2:
 			return i
 
-func town_mouse_entered(town):
+func town_mouse_entered(town_node):
 	var route_points: PackedVector2Array = []
 	var start = WorldInfo.world_map_player.global_position
-	var end = town.global_position
+	var end = town_node.global_position
 	route_points.append(start)
 	route_points.append(end)
 	route_line.points = route_points
 	route_line.show()
 
-func town_mouse_exited(town):
+func town_mouse_exited(_town):
 	route_line.hide()

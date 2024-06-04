@@ -7,7 +7,7 @@ signal clicked
 
 var town_name: String
 
-func _process(delta):
+func _process(_delta):
 	if WorldInfo.active_town != null:
 		if WorldInfo.active_town == town_name:
 			animations.play("ring_expand")
@@ -15,7 +15,7 @@ func _process(delta):
 		else:
 			animations.play("fade_out")
 
-func _on_input_event(viewport, event, shape_idx):
+func _on_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed:
 		clicked.emit()
 

@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://j1ex3r7vq3i"]
+[gd_scene load_steps=9 format=3 uid="uid://j1ex3r7vq3i"]
 
 [ext_resource type="Script" path="res://scripts/gadgets/gadget_pistol_turret.gd" id="1_x11a8"]
 [ext_resource type="Texture2D" uid="uid://c1esbr41s7mmf" path="res://sprites/gadgets/gadget_pistol_turret.png" id="2_57lg3"]
 [ext_resource type="PackedScene" uid="uid://c76dtsauqnpia" path="res://components/projectile_attack_component.tscn" id="3_saoij"]
 [ext_resource type="PackedScene" uid="uid://7oojou0r8v4u" path="res://scenes/projectiles/green_bullet.tscn" id="4_4bkhr"]
+[ext_resource type="PackedScene" uid="uid://cpe7uj0omv03o" path="res://components/moving_target_component.tscn" id="5_tb46h"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h5xqt"]
 radius = 440.018
@@ -19,8 +20,9 @@ fill = 1
 fill_from = Vector2(0.492788, 0.606838)
 fill_to = Vector2(0.61899, 0.192308)
 
-[node name="PistolTurret" type="Node2D" groups=["gadget"]]
+[node name="PistolTurret" type="Node2D" node_paths=PackedStringArray("moving_target_component") groups=["gadget"]]
 script = ExtResource("1_x11a8")
+moving_target_component = NodePath("MovingTargetComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -53,5 +55,9 @@ rotation = 1.5708
 scale = Vector2(3.56228, 5.0407)
 energy = 0.5
 texture = SubResource("GradientTexture2D_y8sjb")
+
+[node name="MovingTargetComponent" parent="." instance=ExtResource("5_tb46h")]
+collision_layer = 8
+collision_mask = 0
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

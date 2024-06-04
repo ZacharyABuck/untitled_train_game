@@ -10,7 +10,6 @@ var car
 
 
 func respawn_gadget(requested_gadget):
-	var requested_gadget_info = GadgetInfo.gadget_roster[requested_gadget]
 	TrainInfo.cars_inventory[car.index]["gadgets"][get_parent().name] = requested_gadget
 	gadget = requested_gadget
 	spawn_gadget(requested_gadget)

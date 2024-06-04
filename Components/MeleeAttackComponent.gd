@@ -39,7 +39,8 @@ func attack_if_target_in_range(target):
 	if target_is_in_range(attack_target):
 		attack(attack_target)
 	else:
-		owner.state = "moving"
+		if owner.get("state") != null:
+			owner.state = "moving"
 
 # This method performs an initial attack if there's no Timer running.
 # This is generally only called internally, as it does not validate that a target is in range.
@@ -91,7 +92,7 @@ func _on_animated_sprite_2d_animation_finished():
 			var new_attack = Attack.new()
 			new_attack.attack_damage = damage
 			hurtbox.damage(new_attack)
-	if animations.animation == "strike":
+	elif animations.animation == "strike":
 		attack_timer.start()
 		animations.play("recovery")
 

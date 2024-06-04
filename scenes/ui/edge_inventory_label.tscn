@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0aihgu06gbmg"]
+
+[ext_resource type="Texture2D" uid="uid://bryl5lllmerhu" path="res://sprites/edges/fan_the_hammer.png" id="1_ytaer"]
+[ext_resource type="Script" path="res://scripts/ui/edge_inventory_label.gd" id="2_df25x"]
+[ext_resource type="FontFile" uid="uid://tpmg7wha0yio" path="res://fonts/JMH Typewriter-Bold.ttf" id="3_l4vxg"]
+
+[node name="EdgeInventoryLabel" type="TextureRect"]
+mouse_filter = 0
+texture = ExtResource("1_ytaer")
+expand_mode = 2
+stretch_mode = 5
+script = ExtResource("2_df25x")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+visible = false
+layout_mode = 0
+offset_top = 90.0
+offset_right = 175.0
+offset_bottom = 174.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/normal_font = ExtResource("3_l4vxg")
+text = "Test Edge Name
+Level 1"
+fit_content = true
+scroll_active = false
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

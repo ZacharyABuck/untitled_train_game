@@ -21,7 +21,7 @@ var money = preload("res://scenes/money.tscn")
 var blood_fx = preload("res://scenes/fx/blood_fx.tscn")
 
 var health : float
-var armor : float
+#var armor : float
 var final_damage : float
 var is_killable : bool
 var has_healthbar : bool
@@ -32,7 +32,7 @@ var healthbar = false
 
 func _ready():
 	health = MAX_HEALTH
-	armor = ARMOR_VALUE
+	#armor = ARMOR_VALUE
 	is_killable = IS_KILLABLE
 	animation = ANIMATION
 	character = get_parent()
@@ -40,7 +40,7 @@ func _ready():
 		_initialize_healthbar()
 	
 func damage(attack : Attack):
-	_calculate_final_damage(attack.attack_damage, armor)
+	_calculate_final_damage(attack.attack_damage, ARMOR_VALUE)
 	
 	health -= clamp(final_damage, 0, MAX_HEALTH)
 	

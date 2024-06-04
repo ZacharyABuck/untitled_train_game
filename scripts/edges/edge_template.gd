@@ -5,6 +5,8 @@ class_name Edge
 var edge_level: int = 1
 var category: String
 var edge_name: String
+
+# YOU MUST SET EDGE REFERENCE MANUALLY IN INSPECTOR
 @export var edge_reference: String
 
 func _ready():

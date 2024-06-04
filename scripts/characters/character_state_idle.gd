@@ -1,6 +1,6 @@
 extends Node2D
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	owner.sprite.play("default")
 
 func _on_move_timer_timeout():

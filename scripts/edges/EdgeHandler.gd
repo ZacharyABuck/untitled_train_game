@@ -4,7 +4,7 @@ func check_for_edges():
 	for edge in EdgeInfo.edge_inventory.keys():
 		respawn_edge(edge)
 		if EdgeInfo.edge_roster[edge]["update"] == true:
-			for level in range(1, EdgeInfo.edge_inventory[edge]["level"]):
+			for level in range(1, EdgeInfo.edge_inventory[edge]["level"], 1):
 				var new_level = _increase_edge_level(EdgeInfo.edge_inventory[edge]["scene"])
 				if new_level == EdgeInfo.edge_inventory[edge]["level"]:
 					break

@@ -11,7 +11,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if health_component.health > health_component.MAX_HEALTH*.8:
 		sprite.frame = 0
 	elif health_component.health > health_component.MAX_HEALTH*.6:

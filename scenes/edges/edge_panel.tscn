@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cn6vg7o7rr1vj"]
+[gd_scene load_steps=8 format=3 uid="uid://cn6vg7o7rr1vj"]
 
 [ext_resource type="Script" path="res://scripts/edges/edge_panel.gd" id="1_w746y"]
 [ext_resource type="Texture2D" uid="uid://3pmjvwnuc8ea" path="res://sprites/ui/edge_background.png" id="1_wiljd"]
 [ext_resource type="Texture2D" uid="uid://bryl5lllmerhu" path="res://sprites/edges/fan_the_hammer.png" id="3_18veo"]
+[ext_resource type="FontFile" uid="uid://tpmg7wha0yio" path="res://fonts/JMH Typewriter-Bold.ttf" id="6_do744"]
 [ext_resource type="AudioStream" uid="uid://d2nwj7vu6t12t" path="res://sounds/ui/menu-select-tick.wav" id="7_1jbep"]
 [ext_resource type="AudioStream" uid="uid://8tpb33eto2wu" path="res://sounds/ui/book_close.wav" id="8_kwwyw"]
 
@@ -57,6 +58,26 @@ bus = &"SFX"
 [node name="CloseSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_kwwyw")
 bus = &"SFX"
+
+[node name="DescriptionLabel" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 313.0
+offset_right = 20.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("6_do744")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "[center]Shoot Speed +20%[/center]"
+fit_content = true
+scroll_active = false
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

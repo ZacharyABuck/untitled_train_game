@@ -60,6 +60,10 @@ func shoot_if_target_in_range(target):
 			if i == attack_target:
 				_shoot()
 				break
+		for i in get_overlapping_areas():
+			if i == attack_target:
+				_shoot()
+				break
 
 func shoot_at_target(target):
 	attack_target = target
@@ -96,6 +100,10 @@ func target_is_in_range(target):
 	attack_target = target
 	var target_in_range = false
 	for i in get_overlapping_bodies():
+		if i == attack_target:
+			target_in_range = true
+			break
+	for i in get_overlapping_areas():
 		if i == attack_target:
 			target_in_range = true
 			break

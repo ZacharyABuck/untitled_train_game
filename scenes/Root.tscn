@@ -328,7 +328,7 @@ mouse_filter = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 950
+theme_override_constants/margin_bottom = 875
 
 [node name="GridContainer" type="GridContainer" parent="WorldUI/MarginContainer"]
 layout_mode = 2
@@ -353,6 +353,11 @@ theme_override_fonts/normal_font = ExtResource("5_v4riv")
 theme_override_font_sizes/normal_font_size = 30
 text = "Money = $0"
 
+[node name="HSeparator" type="HSeparator" parent="WorldUI/MarginContainer/GridContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="PanelContainer" type="PanelContainer" parent="WorldUI/MarginContainer/GridContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -364,10 +369,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 columns = 4
 
-[node name="HSeparator" type="HSeparator" parent="WorldUI/MarginContainer/GridContainer/HBoxContainer"]
-modulate = Color(1, 1, 1, 0)
+[node name="EdgeLabelContainer" type="HBoxContainer" parent="WorldUI/MarginContainer/GridContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="MarginContainer2" type="MarginContainer" parent="WorldUI"]
 anchors_preset = 15
@@ -375,6 +379,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 400
 theme_override_constants/margin_right = 50
@@ -382,6 +387,7 @@ theme_override_constants/margin_bottom = 50
 
 [node name="RewardsContainer" type="VBoxContainer" parent="WorldUI/MarginContainer2"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="TownsUI" type="CanvasLayer" parent="."]
 visible = false
@@ -551,6 +557,8 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 texture_normal = ExtResource("4_afhpt")
 stretch_mode = 3
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [connection signal="pressed" from="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/TownDetails/TravelButton" to="." method="_on_travel_button_pressed"]
 [connection signal="pressed" from="TownsUI/MarginContainer/CloseButton" to="TownsUI" method="_on_close_button_pressed"]

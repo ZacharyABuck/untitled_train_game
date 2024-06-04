@@ -1,12 +1,7 @@
-extends RigidBody2D
+extends Area2D
 
-func move_target(target_pos, pos, target_velocity, bullet_speed):
-	get_child(0).disabled = true
-	var a:float = bullet_speed*bullet_speed - target_velocity.dot(target_velocity)
-	var b:float = 2*target_velocity.dot(target_pos-pos)
-	var c:float = (target_pos-pos).dot(target_pos-pos)
-	var time:float = 0.0
-	if bullet_speed > target_velocity.length():
-		time = (b+sqrt(b*b+4*a*c)) / (2*a)
-	global_position = target_pos+time*target_velocity
-	get_child(0).disabled = false
+func move_target(target, pos, target_velocity, bullet_speed):
+	var time = pos.distance_to(target.global_position)/bullet_speed
+	var vector = target.global_transform.x*target_velocity
+	global_position = (vector*time) + target.global_position
+	return self

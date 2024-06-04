@@ -198,6 +198,7 @@ offset_top = -51.0
 offset_right = 33.0
 offset_bottom = -46.0
 tooltip_text = "Health"
+mouse_filter = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_lm4s8")
 max_value = 50.0
 step = 1.0

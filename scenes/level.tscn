@@ -15,7 +15,7 @@
 [ext_resource type="Shader" path="res://shaders/levelupbutton.gdshader" id="9_peqgl"]
 [ext_resource type="AudioStream" uid="uid://d3wi2punv8qyu" path="res://sounds/ui/bell.wav" id="11_5nccy"]
 [ext_resource type="Shader" path="res://shaders/fog.gdshader" id="12_hxkjx"]
-[ext_resource type="Script" path="res://scripts/level_up_button.gd" id="13_tu1qd"]
+[ext_resource type="Script" path="res://scripts/ui/level_up_button.gd" id="13_06q2t"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_in3y1"]
 texture = ExtResource("3_mbth6")
@@ -1122,7 +1122,7 @@ offset_bottom = 125.0
 texture_normal = ExtResource("9_kk0cw")
 ignore_texture_size = true
 stretch_mode = 0
-script = ExtResource("13_tu1qd")
+script = ExtResource("13_06q2t")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="UI"]
 layer = 100

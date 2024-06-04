@@ -22,6 +22,7 @@ var valid_hitbox_types
 var lifetime = 3
 
 func _ready():
+	process_mode = Node.PROCESS_MODE_PAUSABLE
 	hitbox = HITBOX
 	animations = ANIMATIONS
 	_connect_signals()

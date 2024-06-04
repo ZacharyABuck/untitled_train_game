@@ -17,18 +17,19 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-TrainInfo="*res://scripts/train/train_info.gd"
-PlayerInfo="*res://scripts/player/player_info.gd"
-GadgetInfo="*res://scripts/gadgets/gadget_info.gd"
-LevelInfo="*res://scripts/level_info.gd"
-EnemyInfo="*res://scripts/enemies/enemy_info.gd"
-ExperienceSystem="*res://scripts/player/experience_system.gd"
-EdgeInfo="*res://scripts/edges/edge_info.gd"
+TrainInfo="*res://scripts/autoloads/train_info.gd"
+PlayerInfo="*res://scripts/autoloads/player_info.gd"
+GadgetInfo="*res://scripts/autoloads/gadget_info.gd"
+LevelInfo="*res://scripts/autoloads/level_info.gd"
+EnemyInfo="*res://scripts/autoloads/enemy_info.gd"
+ExperienceSystem="*res://scripts/autoloads/experience_system.gd"
+EdgeInfo="*res://scripts/autoloads/edge_info.gd"
 BetterTerrain="*res://addons/better-terrain/BetterTerrain.gd"
-WeaponInfo="*res://scripts/weapon_info.gd"
-WorldInfo="*res://scripts/world_info.gd"
-MissionInfo="*res://scripts/mission_info.gd"
-CharacterInfo="*res://scripts/character_info.gd"
+WeaponInfo="*res://scripts/autoloads/weapon_info.gd"
+WorldInfo="*res://scripts/autoloads/world_info.gd"
+MissionInfo="*res://scripts/autoloads/mission_info.gd"
+CharacterInfo="*res://scripts/autoloads/character_info.gd"
+AudioInfo="*res://scripts/autoloads/audio_info.gd"
 
 [display]
 

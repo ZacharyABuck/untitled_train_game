@@ -22,7 +22,7 @@ func _ready():
 	if state != "idle":
 		target = find_target()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if target == null and state != "idle":
 		target = find_target()
 

@@ -1,8 +1,8 @@
 # YOU MUST CREATE AND ASSIGN A COLLISION SHAPE IN THE SCENE WHERE YOU PUT THIS
 extends Area2D
 
-@export_enum("gadgets", "pistol_turret", "none") var menu_type: String
-var possible_types = ["gadgets", "pistol_turret", "none"]
+@export_enum("gadgets", "pistol_turret", "light_cover", "none") var menu_type: String
+var possible_types = ["gadgets", "pistol_turret", "light_cover", "none"]
 @export var radius: int
 @export var collision_shape: CollisionShape2D
 
@@ -48,6 +48,9 @@ func spawn_menu(type):
 				add_item(i)
 		"pistol_turret":
 			for i in GadgetInfo.turret_upgrade_roster:
+				add_item(i)
+		"light_cover":
+			for i in GadgetInfo.light_cover_upgrade_roster:
 				add_item(i)
 
 func add_item(item):

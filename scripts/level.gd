@@ -49,9 +49,6 @@ func _process(_delta):
 	if TrainInfo.train_engine != null:
 		enemy_spawn_positions.global_position = TrainInfo.train_engine.global_position
 		enemy_spawn_positions.global_rotation = TrainInfo.train_engine.car.global_rotation
-	
-	##set difficulty level
-	#LevelInfo.difficulty = Time.get_ticks_msec()*LevelInfo.difficulty_increase_rate
 
 #set the day time in the tree
 func calculate_day_cycle():
@@ -87,31 +84,18 @@ func generate_track():
 	var point_increment = 3000
 	var index = 2
 	var last_pos = train_manager.track.curve.get_point_position(index-1)
-	train_manager.track.curve.set_point_position(index-1, last_pos*.5)
-	var random_pos
-	var pos_options
-	match LevelInfo.level_parameters["direction"]:
-		"NW":
-			pos_options = [Vector2(-point_increment,-point_increment), Vector2(-point_increment,0), Vector2(0,-point_increment)]
-		"NE":
-			pos_options = [Vector2(point_increment,-point_increment), Vector2(point_increment,0), Vector2(0,-point_increment)]
-		"N":
-			pos_options = [Vector2(point_increment,-point_increment), Vector2(point_increment,-point_increment), Vector2(0,-point_increment)]
-		"E":
-			pos_options = [Vector2(point_increment,point_increment), Vector2(point_increment,0), Vector2(point_increment,-point_increment)]
-		"SW":
-			train_manager.track.curve.set_point_position(0, -train_manager.track.curve.get_point_position(0))
-			pos_options = [Vector2(-point_increment,point_increment), Vector2(-point_increment,0), Vector2(0,point_increment)]
-		"SE":
-			train_manager.track.curve.set_point_position(0, -train_manager.track.curve.get_point_position(0))
-			pos_options = [Vector2(point_increment,point_increment), Vector2(point_increment,0), Vector2(0,point_increment)]
-		"S":
-			train_manager.track.curve.set_point_position(0, -train_manager.track.curve.get_point_position(0))
-			pos_options = [Vector2(point_increment,point_increment), Vector2(-point_increment,point_increment), Vector2(0,point_increment)]
-		"W":
-			pos_options = [Vector2(-point_increment,point_increment), Vector2(-point_increment,0), Vector2(-point_increment,-point_increment)]
+	
+	#set first point to be reverse direction, to load the train
+	train_manager.track.curve.set_point_position(0, -point_increment*LevelInfo.level_parameters["direction"])
+	
+	#set each track point per distance
 	for i in LevelInfo.level_parameters["distance"]:
-		random_pos = pos_options.pick_random()
+		var increment = LevelInfo.level_parameters["direction"]*point_increment
+		var turn_radius = .8
+		var random_mod = Vector2(randf_range(-point_increment*turn_radius, point_increment*turn_radius), \
+							randf_range(-point_increment*turn_radius, point_increment*turn_radius))
+		var random_pos = increment+random_mod
+		print(random_pos)
 		add_track_point(last_pos, index, random_pos)
 		index += 1
 		last_pos += random_pos
@@ -139,6 +123,7 @@ func spawn_player():
 	await get_tree().create_timer(.5).timeout
 	new_player = player.instantiate()
 	new_player.global_position = TrainInfo.train_engine.global_position
+	PlayerInfo.state = "default"
 	add_child(new_player)
 
 func _on_enemy_spawn_timer_timeout():

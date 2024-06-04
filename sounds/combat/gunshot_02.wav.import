@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://n5co3ekiet4j"
-path="res://.godot/imported/gunshot_01.wav-e75fb9b4fe3ea1f5275078896ce04733.sample"
+uid="uid://b5vhc2krrx8hf"
+path="res://.godot/imported/gunshot_02.wav-a26fa2919423dbe8c8386316fac5ea47.sample"
 
 [deps]
 
-source_file="res://sounds/gunshot_01.wav"
-dest_files=["res://.godot/imported/gunshot_01.wav-e75fb9b4fe3ea1f5275078896ce04733.sample"]
+source_file="res://sounds/combat/gunshot_02.wav"
+dest_files=["res://.godot/imported/gunshot_02.wav-a26fa2919423dbe8c8386316fac5ea47.sample"]
 
 [params]
 

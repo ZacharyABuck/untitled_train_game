@@ -10,6 +10,7 @@ func populate(new_edge):
 	var style_box_texture = StyleBoxTexture.new()
 	style_box_texture.texture = EdgeInfo.edge_roster[new_edge]["sprite"]
 	$BG.add_theme_stylebox_override("panel", style_box_texture)
+	$DescriptionLabel.text = "[center]" + EdgeInfo.edge_roster[new_edge]["description"] + "[/center]"
 
 # -- REACT TO MOUSE HOVER -- #
 func _on_mouse_entered():

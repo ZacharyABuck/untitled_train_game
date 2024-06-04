@@ -1,6 +1,6 @@
 extends Node2D
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	owner.sprite.play("running")
  	
 	if owner.target != null:

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://da6678m0to2ac"]
+
+[ext_resource type="Script" path="res://scenes/edges/thick_hide.gd" id="1_v6xxv"]
+
+[node name="ThickHide" type="Node2D"]
+script = ExtResource("1_v6xxv")
+edge_reference = "thick_hide"

@@ -8,12 +8,19 @@ var gadget_roster = {
 		"sprite" = load("res://sprites/gadgets/gadget_pistol_turret.png"),
 		"cost" = 5,
 	},
-	"barricade" = {
-		"name" = "Barricade",
+	"light_cover" = {
+		"name" = "Light Cover",
 		"location" = "hard_point",
-		"scene" = load("res://scenes/gadgets/gadget_barricade.tscn"),
+		"scene" = load("res://scenes/gadgets/gadget_light_cover.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_barricade_single.png"),
 		"cost" = 2,
+	},
+	"heavy_cover" = {
+		"name" = "Heavy Cover",
+		"location" = "hard_point",
+		"scene" = load("res://scenes/gadgets/gadget_heavy_cover.tscn"),
+		"sprite" = load("res://sprites/gadgets/gadget_heavy_cover_single.png"),
+		"cost" = 4,
 	},
 	"medical_station" = {
 		"name" = "Medical Station",
@@ -54,10 +61,10 @@ var default_roster = {
 		"sprite" = load("res://sprites/gadgets/gadget_pistol_turret.png"),
 		"cost" = 5,
 	},
-	"barricade" = {
-		"name" = "Barricade",
+	"light_cover" = {
+		"name" = "Light Cover",
 		"location" = "hard_point",
-		"scene" = load("res://scenes/gadgets/gadget_barricade.tscn"),
+		"scene" = load("res://scenes/gadgets/gadget_light_cover.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_barricade_single.png"),
 		"cost" = 2,
 	},
@@ -92,6 +99,16 @@ var turret_upgrade_roster = {
 		"scene" = load("res://scenes/gadgets/gadget_explosive_turret.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_explosive_turret.png"),
 		"cost" = 10,
+	},
+}
+
+var light_cover_upgrade_roster = {
+	"heavy_cover" = {
+		"name" = "Heavy Cover",
+		"location" = "hard_point",
+		"scene" = load("res://scenes/gadgets/gadget_heavy_cover.tscn"),
+		"sprite" = load("res://sprites/gadgets/gadget_heavy_cover_single.png"),
+		"cost" = 4,
 	},
 }
 
