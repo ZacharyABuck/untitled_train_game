@@ -9,7 +9,7 @@ var totalExperience: int = 0
 # Base Variables
 var base_money: int = 15
 var active_player
-var base_max_health : float = 1
+var base_max_health : float = 50
 var animation
 var base_ranged_damage_multiplier: float = 1.0
 var base_melee_damage_multiplier: float = 1.0

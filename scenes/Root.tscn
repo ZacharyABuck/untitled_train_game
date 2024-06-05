@@ -900,6 +900,25 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_0w0tm")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_mjp0f")
 text = "Back"
 
+[node name="Panel" type="Panel" parent="EscapeMenu"]
+offset_left = 1375.0
+offset_top = 645.0
+offset_right = 1768.0
+offset_bottom = 990.0
+
+[node name="Label" type="Label" parent="EscapeMenu/Panel"]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 25.0
+offset_right = 353.0
+offset_bottom = 308.0
+text = "Controls:
+Left Click - Shoot/Select
+Right Click - Open Gadget Point Menu
+Hold R - Repair Train Car"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="TitleScreen" type="CanvasLayer" parent="."]
 layer = 4
 
