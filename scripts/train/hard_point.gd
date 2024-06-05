@@ -64,7 +64,7 @@ func spawn_gadget(gadget):
 func has_car_gadget() -> bool:
 	for i in car.hard_points.get_children():
 		if i.get_child(0).gadget != null:
-			var location = GadgetInfo.gadget_roster[i.get_child(0).gadget]["location"]
-			if location == "car":
+			var gadget_location = GadgetInfo.gadget_roster[i.get_child(0).gadget]["location"]
+			if gadget_location == "car":
 				return true
 	return false

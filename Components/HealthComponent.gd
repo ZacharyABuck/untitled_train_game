@@ -50,12 +50,14 @@ func damage(attack : Attack):
 		new_blood_fx.global_position = character.global_position
 		new_blood_fx.emitting = true
 	
+	if character is Player:
+		character.player_hurt(final_damage)
+	
 	if has_healthbar:
 		healthbar.value = health
 	if health <= 0:
 		_handle_death()
-	if character is Player:
-		character.player_hurt()
+
 
 func _handle_death():
 	if is_killable:
@@ -108,10 +110,10 @@ func remove_mission(mission_id):
 		if p.mission_id == mission_id:
 			p.queue_free()
 
-func _calculate_final_damage(damage, armor):
-	final_damage = damage - armor
+func _calculate_final_damage(attacker_damage, armor):
+	final_damage = attacker_damage - armor
 	if final_damage < 0.0:
-		final_damage = 0.0
+		final_damage = 0.5
 	return final_damage
 
 func _initialize_healthbar():

@@ -124,16 +124,45 @@ func spawn_player():
 	new_player.global_position = TrainInfo.train_engine.global_position
 	PlayerInfo.state = "default"
 	add_child(new_player)
+	new_player.dead.connect(get_parent().show_restart_button)
 
 func _on_enemy_spawn_timer_timeout():
 	enemy_spawn_timer.wait_time += .5
+	spawn_level_enemies()
+	LevelInfo.difficulty += .3
+	enemy_spawn_timer.start()
+
+func spawn_level_enemies():
 	var spawn_count = LevelInfo.difficulty
 	var new_spawner = EnemySpawner.new()
 	add_child(new_spawner)
-	var random_enemy = new_spawner.find_random_enemy()
-	new_spawner.spawn_enemy(round(spawn_count), random_enemy, null)
-	LevelInfo.difficulty += .5
-	enemy_spawn_timer.start()
+	
+	var elite = roll_elite_enemy()
+	
+	#check if elite is spawning, if so spawn 1
+	if elite:
+		var random_enemy = new_spawner.find_random_enemy()
+		while EnemyInfo.enemy_roster[random_enemy]["type"] == "thief":
+			random_enemy = new_spawner.find_random_enemy()
+		new_spawner.spawn_enemy(1, random_enemy, null, true)
+	else:
+		#check if we're spawning too many ranged enemies (MAX 5)
+		var random_enemy = new_spawner.find_random_enemy()
+		if EnemyInfo.enemy_roster[random_enemy]["type"] == "ranged":
+			var max = clamp(round(spawn_count), 1, 5)
+			new_spawner.spawn_enemy(max, random_enemy, null, false)
+			if spawn_count - max > 0:
+				new_spawner.spawn_enemy(round(spawn_count-max), "zombie", null, false)
+		else:
+			#regular spawning of melee enemies
+			new_spawner.spawn_enemy(round(spawn_count), random_enemy, null, false)
+
+func roll_elite_enemy():
+	var rng = randi_range(1,50)
+	if rng < LevelInfo.difficulty:
+		return true
+	else:
+		return false
 
 func handle_level_up():
 	$LevelUpSFX.play()

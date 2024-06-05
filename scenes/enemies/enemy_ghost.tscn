@@ -82,7 +82,6 @@ bus = &"SFX"
 
 [node name="HealthComponent" type="Node2D" parent="." node_paths=PackedStringArray("ANIMATION")]
 script = ExtResource("4_qxpqc")
-MAX_HEALTH = 1
 ANIMATION = NodePath("../AnimatedSprite2D")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]

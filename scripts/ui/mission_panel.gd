@@ -28,7 +28,7 @@ func find_random_mission():
 	var distance = WorldInfo.towns_inventory[destination]["scene"].global_position.distance_to\
 	(WorldInfo.towns_inventory[WorldInfo.active_town]["scene"].global_position)
 	
-	var random_reward = random_mission["reward"] + round(distance*.02)
+	var random_reward = random_mission["reward"] + round(distance*.01)
 	$HBoxContainer/VBoxContainer/Reward.text = "Reward: " + str(random_reward)
 	reward = random_reward
 

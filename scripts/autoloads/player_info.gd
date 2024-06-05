@@ -9,7 +9,7 @@ var totalExperience: int = 0
 # Base Variables
 var base_money: int = 15
 var active_player
-var base_max_health : float = 50
+var base_max_health : float = 1
 var animation
 var base_ranged_damage_multiplier: float = 1.0
 var base_melee_damage_multiplier: float = 1.0
@@ -28,7 +28,7 @@ var current_ranged_damage_multiplier: float
 var current_melee_damage_multiplier: float
 var current_ranged_damage_bonus: float
 var current_melee_damage_bonus: float
-var current_movespeed: int
+var current_movespeed: float
 var current_armor: float
 var current_attack_delay_modifier: float
 
@@ -61,3 +61,24 @@ func handle_give_experience_signal(value):
 		nextLevelExperience = nextLevelExperience*2
 		currentLevel += 1
 		ExperienceSystem.level_up.emit()
+
+func restart():
+	if active_player:
+		active_player.free()
+	
+	current_health = 0.0
+	current_max_health = 0.0
+	current_money = 0
+	current_ranged_damage_multiplier = 0.0
+	current_melee_damage_multiplier = 0.0
+	current_ranged_damage_bonus = 0.0
+	current_melee_damage_bonus = 0.0
+	current_movespeed = 0.0
+	current_armor = 0.0
+	current_attack_delay_modifier = 0.0
+
+	currentExperience = 0
+	currentLevel = 1
+	nextLevelExperience = 10
+	totalExperience = 0
+

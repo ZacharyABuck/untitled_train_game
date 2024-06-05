@@ -16,7 +16,7 @@ func trigger_haunting(area):
 func spawn_ghosts():
 	var spawn_count = start_spawn_count + round(LevelInfo.difficulty*.3)
 	var spawner = EnemySpawner.new()
-	spawner.spawn_enemy(spawn_count, "ghost", null)
+	spawner.spawn_enemy(spawn_count, "ghost", null, false)
 
 func _on_night_timer_timeout():
 	LevelInfo.active_level.instant_day()

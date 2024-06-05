@@ -65,3 +65,14 @@ func clear_variables():
 			for hard_point in cars_inventory[car]["hard_points"]:
 				cars_inventory[car]["hard_points"][hard_point] = null
 			cars_inventory[car]["node"] = null
+
+func restart():
+	cars_inventory.clear()
+	train_stats = {
+	"car_count": 4,
+	"speed": 2.5,
+	"car_health": 50,
+	}
+	track_positions.clear()
+	train_manager = null
+	train_engine = null

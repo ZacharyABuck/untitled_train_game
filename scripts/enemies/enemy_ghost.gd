@@ -1,5 +1,8 @@
 extends RigidBody2D
 
+@onready var health_component = $HealthComponent
+
+
 var target
 
 var money_stolen: bool = false

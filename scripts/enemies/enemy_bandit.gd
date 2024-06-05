@@ -3,7 +3,9 @@ extends RigidBody2D
 @onready var attack_timer = $AttackTimer
 @onready var animations = $AnimatedSprite2D
 @onready var gun = $GunAttackComponent
+@onready var health_component = $HealthComponent
 
+var elite: bool = false
 var enemy_stats = EnemyInfo.enemy_roster["bandit"]
 var speed = enemy_stats["speed"]
 var money = enemy_stats["money"]
@@ -15,6 +17,14 @@ var target
 
 func _ready():
 	target = PlayerInfo.active_player
+	if elite:
+		upgrade()
+
+func upgrade():
+	animations.modulate = Color.RED
+	speed += EnemyInfo.elite_modifiers["speed"]
+	gun.damage += EnemyInfo.elite_modifiers["damage"]
+	health_component.health += EnemyInfo.elite_modifiers["health"]
 
 func _physics_process(delta):
 	if state != "dead":

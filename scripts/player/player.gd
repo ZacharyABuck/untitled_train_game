@@ -19,6 +19,8 @@ var current_ranged_weapon
 
 var repair_rate: float = 0.01
 
+signal dead
+
 #Many functions have been moved to the StateMachine. 
 ##Each child of Statemachine has the relevant behavior for that state.
 ##PlayerInfo contains the different state options
@@ -60,11 +62,16 @@ func repair():
 			repair_sfx.play()
 
 # -- EDGE FUNCTIONS -- #
-func player_hurt():
+func player_hurt(damage):
 	#check for shadowstep
 	if EdgeInfo.edge_inventory.has("shadowstep"):
 		var shadowstep_scene = EdgeInfo.edge_inventory["shadowstep"]["scene"]
 		shadowstep_scene.enable_shadow()
+		
+	PlayerInfo.current_health -= damage
+	if PlayerInfo.current_health < 0:
+		dead.emit()
+
 
 # -- EQUIPMENT FUNCTIONS -- #
 func _instantiate_ranged_weapon(gun_scene_location):

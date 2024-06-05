@@ -6,7 +6,9 @@ extends RigidBody2D
 @onready var collision = $CollisionShape2D
 @onready var attack_component = $MeleeAttackComponent
 @onready var wall_detector = $WallDetector
+@onready var health_component = $HealthComponent
 
+var elite: bool = false
 var enemy_stats = EnemyInfo.enemy_roster["zombie"]
 var speed = enemy_stats["speed"]
 var damage = enemy_stats["damage"]
@@ -21,6 +23,14 @@ var boarded = false
 func _ready():
 	if state != "idle":
 		target = find_target()
+	if elite:
+		upgrade()
+
+func upgrade():
+	animations.modulate = Color.RED
+	speed += EnemyInfo.elite_modifiers["speed"]
+	damage += EnemyInfo.elite_modifiers["damage"]
+	health_component.health += EnemyInfo.elite_modifiers["health"]
 
 func _physics_process(_delta):
 	if target == null and state != "idle":

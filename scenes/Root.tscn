@@ -1,7 +1,9 @@
-[gd_scene load_steps=35 format=3 uid="uid://xmq032mdyq7a"]
+[gd_scene load_steps=51 format=3 uid="uid://xmq032mdyq7a"]
 
 [ext_resource type="Script" path="res://scripts/root.gd" id="1_ghyap"]
+[ext_resource type="AudioStream" uid="uid://bshtqlqkt4twy" path="res://music/world_music.mp3" id="2_8vs2f"]
 [ext_resource type="Texture2D" uid="uid://c75pwpkt2lydf" path="res://sprites/tiles/world_map_tileset.png" id="2_htwhw"]
+[ext_resource type="AudioStream" uid="uid://dasb0ya67twdd" path="res://music/level_music_no_intro.mp3" id="3_7m2d5"]
 [ext_resource type="Script" path="res://scripts/maps/world_map.gd" id="3_keudd"]
 [ext_resource type="Script" path="res://scripts/ui/towns_ui.gd" id="4_22x6k"]
 [ext_resource type="Texture2D" uid="uid://ccydwnn5siydn" path="res://sprites/ui/x.png" id="4_afhpt"]
@@ -15,6 +17,120 @@
 [ext_resource type="FontFile" uid="uid://0h755tmfkmuj" path="res://fonts/JMH Typewriter-Thin.ttf" id="10_3j4fi"]
 [ext_resource type="Texture2D" uid="uid://dswm0gltr2r76" path="res://sprites/ui/town_sketch.png" id="10_dyxfc"]
 [ext_resource type="Texture2D" uid="uid://bfhfpjjn1ks4" path="res://sprites/ui/train_sketch.png" id="14_vcy75"]
+[ext_resource type="Script" path="res://scripts/ui/escape_menu.gd" id="16_exmmo"]
+[ext_resource type="Texture2D" uid="uid://trsm7lvfhxb4" path="res://sprites/ui/cirlce.png" id="16_jgqyq"]
+[ext_resource type="Texture2D" uid="uid://cgcjxogq4y1b3" path="res://sprites/ui/temp_title_screen.png" id="18_ep071"]
+[ext_resource type="Texture2D" uid="uid://dp60fpuri07q4" path="res://sprites/ui/start_button.png" id="19_dgouy"]
+
+[sub_resource type="Animation" id="Animation_4oonn"]
+resource_name = "level_to_world"
+length = 6.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LevelMusic:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -50.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WorldMusic:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-50.0, -10.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WorldMusic:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LevelMusic:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_uqyuv"]
+resource_name = "world_to_level"
+length = 6.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LevelMusic:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-50.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WorldMusic:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-10.0, -50.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LevelMusic:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WorldMusic:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d88dm"]
+_data = {
+"level_to_world": SubResource("Animation_4oonn"),
+"world_to_level": SubResource("Animation_uqyuv")
+}
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_w5n7g"]
 vertices = PackedVector2Array(32, 11, -32, 10, -32, -11, 32, -12)
@@ -288,6 +404,53 @@ shadow_color = Color(0, 0, 0, 0.435294)
 shadow_size = 5
 shadow_offset = Vector2(5, 5)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7nyil"]
+bg_color = Color(0.596078, 0.603922, 0.596078, 0.784314)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nlb72"]
+bg_color = Color(0.741176, 0.74902, 0.741176, 0.815686)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ajyea"]
+bg_color = Color(0.498039, 0.505882, 0.498039, 0.792157)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0w0tm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mjp0f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_midqx"]
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ph6gu"]
+bg_color = Color(0.697889, 0.63501, 0.567869, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 20.0
+expand_margin_top = 20.0
+expand_margin_right = 20.0
+expand_margin_bottom = 20.0
+
 [node name="Root" type="Node2D"]
 process_mode = 3
 script = ExtResource("1_ghyap")
@@ -295,6 +458,25 @@ script = ExtResource("1_ghyap")
 [node name="Camera" type="Camera2D" parent="."]
 anchor_mode = 0
 zoom = Vector2(0.82, 0.82)
+
+[node name="Music" type="Node2D" parent="."]
+process_mode = 3
+
+[node name="WorldMusic" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource("2_8vs2f")
+volume_db = -10.0
+autoplay = true
+bus = &"Music"
+
+[node name="LevelMusic" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource("3_7m2d5")
+volume_db = -50.0
+bus = &"Music"
+
+[node name="MusicFade" type="AnimationPlayer" parent="Music"]
+libraries = {
+"": SubResource("AnimationLibrary_d88dm")
+}
 
 [node name="WorldMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_efl2w")
@@ -560,5 +742,211 @@ stretch_mode = 3
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
+[node name="EscapeMenu" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 3
+visible = false
+script = ExtResource("16_exmmo")
+
+[node name="MarginContainer" type="MarginContainer" parent="EscapeMenu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+theme_override_constants/margin_left = 800
+theme_override_constants/margin_top = 300
+theme_override_constants/margin_right = 800
+theme_override_constants/margin_bottom = 300
+
+[node name="Default" type="VBoxContainer" parent="EscapeMenu/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="ReturnToGameButton" type="Button" parent="EscapeMenu/MarginContainer/Default"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_v4riv")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_7nyil")
+theme_override_styles/hover = SubResource("StyleBoxFlat_nlb72")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ajyea")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_0w0tm")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mjp0f")
+text = "Return to game"
+
+[node name="AudioSettingsButton" type="Button" parent="EscapeMenu/MarginContainer/Default"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_v4riv")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_7nyil")
+theme_override_styles/hover = SubResource("StyleBoxFlat_nlb72")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ajyea")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_0w0tm")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mjp0f")
+text = "Audio Settings"
+
+[node name="QuitButton" type="Button" parent="EscapeMenu/MarginContainer/Default"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_v4riv")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_7nyil")
+theme_override_styles/hover = SubResource("StyleBoxFlat_nlb72")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ajyea")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_0w0tm")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mjp0f")
+text = "Quit"
+
+[node name="AreYouSureMenu" type="VBoxContainer" parent="EscapeMenu/MarginContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="EscapeMenu/MarginContainer/AreYouSureMenu"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("5_v4riv")
+theme_override_font_sizes/normal_font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_midqx")
+bbcode_enabled = true
+text = "[center]Quit?[/center]"
+fit_content = true
+
+[node name="Yes" type="Button" parent="EscapeMenu/MarginContainer/AreYouSureMenu"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_v4riv")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_7nyil")
+theme_override_styles/hover = SubResource("StyleBoxFlat_nlb72")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ajyea")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_0w0tm")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mjp0f")
+text = "Yes"
+
+[node name="BackButton2" type="Button" parent="EscapeMenu/MarginContainer/AreYouSureMenu"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_v4riv")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_7nyil")
+theme_override_styles/hover = SubResource("StyleBoxFlat_nlb72")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ajyea")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_0w0tm")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mjp0f")
+text = "Back"
+
+[node name="AudioSettings" type="MarginContainer" parent="EscapeMenu"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 700
+theme_override_constants/margin_top = 300
+theme_override_constants/margin_right = 700
+theme_override_constants/margin_bottom = 300
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EscapeMenu/AudioSettings"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="VolumeLabel" type="RichTextLabel" parent="EscapeMenu/AudioSettings/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/normal_font = ExtResource("5_v4riv")
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[center]Volume[/center]"
+fit_content = true
+
+[node name="VolumeSlider" type="HSlider" parent="EscapeMenu/AudioSettings/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_icons/grabber = ExtResource("16_jgqyq")
+theme_override_styles/slider = SubResource("StyleBoxFlat_ph6gu")
+min_value = -30.0
+max_value = 0.0
+scrollable = false
+tick_count = 19
+
+[node name="BackButton" type="Button" parent="EscapeMenu/AudioSettings/VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_v4riv")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_7nyil")
+theme_override_styles/hover = SubResource("StyleBoxFlat_nlb72")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ajyea")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_0w0tm")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mjp0f")
+text = "Back"
+
+[node name="TitleScreen" type="CanvasLayer" parent="."]
+layer = 4
+
+[node name="TextureRect" type="TextureRect" parent="TitleScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("18_ep071")
+
+[node name="TitleScreenStartButton" type="TextureButton" parent="TitleScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -162.0
+offset_top = 83.0
+offset_right = 162.0
+offset_bottom = 231.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("19_dgouy")
+
+[node name="RestartScreen" type="CanvasLayer" parent="."]
+layer = 5
+visible = false
+
+[node name="RestartButton" type="Button" parent="RestartScreen"]
+process_mode = 3
+offset_left = 845.0
+offset_top = 495.0
+offset_right = 1040.0
+offset_bottom = 569.0
+theme_override_fonts/font = ExtResource("5_v4riv")
+theme_override_font_sizes/font_size = 30
+text = "Restart"
+
 [connection signal="pressed" from="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/TownDetails/TravelButton" to="." method="_on_travel_button_pressed"]
 [connection signal="pressed" from="TownsUI/MarginContainer/CloseButton" to="TownsUI" method="_on_close_button_pressed"]
+[connection signal="button_up" from="EscapeMenu/MarginContainer/Default/ReturnToGameButton" to="EscapeMenu" method="_on_return_to_game_button_button_up"]
+[connection signal="button_up" from="EscapeMenu/MarginContainer/Default/AudioSettingsButton" to="EscapeMenu" method="_on_audio_settings_button_button_up"]
+[connection signal="button_up" from="EscapeMenu/MarginContainer/Default/QuitButton" to="EscapeMenu" method="quit_button_button_up"]
+[connection signal="button_up" from="EscapeMenu/MarginContainer/AreYouSureMenu/Yes" to="EscapeMenu" method="_on_yes_button_up"]
+[connection signal="button_up" from="EscapeMenu/MarginContainer/AreYouSureMenu/BackButton2" to="EscapeMenu" method="_on_back_button_button_up"]
+[connection signal="value_changed" from="EscapeMenu/AudioSettings/VBoxContainer/VolumeSlider" to="EscapeMenu" method="_on_volume_slider_value_changed"]
+[connection signal="button_up" from="EscapeMenu/AudioSettings/VBoxContainer/BackButton" to="EscapeMenu" method="_on_back_button_button_up"]
+[connection signal="pressed" from="TitleScreen/TitleScreenStartButton" to="." method="title_screen_start_button_pressed"]
+[connection signal="button_up" from="RestartScreen/RestartButton" to="." method="restart_button_button_up"]

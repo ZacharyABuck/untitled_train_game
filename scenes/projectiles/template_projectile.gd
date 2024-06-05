@@ -37,6 +37,8 @@ func _physics_process(delta):
 
 func _on_area_2d_area_entered(area):
 	if area is HurtboxComponent:
+		hitbox.set_deferred("monitoring", false)
+		hitbox.set_deferred("monitorable", false)
 		linear_velocity = Vector2.ZERO
 		animations.play("hit")
 		var new_hitbox : HurtboxComponent = area

@@ -11,7 +11,7 @@ var destination
 var difficulty = 1.0
 
 var level_parameters = {
-	"distance" = 6,
+	"distance" = 4,
 	"direction" = null,
 	"terrain" = null,
 }
@@ -20,7 +20,7 @@ var terrain_roster: Dictionary = {
 	0: "Flooded Land",
 	4: "Sands",
 	7: "Mesa",
-	10: "Canyon",
+	9: "Canyon",
 }
 
 var events = {
@@ -42,6 +42,18 @@ var events = {
 		"type" = null,
 		"area" = null,
 	},
+	"3" = {
+		"distance" = 6,
+		"triggered" = false,
+		"type" = null,
+		"area" = null,
+	},
+	"4" = {
+		"distance" = 8,
+		"triggered" = false,
+		"type" = null,
+		"area" = null,
+	},
 }
 
 var events_roster = {
@@ -54,9 +66,9 @@ var events_roster = {
 	"stampede" = {
 		"scene" = preload("res://scenes/events/event_stampede.tscn"),
 	},
-	"shop" = {
-		"scene" = preload("res://scenes/events/event_shop.tscn"),
-	},
+	#"shop" = {
+		#"scene" = preload("res://scenes/events/event_shop.tscn"),
+	#},
 	"haunting" = {
 		"scene" = preload("res://scenes/events/event_haunting.tscn"),
 	},
@@ -67,6 +79,11 @@ func clear_variables():
 	map_positions.clear()
 	active_map = null
 
+func restart():
+	clear_variables()
+	if active_level:
+		active_level.queue_free()
+	difficulty = 1.0
 
 var money = preload("res://scenes/money.tscn")
 func spawn_money(pos, amount):

@@ -48,7 +48,7 @@ var edge_roster = {
 		"name" = "Cursed Appendage",
 		"category" = "Elsewhere",
 		"scene" = load("res://scenes/edges/cursed_appendage.tscn"),
-		"sprite" = load("res://sprites/edges/thick_hide.png"),
+		"sprite" = load("res://sprites/edges/cursed_appendage.png"),
 		"description" = "Assistance from Beyond",
 		"update" = true,
 	},
@@ -57,3 +57,6 @@ var edge_roster = {
 var edge_inventory = {
 	
 }
+
+func restart():
+	edge_inventory.clear()

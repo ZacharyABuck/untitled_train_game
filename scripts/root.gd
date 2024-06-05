@@ -12,24 +12,55 @@ var mission_reward_panel = preload("res://scenes/ui/mission_reward_panel.tscn")
 @onready var world_ui = $WorldUI
 @onready var camera = $Camera
 
+@onready var escape_menu = $EscapeMenu
+@onready var title_screen = $TitleScreen
+@onready var restart_screen = $RestartScreen
+
+
+@onready var music_fade = $Music/MusicFade
+
+
+func ready():
+	title_screen.show()
+	
+
+func title_screen_start_button_pressed():
+	title_screen.hide()
 
 var in_game = false
 var missions_spawned: bool = false
 
-func start_game(direction, terrain):
+func _input(event):
+	if event.is_action_pressed("escape_menu"):
+		if escape_menu.visible:
+			escape_menu.hide()
+			escape_menu.reset()
+			unpause_game()
+		else:
+			pause_game()
+			escape_menu.show()
+
+func start_game(direction, distance, terrain):
 	$WorldUI.hide()
 	LevelInfo.clear_variables()
 	TrainInfo.clear_variables()
+
 	LevelInfo.level_parameters["direction"] = direction
 	LevelInfo.level_parameters["terrain"] = terrain
-	camera.enabled = false
-	if PlayerInfo.totalExperience == 0:
-		PlayerInfo.set_current_variables_to_base_value()
+	LevelInfo.level_parameters["distance"] = distance
 	print("Terrain Type: " + LevelInfo.terrain_roster[terrain])
 	print("Destination: " + LevelInfo.destination)
+	print("Distance: " + str(LevelInfo.level_parameters["distance"]))
+
+	camera.enabled = false
+
+	if PlayerInfo.totalExperience == 0:
+		PlayerInfo.set_current_variables_to_base_value()
+
 	for i in LevelInfo.events.keys():
 		LevelInfo.events[i]["type"] = LevelInfo.events_roster.keys().pick_random()
 		print("Event " + str(i) + " = " + str(LevelInfo.events[i]["type"]))
+
 	var new_level = level.instantiate()
 	add_child(new_level)
 	LevelInfo.active_level = new_level
@@ -39,10 +70,19 @@ func start_game(direction, terrain):
 	in_game = true
 
 func pause_game():
-	LevelInfo.active_level.get_tree().paused = true
+	if LevelInfo.active_level:
+		LevelInfo.active_level.get_tree().paused = true
 
 func unpause_game():
-	LevelInfo.active_level.get_tree().paused = false
+	if LevelInfo.active_level:
+		LevelInfo.active_level.get_tree().paused = false
+
+func show_restart_button():
+	restart_screen.show()
+	pause_game()
+
+func restart_button_button_up():
+	get_tree().quit()
 
 func town_clicked(town):
 	$TownsUI/MarginContainer/TabContainer.current_tab = 0
@@ -57,27 +97,39 @@ func town_clicked(town):
 		towns_ui.trainyard_items_list.hide()
 
 func _on_travel_button_pressed():
+	music_fade.play("world_to_level")
+	
 	var direction = find_direction()
 	var terrain = LevelInfo.terrain_roster.keys().pick_random()
+	var distance = find_distance()
 	LevelInfo.destination = WorldInfo.selected_town.town_name
 	towns_ui.hide()
 	$WorldMap.hide()
-	start_game(direction, terrain)
+	start_game(direction, distance, terrain)
 
 func find_direction():
 	var direction = WorldInfo.world_map_player.global_position.direction_to(WorldInfo.selected_town.global_position)
 	return direction
 
+func find_distance():
+	var distance = WorldInfo.world_map_player.global_position.distance_to(WorldInfo.selected_town.global_position)
+	var adjusted_distance = round(clamp(distance*.005,0,8))
+	return adjusted_distance
+
 func level_complete():
+	music_fade.play("level_to_world")
 	world_ui.refresh_edges()
 	camera.enabled = true
 	$WorldUI.show()
 	despawn_level()
 	update_world_player_pos()
-	money_label.text = "Money = $" + str(PlayerInfo.current_money)
 	check_missions()
+	update_money_label()
 	$WorldMap.show()
 	missions_spawned = false
+
+func update_money_label():
+	money_label.text = "Money = $" + str(PlayerInfo.current_money)
 
 func despawn_level():
 	LevelInfo.active_level.queue_free()
@@ -95,7 +147,7 @@ func check_missions():
 
 func complete_mission(mission):
 	PlayerInfo.current_money += MissionInfo.mission_inventory[mission]["reward"]
-	money_label.text = "Money = $" + str(PlayerInfo.current_money)
+	update_money_label()
 	if MissionInfo.mission_inventory[mission].keys().has("icon"):
 		world_ui.spawn_reward_panel(MissionInfo.mission_inventory[mission]["icon"], MissionInfo.mission_inventory[mission]["reward"])
 	else: 
@@ -109,6 +161,7 @@ func complete_mission(mission):
 		MissionInfo.mission_inventory.erase(mission)
 
 func upgrade_train(upgrade):
+	update_money_label()
 	if TrainInfo.train_stats.keys().has(upgrade):
 		TrainInfo.train_stats[upgrade] += TrainInfo.train_upgrade_roster[upgrade]["value"]
 		if upgrade == "car_count":
@@ -116,3 +169,5 @@ func upgrade_train(upgrade):
 				var caboose_index = TrainInfo.cars_inventory.keys().size() - 1
 				TrainInfo.cars_inventory[caboose_index + 1] = TrainInfo.cars_inventory[caboose_index]
 				TrainInfo.cars_inventory[caboose_index] = {"node" = null, "type" = null, "hard_points" = {}, "gadgets" = {},}
+
+

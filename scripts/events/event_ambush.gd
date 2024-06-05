@@ -11,4 +11,4 @@ func ambush_triggered(area):
 		set_alert_text_and_play(alert_text)
 		var new_spawner = EnemySpawner.new()
 		LevelInfo.active_level.add_child(new_spawner)
-		new_spawner.spawn_enemy(round(starting_spawn_amount+(difficulty*.5)), "bandit", null)
+		new_spawner.spawn_enemy(round(starting_spawn_amount+(difficulty*.5)), "bandit", null, false)
