@@ -14,9 +14,8 @@
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/zombie_state_dead.gd" id="8_httoe"]
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/zombie_state_idle.gd" id="8_pu41x"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nyh8v"]
-radius = 9.5
-height = 19.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_jwejo"]
+radius = 10.5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4v00t"]
 size = Vector2(26, 40)
@@ -243,6 +242,21 @@ animations = [{
 "texture": SubResource("AtlasTexture_ey568")
 }, {
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ey568")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ey568")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ey568")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ey568")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ey568")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_nonmh")
 }, {
 "duration": 1.0,
@@ -425,12 +439,14 @@ position = Vector2(0, 6)
 collision_layer = 8
 collision_mask = 8
 lock_rotation = true
+max_contacts_reported = 1
+contact_monitor = true
 script = ExtResource("1_kv2s3")
 state = "moving"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.5, 9)
-shape = SubResource("CapsuleShape2D_nyh8v")
+shape = SubResource("CircleShape2D_jwejo")
 
 [node name="AttackTimer" type="Timer" parent="."]
 
@@ -467,7 +483,7 @@ texture_filter = 1
 position = Vector2(2, 8)
 scale = Vector2(0.617188, 0.6875)
 sprite_frames = SubResource("SpriteFrames_8jdkj")
-animation = &"windup"
+animation = &"boarding"
 
 [node name="MeleeAttackComponent" type="Area2D" parent="." node_paths=PackedStringArray("ATTACK_TIMER", "TARGET_AREA", "ANIMATIONS")]
 collision_layer = 0

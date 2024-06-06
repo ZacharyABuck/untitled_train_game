@@ -23,8 +23,8 @@ var character = preload("res://scenes/characters/character.tscn")
 var cargo = preload("res://scenes/train/cargo.tscn")
 var hard_point = preload("res://scenes/hard_point.tscn")
 
-var max_health: float = 50.0
-var health: float = 50.0
+var max_health: float
+var health: float
 
 var index
 var type
@@ -57,10 +57,10 @@ func check_for_gadgets():
 				hardpoint.get_child(0).respawn_gadget(TrainInfo.cars_inventory[index]["gadgets"][gadget])
 
 func take_damage(amount):
-	health -= amount
+	health = clamp(health-amount, 0, max_health)
 
 func repair(amount):
-	health += amount
+	health = clamp(health+amount, 0, max_health)
 
 func set_parameters():
 	if TrainInfo.cars_roster.has(type):

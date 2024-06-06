@@ -17,7 +17,7 @@ var active_car
 var can_shoot = true
 var current_ranged_weapon
 
-var repair_rate: float = 0.01
+var repair_rate: float = 0.02
 
 signal dead
 

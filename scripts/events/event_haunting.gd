@@ -2,7 +2,7 @@ extends Event
 
 var alert_text: String = "Haunting!"
 
-var start_spawn_count: int = 6
+var start_spawn_count: int = 1
 
 func trigger_haunting(area):
 	if area.get_parent().is_in_group("car") and triggered == false:

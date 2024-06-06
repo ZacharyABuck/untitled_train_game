@@ -173,20 +173,23 @@ func handle_level_up():
 	tween.tween_property(level_up_button, "scale", Vector2(1, 1), .2).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_IN)
 
 func level_up_button_pressed():
-	
-	level_up_button.disabled = true
-	level_up_button.hide()
-	
-	populate_edge_menu()
-	edge_menu.set_position(Vector2(0, -2000))
-	LevelInfo.active_level.edge_menu.show()
+	if ExperienceSystem.level_up_queue > 0:
+		ExperienceSystem.level_up_queue = clamp(ExperienceSystem.level_up_queue -1, 0, 100)
+		print(ExperienceSystem.level_up_queue)
+		
+		level_up_button.disabled = true
+		level_up_button.hide()
+		
+		populate_edge_menu()
+		edge_menu.set_position(Vector2(0, -2000))
+		LevelInfo.active_level.edge_menu.show()
 
-	var pos_tween = create_tween()
-	pos_tween.tween_property(edge_menu, "position", Vector2.ZERO, .5).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_IN)
-	await pos_tween.finished
+		var pos_tween = create_tween()
+		pos_tween.tween_property(edge_menu, "position", Vector2.ZERO, .5).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_IN)
+		await pos_tween.finished
 
-	$EdgeSFX.play()
-	pause_game()
+		$EdgeSFX.play()
+		pause_game()
 
 # Edge Menu
 func populate_edge_menu():
@@ -209,6 +212,9 @@ func edge_selected(edge):
 	edge_menu.modulate = Color.WHITE
 	unpause_game()
 	PlayerInfo.state = "default"
+	
+	if ExperienceSystem.level_up_queue > 0:
+		handle_level_up()
 
 func close_all_ui():
 	Engine.time_scale = 1

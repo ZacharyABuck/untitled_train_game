@@ -27,6 +27,7 @@ func _unhandled_input(event):
 	elif event.is_action_pressed("strike"):
 		owner._strike()
 	elif event.is_action_pressed("repair"):
+		Input.action_release("shoot")
 		LevelInfo.active_level.close_all_ui()
 		PlayerInfo.state = "repairing"
 

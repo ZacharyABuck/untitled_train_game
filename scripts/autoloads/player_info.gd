@@ -61,6 +61,7 @@ func handle_give_experience_signal(value):
 		nextLevelExperience = nextLevelExperience*2
 		currentLevel += 1
 		ExperienceSystem.level_up.emit()
+		ExperienceSystem.level_up_queue += 1
 
 func restart():
 	if active_player:

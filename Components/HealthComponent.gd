@@ -31,18 +31,21 @@ var healthbar = false
 
 
 func _ready():
-	health = MAX_HEALTH
-	#armor = ARMOR_VALUE
+	#set armor?
 	is_killable = IS_KILLABLE
 	animation = ANIMATION
 	character = get_parent()
+	if character is Player:
+		health = PlayerInfo.current_health
+	else:
+		health = MAX_HEALTH
 	if HEALTHBAR != null:
 		_initialize_healthbar()
 	
 func damage(attack : Attack):
 	_calculate_final_damage(attack.attack_damage, ARMOR_VALUE)
 	
-	health -= clamp(final_damage, 0, MAX_HEALTH)
+	health -= clamp(final_damage, 1, MAX_HEALTH)
 	
 	if character.is_in_group("enemy"):
 		var new_blood_fx = blood_fx.instantiate()

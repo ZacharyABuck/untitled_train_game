@@ -33,7 +33,7 @@ var cars_roster = {
 var train_stats = {
 	"car_count": 4,
 	"speed": 2.5,
-	"car_health": 50,
+	"car_health": 100,
 }
 
 var train_upgrade_roster = {
@@ -51,9 +51,9 @@ var train_upgrade_roster = {
 	},
 	"car_health" = {
 		"name" = "Upgrade Train Car Health",
-		"cost" = 40,
+		"cost" = 30,
 		"icon" = preload("res://sprites/ui/track_single.png"),
-		"value" = 10,
+		"value" = 30,
 	},
 }
 
@@ -65,14 +65,3 @@ func clear_variables():
 			for hard_point in cars_inventory[car]["hard_points"]:
 				cars_inventory[car]["hard_points"][hard_point] = null
 			cars_inventory[car]["node"] = null
-
-func restart():
-	cars_inventory.clear()
-	train_stats = {
-	"car_count": 4,
-	"speed": 2.5,
-	"car_health": 50,
-	}
-	track_positions.clear()
-	train_manager = null
-	train_engine = null

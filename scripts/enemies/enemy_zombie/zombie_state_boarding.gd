@@ -6,7 +6,8 @@ func _physics_process(_delta):
 func animation_finished():
 	if owner.animations.animation == "boarding":
 		TrainInfo.cars_inventory[owner.active_car]["node"].take_damage(owner.damage)
-		if TrainInfo.cars_inventory[owner.active_car]["node"].health <= 0:
-			owner.state = "finish_boarding"
-		else:
+		if TrainInfo.cars_inventory[owner.active_car]["node"].health >= TrainInfo.cars_inventory[owner.active_car]["node"].max_health*.01:
 			owner.animations.play("boarding")
+		else:
+			owner.state = "finish_boarding"
+			
