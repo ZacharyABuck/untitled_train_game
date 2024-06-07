@@ -11,7 +11,7 @@ func ready():
 	title_screen.show()
 
 func title_screen_start_button_pressed():
-	await fade_to_black()
+	await fade_to_black(.5)
 	
 	title_screen.hide()
 	var new_world = world.instantiate()
@@ -36,7 +36,7 @@ func show_restart_button():
 	CurrentRun.world.pause_game()
 
 func restart_button_button_up():
-	await fade_to_black()
+	await fade_to_black(.5)
 	
 	escape_menu.hide()
 	restart_screen.hide()
@@ -47,9 +47,9 @@ func restart_button_button_up():
 	
 	fade_in()
 
-func fade_to_black():
+func fade_to_black(duration):
 	var fade_tween = create_tween()
-	fade_tween.tween_property(black_rect, "modulate", Color.WHITE, .5)
+	fade_tween.tween_property(black_rect, "modulate", Color.WHITE, duration)
 	return fade_tween.finished
 
 func fade_in():

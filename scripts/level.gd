@@ -89,7 +89,7 @@ func generate_track():
 	train_manager.track.curve.set_point_position(0, -point_increment*CurrentRun.world.current_level_info.level_parameters["direction"])
 	
 	#set each track point per distance
-	for i in CurrentRun.world.current_level_info.level_parameters["distance"]:
+	for i in CurrentRun.world.current_level_info.level_parameters["distance"] + 1:
 		var increment = CurrentRun.world.current_level_info.level_parameters["direction"]*point_increment
 		var turn_radius = .8
 		var random_mod = Vector2(randf_range(-point_increment*turn_radius, point_increment*turn_radius), \
@@ -98,10 +98,13 @@ func generate_track():
 		add_track_point(last_pos, index, random_pos)
 		index += 1
 		last_pos += random_pos
-		for event in CurrentRun.world.current_level_info.events:
-			if i == CurrentRun.world.current_level_info.events[event]["distance"]:
-				var area = generate_event_area(CurrentRun.world.current_level_info.events[event]["type"], last_pos)
-				CurrentRun.world.current_level_info.events[event]["area"] = area
+		if i == CurrentRun.world.current_level_info.level_parameters["distance"] -1:
+			var area = generate_event_area("level_complete", last_pos)
+		else:
+			for event in CurrentRun.world.current_level_info.events:
+				if i == CurrentRun.world.current_level_info.events[event]["distance"]:
+					var area = generate_event_area(CurrentRun.world.current_level_info.events[event]["type"], last_pos)
+					CurrentRun.world.current_level_info.events[event]["area"] = area
 
 func generate_event_area(type, pos):
 	var area = EventArea.new()
@@ -175,7 +178,6 @@ func handle_level_up():
 func level_up_button_pressed():
 	if CurrentRun.world.current_player_info.level_up_queue > 0:
 		CurrentRun.world.current_player_info.level_up_queue = clamp(CurrentRun.world.current_player_info.level_up_queue -1, 0, 100)
-		print(CurrentRun.world.current_player_info.level_up_queue)
 		
 		level_up_button.disabled = true
 		level_up_button.hide()

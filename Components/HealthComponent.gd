@@ -71,6 +71,9 @@ func _handle_death():
 			ExperienceSystem.give_experience.emit(character.experience)
 			character.state = "dead"
 			animation.play("death")
+			if character is RigidBody2D:
+				character.set_collision_layer_value(4, false)
+				character.set_collision_mask_value(4, false)
 		
 		if character.is_in_group("event"):
 			character.queue_free()

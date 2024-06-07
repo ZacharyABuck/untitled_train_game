@@ -20,6 +20,9 @@ var events_roster = {
 	#"shop" = {
 		#"scene" = preload("res://scenes/events/event_shop.tscn"),
 	#},
+	"level_complete" = {
+		"scene" = preload("res://scenes/events/event_level_complete.tscn"),
+	},
 	"haunting" = {
 		"scene" = preload("res://scenes/events/event_haunting.tscn"),
 	},

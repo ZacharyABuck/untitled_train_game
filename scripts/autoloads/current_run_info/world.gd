@@ -28,7 +28,12 @@ var in_game = false
 var missions_spawned: bool = false
 
 func start_game(direction, distance, terrain):
+	await CurrentRun.root.fade_to_black(1.5)
+	
+	towns_ui.hide()
+	world_map.hide()
 	world_ui.hide()
+	
 	CurrentRun.world.current_level_info.clear_variables()
 	CurrentRun.world.current_train_info.clear_variables()
 
@@ -45,7 +50,11 @@ func start_game(direction, distance, terrain):
 		CurrentRun.world.current_player_info.set_current_variables_to_base_value()
 
 	for i in CurrentRun.world.current_level_info.events.keys():
-		CurrentRun.world.current_level_info.events[i]["type"] = LevelInfo.events_roster.keys().pick_random()
+		var random_event = LevelInfo.events_roster.keys().pick_random()
+		while random_event == "level_complete":
+			random_event = LevelInfo.events_roster.keys().pick_random()
+
+		CurrentRun.world.current_level_info.events[i]["type"] = random_event
 		print("Event " + str(i) + " = " + str(CurrentRun.world.current_level_info.events[i]["type"]))
 
 	var new_level = level.instantiate()
@@ -54,6 +63,8 @@ func start_game(direction, distance, terrain):
 	new_level.level_complete_button.pressed.connect(level_complete)
 	unpause_game()
 	in_game = true
+	
+	CurrentRun.root.fade_in()
 
 func pause_game():
 	if CurrentRun.world.current_level_info.active_level:
@@ -82,8 +93,7 @@ func _on_travel_button_pressed():
 	var terrain = LevelInfo.terrain_roster.keys().pick_random()
 	var distance = find_distance()
 	CurrentRun.world.current_level_info.destination = CurrentRun.world.current_world_info.selected_town.town_name
-	towns_ui.hide()
-	world_map.hide()
+
 	start_game(direction, distance, terrain)
 
 func find_direction():
@@ -97,7 +107,7 @@ func find_distance():
 
 func level_complete():
 	music_fade.play("level_to_world")
-	await CurrentRun.root.fade_to_black()
+	await CurrentRun.root.fade_to_black(2)
 	
 	world_ui.refresh_edges()
 	camera.enabled = true
@@ -116,6 +126,7 @@ func update_money_label():
 
 func despawn_level():
 	CurrentRun.world.current_level_info.active_level.queue_free()
+	remove_child(CurrentRun.world.current_level_info.active_level)
 	CurrentRun.world.current_level_info.active_level = null
 	CurrentRun.world.current_player_info.active_player = null
 

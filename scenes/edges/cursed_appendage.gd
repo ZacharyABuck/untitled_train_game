@@ -10,6 +10,7 @@ var damage: float = 1
 var target
 
 func _ready():
+	super()
 	animations.modulate = Color.TRANSPARENT
 
 func _physics_process(_delta):
