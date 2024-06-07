@@ -4,20 +4,20 @@ var level = preload("res://scenes/level.tscn")
 
 var mission_reward_panel = preload("res://scenes/ui/mission_reward_panel.tscn")
 
-@onready var towns_ui = $TownsUI
-@onready var money_label = $WorldUI/MarginContainer/GridContainer/HBoxContainer/MoneyLabel
-@onready var mission_inventory_container = $WorldUI/MarginContainer/GridContainer/HBoxContainer/PanelContainer/MissionInventoryContainer
+@onready var towns_ui = $World/TownsUI
+@onready var money_label = $World/WorldUI/MarginContainer/GridContainer/HBoxContainer/MoneyLabel
+@onready var mission_inventory_container = $World/WorldUI/MarginContainer/GridContainer/HBoxContainer/PanelContainer/MissionInventoryContainer
 
-@onready var world_map = $WorldMap
-@onready var world_ui = $WorldUI
-@onready var camera = $Camera
+@onready var world_map = $World/WorldMap
+@onready var world_ui = $World/WorldUI
+@onready var camera = $World/Camera
 
 @onready var escape_menu = $EscapeMenu
 @onready var title_screen = $TitleScreen
 @onready var restart_screen = $RestartScreen
 
 
-@onready var music_fade = $Music/MusicFade
+@onready var music_fade = $World/Music/MusicFade
 
 
 func ready():
@@ -41,7 +41,7 @@ func _input(event):
 			escape_menu.show()
 
 func start_game(direction, distance, terrain):
-	$WorldUI.hide()
+	world_ui.hide()
 	LevelInfo.clear_variables()
 	TrainInfo.clear_variables()
 
@@ -82,10 +82,20 @@ func show_restart_button():
 	pause_game()
 
 func restart_button_button_up():
-	get_tree().quit()
+	if PlayerInfo.active_player:
+		PlayerInfo.active_player.queue_free()
+	if LevelInfo.active_level:
+		LevelInfo.active_level.queue_free()
+	
+	TrainInfo.restart()
+	LevelInfo.restart()
+	PlayerInfo.restart()
+	WorldInfo.restart()
+	world_map.clear()
+	get_tree().reload_current_scene()
 
 func town_clicked(town):
-	$TownsUI/MarginContainer/TabContainer.current_tab = 0
+	$World/TownsUI/MarginContainer/TabContainer.current_tab = 0
 	towns_ui.populate_town_info(town)
 	if WorldInfo.active_town == town.town_name:
 		towns_ui.trainyard_items_list.show()
@@ -104,7 +114,7 @@ func _on_travel_button_pressed():
 	var distance = find_distance()
 	LevelInfo.destination = WorldInfo.selected_town.town_name
 	towns_ui.hide()
-	$WorldMap.hide()
+	world_map.hide()
 	start_game(direction, distance, terrain)
 
 func find_direction():
@@ -120,12 +130,12 @@ func level_complete():
 	music_fade.play("level_to_world")
 	world_ui.refresh_edges()
 	camera.enabled = true
-	$WorldUI.show()
+	world_ui.show()
 	despawn_level()
 	update_world_player_pos()
 	check_missions()
 	update_money_label()
-	$WorldMap.show()
+	world_map.show()
 	missions_spawned = false
 
 func update_money_label():

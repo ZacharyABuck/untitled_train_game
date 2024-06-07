@@ -57,6 +57,3 @@ var edge_roster = {
 var edge_inventory = {
 	
 }
-
-func restart():
-	edge_inventory.clear()

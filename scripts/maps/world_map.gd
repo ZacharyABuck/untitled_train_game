@@ -62,7 +62,7 @@ func handle_towns():
 					new_town.set_town_info(town_info)
 					valid_town = true
 		
-			new_town.clicked.connect(get_parent().town_clicked.bind(new_town))
+			new_town.clicked.connect(owner.town_clicked.bind(new_town))
 			new_town.mouse_entered.connect(town_mouse_entered.bind(new_town))
 			new_town.mouse_exited.connect(town_mouse_exited.bind(new_town))
 

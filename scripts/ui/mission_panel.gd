@@ -44,11 +44,12 @@ func find_random_destination():
 func _on_gui_input(event):
 	if event is InputEventMouseButton and event.pressed:
 		var id = randi()
-		MissionInfo.mission_inventory[id] = \
-		{"type" = mission_type,
-		"destination" = destination,
-		"character" = character,
-		"reward" = reward,
-		"icon" = $HBoxContainer/MissionIcon.texture,}
-		clicked.emit(id)
-		queue_free()
+		if MissionInfo.mission_inventory.keys().size() < 3:
+			MissionInfo.mission_inventory[id] = \
+			{"type" = mission_type,
+			"destination" = destination,
+			"character" = character,
+			"reward" = reward,
+			"icon" = $HBoxContainer/MissionIcon.texture,}
+			clicked.emit(id)
+			queue_free()

@@ -65,3 +65,5 @@ func clear_variables():
 			for hard_point in cars_inventory[car]["hard_points"]:
 				cars_inventory[car]["hard_points"][hard_point] = null
 			cars_inventory[car]["node"] = null
+	track_positions.clear()
+

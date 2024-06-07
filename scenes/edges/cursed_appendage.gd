@@ -6,7 +6,7 @@ extends Edge
 @onready var attack_timer = $AttackTimer
 
 
-var damage: float = 3
+var damage: float = 1
 var target
 
 func _ready():

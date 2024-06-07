@@ -44,7 +44,7 @@ func spawn_missions(count):
 		var new_mission = mission_panel.instantiate()
 		missions_container.add_child(new_mission)
 		new_mission.find_random_mission()
-		new_mission.clicked.connect(get_parent().world_ui.spawn_mission_inventory_panel)
+		new_mission.clicked.connect(owner.world_ui.spawn_mission_inventory_panel)
 
 func spawn_trainyard_items():
 	for i in trainyard_items_list.get_children():
@@ -53,4 +53,4 @@ func spawn_trainyard_items():
 		var new_item = trainyard_item.instantiate()
 		trainyard_items_list.add_child(new_item)
 		new_item.populate(i)
-		new_item.clicked.connect(get_parent().upgrade_train)
+		new_item.clicked.connect(owner.upgrade_train)

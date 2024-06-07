@@ -29,7 +29,6 @@ WeaponInfo="*res://scripts/autoloads/weapon_info.gd"
 WorldInfo="*res://scripts/autoloads/world_info.gd"
 MissionInfo="*res://scripts/autoloads/mission_info.gd"
 CharacterInfo="*res://scripts/autoloads/character_info.gd"
-AudioInfo="*res://scripts/autoloads/audio_info.gd"
 
 [display]
 

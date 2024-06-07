@@ -9,3 +9,4 @@ func _physics_process(delta):
 		owner.look_at(owner.target.global_position)
 		if owner.attack_component.target_is_in_range(owner.target) and owner.boarded:
 			owner.state = "attacking"
+	
