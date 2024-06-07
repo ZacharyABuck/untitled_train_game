@@ -40,7 +40,3 @@ var elite_modifiers = {
 	"experience" = 5,
 	"money" = 2,
 }
-
-var enemy_inventory = {
-	
-}

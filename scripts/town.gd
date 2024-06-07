@@ -8,8 +8,8 @@ signal clicked
 var town_name: String
 
 func _process(_delta):
-	if WorldInfo.active_town != null:
-		if WorldInfo.active_town == town_name:
+	if CurrentRun.world.current_world_info.active_town != null:
+		if CurrentRun.world.current_world_info.active_town == town_name:
 			animations.play("ring_expand")
 			
 		else:

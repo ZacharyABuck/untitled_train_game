@@ -23,22 +23,23 @@ signal dead
 
 #Many functions have been moved to the StateMachine. 
 ##Each child of Statemachine has the relevant behavior for that state.
-##PlayerInfo contains the different state options
+##CurrentRun.world.current_player_info contains the different state options
 
 # -- BASE FUNCTIONS -- #
 func _ready():
-	PlayerInfo.active_player = self
-	PlayerInfo.targets.append(self)
+	CurrentRun.world.current_player_info.active_player = self
+	#CurrentRun.world.current_player_info.active_player = self
+	CurrentRun.world.current_player_info.targets.append(self)
 	camera.make_current()
-	health_component.MAX_HEALTH = PlayerInfo.base_max_health
-	health_component.ARMOR_VALUE = PlayerInfo.base_armor
+	health_component.MAX_HEALTH = CurrentRun.world.current_player_info.base_max_health
+	health_component.ARMOR_VALUE = CurrentRun.world.current_player_info.base_armor
 	
 	var weapon
-	if PlayerInfo.current_ranged_weapon_reference.is_empty():
+	if CurrentRun.world.current_player_info.current_ranged_weapon_reference.is_empty():
 		weapon = WeaponInfo.weapons_roster.keys().pick_random()
-		PlayerInfo.current_ranged_weapon_reference = weapon
+		CurrentRun.world.current_player_info.current_ranged_weapon_reference = weapon
 	else:
-		weapon = PlayerInfo.current_ranged_weapon_reference
+		weapon = CurrentRun.world.current_player_info.current_ranged_weapon_reference
 	_instantiate_ranged_weapon(WeaponInfo.weapons_roster[weapon]["scene"])
 
 	ExperienceSystem.level_up.connect(self.handle_level_up)
@@ -55,8 +56,8 @@ func _strike():
 
 # -- REPAIR -- #
 func repair():
-	if TrainInfo.cars_inventory[active_car]["node"].health < TrainInfo.cars_inventory[active_car]["node"].max_health:
-		TrainInfo.cars_inventory[active_car]["node"].repair(repair_rate)
+	if CurrentRun.world.current_train_info.cars_inventory[active_car]["node"].health < CurrentRun.world.current_train_info.cars_inventory[active_car]["node"].max_health:
+		CurrentRun.world.current_train_info.cars_inventory[active_car]["node"].repair(repair_rate)
 		sprite.play("repairing")
 		if !repair_sfx.playing:
 			repair_sfx.play()
@@ -64,12 +65,12 @@ func repair():
 # -- EDGE FUNCTIONS -- #
 func player_hurt(damage):
 	#check for shadowstep
-	if EdgeInfo.edge_inventory.has("shadowstep"):
-		var shadowstep_scene = EdgeInfo.edge_inventory["shadowstep"]["scene"]
+	if CurrentRun.world.current_edge_info.edge_inventory.has("shadowstep"):
+		var shadowstep_scene = CurrentRun.world.current_edge_info.edge_inventory["shadowstep"]["scene"]
 		shadowstep_scene.enable_shadow()
 		
-	PlayerInfo.current_health -= damage
-	if PlayerInfo.current_health < 0:
+	CurrentRun.world.current_player_info.current_health -= damage
+	if CurrentRun.world.current_player_info.current_health < 0:
 		dead.emit()
 
 
@@ -84,31 +85,31 @@ func _instantiate_ranged_weapon(gun_scene_location):
 
 	# Modify base weapon by flat bonus and multiplier of character.
 	var damage = current_ranged_weapon.base_damage
-	damage += PlayerInfo.current_ranged_damage_bonus
-	damage *= PlayerInfo.current_ranged_damage_multiplier
+	damage += CurrentRun.world.current_player_info.current_ranged_damage_bonus
+	damage *= CurrentRun.world.current_player_info.current_ranged_damage_multiplier
 	current_ranged_weapon.base_damage = damage
 	add_child(current_ranged_weapon)
 
 func refresh_current_ranged_weapon_stats():
 	var damage = current_ranged_weapon.base_damage
-	damage += PlayerInfo.current_ranged_damage_bonus
-	damage *= PlayerInfo.current_ranged_damage_multiplier
+	damage += CurrentRun.world.current_player_info.current_ranged_damage_bonus
+	damage *= CurrentRun.world.current_player_info.current_ranged_damage_multiplier
 	current_ranged_weapon.current_damage = damage
-	current_ranged_weapon.current_attack_delay = current_ranged_weapon.base_attack_delay * PlayerInfo.current_attack_delay_modifier
+	current_ranged_weapon.current_attack_delay = current_ranged_weapon.base_attack_delay * CurrentRun.world.current_player_info.current_attack_delay_modifier
 
 # -- MOVEMENT FUNCTIONS -- #
 func _on_car_detector_area_entered(area):
 	if area.get_parent().is_in_group("car"):
 		active_car = area.get_parent().index
-		TrainInfo.cars_inventory[active_car]["node"].sprite.modulate = Color.WHITE
-		call_deferred("reparent", TrainInfo.cars_inventory[active_car]["node"])
-		for i in TrainInfo.cars_inventory:
+		CurrentRun.world.current_train_info.cars_inventory[active_car]["node"].sprite.modulate = Color.WHITE
+		call_deferred("reparent", CurrentRun.world.current_train_info.cars_inventory[active_car]["node"])
+		for i in CurrentRun.world.current_train_info.cars_inventory:
 			if i != active_car:
-				TrainInfo.cars_inventory[i]["node"].sprite.modulate = TrainInfo.cars_inventory[i]["node"].starting_color
+				CurrentRun.world.current_train_info.cars_inventory[i]["node"].sprite.modulate = CurrentRun.world.current_train_info.cars_inventory[i]["node"].starting_color
 
 func _on_car_detector_area_exited(area):
 	if area.get_parent().is_in_group("car"):
-		TrainInfo.cars_inventory[active_car]["node"].sprite.modulate = TrainInfo.cars_inventory[active_car]["node"].starting_color
+		CurrentRun.world.current_train_info.cars_inventory[active_car]["node"].sprite.modulate = CurrentRun.world.current_train_info.cars_inventory[active_car]["node"].starting_color
 
 # -- EDGE AND LEVEL FUNCTIONS -- #
 

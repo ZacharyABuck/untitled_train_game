@@ -23,7 +23,7 @@ func _ready():
 	spawn_menu(menu_type)
 
 func _on_mouse_entered():
-	if PlayerInfo.state == "default":
+	if CurrentRun.world.current_player_info.state == "default":
 		$AnimationPlayer.play("flash")
 	else:
 		$AnimationPlayer.play("still")
@@ -34,8 +34,8 @@ func _on_mouse_exited():
 func _on_input_event(_viewport, event, _shape_idx):
 	if event.is_action_pressed("strike"):
 		#show menu
-		if PlayerInfo.active_player.active_car == get_parent().car.index and menu_type != "none":
-			PlayerInfo.state = "ui_default"
+		if CurrentRun.world.current_player_info.active_player.active_car == get_parent().car.index and menu_type != "none":
+			CurrentRun.world.current_player_info.state = "ui_default"
 			open_menu()
 
 func _process(_delta):
@@ -78,7 +78,7 @@ func open_menu():
 	open = true
 	$MenuOpenSound.play()
 	$AnimationPlayer.play("still")
-	LevelInfo.active_level.ui_open = true
+	CurrentRun.world.current_level_info.active_level.ui_open = true
 	Engine.set_time_scale(.2)
 	var spacing = TAU / items.get_children().size()
 	var index = 1

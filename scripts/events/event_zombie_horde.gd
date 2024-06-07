@@ -12,7 +12,7 @@ func outer_area_entered(area):
 		zombies_spawned = true
 		
 		#add new zombies based on current difficulty
-		var new_zombie_count = round(LevelInfo.difficulty*.3)
+		var new_zombie_count = round(CurrentRun.world.current_level_info.difficulty*.3)
 
 		for z in new_zombie_count:
 			var new_zombie = zombie.instantiate()
@@ -28,7 +28,7 @@ func zombie_horde_triggered(area):
 		
 		#move and reparent zombies
 		for i in $Zombies.get_children():
-			i.target = PlayerInfo.active_player
+			i.target = CurrentRun.world.current_player_info.active_player
 			i.state = "moving"
-			i.call_deferred("reparent", LevelInfo.active_level.enemies)
+			i.call_deferred("reparent", CurrentRun.world.current_level_info.active_level.enemies)
 		set_alert_text_and_play(alert_text)

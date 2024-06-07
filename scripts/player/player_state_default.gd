@@ -10,7 +10,7 @@ func _physics_process(_delta):
 func get_input():
 	# -- DIRECTIONAL INPUT -- #
 	var input_direction = Input.get_vector("left", "right", "up", "down")
-	owner.velocity = input_direction * PlayerInfo.current_movespeed
+	owner.velocity = input_direction * CurrentRun.world.current_player_info.current_movespeed
 	
 func animate_movement():
 	if owner.velocity.is_equal_approx(Vector2.ZERO):
@@ -28,6 +28,6 @@ func _unhandled_input(event):
 		owner._strike()
 	elif event.is_action_pressed("repair"):
 		Input.action_release("shoot")
-		LevelInfo.active_level.close_all_ui()
-		PlayerInfo.state = "repairing"
+		CurrentRun.world.current_level_info.active_level.close_all_ui()
+		CurrentRun.world.current_player_info.state = "repairing"
 

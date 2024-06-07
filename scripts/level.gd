@@ -36,19 +36,19 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	$UI/MoneyLabel.text = "Money: $" + str(PlayerInfo.current_money)
+	$UI/MoneyLabel.text = "Money: $" + str(CurrentRun.world.current_player_info.current_money)
 	# These XP functions will be moved to a dedicated node or func that handles all this.
-	xp_bar.value = PlayerInfo.currentExperience
-	xp_bar.max_value = PlayerInfo.nextLevelExperience
-	level_label.text = "Level: " + str(PlayerInfo.currentLevel)
-	xp_label.text = "XP: " + str(PlayerInfo.currentExperience) + " / " + str(PlayerInfo.nextLevelExperience)
+	xp_bar.value = CurrentRun.world.current_player_info.currentExperience
+	xp_bar.max_value = CurrentRun.world.current_player_info.nextLevelExperience
+	level_label.text = "Level: " + str(CurrentRun.world.current_player_info.currentLevel)
+	xp_label.text = "XP: " + str(CurrentRun.world.current_player_info.currentExperience) + " / " + str(CurrentRun.world.current_player_info.nextLevelExperience)
 	calculate_day_cycle()
-	$UI/PlayerExperienceBar.value = PlayerInfo.currentExperience
+	$UI/PlayerExperienceBar.value = CurrentRun.world.current_player_info.currentExperience
 	
 	#set enemy spawn positions to follow train
-	if TrainInfo.train_engine != null:
-		enemy_spawn_positions.global_position = TrainInfo.train_engine.global_position
-		enemy_spawn_positions.global_rotation = TrainInfo.train_engine.car.global_rotation
+	if CurrentRun.world.current_train_info.train_engine != null:
+		enemy_spawn_positions.global_position = CurrentRun.world.current_train_info.train_engine.global_position
+		enemy_spawn_positions.global_rotation = CurrentRun.world.current_train_info.train_engine.car.global_rotation
 
 #set the day time in the tree
 func calculate_day_cycle():
@@ -86,11 +86,11 @@ func generate_track():
 	var last_pos = train_manager.track.curve.get_point_position(index-1)
 	
 	#set first point to be reverse direction, to load the train
-	train_manager.track.curve.set_point_position(0, -point_increment*LevelInfo.level_parameters["direction"])
+	train_manager.track.curve.set_point_position(0, -point_increment*CurrentRun.world.current_level_info.level_parameters["direction"])
 	
 	#set each track point per distance
-	for i in LevelInfo.level_parameters["distance"]:
-		var increment = LevelInfo.level_parameters["direction"]*point_increment
+	for i in CurrentRun.world.current_level_info.level_parameters["distance"]:
+		var increment = CurrentRun.world.current_level_info.level_parameters["direction"]*point_increment
 		var turn_radius = .8
 		var random_mod = Vector2(randf_range(-point_increment*turn_radius, point_increment*turn_radius), \
 							randf_range(-point_increment*turn_radius, point_increment*turn_radius))
@@ -98,10 +98,10 @@ func generate_track():
 		add_track_point(last_pos, index, random_pos)
 		index += 1
 		last_pos += random_pos
-		for event in LevelInfo.events:
-			if i == LevelInfo.events[event]["distance"]:
-				var area = generate_event_area(LevelInfo.events[event]["type"], last_pos)
-				LevelInfo.events[event]["area"] = area
+		for event in CurrentRun.world.current_level_info.events:
+			if i == CurrentRun.world.current_level_info.events[event]["distance"]:
+				var area = generate_event_area(CurrentRun.world.current_level_info.events[event]["type"], last_pos)
+				CurrentRun.world.current_level_info.events[event]["area"] = area
 
 func generate_event_area(type, pos):
 	var area = EventArea.new()
@@ -121,19 +121,19 @@ func add_track_point(last_pos, index, random_pos):
 func spawn_player():
 	await get_tree().create_timer(.5).timeout
 	new_player = player.instantiate()
-	new_player.global_position = TrainInfo.train_engine.global_position
-	PlayerInfo.state = "default"
+	new_player.global_position = CurrentRun.world.current_train_info.train_engine.global_position
+	CurrentRun.world.current_player_info.state = "default"
 	add_child(new_player)
-	new_player.dead.connect(get_parent().show_restart_button)
+	new_player.dead.connect(CurrentRun.root.show_restart_button)
 
 func _on_enemy_spawn_timer_timeout():
 	enemy_spawn_timer.wait_time += .5
 	spawn_level_enemies()
-	LevelInfo.difficulty += .3
+	CurrentRun.world.current_level_info.difficulty += .3
 	enemy_spawn_timer.start()
 
 func spawn_level_enemies():
-	var spawn_count = LevelInfo.difficulty
+	var spawn_count = CurrentRun.world.current_level_info.difficulty
 	var new_spawner = EnemySpawner.new()
 	add_child(new_spawner)
 	
@@ -159,7 +159,7 @@ func spawn_level_enemies():
 
 func roll_elite_enemy():
 	var rng = randi_range(1,50)
-	if rng < LevelInfo.difficulty:
+	if rng < CurrentRun.world.current_level_info.difficulty:
 		return true
 	else:
 		return false
@@ -173,16 +173,16 @@ func handle_level_up():
 	tween.tween_property(level_up_button, "scale", Vector2(1, 1), .2).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_IN)
 
 func level_up_button_pressed():
-	if ExperienceSystem.level_up_queue > 0:
-		ExperienceSystem.level_up_queue = clamp(ExperienceSystem.level_up_queue -1, 0, 100)
-		print(ExperienceSystem.level_up_queue)
+	if CurrentRun.world.current_player_info.level_up_queue > 0:
+		CurrentRun.world.current_player_info.level_up_queue = clamp(CurrentRun.world.current_player_info.level_up_queue -1, 0, 100)
+		print(CurrentRun.world.current_player_info.level_up_queue)
 		
 		level_up_button.disabled = true
 		level_up_button.hide()
 		
 		populate_edge_menu()
 		edge_menu.set_position(Vector2(0, -2000))
-		LevelInfo.active_level.edge_menu.show()
+		CurrentRun.world.current_level_info.active_level.edge_menu.show()
 
 		var pos_tween = create_tween()
 		pos_tween.tween_property(edge_menu, "position", Vector2.ZERO, .5).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_IN)
@@ -206,25 +206,25 @@ func edge_selected(edge):
 	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.tween_property(edge_menu, "modulate", Color.TRANSPARENT, .2)
 	await tween.finished
-	LevelInfo.active_level.edge_menu.hide()
+	CurrentRun.world.current_level_info.active_level.edge_menu.hide()
 	for i in edge_menu.get_children():
 		i.queue_free()
 	edge_menu.modulate = Color.WHITE
 	unpause_game()
-	PlayerInfo.state = "default"
+	CurrentRun.world.current_player_info.state = "default"
 	
-	if ExperienceSystem.level_up_queue > 0:
+	if CurrentRun.world.current_player_info.level_up_queue > 0:
 		handle_level_up()
 
 func close_all_ui():
 	Engine.time_scale = 1
-	for i in TrainInfo.cars_inventory:
-		TrainInfo.cars_inventory[i]["node"].hide_radial_menus()
+	for i in CurrentRun.world.current_train_info.cars_inventory:
+		CurrentRun.world.current_train_info.cars_inventory[i]["node"].hide_radial_menus()
 
 func pause_game():
-	if LevelInfo.active_level.get_tree().paused == false:
-		LevelInfo.active_level.get_tree().paused = true
+	if CurrentRun.world.current_level_info.active_level.get_tree().paused == false:
+		CurrentRun.world.current_level_info.active_level.get_tree().paused = true
 
 func unpause_game():
-	if LevelInfo.active_level.get_tree().paused == true:
-		LevelInfo.active_level.get_tree().paused = false
+	if CurrentRun.world.current_level_info.active_level.get_tree().paused == true:
+		CurrentRun.world.current_level_info.active_level.get_tree().paused = false

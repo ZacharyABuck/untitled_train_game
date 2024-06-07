@@ -23,7 +23,7 @@ func spawn_mission_inventory_panel(mission):
 func refresh_edges():
 	for label in edge_label_container.get_children():
 		label.queue_free()
-	for edge in EdgeInfo.edge_inventory.keys():
+	for edge in CurrentRun.world.current_edge_info.edge_inventory.keys():
 		print("Spawned: " + str(edge))
 		spawn_edge_inventory_label(edge)
 

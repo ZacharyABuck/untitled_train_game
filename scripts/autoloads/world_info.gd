@@ -1,10 +1,5 @@
 extends Node
 
-var world_map_player
-
-var selected_town
-var active_town
-
 var towns_roster = {
 	"Bog Hollow" = {
 		"size" = null,
@@ -48,6 +43,3 @@ var towns_roster = {
 	},
 }
 
-var towns_inventory = {
-	
-}

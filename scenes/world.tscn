@@ -1,0 +1,727 @@
+[gd_scene load_steps=48 format=3 uid="uid://csdhvsxyenywf"]
+
+[ext_resource type="Script" path="res://scripts/autoloads/current_run_info/world.gd" id="1_u1dsg"]
+[ext_resource type="Script" path="res://scripts/autoloads/current_run_info/current_player_info.gd" id="2_kodbe"]
+[ext_resource type="Script" path="res://scripts/autoloads/current_run_info/current_world_info.gd" id="3_chn0n"]
+[ext_resource type="Script" path="res://scripts/autoloads/current_run_info/current_train_info.gd" id="4_lu2jv"]
+[ext_resource type="Script" path="res://scripts/autoloads/current_run_info/current_level_info.gd" id="5_enhsf"]
+[ext_resource type="Script" path="res://scripts/autoloads/current_run_info/current_edge_info.gd" id="6_rwmxo"]
+[ext_resource type="Script" path="res://scripts/autoloads/current_run_info/current_mission_info.gd" id="7_ray2g"]
+[ext_resource type="Script" path="res://scripts/autoloads/current_run_info/current_gadget_info.gd" id="8_u6yb2"]
+[ext_resource type="Script" path="res://scripts/autoloads/current_run_info/current_enemy_info.gd" id="9_ibroa"]
+[ext_resource type="AudioStream" uid="uid://bshtqlqkt4twy" path="res://music/world_music.mp3" id="10_3k0cp"]
+[ext_resource type="AudioStream" uid="uid://dasb0ya67twdd" path="res://music/level_music_no_intro.mp3" id="11_ar4r5"]
+[ext_resource type="Texture2D" uid="uid://c75pwpkt2lydf" path="res://sprites/tiles/world_map_tileset.png" id="12_digcs"]
+[ext_resource type="Script" path="res://scripts/maps/world_map.gd" id="13_6j7ga"]
+[ext_resource type="Shader" path="res://shaders/line.gdshader" id="14_dket0"]
+[ext_resource type="Texture2D" uid="uid://c0ctx778y5g3i" path="res://sprites/ui/track_single.png" id="15_tqgxp"]
+[ext_resource type="Script" path="res://scripts/ui/world_ui.gd" id="16_s8cdk"]
+[ext_resource type="FontFile" uid="uid://dxx340jybsylj" path="res://fonts/JMH Typewriter-Black.ttf" id="17_rwwbi"]
+[ext_resource type="Script" path="res://scripts/ui/towns_ui.gd" id="18_ulvie"]
+[ext_resource type="FontFile" uid="uid://0h755tmfkmuj" path="res://fonts/JMH Typewriter-Thin.ttf" id="19_v1qo5"]
+[ext_resource type="Texture2D" uid="uid://dswm0gltr2r76" path="res://sprites/ui/town_sketch.png" id="20_fiexs"]
+[ext_resource type="Texture2D" uid="uid://3pmjvwnuc8ea" path="res://sprites/ui/edge_background.png" id="21_fw0e4"]
+[ext_resource type="FontFile" uid="uid://bt4836ueqhi58" path="res://fonts/WesternBangBang-Regular.ttf" id="22_w4hsh"]
+[ext_resource type="FontFile" uid="uid://tpmg7wha0yio" path="res://fonts/JMH Typewriter-Bold.ttf" id="23_kdpb5"]
+[ext_resource type="Texture2D" uid="uid://bfhfpjjn1ks4" path="res://sprites/ui/train_sketch.png" id="24_o026o"]
+[ext_resource type="Texture2D" uid="uid://ccydwnn5siydn" path="res://sprites/ui/x.png" id="25_c7tds"]
+
+[sub_resource type="Animation" id="Animation_4oonn"]
+resource_name = "level_to_world"
+length = 6.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LevelMusic:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -50.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WorldMusic:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-50.0, -10.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WorldMusic:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LevelMusic:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_uqyuv"]
+resource_name = "world_to_level"
+length = 6.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LevelMusic:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-50.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WorldMusic:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-10.0, -50.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LevelMusic:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WorldMusic:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d88dm"]
+_data = {
+"level_to_world": SubResource("Animation_4oonn"),
+"world_to_level": SubResource("Animation_uqyuv")
+}
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_w5n7g"]
+vertices = PackedVector2Array(32, 11, -32, 10, -32, -11, 32, -12)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-32, -11, 32, -11.5, 32, 11, -32, 9.5)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_bi16b"]
+vertices = PackedVector2Array(-32, 9, -32, -4, -12, -2, -21, 10, -3, 20, 6, 7, 24, 10, 20, -5, 32, -6, 32, 9)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 3, 2, 5), PackedInt32Array(6, 4, 5, 7, 8), PackedInt32Array(8, 9, 6)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(32, -5.5, 19.5, -4.5, 5.5, 6.5, -12, -1.5, -32, -3.5, -32, 8.5, -20.5, 10, -2.5, 19.5, 23.5, 9.5, 32, 9)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_aaq0t"]
+vertices = PackedVector2Array(-9, 5, -32, 8, -32, -5, -7, -11, 7, -5, -9, -32, 4, -32, 5, -21, 32, -5, 32, 9, 6, 9, -9, 32, 6, 32)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(3, 5, 6, 7), PackedInt32Array(3, 7, 4), PackedInt32Array(4, 8, 9, 10, 0), PackedInt32Array(11, 0, 10, 12)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-9, -32, -6.5, -10.5, -32, -4.5, -32, 8, -8.5, 4.5, -9, 32, 5.5, 32, 5.5, 9, 32, 9, 32, -5, 7, -5, 4.5, -20.5, 3.5, -32)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_ghwbf"]
+vertices = PackedVector2Array(5, 4, 8, 32, -8, 32, -11, 9, -4, -9, -32, -9, -32, 7)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 4, 3, 6)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-32, -9, -4, -9, 5, 4, 7.5, 32, -8, 32, -10.5, 8.5, -32, 6.5)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_3saok"]
+vertices = PackedVector2Array(-5, -18, -7, -32, 6, -32, 6, -24, 4, -7, 18, -12, 15, 4, 2, 14, -6, 1, -18, 13, -22, -5, -32, 8, -32, -5)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(4, 3, 5, 6, 7), PackedInt32Array(8, 4, 7, 9), PackedInt32Array(10, 8, 9, 11, 12)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-7, -32, -5, -18, 3.5, -7, -6, 1, -21.5, -4.5, -32, -5, -32, 8, -18, 13, 2, 13.5, 14.5, 3.5, 17.5, -12, 6, -24, 6, -32)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_pbwlm"]
+vertices = PackedVector2Array(-5, -10, -10, -32, 5, -32, 8, -5, -9, 5, -32, 9, -32, -5, 32, 9, 32, -4)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 0), PackedInt32Array(7, 4, 0, 3), PackedInt32Array(7, 3, 8)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-10, -32, -5, -9.5, -32, -4.5, -32, 9, -9, 4.5, 32, 8.5, 32, -4, 8, -4.5, 4.5, -32)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jo74o"]
+texture = ExtResource("12_digcs")
+texture_region_size = Vector2i(64, 64)
+0:1/0 = 0
+0:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_w5n7g")
+0:1/0/metadata/_better_terrain = {
+0: [2],
+8: [2],
+"symmetry": 7,
+"type": 2
+}
+1:1/0 = 0
+1:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_ghwbf")
+1:1/0/metadata/_better_terrain = {
+4: [2],
+8: [2],
+"symmetry": 7,
+"type": 2
+}
+2:2/0 = 0
+2:2/0/metadata/_better_terrain = {
+"type": 1
+}
+1:2/0 = 0
+1:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_3saok")
+1:2/0/metadata/_better_terrain = {
+8: [2],
+12: [2],
+"symmetry": 7,
+"type": 2
+}
+0:2/0 = 0
+0:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_bi16b")
+0:2/0/metadata/_better_terrain = {
+0: [2],
+8: [2],
+"symmetry": 7,
+"type": 2
+}
+0:0/0 = 0
+0:0/0/metadata/_better_terrain = {
+"type": 0
+}
+2:1/0 = 0
+2:1/0/probability = 0.05
+2:1/0/metadata/_better_terrain = {
+"type": 0
+}
+3:1/0 = 0
+3:1/0/probability = 0.05
+3:1/0/metadata/_better_terrain = {
+"type": 0
+}
+4:1/0 = 0
+4:1/0/probability = 0.05
+4:1/0/metadata/_better_terrain = {
+"type": 0
+}
+5:1/0 = 0
+5:1/0/probability = 0.01
+5:1/0/metadata/_better_terrain = {
+"type": 0
+}
+6:1/0 = 0
+6:1/0/probability = 0.01
+6:1/0/metadata/_better_terrain = {
+"type": 0
+}
+3:2/0 = 0
+3:2/0/probability = 0.2
+3:2/0/metadata/_better_terrain = {
+"type": 1
+}
+4:2/0 = 0
+4:2/0/probability = 0.2
+4:2/0/metadata/_better_terrain = {
+"type": 1
+}
+5:2/0 = 0
+5:2/0/probability = 0.2
+5:2/0/metadata/_better_terrain = {
+"type": 1
+}
+0:3/0 = 0
+0:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_aaq0t")
+0:3/0/metadata/_better_terrain = {
+0: [2],
+4: [2],
+8: [2],
+12: [2],
+"symmetry": 7,
+"type": 2
+}
+1:3/0 = 0
+1:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_pbwlm")
+1:3/0/metadata/_better_terrain = {
+0: [2],
+8: [2],
+12: [2],
+"symmetry": 7,
+"type": 2
+}
+2:3/0 = 0
+2:3/0/metadata/_better_terrain = {
+"type": 3
+}
+
+[sub_resource type="TileSet" id="TileSet_efl2w"]
+tile_size = Vector2i(64, 64)
+navigation_layer_0/layers = 1
+sources/0 = SubResource("TileSetAtlasSource_jo74o")
+metadata/_better_terrain = {
+"decoration": ["Decoration", Color(0.411765, 0.411765, 0.411765, 1), 3, [], {
+"path": "res://addons/better-terrain/icons/Decoration.svg"
+}],
+"terrains": [["Dirt", Color(0.11987, 0.986998, 0.545363, 1), 0, [], {
+"path": ""
+}], ["Mountains", Color(0.141479, 0.363414, 0.953125, 1), 0, [], {
+"path": ""
+}], ["Road", Color(0.35759, 0.681827, 0.703518, 1), 0, [], {
+"path": ""
+}], ["Town", Color(0.761643, 0.454397, 0.565979, 1), 0, [], {
+"path": ""
+}]],
+"version": "0.2"
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gqsc8"]
+shader = ExtResource("14_dket0")
+shader_parameter/amplitutde = Vector2(1, 0)
+shader_parameter/speed = Vector2(0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yq70y"]
+bg_color = Color(0.156863, 0.678431, 0.701961, 0.415686)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_blend = true
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+shadow_color = Color(0, 0, 0, 0.396078)
+shadow_size = 10
+shadow_offset = Vector2(10, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_na41l"]
+bg_color = Color(0.494118, 0.376471, 0.309804, 1)
+border_width_left = 25
+border_width_right = 25
+border_color = Color(0.405586, 0.304309, 0.246831, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mjbd1"]
+bg_color = Color(0.593775, 0.461597, 0.386904, 1)
+border_width_left = 25
+border_width_right = 25
+border_color = Color(0.403922, 0.305882, 0.247059, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e40m7"]
+bg_color = Color(0.396841, 0.297293, 0.240789, 1)
+border_width_left = 25
+border_width_right = 25
+border_color = Color(0.403922, 0.305882, 0.247059, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j0qmu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wgy5e"]
+bg_color = Color(0.492248, 0.376513, 0.308377, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.379378, 0.283329, 0.228799, 1)
+border_blend = true
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+shadow_color = Color(0, 0, 0, 0.309804)
+shadow_size = 20
+shadow_offset = Vector2(20, 20)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xt65u"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8016x"]
+bg_color = Color(0.606698, 0.47311, 0.397655, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0, 0, 0, 0.32549)
+shadow_size = 5
+shadow_offset = Vector2(5, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xklxv"]
+bg_color = Color(0.71871, 0.58115, 0.500717, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0, 0, 0, 0.364706)
+shadow_size = 5
+shadow_offset = Vector2(5, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hfgwk"]
+bg_color = Color(0.494118, 0.376471, 0.309804, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.375018, 0.279852, 0.22582, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0, 0, 0, 0.435294)
+shadow_size = 5
+shadow_offset = Vector2(5, 5)
+
+[node name="World" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_u1dsg")
+
+[node name="Info" type="Node2D" parent="."]
+
+[node name="CurrentPlayerInfo" type="Node2D" parent="Info"]
+script = ExtResource("2_kodbe")
+
+[node name="CurrentWorldInfo" type="Node2D" parent="Info"]
+script = ExtResource("3_chn0n")
+
+[node name="CurrentTrainInfo" type="Node2D" parent="Info"]
+script = ExtResource("4_lu2jv")
+
+[node name="CurrentLevelInfo" type="Node2D" parent="Info"]
+script = ExtResource("5_enhsf")
+
+[node name="CurrentEdgeInfo" type="Node2D" parent="Info"]
+script = ExtResource("6_rwmxo")
+
+[node name="CurrentMissionInfo" type="Node2D" parent="Info"]
+script = ExtResource("7_ray2g")
+
+[node name="CurrentGadgetInfo" type="Node2D" parent="Info"]
+script = ExtResource("8_u6yb2")
+
+[node name="CurrentEnemyInfo" type="Node2D" parent="Info"]
+script = ExtResource("9_ibroa")
+
+[node name="Camera" type="Camera2D" parent="."]
+anchor_mode = 0
+zoom = Vector2(0.82, 0.82)
+
+[node name="Music" type="Node2D" parent="."]
+process_mode = 3
+
+[node name="WorldMusic" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource("10_3k0cp")
+volume_db = -10.0
+autoplay = true
+bus = &"Music"
+
+[node name="LevelMusic" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource("11_ar4r5")
+volume_db = -50.0
+bus = &"Music"
+
+[node name="MusicFade" type="AnimationPlayer" parent="Music"]
+libraries = {
+"": SubResource("AnimationLibrary_d88dm")
+}
+
+[node name="WorldMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_efl2w")
+format = 2
+layer_1/name = "Towns"
+layer_1/tile_data = PackedInt32Array()
+script = ExtResource("13_6j7ga")
+
+[node name="RouteLine" type="Line2D" parent="WorldMap"]
+texture_filter = 1
+texture_repeat = 2
+material = SubResource("ShaderMaterial_gqsc8")
+texture = ExtResource("15_tqgxp")
+texture_mode = 1
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+antialiased = true
+
+[node name="WorldUI" type="CanvasLayer" parent="."]
+process_mode = 3
+script = ExtResource("16_s8cdk")
+
+[node name="MarginContainer" type="MarginContainer" parent="WorldUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 875
+
+[node name="GridContainer" type="GridContainer" parent="WorldUI/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="WorldUI/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MoneyLabel" type="RichTextLabel" parent="WorldUI/MarginContainer/GridContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.290196)
+theme_override_colors/font_outline_color = Color(0.926498, 0.980853, 1.54018e-06, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/shadow_outline_size = 5
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("17_rwwbi")
+theme_override_font_sizes/normal_font_size = 30
+text = "Money = $0"
+
+[node name="HSeparator" type="HSeparator" parent="WorldUI/MarginContainer/GridContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="WorldUI/MarginContainer/GridContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_yq70y")
+
+[node name="MissionInventoryContainer" type="GridContainer" parent="WorldUI/MarginContainer/GridContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+columns = 4
+
+[node name="EdgeLabelContainer" type="HBoxContainer" parent="WorldUI/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer2" type="MarginContainer" parent="WorldUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 400
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="RewardsContainer" type="VBoxContainer" parent="WorldUI/MarginContainer2"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TownsUI" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("18_ulvie")
+
+[node name="MarginContainer" type="MarginContainer" parent="TownsUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 400
+theme_override_constants/margin_top = 200
+theme_override_constants/margin_right = 400
+theme_override_constants/margin_bottom = 200
+
+[node name="TabContainer" type="TabContainer" parent="TownsUI/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hovered_color = Color(0, 0, 0, 0.843137)
+theme_override_colors/font_unselected_color = Color(0, 0, 0, 0.615686)
+theme_override_constants/side_margin = 0
+theme_override_constants/icon_separation = 0
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("19_v1qo5")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_na41l")
+theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_mjbd1")
+theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_e40m7")
+theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_j0qmu")
+theme_override_styles/panel = SubResource("StyleBoxFlat_wgy5e")
+theme_override_styles/tabbar_background = SubResource("StyleBoxEmpty_xt65u")
+tab_alignment = 1
+
+[node name="Overview" type="MarginContainer" parent="TownsUI/MarginContainer/TabContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/MarginContainer/TabContainer/Overview"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TownDetails" type="VBoxContainer" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="TownNameLabel" type="RichTextLabel" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/TownDetails"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[center]Townsville[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="TownDescription" type="RichTextLabel" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/TownDetails"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "A bunch of lore A bunch of lore A bunch of lore A bunch of lore A bunch of lore A bunch of lore A bunch of lore A bunch of lore A bunch of lore A bunch of lore A bunch of lore A bunch of lore A bunch of lore "
+fit_content = true
+scroll_active = false
+
+[node name="TownImage" type="TextureRect" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/TownDetails"]
+unique_name_in_owner = true
+modulate = Color(0.494118, 0.376471, 0.309804, 1)
+layout_mode = 2
+size_flags_vertical = 8
+texture = ExtResource("20_fiexs")
+stretch_mode = 5
+
+[node name="TravelButton" type="Button" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/TownDetails"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_8016x")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xklxv")
+text = "Travel to Town"
+
+[node name="MissionDetails" type="TextureRect" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("21_fw0e4")
+expand_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/MissionDetails"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="MissionsContainer" type="VBoxContainer" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/MissionDetails/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="MissionsLabel" type="RichTextLabel" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/MissionDetails/MarginContainer/MissionsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("22_w4hsh")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[center]Missions[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="NoMissionsLabel" type="RichTextLabel" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/MissionDetails/MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("23_kdpb5")
+bbcode_enabled = true
+text = "[center]Visit town to see missions![/center]"
+
+[node name="Trainyard" type="MarginContainer" parent="TownsUI/MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/MarginContainer/TabContainer/Trainyard"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="TownsUI/MarginContainer/TabContainer/Trainyard/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_hfgwk")
+
+[node name="Icon" type="TextureRect" parent="TownsUI/MarginContainer/TabContainer/Trainyard/HBoxContainer/PanelContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("24_o026o")
+stretch_mode = 5
+
+[node name="TrainyardItemsList" type="VBoxContainer" parent="TownsUI/MarginContainer/TabContainer/Trainyard/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="CloseButton" type="TextureButton" parent="TownsUI/MarginContainer"]
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = ExtResource("25_c7tds")
+stretch_mode = 3
+
+[connection signal="pressed" from="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/TownDetails/TravelButton" to="." method="_on_travel_button_pressed"]
+[connection signal="pressed" from="TownsUI/MarginContainer/CloseButton" to="TownsUI" method="_on_close_button_pressed"]

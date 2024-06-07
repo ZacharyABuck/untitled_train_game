@@ -1,16 +1,5 @@
 extends Node
 
-var speed = 30
-
-var train_manager
-var train_engine
-
-var track_positions: Array = []
-
-var cars_inventory = {
-
-}
-
 var cars_roster = {
 	"engine" = {
 		"sprite" = preload("res://sprites/train/engine.png"),
@@ -58,12 +47,4 @@ var train_upgrade_roster = {
 }
 
 var hard_point_icon = preload("res://sprites/train/hard_point_icon.png")
-
-func clear_variables():
-	for car in cars_inventory:
-		if cars_inventory[car].keys().has("hard_points"):
-			for hard_point in cars_inventory[car]["hard_points"]:
-				cars_inventory[car]["hard_points"][hard_point] = null
-			cars_inventory[car]["node"] = null
-	track_positions.clear()
 

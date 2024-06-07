@@ -10,16 +10,16 @@ var car
 
 
 func respawn_gadget(requested_gadget):
-	TrainInfo.cars_inventory[car.index]["gadgets"][get_parent().name] = requested_gadget
+	CurrentRun.world.current_train_info.cars_inventory[car.index]["gadgets"][get_parent().name] = requested_gadget
 	gadget = requested_gadget
 	spawn_gadget(requested_gadget)
 
 
 func add_gadget(requested_gadget):
 	var requested_gadget_info = GadgetInfo.gadget_roster[requested_gadget]
-	var label = LevelInfo.active_level.alert_label
+	var label = CurrentRun.world.current_level_info.active_level.alert_label
 	# CHECK IF PLAYER HAS ENOUGH MONEY
-	if PlayerInfo.current_money < requested_gadget_info["cost"]:
+	if CurrentRun.world.current_player_info.current_money < requested_gadget_info["cost"]:
 		label.text = "Not Enough Money!"
 		label.get_child(0).play("alert_flash_short")
 		label.show()
@@ -30,11 +30,11 @@ func add_gadget(requested_gadget):
 		label.show()
 	# BUILD GADGET
 	else:
-		GadgetInfo.selected_gadget = null
-		TrainInfo.cars_inventory[car.index]["gadgets"][get_parent().name] = requested_gadget
-		LevelInfo.active_level.close_all_ui()
+		CurrentRun.world.current_gadget_info.selected_gadget = null
+		CurrentRun.world.current_train_info.cars_inventory[car.index]["gadgets"][get_parent().name] = requested_gadget
+		CurrentRun.world.current_level_info.active_level.close_all_ui()
 		$BuildSound.play()
-		PlayerInfo.current_money -= requested_gadget_info["cost"]
+		CurrentRun.world.current_player_info.current_money -= requested_gadget_info["cost"]
 		print("New Gadget: " + requested_gadget_info["name"])
 		#delete old gadget if upgrading
 		if gadget != null:
@@ -46,7 +46,7 @@ func add_gadget(requested_gadget):
 		#create gadget
 		spawn_gadget(requested_gadget)
 		gadget = requested_gadget
-		PlayerInfo.state = "default"
+		CurrentRun.world.current_player_info.state = "default"
 
 func spawn_gadget(gadget):
 	var new_gadget = GadgetInfo.gadget_roster[gadget]["scene"].instantiate()

@@ -6,5 +6,5 @@ func handle_level_up():
 	update_player_info()
 
 func update_player_info():
-	PlayerInfo.current_movespeed *= move_speed_multiplier
-	print("Updated player move speed modifier: ", PlayerInfo.current_movespeed)
+	CurrentRun.world.current_player_info.current_movespeed *= move_speed_multiplier
+	print("Updated player move speed modifier: ", CurrentRun.world.current_player_info.current_movespeed)

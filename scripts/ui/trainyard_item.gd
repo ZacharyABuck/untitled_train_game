@@ -16,7 +16,7 @@ func populate(new_upgrade):
 
 func _on_gui_input(event):
 	if event is InputEventMouseButton and event.pressed:
-		if PlayerInfo.current_money >= TrainInfo.train_upgrade_roster[upgrade]["cost"]:
-			PlayerInfo.current_money -= TrainInfo.train_upgrade_roster[upgrade]["cost"]
+		if CurrentRun.world.current_player_info.current_money >= TrainInfo.train_upgrade_roster[upgrade]["cost"]:
+			CurrentRun.world.current_player_info.current_money -= TrainInfo.train_upgrade_roster[upgrade]["cost"]
 			clicked.emit(upgrade)
 			queue_free()

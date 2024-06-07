@@ -61,6 +61,6 @@ func handle_give_experience_signal(value):
 		nextLevelExperience = nextLevelExperience*2
 		currentLevel += 1
 		ExperienceSystem.level_up.emit()
-		ExperienceSystem.level_up_queue += 1
+		level_up_queue += 1
 
 var level_up_queue: int = 0

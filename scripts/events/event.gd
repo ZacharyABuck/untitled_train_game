@@ -10,18 +10,18 @@ func _ready():
 
 #triggers when train enters the area. Specific event code is handled on the specific event scenes, e.g. event_ambush.gd
 func event_triggered():
-	TrainInfo.train_engine.train_whistle_sfx.play()
+	CurrentRun.world.current_train_info.train_engine.train_whistle_sfx.play()
 	triggered = true
-	LevelInfo.active_level.in_event = true
-	difficulty = LevelInfo.difficulty
+	CurrentRun.world.current_level_info.active_level.in_event = true
+	difficulty = CurrentRun.world.current_level_info.difficulty
 
 func set_alert_text_and_play(text):
-	var label = LevelInfo.active_level.alert_label
+	var label = CurrentRun.world.current_level_info.active_level.alert_label
 	label.text = text
 	label.get_child(0).play("alert_flash")
 	label.show()
 
 func event_finished():
-	LevelInfo.active_level.in_event = false
-	LevelInfo.active_level.alert_label.hide()
-	TrainInfo.train_engine.brake_force = 0
+	CurrentRun.world.current_level_info.active_level.in_event = false
+	CurrentRun.world.current_level_info.active_level.alert_label.hide()
+	CurrentRun.world.current_train_info.train_engine.brake_force = 0

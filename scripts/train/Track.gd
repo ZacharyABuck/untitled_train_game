@@ -47,8 +47,8 @@ func on_bogie_at_head(bogie: Bogie, extra: float, is_forward: bool) -> void:
 # The bogie has reached the tail
 func on_bogie_at_tail(bogie: Bogie, extra: float, is_forward: bool) -> void:
 	bogie_at_tail.emit(bogie, extra, is_forward)
-	LevelInfo.active_level.level_complete_button.show()
-	LevelInfo.root.pause_game()
+	CurrentRun.world.current_level_info.active_level.level_complete_button.show()
+	CurrentRun.world.pause_game()
 
 func _update_points():
 	curve_points = curve.get_baked_points()

@@ -7,6 +7,6 @@ func handle_level_up():
 	update_player_info()
 
 func update_player_info():
-	PlayerInfo.current_armor = armor_addition
-	PlayerInfo.active_player.health_component.ARMOR_VALUE = PlayerInfo.current_armor
-	print("ARMOR: " + str(PlayerInfo.active_player.health_component.ARMOR_VALUE))
+	CurrentRun.world.current_player_info.current_armor = armor_addition
+	CurrentRun.world.current_player_info.active_player.health_component.ARMOR_VALUE = CurrentRun.world.current_player_info.current_armor
+	print("ARMOR: " + str(CurrentRun.world.current_player_info.active_player.health_component.ARMOR_VALUE))

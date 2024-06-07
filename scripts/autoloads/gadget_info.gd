@@ -68,5 +68,3 @@ var turret_upgrade_roster = {
 var light_cover_upgrade_roster = {
 	"heavy_cover" = {},
 }
-
-var selected_gadget = null

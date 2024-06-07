@@ -36,7 +36,7 @@ func _ready():
 	animation = ANIMATION
 	character = get_parent()
 	if character is Player:
-		health = PlayerInfo.current_health
+		health = CurrentRun.world.current_player_info.current_health
 	else:
 		health = MAX_HEALTH
 	if HEALTHBAR != null:
@@ -49,7 +49,7 @@ func damage(attack : Attack):
 	
 	if character.is_in_group("enemy"):
 		var new_blood_fx = blood_fx.instantiate()
-		LevelInfo.active_level.add_child(new_blood_fx)
+		CurrentRun.world.current_level_info.active_level.add_child(new_blood_fx)
 		new_blood_fx.global_position = character.global_position
 		new_blood_fx.emitting = true
 	
@@ -67,7 +67,7 @@ func _handle_death():
 		if character.is_in_group("enemy"):
 			var rng = randi_range(1,10)
 			if rng > 5:
-				LevelInfo.spawn_money(character.global_position, character.money)
+				CurrentRun.world.current_level_info.spawn_money(character.global_position, character.money)
 			ExperienceSystem.give_experience.emit(character.experience)
 			character.state = "dead"
 			animation.play("death")
@@ -83,15 +83,15 @@ func _handle_death():
 			character.queue_free()
 		
 		if character.is_in_group("character"):
-			for i in MissionInfo.mission_inventory:
-				if MissionInfo.mission_inventory[i]["character"] == character.character_name:
+			for i in CurrentRun.world.current_mission_info.mission_inventory:
+				if CurrentRun.world.current_mission_info.mission_inventory[i]["character"] == character.character_name:
 					print("Mission Failed: " + str(character.character_name) + " killed!")
 					remove_mission(i)
-					PlayerInfo.targets.erase(i)
+					CurrentRun.world.current_player_info.targets.erase(i)
 					character.queue_free()
 		
 		if character.is_in_group("cargo"):
-			for i in MissionInfo.mission_inventory.keys():
+			for i in CurrentRun.world.current_mission_info.mission_inventory.keys():
 				if i == character.mission:
 					print("Cargo Destroyed!")
 					if character.get_parent().destroyed_cargo.keys().has(i):
@@ -104,12 +104,12 @@ func _handle_death():
 						remove_mission(i)
 						print("Mission Failed: Delivery")
 					else:
-						MissionInfo.mission_inventory[i]["reward"] *= .75
+						CurrentRun.world.current_mission_info.mission_inventory[i]["reward"] *= .75
 					character.queue_free()
 
 func remove_mission(mission_id):
-	MissionInfo.mission_inventory.erase(mission_id)
-	for p in LevelInfo.root.mission_inventory_container.get_children():
+	CurrentRun.world.current_mission_info.mission_inventory.erase(mission_id)
+	for p in CurrentRun.world.mission_inventory_container.get_children():
 		if p.mission_id == mission_id:
 			p.queue_free()
 

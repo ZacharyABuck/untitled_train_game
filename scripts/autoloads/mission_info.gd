@@ -19,6 +19,3 @@ var mission_type_roster = {
 	},
 }
 
-var mission_inventory = {
-	
-}

@@ -37,11 +37,11 @@ func _physics_process(_delta):
 		target = find_target()
 
 func find_target():
-	var rng = PlayerInfo.targets.pick_random()
+	var rng = CurrentRun.world.current_player_info.targets.pick_random()
 	return rng
 
 func _on_wall_detector_body_entered(body):
 	if body.get_parent().is_in_group("car") and boarded == false and state != "dead":
 		active_car = body.get_parent().index
-		call_deferred("reparent", TrainInfo.cars_inventory[active_car]["node"])
+		call_deferred("reparent", CurrentRun.world.current_train_info.cars_inventory[active_car]["node"])
 		state = "boarding"

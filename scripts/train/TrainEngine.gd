@@ -26,8 +26,8 @@ var velocity := 0.0
 
 
 func _ready() -> void:
-	TrainInfo.train_engine = self
-	target_force_percent = TrainInfo.train_stats["speed"]
+	CurrentRun.world.current_train_info.train_engine = self
+	target_force_percent = CurrentRun.world.current_train_info.train_stats["speed"]
 	super()
 	_update_frictions()
 
@@ -38,10 +38,10 @@ func change_towed_mass(mass_delta: float) -> void:
 
 func _process(delta: float) -> void:
 	super(delta)
-	if LevelInfo.active_level.world_light.energy >= .25 and front_light.enabled == false:
+	if CurrentRun.world.current_level_info.active_level.world_light.energy >= .25 and front_light.enabled == false:
 		front_light.enabled = true
 		lights_on()
-	if LevelInfo.active_level.world_light.energy <= .25 and front_light.enabled == true:
+	if CurrentRun.world.current_level_info.active_level.world_light.energy <= .25 and front_light.enabled == true:
 		front_light.enabled = false
 
 func lights_on():

@@ -25,8 +25,8 @@ func find_random_mission():
 	$HBoxContainer/VBoxContainer/MissionName.text = "[center]" + random_mission["name"] + ": " + str(random_character) + "[/center]"
 	$HBoxContainer/VBoxContainer/MissionDescription.text = random_mission["description"] + str(destination)
 	
-	var distance = WorldInfo.towns_inventory[destination]["scene"].global_position.distance_to\
-	(WorldInfo.towns_inventory[WorldInfo.active_town]["scene"].global_position)
+	var distance = CurrentRun.world.current_world_info.towns_inventory[destination]["scene"].global_position.distance_to\
+	(CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"].global_position)
 	
 	var random_reward = random_mission["reward"] + round(distance*.01)
 	$HBoxContainer/VBoxContainer/Reward.text = "Reward: " + str(random_reward)
@@ -35,8 +35,8 @@ func find_random_mission():
 func find_random_destination():
 	var valid_destination: bool = false
 	while valid_destination == false:
-		var random_destination = WorldInfo.towns_inventory.keys().pick_random()
-		if random_destination == WorldInfo.active_town:
+		var random_destination = CurrentRun.world.current_world_info.towns_inventory.keys().pick_random()
+		if random_destination == CurrentRun.world.current_world_info.active_town:
 			pass
 		else:
 			return random_destination
@@ -44,8 +44,8 @@ func find_random_destination():
 func _on_gui_input(event):
 	if event is InputEventMouseButton and event.pressed:
 		var id = randi()
-		if MissionInfo.mission_inventory.keys().size() < 3:
-			MissionInfo.mission_inventory[id] = \
+		if CurrentRun.world.current_mission_info.mission_inventory.keys().size() < 3:
+			CurrentRun.world.current_mission_info.mission_inventory[id] = \
 			{"type" = mission_type,
 			"destination" = destination,
 			"character" = character,

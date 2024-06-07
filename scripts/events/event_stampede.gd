@@ -22,7 +22,7 @@ func stampede_triggered(area):
 		end_pos = $EndPosition.global_position
 		print("Event Triggered: Stampede")
 		set_alert_text_and_play(alert_text)
-		TrainInfo.train_engine.brake_force = 5
+		CurrentRun.world.current_train_info.train_engine.brake_force = 5
 		
 		spawn_timer.start()
 

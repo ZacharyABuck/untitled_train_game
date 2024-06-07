@@ -3,7 +3,7 @@ extends PanelContainer
 var mission_id
 
 func populate(mission):
-	var mission_details = MissionInfo.mission_inventory[mission]
+	var mission_details = CurrentRun.world.current_mission_info.mission_inventory[mission]
 	mission_id = mission
 	if mission_details.keys().has("icon"):
 		$HBoxContainer/CharacterIcon.texture = mission_details["icon"]

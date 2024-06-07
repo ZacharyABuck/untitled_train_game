@@ -20,8 +20,8 @@ var state = "moving"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var key = TrainInfo.cars_inventory.keys().pick_random()
-	target = TrainInfo.cars_inventory[key]["node"]
+	var key = CurrentRun.world.current_train_info.cars_inventory.keys().pick_random()
+	target = CurrentRun.world.current_train_info.cars_inventory[key]["node"]
 	start_pos = global_position
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -35,8 +35,8 @@ func _physics_process(delta):
 		if global_position.distance_to(target.global_position) <= 5:
 			money_stolen = true
 			target = start_pos
-			if PlayerInfo.current_money >= 0:
-				PlayerInfo.current_money -= clamp(steal_amount,0,PlayerInfo.current_money)
+			if CurrentRun.world.current_player_info.current_money >= 0:
+				CurrentRun.world.current_player_info.current_money -= clamp(steal_amount,0,CurrentRun.world.current_player_info.current_money)
 				return_amount = steal_amount
 	if target != null and money_stolen and state == "moving":
 		look_at(target)
@@ -47,5 +47,5 @@ func _physics_process(delta):
 func _on_animated_sprite_2d_animation_finished():
 	if $AnimatedSprite2D.animation == "death":
 		if money_stolen:
-			PlayerInfo.current_money += return_amount
+			CurrentRun.world.current_player_info.current_money += return_amount
 		queue_free()

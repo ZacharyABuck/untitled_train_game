@@ -4,7 +4,7 @@ class_name Ranged_Weapon
 @export var attack_delay_timer : Timer
 @export var gunshot_sound : AudioStreamPlayer2D
 
-@onready var player = PlayerInfo.active_player
+@onready var player = CurrentRun.world.current_player_info.active_player
 
 # -- BASE WEAPON STATS -- #
 var base_attack_delay: float
@@ -22,7 +22,7 @@ var current_lifetime: float
 var current_bullet
 
 func _set_current_variables_and_connect_timer():
-	current_attack_delay = base_attack_delay * PlayerInfo.current_attack_delay_modifier
+	current_attack_delay = base_attack_delay * CurrentRun.world.current_player_info.current_attack_delay_modifier
 	current_projectile_speed = base_projectile_speed
 	current_damage = base_damage
 	current_lifetime = base_lifetime
@@ -38,7 +38,7 @@ func shoot():
 		can_shoot = false
 		gunshot_sound.play()
 		var new_bullet = _build_bullet(current_bullet.instantiate())
-		LevelInfo.active_level.bullets.add_child(new_bullet)
+		CurrentRun.world.current_level_info.active_level.bullets.add_child(new_bullet)
 		attack_delay_timer.wait_time = current_attack_delay
 		attack_delay_timer.start()
 
@@ -49,7 +49,7 @@ func _on_attack_timer_timeout():
 		shoot()
 
 func _build_bullet(b):
-	b.global_position = PlayerInfo.active_player.global_position
+	b.global_position = CurrentRun.world.current_player_info.active_player.global_position
 	b.speed = current_projectile_speed
 	b.damage = current_damage
 	b.target = get_global_mouse_position()

@@ -1,18 +1,18 @@
 extends Node2D
 
 func check_for_edges():
-	for edge in EdgeInfo.edge_inventory.keys():
+	for edge in CurrentRun.world.current_edge_info.edge_inventory.keys():
 		respawn_edge(edge)
 		if EdgeInfo.edge_roster[edge]["update"] == true:
-			for level in range(1, EdgeInfo.edge_inventory[edge]["level"], 1):
-				var new_level = _increase_edge_level(EdgeInfo.edge_inventory[edge]["scene"])
-				if new_level == EdgeInfo.edge_inventory[edge]["level"]:
+			for level in range(1, CurrentRun.world.current_edge_info.edge_inventory[edge]["level"], 1):
+				var new_level = _increase_edge_level(CurrentRun.world.current_edge_info.edge_inventory[edge]["scene"])
+				if new_level == CurrentRun.world.current_edge_info.edge_inventory[edge]["level"]:
 					break
 
 func respawn_edge(edge):
 	var edge_scene = EdgeInfo.edge_roster[edge]["scene"].instantiate()
 	add_child(edge_scene)
-	EdgeInfo.edge_inventory[edge]["scene"] = edge_scene
+	CurrentRun.world.current_edge_info.edge_inventory[edge]["scene"] = edge_scene
 
 func add_edge(edge_reference):
 	# loop through all Child Edges to see if one already exists.
@@ -25,12 +25,12 @@ func add_edge(edge_reference):
 			existing_edge_found = true
 	if existing_edge_found:
 		var level = _increase_edge_level(existing_edge)
-		EdgeInfo.edge_inventory[edge_reference]["level"] = level
+		CurrentRun.world.current_edge_info.edge_inventory[edge_reference]["level"] = level
 	else:
 		var edge_scene = EdgeInfo.edge_roster[edge_reference]["scene"].instantiate()
 		add_child(edge_scene)
 		edge_scene.update_player_info()
-		EdgeInfo.edge_inventory[edge_reference] = {"scene" = edge_scene, "level" = 1}
+		CurrentRun.world.current_edge_info.edge_inventory[edge_reference] = {"scene" = edge_scene, "level" = 1}
 
 func _increase_edge_level(edge : Edge):
 	edge.edge_level += 1

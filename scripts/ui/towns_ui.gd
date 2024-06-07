@@ -17,8 +17,8 @@ var mission_panel = preload("res://scenes/ui/mission_panel.tscn")
 
 func populate_town_info(town):
 	#active town clicked
-	WorldInfo.selected_town = town
-	if WorldInfo.active_town == town.town_name:
+	CurrentRun.world.current_world_info.selected_town = town
+	if CurrentRun.world.current_world_info.active_town == town.town_name:
 		no_missions_label.hide()
 		travel_button.hide()
 		for i in missions_container.get_children():

@@ -32,8 +32,8 @@ func generate_items():
 
 func _on_item_clicked(index, _at_position, _mouse_button_index):
 	var item = item_list.get_item_metadata(index)
-	if items_roster[item]["cost"] <= PlayerInfo.current_money:
-		PlayerInfo.current_money -= items_roster[item]["cost"]
+	if items_roster[item]["cost"] <= CurrentRun.world.current_player_info.current_money:
+		CurrentRun.world.current_player_info.current_money -= items_roster[item]["cost"]
 		match item:
 			"Repair Train":
 				repair_train()
@@ -42,26 +42,26 @@ func _on_item_clicked(index, _at_position, _mouse_button_index):
 
 func repair_train():
 	print("Repair Train")
-	for i in TrainInfo.cars_inventory:
-		TrainInfo.cars_inventory[i]["node"].health = TrainInfo.cars_inventory[i]["node"].max_health
+	for i in CurrentRun.world.current_train_info.cars_inventory:
+		CurrentRun.world.current_train_info.cars_inventory[i]["node"].health = CurrentRun.world.current_train_info.cars_inventory[i]["node"].max_health
 
 func shop_triggered(area):
 	if area.get_parent().is_in_group("car") and triggered == false:
 		event_triggered()
 		print("Event Triggered: Shop")
 		set_alert_text_and_play(alert_text)
-		TrainInfo.train_engine.brake_force = 0
+		CurrentRun.world.current_train_info.train_engine.brake_force = 0
 		$Sprite2D/EnterButton.show()
 
 func _on_enter_button_pressed():
 	$Sprite2D/EnterButton.hide()
-	LevelInfo.active_level.ui_open = true
+	CurrentRun.world.current_level_info.active_level.ui_open = true
 	Engine.set_time_scale(.2)
 	$CanvasLayer.show()
 
 func _on_leave_button_pressed():
 	print("Leave Button Pressed")
 	Engine.set_time_scale(1)
-	LevelInfo.active_level.ui_open = false
+	CurrentRun.world.current_level_info.active_level.ui_open = false
 	$CanvasLayer.hide()
 	event_finished()

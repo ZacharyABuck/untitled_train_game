@@ -22,6 +22,8 @@ var world_map_player = preload("res://scenes/world_map_player.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	await get_tree().create_timer(.2).timeout
+	
 	altitude.frequency = .05
 	altitude.seed = randi()
 	var new_cells = spawn_map(starting_coords)
@@ -54,11 +56,11 @@ func handle_towns():
 			var valid_town: bool = false
 			while valid_town == false:
 				var town_info = WorldInfo.towns_roster.keys().pick_random()
-				if WorldInfo.towns_inventory.keys().has(town_info):
+				if CurrentRun.world.current_world_info.towns_inventory.keys().has(town_info):
 					pass
 				else:
-					WorldInfo.towns_inventory[town_info] = WorldInfo.towns_roster[town_info]
-					WorldInfo.towns_inventory[town_info]["scene"] = new_town
+					CurrentRun.world.current_world_info.towns_inventory[town_info] = WorldInfo.towns_roster[town_info]
+					CurrentRun.world.current_world_info.towns_inventory[town_info]["scene"] = new_town
 					new_town.set_town_info(town_info)
 					valid_town = true
 		
@@ -147,31 +149,31 @@ func spawn_town():
 							return neighbor
 
 func spawn_player():
-	if LevelInfo.destination == null:
-		var random_town = WorldInfo.towns_inventory.keys().pick_random()
+	if CurrentRun.world.current_level_info.destination == null:
+		var random_town = CurrentRun.world.current_world_info.towns_inventory.keys().pick_random()
 		var random_town_pos = find_town_pos(random_town)
-		WorldInfo.active_town = random_town
+		CurrentRun.world.current_world_info.active_town = random_town
 		var road_pos = find_closest_road(random_town_pos)
 		
 		var new_player = world_map_player.instantiate()
 		new_player.global_position = map_to_local(road_pos)
 		add_child(new_player)
 	else:
-		var destination_town = LevelInfo.destination
+		var destination_town = CurrentRun.world.current_level_info.destination
 		var destination_town_pos = find_town_pos(destination_town)
 		var road_pos = find_closest_road(destination_town_pos)
 		
-		WorldInfo.world_map_player.global_position = map_to_local(road_pos)
-		WorldInfo.active_town = LevelInfo.destination
-		LevelInfo.destination = null
-	print("Active Town: " + WorldInfo.active_town)
-	var vector = WorldInfo.world_map_player.global_position - Vector2(960, 540)
+		CurrentRun.world.current_world_info.world_map_player.global_position = map_to_local(road_pos)
+		CurrentRun.world.current_world_info.active_town = CurrentRun.world.current_level_info.destination
+		CurrentRun.world.current_level_info.destination = null
+	print("Active Town: " + CurrentRun.world.current_world_info.active_town)
+	var vector = CurrentRun.world.current_world_info.world_map_player.global_position - Vector2(960, 540)
 	var coords = local_to_map(vector)
 	spawn_map(coords)
 
 func find_town_pos(town_name):
 	for i in town_cells:
-		if i == local_to_map(WorldInfo.towns_inventory[town_name]["scene"].global_position):
+		if i == local_to_map(CurrentRun.world.current_world_info.towns_inventory[town_name]["scene"].global_position):
 			return i
 
 func find_closest_road(town_pos):
@@ -182,7 +184,7 @@ func find_closest_road(town_pos):
 
 func town_mouse_entered(town_node):
 	var route_points: PackedVector2Array = []
-	var start = WorldInfo.world_map_player.global_position
+	var start = CurrentRun.world.current_world_info.world_map_player.global_position
 	var end = town_node.global_position
 	route_points.append(start)
 	route_points.append(end)

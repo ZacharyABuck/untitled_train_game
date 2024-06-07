@@ -1,8 +1,5 @@
 extends Node
 
-var selection_active = false
-var selected_edge = null
-
 var edge_roster = {
 	"fan_the_hammer" = {
 		"name" = "Fan the Hammer",
@@ -54,6 +51,3 @@ var edge_roster = {
 	},
 }
 
-var edge_inventory = {
-	
-}

@@ -9,7 +9,7 @@ extends CanvasLayer
 
 func _on_return_to_game_button_button_up():
 	hide()
-	owner.unpause_game()
+	CurrentRun.world.unpause_game()
 
 func reset():
 	audio_settings.hide()

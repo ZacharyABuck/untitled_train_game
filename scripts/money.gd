@@ -15,7 +15,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	if state == "moving_to_player":
-		var target = PlayerInfo.active_player
+		var target = CurrentRun.world.current_player_info.active_player
 		move_and_collide(global_position.direction_to(target.global_position)*(speed*delta))
 		speed += 25
 
@@ -28,7 +28,7 @@ func initial_force():
 func _on_player_detector_body_entered(body):
 	if body.is_in_group("player"):
 		$PlayerDetector.set_collision_mask_value(1, false)
-		PlayerInfo.current_money += value
+		CurrentRun.world.current_player_info.current_money += value
 		$Sprite2D.hide()
 		sfx.play()
 		await sfx.finished

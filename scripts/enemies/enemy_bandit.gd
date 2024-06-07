@@ -16,7 +16,7 @@ var target
 @export_enum("moving", "boarding", "attacking", "idle", "dead") var state: String
 
 func _ready():
-	target = PlayerInfo.active_player
+	target = CurrentRun.world.current_player_info.active_player
 	if elite:
 		upgrade()
 

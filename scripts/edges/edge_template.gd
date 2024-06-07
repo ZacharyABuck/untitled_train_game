@@ -1,7 +1,7 @@
 extends Node2D
 class_name Edge
 
-@onready var player = PlayerInfo.active_player
+@onready var player = CurrentRun.world.current_player_info.active_player
 var edge_level: int = 1
 var category: String
 var edge_name: String
