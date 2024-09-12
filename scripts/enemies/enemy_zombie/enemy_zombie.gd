@@ -38,6 +38,8 @@ func _physics_process(_delta):
 
 func find_target():
 	var rng = CurrentRun.world.current_player_info.targets.pick_random()
+	while rng.is_in_group("cargo"):
+		rng = CurrentRun.world.current_player_info.targets.pick_random()
 	return rng
 
 func _on_wall_detector_body_entered(body):

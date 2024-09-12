@@ -1,0 +1,123 @@
+[gd_scene load_steps=15 format=3 uid="uid://crvn3bbdxivc2"]
+
+[ext_resource type="Script" path="res://scripts/enemies/enemy_flying.gd" id="1_ysfo7"]
+[ext_resource type="Texture2D" uid="uid://bu6r6tj006r8u" path="res://sprites/enemies/flying_enemy_sprite_sheet.png" id="3_uk744"]
+
+[sub_resource type="Animation" id="Animation_s7gpp"]
+resource_name = "landing"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Animations/ShadowSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 85), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gitah"]
+_data = {
+"landing": SubResource("Animation_s7gpp")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2knyd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_33gut"]
+atlas = ExtResource("3_uk744")
+region = Rect2(20, 0, 20, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xdoxw"]
+atlas = ExtResource("3_uk744")
+region = Rect2(60, 0, 20, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rjb7v"]
+atlas = ExtResource("3_uk744")
+region = Rect2(0, 0, 20, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8bbb"]
+atlas = ExtResource("3_uk744")
+region = Rect2(20, 0, 20, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jlplk"]
+atlas = ExtResource("3_uk744")
+region = Rect2(0, 0, 20, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5c4q5"]
+atlas = ExtResource("3_uk744")
+region = Rect2(20, 0, 20, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_33qja"]
+atlas = ExtResource("3_uk744")
+region = Rect2(40, 0, 20, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6j5yy"]
+atlas = ExtResource("3_uk744")
+region = Rect2(60, 0, 20, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ydi6d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_33gut")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xdoxw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rjb7v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e8bbb")
+}],
+"loop": true,
+"name": &"attacking",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jlplk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5c4q5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_33qja")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6j5yy")
+}],
+"loop": true,
+"name": &"moving",
+"speed": 5.0
+}]
+
+[node name="EnemyFlying" type="RigidBody2D"]
+script = ExtResource("1_ysfo7")
+
+[node name="Animations" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gitah")
+}
+
+[node name="ShadowSprite" type="AnimatedSprite2D" parent="Animations"]
+modulate = Color(0, 0, 0, 0.501961)
+texture_filter = 1
+material = SubResource("ShaderMaterial_2knyd")
+position = Vector2(1, 85)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_ydi6d")
+animation = &"moving"
+autoplay = "moving"
+frame_progress = 0.889826
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Animations"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_2knyd")
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_ydi6d")
+animation = &"moving"
+autoplay = "moving"
+frame_progress = 0.889826

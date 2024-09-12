@@ -2,6 +2,9 @@ extends PanelContainer
 
 var mission_id
 
+@onready var time_limit_label = $HBoxContainer/CharacterIcon/TimeLimitLabel
+
+
 func populate(mission):
 	var mission_details = CurrentRun.world.current_mission_info.mission_inventory[mission]
 	mission_id = mission
@@ -18,3 +21,5 @@ func populate(mission):
 			description_text = "Deliver cargo to \n" + str(mission_details["destination"] + "  $" + str(mission_details["reward"]))
 	
 	$HBoxContainer/VBoxContainer/MissionDescriptionLabel.text = description_text
+	
+	time_limit_label.text = str(mission_details["time_limit"])

@@ -21,6 +21,8 @@ var animations
 var valid_hitbox_types
 var lifetime = 3
 
+var active_buffs: Array = []
+
 func _ready():
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	hitbox = HITBOX
@@ -43,6 +45,7 @@ func _on_area_2d_area_entered(area):
 		animations.play("hit")
 		var new_hitbox : HurtboxComponent = area
 		var attack = Attack.new()
+		attack.active_buffs = active_buffs
 		attack.attack_damage = damage
 		new_hitbox.damage(attack)
 		if SFX:

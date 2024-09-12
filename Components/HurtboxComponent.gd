@@ -11,6 +11,9 @@ class_name HurtboxComponent
 func damage(attack: Attack):
 	if health_component:
 		health_component.damage(attack)
+		health_component.spawn_particles(health_component.blood_fx)
+		for buff in attack.active_buffs:
+			health_component.process_buffs(buff)
 		play_sfx()
 
 func play_sfx():

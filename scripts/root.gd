@@ -47,6 +47,8 @@ func restart_button_button_up():
 	
 	fade_in()
 
+#EFFECTS FUNCTIONS
+
 func fade_to_black(duration):
 	var fade_tween = create_tween()
 	fade_tween.tween_property(black_rect, "modulate", Color.WHITE, duration)

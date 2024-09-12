@@ -24,7 +24,7 @@ outline_size = 5
 outline_color = Color(0.435294, 0.388235, 0, 1)
 
 [node name="MissionInventoryPanel" type="PanelContainer"]
-custom_minimum_size = Vector2(256, 64)
+custom_minimum_size = Vector2(312, 64)
 theme_override_styles/panel = SubResource("StyleBoxFlat_rhcox")
 script = ExtResource("1_bp06l")
 
@@ -35,6 +35,19 @@ layout_mode = 2
 layout_mode = 2
 texture = ExtResource("1_pja34")
 expand_mode = 2
+
+[node name="TimeLimitLabel" type="RichTextLabel" parent="HBoxContainer/CharacterIcon"]
+layout_mode = 2
+offset_top = -11.0
+offset_right = 57.0
+offset_bottom = 55.0
+theme_override_colors/default_color = Color(1, 1, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "3"
+scroll_active = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2

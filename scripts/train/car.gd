@@ -21,7 +21,7 @@ extends Node2D
 
 var character = preload("res://scenes/characters/character.tscn")
 var cargo = preload("res://scenes/train/cargo.tscn")
-var hard_point = preload("res://scenes/hard_point.tscn")
+var hard_point = preload("res://scenes/train/hard_point.tscn")
 
 var max_health: float
 var health: float
@@ -107,4 +107,5 @@ func spawn_cargo():
 				var random_pos_mods = [-25,25]
 				new_cargo.global_position = Vector2(random_pos.x + random_pos_mods.pick_random(), random_pos.y)
 				new_cargo.mission = i
+				CurrentRun.world.current_player_info.targets.append(new_cargo)
 				

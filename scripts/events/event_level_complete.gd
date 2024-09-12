@@ -12,3 +12,9 @@ func level_complete(area):
 		
 		CurrentRun.world.level_complete()
 		
+
+
+func _on_outer_area_area_entered(area):
+	if area.get_parent().is_in_group("car"):
+		#var direction = global_position.direction_to(area.global_position)
+		look_at(area.get_parent().global_position)

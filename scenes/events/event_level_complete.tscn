@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://cdrv3qub8sy1k"]
+[gd_scene load_steps=5 format=3 uid="uid://cdrv3qub8sy1k"]
 
 [ext_resource type="Script" path="res://scripts/events/event_level_complete.gd" id="1_oebb1"]
+[ext_resource type="Texture2D" uid="uid://bjelo13dmytyc" path="res://sprites/decor/fort_walls.png" id="2_yyaf5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b5fgu"]
 size = Vector2(500, 500)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a4m14"]
+radius = 3526.0
 
 [node name="EventLevelComplete" type="Area2D"]
 collision_layer = 128
@@ -14,4 +18,17 @@ script = ExtResource("1_oebb1")
 shape = SubResource("RectangleShape2D_b5fgu")
 debug_color = Color(1, 1, 1, 0.329412)
 
+[node name="Walls" type="Sprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(1.5, 1)
+texture = ExtResource("2_yyaf5")
+
+[node name="OuterArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OuterArea"]
+shape = SubResource("CircleShape2D_a4m14")
+
 [connection signal="area_entered" from="." to="." method="level_complete"]
+[connection signal="area_entered" from="OuterArea" to="." method="_on_outer_area_area_entered"]

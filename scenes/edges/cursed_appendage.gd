@@ -5,8 +5,6 @@ extends Edge
 @onready var melee_attack_component = $MeleeAttackComponent
 @onready var attack_timer = $AttackTimer
 
-
-var damage: float = 1
 var target
 
 func _ready():
@@ -17,12 +15,11 @@ func _physics_process(_delta):
 	if target == null:
 		check_for_targets()
 	else:
-		melee_attack_component.DAMAGE = damage
 		look_at(target.global_position)
 		melee_attack_component.attack_if_target_in_range(target)
 
 func handle_level_up():
-	damage += 1
+	melee_attack_component.DAMAGE += 1
 	update_player_info()
 
 func update_player_info():

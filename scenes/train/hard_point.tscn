@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://d3gyokft7sh4r"]
 
 [ext_resource type="Script" path="res://scripts/train/hard_point.gd" id="1_eq7aa"]
-[ext_resource type="PackedScene" uid="uid://0sbdevh4bi3d" path="res://scenes/radial_menu.tscn" id="2_jp8ie"]
+[ext_resource type="PackedScene" uid="uid://0sbdevh4bi3d" path="res://scenes/ui/radial_menu.tscn" id="2_jp8ie"]
 [ext_resource type="AudioStream" uid="uid://dh4kel1p4yghr" path="res://sounds/train/drill_01.wav" id="4_xo87c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hapx7"]

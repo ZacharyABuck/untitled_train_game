@@ -262,7 +262,7 @@ TARGET_TYPES = {
 "terrain": false
 }
 ATTACK_TIMER = NodePath("../AttackTimer")
-DAMAGE = 5.0
+DAMAGE = 1.0
 TARGET_AREA = NodePath("CollisionShape2D")
 ANIMATIONS = NodePath("../AnimatedSprite2D")
 

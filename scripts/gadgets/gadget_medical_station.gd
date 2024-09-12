@@ -22,6 +22,7 @@ func _process(delta):
 			$Ring.hide()
 
 func heal_player(amount):
+	CurrentRun.world.current_player_info.current_health += amount
 	CurrentRun.world.current_player_info.active_player.health_component.health += amount
 	CurrentRun.world.current_player_info.active_player.health_component.healthbar.value = CurrentRun.world.current_player_info.active_player.health_component.health
 	if !$AnimationPlayer.is_playing():

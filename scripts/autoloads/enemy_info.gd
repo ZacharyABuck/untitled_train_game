@@ -21,16 +21,16 @@ var enemy_roster = {
 		"speed" = 100,
 		"experience" = 3,
 	},
-	"ghost" = {
-		"scene" = load("res://scenes/enemies/enemy_ghost.tscn"),
-		"rarity" = 80,
-		"health" = 1,
-		"type" = "thief",
-		"damage" = 0.0,
-		"money" = 0,
-		"speed" = 200,
-		"experience" = 2,
-	},
+	#"ghost" = {
+		#"scene" = load("res://scenes/enemies/enemy_ghost.tscn"),
+		#"rarity" = 80,
+		#"health" = 1,
+		#"type" = "thief",
+		#"damage" = 0.0,
+		#"money" = 0,
+		#"speed" = 200,
+		#"experience" = 2,
+	#},
 }
 
 var elite_modifiers = {

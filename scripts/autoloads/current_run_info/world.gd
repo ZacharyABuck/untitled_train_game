@@ -34,6 +34,7 @@ func start_game(direction, distance, terrain):
 	world_map.hide()
 	world_ui.hide()
 	
+	CurrentRun.world.current_player_info.targets.clear()
 	CurrentRun.world.current_level_info.clear_variables()
 	CurrentRun.world.current_train_info.clear_variables()
 
@@ -102,12 +103,13 @@ func find_direction():
 
 func find_distance():
 	var distance = CurrentRun.world.current_world_info.world_map_player.global_position.distance_to(CurrentRun.world.current_world_info.selected_town.global_position)
-	var adjusted_distance = round(clamp(distance*.005,0,8))
+	var adjusted_distance = round(clamp(distance*.005,3,8))
 	return adjusted_distance
 
 func level_complete():
 	music_fade.play("level_to_world")
 	await CurrentRun.root.fade_to_black(2)
+	
 	
 	world_ui.refresh_edges()
 	camera.enabled = true
@@ -138,15 +140,26 @@ func check_missions():
 		if CurrentRun.world.current_mission_info.mission_inventory[i]["destination"] == CurrentRun.world.current_world_info.active_town:
 			print("Mission Complete: " + str(CurrentRun.world.current_mission_info.mission_inventory[i]["type"]) + " " + str(CurrentRun.world.current_mission_info.mission_inventory[i]["character"]))
 			complete_mission(i)
+		else:
+			CurrentRun.world.current_mission_info.mission_inventory[i]["time_limit"] -= 1
+			#Mission Failed
+			if CurrentRun.world.current_mission_info.mission_inventory[i]["time_limit"] <= 0:
+				world_ui.spawn_reward_panel(false, CharacterInfo.characters_roster[CurrentRun.world.current_mission_info.mission_inventory[i]["character"]]["icon"], CurrentRun.world.current_mission_info.mission_inventory[i]["reward"])
+				CurrentRun.world.current_mission_info.mission_inventory.erase(i)
+	for i in mission_inventory_container.get_children():
+		if !CurrentRun.world.current_mission_info.mission_inventory.keys().has(i.mission_id):
+			i.queue_free()
+		else:
+			i.time_limit_label.text = str(CurrentRun.world.current_mission_info.mission_inventory[i.mission_id]["time_limit"])
 
 func complete_mission(mission):
 	CurrentRun.world.current_player_info.current_money += CurrentRun.world.current_mission_info.mission_inventory[mission]["reward"]
 	update_money_label()
 	if CurrentRun.world.current_mission_info.mission_inventory[mission].keys().has("icon"):
-		world_ui.spawn_reward_panel(CurrentRun.world.current_mission_info.mission_inventory[mission]["icon"], CurrentRun.world.current_mission_info.mission_inventory[mission]["reward"])
+		world_ui.spawn_reward_panel(true, CurrentRun.world.current_mission_info.mission_inventory[mission]["icon"], CurrentRun.world.current_mission_info.mission_inventory[mission]["reward"])
 	else: 
 		var character_icon = CharacterInfo.characters_roster[CurrentRun.world.current_mission_info.mission_inventory[mission]["character"]]["icon"]
-		world_ui.spawn_reward_panel(character_icon, CurrentRun.world.current_mission_info.mission_inventory[mission]["reward"])
+		world_ui.spawn_reward_panel(true, character_icon, CurrentRun.world.current_mission_info.mission_inventory[mission]["reward"])
 	for i in mission_inventory_container.get_children():
 		if i.mission_id == mission:
 			i.queue_free()

@@ -18,7 +18,7 @@ var town_count: int = 10
 var town_cells = []
 
 var town = preload("res://scenes/town.tscn")
-var world_map_player = preload("res://scenes/world_map_player.tscn")
+var world_map_player = preload("res://scenes/player/world_map_player.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

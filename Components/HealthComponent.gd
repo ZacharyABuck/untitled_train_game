@@ -19,6 +19,7 @@ class_name HealthComponent
 
 var money = preload("res://scenes/money.tscn")
 var blood_fx = preload("res://scenes/fx/blood_fx.tscn")
+var poison_fx = preload("res://scenes/fx/poison_fx.tscn")
 
 var health : float
 #var armor : float
@@ -28,6 +29,9 @@ var has_healthbar : bool
 var character
 var animation
 var healthbar = false
+
+@onready var poison_timer = $PoisonTimer
+
 
 
 func _ready():
@@ -47,12 +51,6 @@ func damage(attack : Attack):
 	
 	health -= clamp(final_damage, 1, MAX_HEALTH)
 	
-	if character.is_in_group("enemy"):
-		var new_blood_fx = blood_fx.instantiate()
-		CurrentRun.world.current_level_info.active_level.add_child(new_blood_fx)
-		new_blood_fx.global_position = character.global_position
-		new_blood_fx.emitting = true
-	
 	if character is Player:
 		character.player_hurt(final_damage)
 	
@@ -61,6 +59,25 @@ func damage(attack : Attack):
 	if health <= 0:
 		_handle_death()
 
+func process_buffs(buff):
+	match buff:
+		"poison":
+			if poison_timer.is_stopped():
+				poison_timer.start()
+
+func _on_poison_timer_timeout():
+	var poison_damage = CurrentRun.world.current_player_info.poison_damage
+	var poison_tick = Attack.new()
+	poison_tick.attack_damage = poison_damage
+	damage(poison_tick)
+	spawn_particles(poison_fx)
+	get_parent().modulate = Color.WEB_GREEN
+
+func spawn_particles(fx):
+	var new_fx = fx.instantiate()
+	CurrentRun.world.current_level_info.active_level.add_child(new_fx)
+	new_fx.global_position = character.global_position
+	new_fx.emitting = true
 
 func _handle_death():
 	if is_killable:
@@ -94,6 +111,7 @@ func _handle_death():
 					character.queue_free()
 		
 		if character.is_in_group("cargo"):
+			CurrentRun.world.current_player_info.targets.erase(character)
 			for i in CurrentRun.world.current_mission_info.mission_inventory.keys():
 				if i == character.mission:
 					print("Cargo Destroyed!")
@@ -127,3 +145,4 @@ func _initialize_healthbar():
 		healthbar = HEALTHBAR
 		healthbar.max_value = MAX_HEALTH
 		healthbar.value = health
+

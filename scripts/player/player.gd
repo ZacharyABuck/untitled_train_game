@@ -10,6 +10,8 @@ class_name Player
 @onready var running_sfx = $RunningSFX
 @onready var repair_sfx = $RepairSFX
 @onready var camera = $Camera2D
+@onready var buff = $Buff
+
 
 
 var active_car
@@ -28,7 +30,6 @@ signal dead
 # -- BASE FUNCTIONS -- #
 func _ready():
 	CurrentRun.world.current_player_info.active_player = self
-	#CurrentRun.world.current_player_info.active_player = self
 	CurrentRun.world.current_player_info.targets.append(self)
 	camera.make_current()
 	health_component.MAX_HEALTH = CurrentRun.world.current_player_info.base_max_health

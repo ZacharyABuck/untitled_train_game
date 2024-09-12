@@ -1,15 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://dc2bi7y1acmc8"]
+[gd_scene load_steps=7 format=3 uid="uid://dc2bi7y1acmc8"]
 
 [ext_resource type="Texture2D" uid="uid://bpf7ssbhn8k1w" path="res://sprites/train/crate.png" id="1_8trct"]
 [ext_resource type="Script" path="res://components/HurtboxComponent.gd" id="1_ik3mv"]
 [ext_resource type="Script" path="res://scripts/train/cargo.gd" id="1_qydvn"]
 [ext_resource type="Script" path="res://components/HealthComponent.gd" id="2_rq1u3"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_bgo4r"]
+radius = 21.0238
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cuxve"]
 size = Vector2(39, 40)
 
-[node name="Cargo" type="Node2D" groups=["cargo"]]
+[node name="Cargo" type="RigidBody2D" groups=["cargo"]]
+collision_mask = 0
 script = ExtResource("1_qydvn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bgo4r")
 
 [node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
 script = ExtResource("1_ik3mv")

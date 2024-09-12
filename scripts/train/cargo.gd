@@ -1,4 +1,4 @@
-extends Node2D
+extends RigidBody2D
 
 @onready var health_component = $HealthComponent
 @onready var sprite = $Sprite2D

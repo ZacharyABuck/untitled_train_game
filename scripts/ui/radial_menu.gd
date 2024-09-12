@@ -8,7 +8,7 @@ var possible_types = ["gadgets", "pistol_turret", "light_cover", "none"]
 
 var open: bool = false
 
-var menu_item = preload("res://scenes/menu_item.tscn")
+var menu_item = preload("res://scenes/ui/menu_item.tscn")
 
 @onready var top_text = $TopText
 @onready var bottom_text = $BottomText

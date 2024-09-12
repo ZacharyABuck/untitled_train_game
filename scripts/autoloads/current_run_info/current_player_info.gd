@@ -32,6 +32,8 @@ var current_movespeed: float
 var current_armor: float
 var current_attack_delay_modifier: float
 
+var poison_damage = 1
+
 # Current state in player state machine node
 @export_enum("default", "repairing", "ui_default", "ui_edge_selection") var state: String = "default"
 

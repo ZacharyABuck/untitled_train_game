@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://blo8u73t6turn"]
+
+[ext_resource type="Script" path="res://scripts/buff_receiver.gd" id="1_5jg46"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4h1cb"]
+radius = 19.0
+
+[node name="BuffReceiver" type="Area2D"]
+collision_layer = 1024
+collision_mask = 1024
+script = ExtResource("1_5jg46")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4h1cb")
+debug_color = Color(2.5028e-06, 0.650214, 0.106067, 0.42)

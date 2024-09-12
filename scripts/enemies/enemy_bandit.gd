@@ -19,6 +19,10 @@ func _ready():
 	target = CurrentRun.world.current_player_info.active_player
 	if elite:
 		upgrade()
+#
+#func find_target():
+	#var rng = CurrentRun.world.current_player_info.targets.pick_random()
+	#return rng
 
 func upgrade():
 	animations.modulate = Color.RED
@@ -27,6 +31,8 @@ func upgrade():
 	health_component.health += EnemyInfo.elite_modifiers["health"]
 
 func _physics_process(delta):
+	if target == null:
+		target = CurrentRun.world.current_player_info.active_player
 	if state != "dead":
 		look_at(target.global_position)
 

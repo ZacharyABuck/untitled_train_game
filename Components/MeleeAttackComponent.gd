@@ -15,7 +15,6 @@ class_name MeleeAttackComponent
 @export var ANIMATIONS : AnimatedSprite2D #<-- needs "windup", "strike", and "recovery" animations.
 
 var attack_timer
-var damage
 var attacker
 var type
 var target_types
@@ -27,7 +26,6 @@ var targeted_areas
 
 func _ready():
 	attack_timer = ATTACK_TIMER
-	damage = DAMAGE
 	attacker = get_parent()
 	target_types = TARGET_TYPES
 	mobile_attack = MOBILE_ATTACK
@@ -90,7 +88,7 @@ func _on_animated_sprite_2d_animation_finished():
 		for area in hurtboxes:
 			var hurtbox : HurtboxComponent = area
 			var new_attack = Attack.new()
-			new_attack.attack_damage = damage
+			new_attack.attack_damage = DAMAGE
 			hurtbox.damage(new_attack)
 	elif animations.animation == "strike":
 		attack_timer.start()

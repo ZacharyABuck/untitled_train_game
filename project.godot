@@ -101,6 +101,7 @@ escape_menu={
 2d_physics/layer_8="Events"
 2d_physics/layer_9="Obstacles"
 2d_physics/layer_10="Characters"
+2d_physics/layer_11="Buffs"
 
 [physics]
 

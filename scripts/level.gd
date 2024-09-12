@@ -1,6 +1,6 @@
 extends Node2D
 
-var player = preload("res://scenes/player.tscn")
+var player = preload("res://scenes/player/player.tscn")
 @onready var bullets = $Bullets
 
 @onready var edge_menu = $UI/EdgeMenu
