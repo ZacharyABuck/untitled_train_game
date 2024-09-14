@@ -7,4 +7,8 @@ script = ExtResource("1_ovbq2")
 
 [node name="PoisonTimer" type="Timer" parent="."]
 
+[node name="ShockTimer" type="Timer" parent="."]
+wait_time = 3.0
+
 [connection signal="timeout" from="PoisonTimer" to="." method="_on_poison_timer_timeout"]
+[connection signal="timeout" from="ShockTimer" to="." method="_on_shock_timer_timeout"]

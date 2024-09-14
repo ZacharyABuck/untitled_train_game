@@ -9,6 +9,7 @@ var player_hurtbox: HurtboxComponent
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	super()
 	player_hurtbox = CurrentRun.world.current_player_info.active_player.hurtbox_component
 	shadow_timer.wait_time = shadow_time
 

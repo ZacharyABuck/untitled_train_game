@@ -23,6 +23,8 @@ var character = preload("res://scenes/characters/character.tscn")
 var cargo = preload("res://scenes/train/cargo.tscn")
 var hard_point = preload("res://scenes/train/hard_point.tscn")
 
+var active_buffs: Array = []
+
 var max_health: float
 var health: float
 

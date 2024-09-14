@@ -85,8 +85,15 @@ func _instantiate_bullet():
 	# speed, damage, global_position, valid_hitbox_types
 	var new_projectile = projectile.instantiate()
 	new_projectile.global_position = shooter.global_position
+	
+	#check for buffs
 	if BUFF_RECEIVER != null:
+		var car_buffs = owner.car.active_buffs
+		for buff in car_buffs:
+			if !BUFF_RECEIVER.active_buffs.has(buff):
+				BUFF_RECEIVER.active_buffs.append(buff)
 		new_projectile.active_buffs = BUFF_RECEIVER.active_buffs
+	
 	new_projectile.speed = speed
 	new_projectile.damage = damage
 	if lifetime > 0: # the default lifetime is 3 seconds.

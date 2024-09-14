@@ -13,6 +13,10 @@ var experience = enemy_stats["experience"]
 
 var target
 
+var shocked: bool = false
+@onready var shock_indicator = $ShockIndicator
+
+
 @export_enum("moving", "boarding", "attacking", "idle", "dead") var state: String
 
 func _ready():
@@ -35,7 +39,7 @@ func _physics_process(delta):
 		target = CurrentRun.world.current_player_info.active_player
 	if state != "dead":
 		look_at(target.global_position)
-
+		check_shock()
 		if gun.target_is_in_range(target):
 			state = "attacking"
 			gun.shoot_if_target_in_range(target)
@@ -45,3 +49,13 @@ func _physics_process(delta):
 	
 	else:
 		queue_free()
+
+func check_shock():
+	if shocked:
+		speed = enemy_stats["speed"] * .3
+		shock_indicator.show()
+	else:
+		shock_indicator.hide()
+		speed = enemy_stats["speed"]
+		if elite:
+			speed += EnemyInfo.elite_modifiers["speed"]

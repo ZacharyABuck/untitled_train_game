@@ -31,6 +31,7 @@ var animation
 var healthbar = false
 
 @onready var poison_timer = $PoisonTimer
+@onready var shock_timer = $ShockTimer
 
 
 
@@ -64,6 +65,10 @@ func process_buffs(buff):
 		"poison":
 			if poison_timer.is_stopped():
 				poison_timer.start()
+		"shock":
+			shock_timer.start()
+			if get_parent().shocked != null:
+				get_parent().shocked = true
 
 func _on_poison_timer_timeout():
 	var poison_damage = CurrentRun.world.current_player_info.poison_damage
@@ -72,6 +77,9 @@ func _on_poison_timer_timeout():
 	damage(poison_tick)
 	spawn_particles(poison_fx)
 	get_parent().modulate = Color.WEB_GREEN
+
+func _on_shock_timer_timeout():
+	get_parent().shocked = false
 
 func spawn_particles(fx):
 	var new_fx = fx.instantiate()
@@ -141,8 +149,9 @@ func _calculate_final_damage(attacker_damage, armor):
 	return final_damage
 
 func _initialize_healthbar():
-		has_healthbar = true
-		healthbar = HEALTHBAR
-		healthbar.max_value = MAX_HEALTH
-		healthbar.value = health
+	has_healthbar = true
+	healthbar = HEALTHBAR
+	healthbar.max_value = MAX_HEALTH
+	healthbar.value = health
+
 

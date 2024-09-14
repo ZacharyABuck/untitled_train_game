@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://balwmqh8kog6n" path="res://sprites/player/tim_walk_sprite_sheet_mosaic_2.png" id="7_r1yq3"]
 [ext_resource type="Script" path="res://components/HurtboxComponent.gd" id="8_vuihw"]
 [ext_resource type="AudioStream" uid="uid://b2qst461ri4d4" path="res://sounds/combat/oof.wav" id="9_vw7uv"]
-[ext_resource type="Script" path="res://components/HealthComponent.gd" id="10_pnx62"]
+[ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://components/health_component.tscn" id="10_2vmk3"]
 [ext_resource type="Script" path="res://scripts/edges/EdgeHandler.gd" id="11_6ds4a"]
 [ext_resource type="AudioStream" uid="uid://bm8ntouv5ol6l" path="res://sounds/player/running_wood.wav" id="12_5foum"]
 [ext_resource type="AudioStream" uid="uid://cpnffnc4clg7y" path="res://sounds/player/repair.mp3" id="13_5ua86"]
@@ -203,7 +203,7 @@ mouse_filter = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_lm4s8")
 max_value = 50.0
 step = 1.0
-value = 10.0
+value = 50.0
 show_percentage = false
 
 [node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component", "hurt_sfx")]
@@ -220,11 +220,8 @@ shape = SubResource("RectangleShape2D_m2jei")
 stream = ExtResource("9_vw7uv")
 bus = &"SFX"
 
-[node name="HealthComponent" type="Node2D" parent="." node_paths=PackedStringArray("ANIMATION", "HEALTHBAR")]
-script = ExtResource("10_pnx62")
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("HEALTHBAR") instance=ExtResource("10_2vmk3")]
 MAX_HEALTH = 50.0
-IS_KILLABLE = false
-ANIMATION = NodePath("../AnimatedSprite2D")
 HEALTHBAR = NodePath("../HealthBar")
 
 [node name="EdgeHandler" type="Node2D" parent="."]

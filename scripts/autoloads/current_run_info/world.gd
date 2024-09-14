@@ -23,6 +23,9 @@ var mission_reward_panel = preload("res://scenes/ui/mission_reward_panel.tscn")
 @onready var world_ui = $WorldUI
 @onready var camera = $Camera
 
+@onready var debug_ui = $DebugUI
+
+
 
 var in_game = false
 var missions_spawned: bool = false

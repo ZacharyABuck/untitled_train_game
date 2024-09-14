@@ -17,7 +17,6 @@ func _ready():
 	add_child(cooldown)
 	cooldown.wait_time = gun.attack_timer.wait_time
 	cooldown.one_shot = true
-	#cooldown.timeout.connect(cooldown_timeout)
 
 	hard_point = get_parent()
 	car = hard_point.get_parent().owner

@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://dlf3ut18w14gl"]
+[gd_scene load_steps=68 format=3 uid="uid://dlf3ut18w14gl"]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/enemy_zombie.gd" id="1_kv2s3"]
 [ext_resource type="AudioStream" uid="uid://qdyuud18a2c4" path="res://sounds/combat/hit_01.wav" id="3_04jho"]
@@ -433,6 +433,15 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mv14h"]
 size = Vector2(28, 36)
 
+[sub_resource type="Gradient" id="Gradient_g7fjk"]
+offsets = PackedFloat32Array(0.35443, 0.506329, 0.56962)
+colors = PackedColorArray(1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0i4s8"]
+gradient = SubResource("Gradient_g7fjk")
+fill = 1
+fill_from = Vector2(0.470085, 0.495726)
+
 [node name="EnemyZombie" type="RigidBody2D" groups=["enemy"]]
 z_index = 1
 position = Vector2(0, 6)
@@ -530,6 +539,9 @@ script = ExtResource("7_e0hqb")
 [node name="dead" type="Node2D" parent="StateMachine"]
 process_mode = 4
 script = ExtResource("8_httoe")
+
+[node name="ShockIndicator" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_0i4s8")
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="body_entered" from="WallDetector" to="." method="_on_wall_detector_body_entered"]

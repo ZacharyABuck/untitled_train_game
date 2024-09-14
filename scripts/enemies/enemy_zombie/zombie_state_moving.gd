@@ -1,7 +1,15 @@
 extends Node2D
 
 func _physics_process(delta):
-	owner.speed = owner.enemy_stats["speed"]
+	#check shock
+	if owner.shocked:
+		owner.speed = owner.enemy_stats["speed"] * .3
+	else:
+		owner.speed = owner.enemy_stats["speed"]
+		if owner.elite:
+			owner.speed += EnemyInfo.elite_modifiers["speed"]
+	
+
 	owner.set_collision_mask_value(3, true)
 	owner.animations.play("moving")
 	if owner.target != null:

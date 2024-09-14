@@ -1,5 +1,10 @@
 extends Node2D
 
+signal update_debug
+
+func _ready():
+	update_debug.connect(CurrentRun.world.debug_ui.refresh_labels)
+
 func check_for_edges():
 	for edge in CurrentRun.world.current_edge_info.edge_inventory.keys():
 		respawn_edge(edge)
@@ -31,6 +36,8 @@ func add_edge(edge_reference):
 		add_child(edge_scene)
 		edge_scene.update_player_info()
 		CurrentRun.world.current_edge_info.edge_inventory[edge_reference] = {"scene" = edge_scene, "level" = 1}
+	
+	update_debug.emit()
 
 func _increase_edge_level(edge : Edge):
 	edge.edge_level += 1

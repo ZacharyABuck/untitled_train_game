@@ -5,6 +5,7 @@ var damage = 1
 @onready var hitbox = $HitBox
 
 func _ready():
+	super()
 	if !CurrentRun.world.current_player_info.active_player.buff.active_buffs.has("poison"):
 		CurrentRun.world.current_player_info.active_player.buff.active_buffs.append("poison")
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://csdhvsxyenywf"]
+[gd_scene load_steps=50 format=3 uid="uid://csdhvsxyenywf"]
 
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/world.gd" id="1_u1dsg"]
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/current_player_info.gd" id="2_kodbe"]
@@ -25,6 +25,7 @@
 [ext_resource type="FontFile" uid="uid://tpmg7wha0yio" path="res://fonts/JMH Typewriter-Bold.ttf" id="23_kdpb5"]
 [ext_resource type="Texture2D" uid="uid://bfhfpjjn1ks4" path="res://sprites/ui/train_sketch.png" id="24_o026o"]
 [ext_resource type="Texture2D" uid="uid://ccydwnn5siydn" path="res://sprites/ui/x.png" id="25_c7tds"]
+[ext_resource type="Script" path="res://scripts/ui/debug_ui.gd" id="26_ugrr2"]
 
 [sub_resource type="Animation" id="Animation_4oonn"]
 resource_name = "level_to_world"
@@ -408,6 +409,8 @@ shadow_color = Color(0, 0, 0, 0.435294)
 shadow_size = 5
 shadow_offset = Vector2(5, 5)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_my1xl"]
+
 [node name="World" type="Node2D"]
 process_mode = 3
 script = ExtResource("1_u1dsg")
@@ -722,6 +725,199 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 texture_normal = ExtResource("25_c7tds")
 stretch_mode = 3
+
+[node name="DebugUI" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("26_ugrr2")
+
+[node name="ColorRect" type="ColorRect" parent="DebugUI"]
+process_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.235294, 0.235294, 0.235294, 0.843137)
+
+[node name="MarginContainer" type="MarginContainer" parent="DebugUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 200
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 200
+
+[node name="GridContainer" type="GridContainer" parent="DebugUI/MarginContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="EdgeContainer" type="VBoxContainer" parent="DebugUI/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="EdgeDebugHBox" type="HBoxContainer" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer"]
+layout_mode = 2
+
+[node name="EdgeName" type="Label" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Edge"
+
+[node name="EdgeLevel" type="Label" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "1"
+
+[node name="LevelUpButton" type="Button" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_my1xl")
+text = "+"
+
+[node name="EdgeDebugHBox2" type="HBoxContainer" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer"]
+layout_mode = 2
+
+[node name="EdgeName" type="Label" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Edge"
+
+[node name="EdgeLevel" type="Label" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "1"
+
+[node name="LevelUpButton" type="Button" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox2"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_my1xl")
+text = "+"
+
+[node name="EdgeDebugHBox3" type="HBoxContainer" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer"]
+layout_mode = 2
+
+[node name="EdgeName" type="Label" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Edge"
+
+[node name="EdgeLevel" type="Label" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "1"
+
+[node name="LevelUpButton" type="Button" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox3"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_my1xl")
+text = "+"
+
+[node name="EdgeDebugHBox4" type="HBoxContainer" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer"]
+layout_mode = 2
+
+[node name="EdgeName" type="Label" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Edge"
+
+[node name="EdgeLevel" type="Label" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "1"
+
+[node name="LevelUpButton" type="Button" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox4"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_my1xl")
+text = "+"
+
+[node name="EdgeDebugHBox5" type="HBoxContainer" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer"]
+layout_mode = 2
+
+[node name="EdgeName" type="Label" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox5"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Edge"
+
+[node name="EdgeLevel" type="Label" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox5"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "1"
+
+[node name="LevelUpButton" type="Button" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox5"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_my1xl")
+text = "+"
+
+[node name="EdgeDebugHBox6" type="HBoxContainer" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer"]
+layout_mode = 2
+
+[node name="EdgeName" type="Label" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox6"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Edge"
+
+[node name="EdgeLevel" type="Label" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox6"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "1"
+
+[node name="LevelUpButton" type="Button" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox6"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_my1xl")
+text = "+"
+
+[node name="EdgeDebugHBox7" type="HBoxContainer" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer"]
+layout_mode = 2
+
+[node name="EdgeName" type="Label" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox7"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Edge"
+
+[node name="EdgeLevel" type="Label" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox7"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "1"
+
+[node name="LevelUpButton" type="Button" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox7"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_my1xl")
+text = "+"
+
+[node name="EdgeDebugHBox8" type="HBoxContainer" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer"]
+layout_mode = 2
+
+[node name="EdgeName" type="Label" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox8"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Edge"
+
+[node name="EdgeLevel" type="Label" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox8"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "1"
+
+[node name="LevelUpButton" type="Button" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox8"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_my1xl")
+text = "+"
 
 [connection signal="pressed" from="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/TownDetails/TravelButton" to="." method="_on_travel_button_pressed"]
 [connection signal="pressed" from="TownsUI/MarginContainer/CloseButton" to="TownsUI" method="_on_close_button_pressed"]

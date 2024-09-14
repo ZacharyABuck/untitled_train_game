@@ -6,8 +6,12 @@ var active_buffs: Array = []
 
 func _on_area_entered(area):
 	var receiver = area
-	receiver.active_buffs = active_buffs
+	for buff in active_buffs:
+		if !receiver.active_buffs.has(buff):
+			receiver.active_buffs.append(buff)
 
 func _on_area_exited(area):
 	var receiver = area
-	receiver.active_buffs = []
+	for buff in active_buffs:
+		if receiver.active_buffs.has(buff):
+			receiver.active_buffs.erase(buff)

@@ -3,6 +3,7 @@ extends Edge
 var move_speed_multiplier: float = 1.2
 
 func handle_level_up():
+	print("level up")
 	update_player_info()
 
 func update_player_info():

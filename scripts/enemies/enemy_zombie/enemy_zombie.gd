@@ -20,6 +20,10 @@ var active_car
 @export_enum("moving", "boarding", "finish_boarding", "attacking", "idle", "dead") var state: String
 var boarded = false
 
+var shocked: bool = false
+@onready var shock_indicator = $ShockIndicator
+
+
 func _ready():
 	if state != "idle":
 		target = find_target()
@@ -35,6 +39,13 @@ func upgrade():
 func _physics_process(_delta):
 	if target == null and state != "idle":
 		target = find_target()
+	check_shock()
+
+func check_shock():
+	if shocked:
+		shock_indicator.show()
+	else:
+		shock_indicator.hide()
 
 func find_target():
 	var rng = CurrentRun.world.current_player_info.targets.pick_random()

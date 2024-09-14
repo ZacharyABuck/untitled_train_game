@@ -79,8 +79,3 @@ func _set_collisions():
 
 func _on_lifetimer_timeout():
 	queue_free()
-
-# not currently used by projectiles. We use physics process instead.
-func _process(_delta):
-	pass 
-
