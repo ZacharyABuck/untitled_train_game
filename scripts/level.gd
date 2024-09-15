@@ -149,16 +149,19 @@ func spawn_level_enemies():
 			random_enemy = new_spawner.find_random_enemy()
 		new_spawner.spawn_enemy(1, random_enemy, null, true)
 	else:
-		#check if we're spawning too many ranged enemies (MAX 5)
+		#spawn enemies by maximum allowed in EnemyInfo
 		var random_enemy = new_spawner.find_random_enemy()
-		if EnemyInfo.enemy_roster[random_enemy]["type"] == "ranged":
-			var max = clamp(round(spawn_count), 1, 5)
-			new_spawner.spawn_enemy(max, random_enemy, null, false)
-			if spawn_count - max > 0:
-				new_spawner.spawn_enemy(round(spawn_count-max), "zombie", null, false)
-		else:
-			#regular spawning of melee enemies
-			new_spawner.spawn_enemy(round(spawn_count), random_enemy, null, false)
+		var max = EnemyInfo.enemy_roster[random_enemy]["max_spawn"]
+		new_spawner.spawn_enemy(clamp(spawn_count, 1, max), random_enemy, null, false)
+		#
+		#if EnemyInfo.enemy_roster[random_enemy]["type"] == "ranged":
+			#var max = clamp(round(spawn_count), 1, 5)
+			#new_spawner.spawn_enemy(max, random_enemy, null, false)
+			#if spawn_count - max > 0:
+				#new_spawner.spawn_enemy(round(spawn_count-max), "zombie", null, false)
+		#else:
+			##regular spawning of melee enemies
+			#new_spawner.spawn_enemy(round(spawn_count), random_enemy, null, false)
 
 func roll_elite_enemy():
 	var rng = randi_range(1,50)

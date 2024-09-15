@@ -35,7 +35,6 @@ var healthbar = false
 @onready var shock_timer = $ShockTimer
 
 
-
 func _ready():
 	#set armor?
 	is_killable = IS_KILLABLE
@@ -68,8 +67,8 @@ func process_buffs(buff):
 				poison_timer.start()
 		"shock":
 			shock_timer.start()
-			if get_parent().shocked != null:
-				get_parent().shocked = true
+			if get_parent().has_method("shock"):
+				get_parent().shock(true)
 			spawn_particles(shock_fx)
 
 func _on_poison_timer_timeout():
@@ -81,8 +80,8 @@ func _on_poison_timer_timeout():
 	get_parent().modulate = Color.WEB_GREEN
 
 func _on_shock_timer_timeout():
-	if get_parent().shocked != null:
-		get_parent().shocked = false
+	if get_parent().has_method("shock"):
+		get_parent().shock(false)
 
 func spawn_particles(fx):
 	var new_fx = fx.instantiate()

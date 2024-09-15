@@ -1,7 +1,4 @@
-extends Node2D
-
-var hard_point
-var car
+extends Gadget
 
 @onready var animations = $AnimatedSprite2D
 @onready var hitbox = $HitBox
@@ -11,8 +8,8 @@ var damage = 5
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	hard_point = get_parent()
-	car = hard_point.car
+	super()
+	
 	car.active_buffs.append("shock")
 	apply_shock_buff()
 

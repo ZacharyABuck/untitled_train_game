@@ -1,10 +1,7 @@
-extends Node2D
+extends Gadget
 class_name Turret
 
 var target
-var hard_point
-var car
-
 @export var BUFF_RECEIVER: Area2D
 
 var raycast: RayCast2D
@@ -14,14 +11,14 @@ var cooldown: Timer
 @export var moving_target_component: Area2D
 
 func _ready():
+	super()
+	
 	#create cooldown timer
 	cooldown = Timer.new()
 	add_child(cooldown)
 	cooldown.wait_time = gun.attack_timer.wait_time
 	cooldown.one_shot = true
 
-	hard_point = get_parent()
-	car = hard_point.get_parent().owner
 	initialize_raycast()
 	
 	if BUFF_RECEIVER and car.active_buffs.has("shock"):

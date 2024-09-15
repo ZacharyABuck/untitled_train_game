@@ -9,7 +9,7 @@ var active_car
 var boarded = false
 
 func _ready():
-	find_stats("zombie")
+	find_stats("big zombie")
 	
 	if state != "idle":
 		target = find_target()

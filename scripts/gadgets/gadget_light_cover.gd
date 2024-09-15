@@ -1,12 +1,11 @@
-extends Node2D
+extends Gadget
 
 @onready var health_bar = $HealthBar
 @onready var sprite = $Sprite2D
 
-var hard_point
-
 func _ready():
-	hard_point = get_parent()
+	super()
+
 	if hard_point.location == "FrontLeft" or \
 	hard_point.location == "FrontRight" or \
 	hard_point.location == "BackLeft" or \

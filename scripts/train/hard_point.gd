@@ -5,7 +5,6 @@ extends Node2D
 
 
 var gadget
-var gadget_node
 var location
 var car
 
@@ -14,7 +13,6 @@ func respawn_gadget(requested_gadget):
 	CurrentRun.world.current_train_info.cars_inventory[car.index]["gadgets"][get_parent().name] = requested_gadget
 	gadget = requested_gadget
 	spawn_gadget(requested_gadget)
-
 
 func add_gadget(requested_gadget):
 	var requested_gadget_info = GadgetInfo.gadget_roster[requested_gadget]
@@ -52,9 +50,9 @@ func add_gadget(requested_gadget):
 func spawn_gadget(gadget):
 	var new_gadget = GadgetInfo.gadget_roster[gadget]["scene"].instantiate()
 	add_child(new_gadget)
-	car.gadgets.append(new_gadget)
-	#gadget_node = new_gadget
 	
+	car.gadgets.append(new_gadget)
+
 	match GadgetInfo.gadget_roster[gadget]["location"]:
 		"hard_point":
 			new_gadget.global_position = global_position

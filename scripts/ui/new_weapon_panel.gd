@@ -13,7 +13,7 @@ func populate(random_weapon):
 	var base_attack_delay = WeaponInfo.weapons_roster[random_weapon]["base_attack_delay"]
 	var base_projectile_speed = WeaponInfo.weapons_roster[random_weapon]["base_projectile_speed"]
 	
-	random_damage = randi_range(-2,3)
+	random_damage = clamp(randi_range(-2,3), 1, 100)
 	random_attack_delay = randi_range(-.2,.3)
 	random_projectile_speed = randi_range(-50,100)
 	
