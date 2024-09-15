@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bc31ke1sgefg5"]
+
+[ext_resource type="Script" path="res://scenes/weapons/balloon.gd" id="1_4m1wf"]
+[ext_resource type="Texture2D" uid="uid://b22j2l4e7jqs4" path="res://sprites/misc_objects/balloon_with_present.png" id="1_qwbi7"]
+
+[node name="Balloon" type="RigidBody2D"]
+z_index = 10
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_4m1wf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_qwbi7")

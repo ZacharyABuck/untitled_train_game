@@ -218,6 +218,36 @@ func edge_selected(edge):
 	if CurrentRun.world.current_player_info.level_up_queue > 0:
 		handle_level_up()
 
+func weapon_picked_up(weapon):
+	var container = $UI/WeaponMarginContainer
+	container.position.y = -1080
+	
+	$UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel.populate()
+	$UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel.populate(weapon)
+	
+	container.show()
+	var tween = create_tween()
+	tween.tween_property(container, "position", Vector2.ZERO, .5).set_ease(Tween.EASE_IN)
+	await tween.finished
+	pause_game()
+
+func keep_current_weapon():
+	close_weapon_menu()
+
+func equip_new_weapon(weapon, random_damage, random_attack_delay, random_projectile_speed):
+	close_weapon_menu()
+	CurrentRun.world.current_player_info.active_player._instantiate_ranged_weapon(\
+		WeaponInfo.weapons_roster[weapon]["scene"], random_damage, random_attack_delay, random_projectile_speed)
+
+func close_weapon_menu():
+	unpause_game()
+	var container = $UI/WeaponMarginContainer
+
+	var tween = create_tween()
+	tween.tween_property(container, "position", Vector2(0,-1080), .5).set_ease(Tween.EASE_IN)
+	await tween.finished
+	container.hide()
+
 func close_all_ui():
 	Engine.time_scale = 1
 	for i in CurrentRun.world.current_train_info.cars_inventory:

@@ -18,6 +18,7 @@ extends Node2D
 
 @onready var cargo_container = $CargoContainer
 
+@onready var character_spawn_point = $CharacterSpawnPoint
 
 var character = preload("res://scenes/characters/character.tscn")
 var cargo = preload("res://scenes/train/cargo.tscn")
@@ -93,7 +94,7 @@ func spawn_characters():
 		if CurrentRun.world.current_mission_info.mission_inventory[i]["type"] == "escort":
 			var new_character = character.instantiate()
 			new_character.character_name = CurrentRun.world.current_mission_info.mission_inventory[i]["character"]
-			new_character.position = $CharacterSpawnPoint.position + Vector2(randi_range(-25,25),randi_range(-100,100))
+			new_character.position = character_spawn_point.position + Vector2(randi_range(-25,25),randi_range(-100,100))
 			add_child(new_character)
 			CurrentRun.world.current_player_info.targets.append(new_character)
 

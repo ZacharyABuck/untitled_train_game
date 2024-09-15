@@ -6,5 +6,6 @@ func _ready():
 	base_damage = 4.0
 	base_lifetime = 1.0
 	base_bullet = preload("res://scenes/projectiles/hatchet_projectile.tscn")
+	weapon_id = "hatchet"
 	
 	_set_current_variables_and_connect_timer()

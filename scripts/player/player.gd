@@ -32,16 +32,18 @@ func _ready():
 	CurrentRun.world.current_player_info.active_player = self
 	CurrentRun.world.current_player_info.targets.append(self)
 	camera.make_current()
+	
 	health_component.MAX_HEALTH = CurrentRun.world.current_player_info.base_max_health
 	health_component.ARMOR_VALUE = CurrentRun.world.current_player_info.base_armor
 	
+	#pick random weapon
 	var weapon
 	if CurrentRun.world.current_player_info.current_ranged_weapon_reference.is_empty():
 		weapon = WeaponInfo.weapons_roster.keys().pick_random()
 		CurrentRun.world.current_player_info.current_ranged_weapon_reference = weapon
 	else:
 		weapon = CurrentRun.world.current_player_info.current_ranged_weapon_reference
-	_instantiate_ranged_weapon(WeaponInfo.weapons_roster[weapon]["scene"])
+	_instantiate_ranged_weapon(WeaponInfo.weapons_roster[weapon]["scene"], 0, 0, 0)
 
 	ExperienceSystem.level_up.connect(self.handle_level_up)
 	
@@ -76,7 +78,7 @@ func player_hurt(damage):
 
 
 # -- EQUIPMENT FUNCTIONS -- #
-func _instantiate_ranged_weapon(gun_scene_location):
+func _instantiate_ranged_weapon(gun_scene_location, random_damage, random_attack_delay, random_projectile_speed):
 	# Clear the existing ranged weapon so we can load the new one.
 	if is_instance_valid(current_ranged_weapon):
 		current_ranged_weapon.queue_free()
@@ -89,6 +91,11 @@ func _instantiate_ranged_weapon(gun_scene_location):
 	damage += CurrentRun.world.current_player_info.current_ranged_damage_bonus
 	damage *= CurrentRun.world.current_player_info.current_ranged_damage_multiplier
 	current_ranged_weapon.base_damage = damage
+	
+	current_ranged_weapon.random_damage_mod = random_damage
+	current_ranged_weapon.random_attack_delay_mod = random_attack_delay
+	current_ranged_weapon.random_projectile_speed_mod = random_projectile_speed
+	
 	add_child(current_ranged_weapon)
 
 func refresh_current_ranged_weapon_stats():

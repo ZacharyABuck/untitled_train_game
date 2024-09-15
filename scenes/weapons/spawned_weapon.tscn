@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctbmeggm8tf6k"]
+
+[ext_resource type="Script" path="res://scenes/weapons/spawned_weapon.gd" id="1_cgooe"]
+[ext_resource type="AudioStream" uid="uid://ofqqvt4v00tl" path="res://sounds/rewards/glockenspiel.mp3" id="2_52njo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_555bl"]
+radius = 75.0067
+
+[node name="SpawnedWeapon" type="Node2D"]
+z_index = 10
+script = ExtResource("1_cgooe")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+shape = SubResource("CircleShape2D_555bl")
+
+[node name="SpawnSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_52njo")
+volume_db = -10.0
+autoplay = true
+bus = &"SFX"
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
