@@ -21,7 +21,6 @@ var active_car
 var boarded = false
 
 var shocked: bool = false
-@onready var shock_indicator = $ShockIndicator
 
 
 func _ready():
@@ -39,13 +38,6 @@ func upgrade():
 func _physics_process(_delta):
 	if target == null and state != "idle":
 		target = find_target()
-	check_shock()
-
-func check_shock():
-	if shocked:
-		shock_indicator.show()
-	else:
-		shock_indicator.hide()
 
 func find_target():
 	var rng = CurrentRun.world.current_player_info.targets.pick_random()

@@ -227,7 +227,8 @@ func weapon_picked_up(weapon):
 	
 	container.show()
 	var tween = create_tween()
-	tween.tween_property(container, "position", Vector2.ZERO, .5).set_ease(Tween.EASE_IN)
+	tween.tween_property(container, "position", Vector2.ZERO, .5).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_IN)
+	$EdgeSFX.play()
 	await tween.finished
 	pause_game()
 
@@ -242,9 +243,9 @@ func equip_new_weapon(weapon, random_damage, random_attack_delay, random_project
 func close_weapon_menu():
 	unpause_game()
 	var container = $UI/WeaponMarginContainer
-
+	$UI/WeaponMarginContainer/WeaponSelectSFX.play()
 	var tween = create_tween()
-	tween.tween_property(container, "position", Vector2(0,-1080), .5).set_ease(Tween.EASE_IN)
+	tween.tween_property(container, "position", Vector2(0,-1080), .5).set_ease(Tween.EASE_OUT)
 	await tween.finished
 	container.hide()
 

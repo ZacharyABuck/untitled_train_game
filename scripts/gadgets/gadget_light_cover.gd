@@ -12,6 +12,8 @@ func _ready():
 	hard_point.location == "BackLeft" or \
 	hard_point.location == "BackRight":
 		rotation_degrees += 90
+	
+	hard_point.car.armor += 2
 
 func _on_health_bar_value_changed(value):
 		if value >= health_bar.max_value:

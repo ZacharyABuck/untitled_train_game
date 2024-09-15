@@ -20,6 +20,7 @@ class_name HealthComponent
 var money = preload("res://scenes/money.tscn")
 var blood_fx = preload("res://scenes/fx/blood_fx.tscn")
 var poison_fx = preload("res://scenes/fx/poison_fx.tscn")
+var shock_fx = preload("res://scenes/fx/shock_fx.tscn")
 
 var health : float
 #var armor : float
@@ -69,6 +70,7 @@ func process_buffs(buff):
 			shock_timer.start()
 			if get_parent().shocked != null:
 				get_parent().shocked = true
+			spawn_particles(shock_fx)
 
 func _on_poison_timer_timeout():
 	var poison_damage = CurrentRun.world.current_player_info.poison_damage
@@ -79,7 +81,8 @@ func _on_poison_timer_timeout():
 	get_parent().modulate = Color.WEB_GREEN
 
 func _on_shock_timer_timeout():
-	get_parent().shocked = false
+	if get_parent().shocked != null:
+		get_parent().shocked = false
 
 func spawn_particles(fx):
 	var new_fx = fx.instantiate()
@@ -108,6 +111,9 @@ func _handle_death():
 			character.hard_point.gadget = null
 			character.hard_point.radial_menu.update_menu("gadgets")
 			character.hard_point.radial_menu.show()
+			character.hard_point.car.armor -= clamp(2, 0, 10)
+			print(character.hard_point.car.armor)
+			
 			character.queue_free()
 		
 		if character.is_in_group("character"):

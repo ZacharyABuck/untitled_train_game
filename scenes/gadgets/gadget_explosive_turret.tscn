@@ -22,8 +22,9 @@ fill = 1
 fill_from = Vector2(0.492788, 0.606838)
 fill_to = Vector2(0.61899, 0.192308)
 
-[node name="GadgetExplosiveTurret" type="Node2D" node_paths=PackedStringArray("moving_target_component") groups=["gadget"]]
+[node name="GadgetExplosiveTurret" type="Node2D" node_paths=PackedStringArray("BUFF_RECEIVER", "moving_target_component") groups=["gadget"]]
 script = ExtResource("1_jy713")
+BUFF_RECEIVER = NodePath("BuffReceiver")
 moving_target_component = NodePath("MovingTargetComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

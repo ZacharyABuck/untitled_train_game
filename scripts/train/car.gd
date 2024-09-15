@@ -5,10 +5,11 @@ extends Node2D
 @onready var sprite = $Sprite2D
 @onready var health_bar = $HealthBar
 @onready var hard_points = $HardPoints
-@onready var gadgets = $Gadgets
+
 @onready var room_light = $RoomLight
 @onready var boarding_points = $BoardingPoints
 @onready var boarding_sfx = $BoardingSFX
+
 #CORNER POINTS FOR MESH
 @onready var top_left = $CornerPoints/TopLeft
 @onready var top_right = $CornerPoints/TopRight
@@ -25,9 +26,11 @@ var cargo = preload("res://scenes/train/cargo.tscn")
 var hard_point = preload("res://scenes/train/hard_point.tscn")
 
 var active_buffs: Array = []
+var gadgets: Array = []
 
 var max_health: float
 var health: float
+var armor: float = 0
 
 var index
 var type
@@ -60,7 +63,7 @@ func check_for_gadgets():
 				hardpoint.get_child(0).respawn_gadget(CurrentRun.world.current_train_info.cars_inventory[index]["gadgets"][gadget])
 
 func take_damage(amount):
-	health = clamp(health-amount, 0, max_health)
+	health = clamp(health-clamp(amount-armor,0,amount), 0, max_health)
 
 func repair(amount):
 	health = clamp(health+amount, 0, max_health)
@@ -111,4 +114,4 @@ func spawn_cargo():
 				new_cargo.global_position = Vector2(random_pos.x + random_pos_mods.pick_random(), random_pos.y)
 				new_cargo.mission = i
 				CurrentRun.world.current_player_info.targets.append(new_cargo)
-				
+

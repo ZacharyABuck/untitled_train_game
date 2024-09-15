@@ -36,8 +36,6 @@ func _set_current_variables_and_connect_timer():
 	current_bullet = base_bullet
 	attack_delay_timer.wait_time = current_attack_delay
 	attack_delay_timer.timeout.connect(_on_attack_timer_timeout)
-	
-	print(current_damage)
 
 func _process(_delta):
 	pass

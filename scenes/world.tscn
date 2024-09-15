@@ -919,5 +919,14 @@ theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxEmpty_my1xl")
 text = "+"
 
+[node name="LevelAutoCompleteButton" type="Button" parent="DebugUI"]
+z_index = 10
+offset_left = 827.0
+offset_top = 487.0
+offset_right = 1043.0
+offset_bottom = 551.0
+text = "Auto Complete Level"
+
 [connection signal="pressed" from="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/TownDetails/TravelButton" to="." method="_on_travel_button_pressed"]
 [connection signal="pressed" from="TownsUI/MarginContainer/CloseButton" to="TownsUI" method="_on_close_button_pressed"]
+[connection signal="pressed" from="DebugUI/LevelAutoCompleteButton" to="DebugUI" method="_on_level_auto_complete_button_pressed"]

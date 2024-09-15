@@ -47,3 +47,7 @@ func refresh_labels():
 	for hbox in edge_container.get_children():
 		if world.current_edge_info.edge_inventory.has(hbox.get_child(0).text):
 			hbox.get_child(1).text = str(world.current_edge_info.edge_inventory[hbox.get_child(0).text]["level"])
+
+
+func _on_level_auto_complete_button_pressed():
+	CurrentRun.world.level_complete()

@@ -1,14 +1,50 @@
-[gd_scene load_steps=4 format=3 uid="uid://ctbmeggm8tf6k"]
+[gd_scene load_steps=11 format=3 uid="uid://ctbmeggm8tf6k"]
 
 [ext_resource type="Script" path="res://scenes/weapons/spawned_weapon.gd" id="1_cgooe"]
 [ext_resource type="AudioStream" uid="uid://ofqqvt4v00tl" path="res://sounds/rewards/glockenspiel.mp3" id="2_52njo"]
 
+[sub_resource type="Curve" id="Curve_m5mqf"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.990385, 0.0274936), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_p3o28"]
+curve = SubResource("Curve_m5mqf")
+
+[sub_resource type="Curve" id="Curve_51q3x"]
+max_value = 2.0
+_data = [Vector2(0.00320513, 0.00511503), 0.0, 0.0, 0, 0, Vector2(1, 1.38491), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_eofi7"]
+curve = SubResource("Curve_51q3x")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y28rh"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_eofi7")
+alpha_curve = SubResource("CurveTexture_p3o28")
+
+[sub_resource type="Gradient" id="Gradient_2toqf"]
+offsets = PackedFloat32Array(0.462025, 0.522152, 0.575949)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ssxwa"]
+gradient = SubResource("Gradient_2toqf")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_555bl"]
-radius = 75.0067
+radius = 32.1403
 
 [node name="SpawnedWeapon" type="Node2D"]
 z_index = 10
 script = ExtResource("1_cgooe")
+
+[node name="ShineParticle" type="GPUParticles2D" parent="."]
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_y28rh")
+texture = SubResource("GradientTexture2D_ssxwa")
+local_coords = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.1, 0.1)

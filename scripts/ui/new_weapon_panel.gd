@@ -17,7 +17,7 @@ func populate(random_weapon):
 	random_attack_delay = randi_range(-.2,.3)
 	random_projectile_speed = randi_range(-50,100)
 	
-	$VBoxContainer/NameLabel.text = "[center]Damage: " + WeaponInfo.weapons_roster[random_weapon]["name"] + "[/center]"
+	$VBoxContainer/NameLabel.text = "[center]" + WeaponInfo.weapons_roster[random_weapon]["name"] + "[/center]"
 	$VBoxContainer/HBoxContainer/TextureRect.texture = WeaponInfo.weapons_roster[random_weapon]["sprite"]
 	
 	$VBoxContainer/HBoxContainer/VBoxContainer/Damage.text = \
@@ -32,3 +32,7 @@ func _on_button_pressed():
 	if !equip_new_weapon.is_connected(CurrentRun.world.current_level_info.active_level.equip_new_weapon):
 		equip_new_weapon.connect(CurrentRun.world.current_level_info.active_level.equip_new_weapon)
 	equip_new_weapon.emit(weapon, random_damage, random_attack_delay, random_projectile_speed)
+
+
+func _on_button_mouse_entered():
+	$HoverSFX.play()

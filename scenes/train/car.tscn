@@ -150,8 +150,6 @@ position = Vector2(-31, 191)
 [node name="BackRight" type="Node2D" parent="HardPoints"]
 position = Vector2(39, 189)
 
-[node name="Gadgets" type="Node2D" parent="."]
-
 [node name="RoomLight" type="PointLight2D" parent="."]
 position = Vector2(2.86102e-06, 171.5)
 scale = Vector2(2, 5.79687)

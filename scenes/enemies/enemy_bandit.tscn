@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://ys4jr28gfxkd"]
+[gd_scene load_steps=18 format=3 uid="uid://ys4jr28gfxkd"]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy_bandit.gd" id="1_488ir"]
 [ext_resource type="Texture2D" uid="uid://bn0yom2xg0em1" path="res://sprites/enemies/enemy_bandit.png" id="2_oyuk1"]
@@ -66,15 +66,6 @@ radius = 448.055
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p76yt"]
 height = 66.0
 
-[sub_resource type="Gradient" id="Gradient_1myhd"]
-offsets = PackedFloat32Array(0.35443, 0.506329, 0.56962)
-colors = PackedColorArray(1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_sqmnt"]
-gradient = SubResource("Gradient_1myhd")
-fill = 1
-fill_from = Vector2(0.470085, 0.495726)
-
 [node name="EnemyBandit" type="RigidBody2D" groups=["enemy"]]
 collision_layer = 8
 collision_mask = 12
@@ -141,9 +132,6 @@ light_mask = 0
 visibility_layer = 0
 position = Vector2(0, 17)
 shape = SubResource("CapsuleShape2D_p76yt")
-
-[node name="ShockIndicator" type="Sprite2D" parent="."]
-texture = SubResource("GradientTexture2D_sqmnt")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

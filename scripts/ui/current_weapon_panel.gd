@@ -6,7 +6,7 @@ func populate():
 	var current_weapon = CurrentRun.world.current_player_info.active_player.current_ranged_weapon
 	var weapon_id = CurrentRun.world.current_player_info.active_player.current_ranged_weapon.weapon_id
 	
-	$VBoxContainer/NameLabel.text = "[center]Damage: " + str(WeaponInfo.weapons_roster[weapon_id]["name"]) + "[/center]"
+	$VBoxContainer/NameLabel.text = "[center]" + str(WeaponInfo.weapons_roster[weapon_id]["name"]) + "[/center]"
 	$VBoxContainer/HBoxContainer/TextureRect.texture = WeaponInfo.weapons_roster[weapon_id]["sprite"]
 	
 	$VBoxContainer/HBoxContainer/VBoxContainer/Damage.text = \
@@ -22,3 +22,7 @@ func _on_button_pressed():
 	if !keep_current_weapon.is_connected(CurrentRun.world.current_level_info.active_level.keep_current_weapon):
 		keep_current_weapon.connect(CurrentRun.world.current_level_info.active_level.keep_current_weapon)
 	keep_current_weapon.emit()
+
+
+func _on_button_mouse_entered():
+	$HoverSFX.play()

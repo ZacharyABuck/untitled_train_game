@@ -6,7 +6,7 @@
 script = ExtResource("1_t4rg2")
 
 [node name="SpawnTimer" type="Timer" parent="."]
-wait_time = 30.0
+wait_time = 45.0
 autostart = true
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

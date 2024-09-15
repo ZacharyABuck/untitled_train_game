@@ -5,6 +5,8 @@ var target
 var hard_point
 var car
 
+@export var BUFF_RECEIVER: Area2D
+
 var raycast: RayCast2D
 var cooldown: Timer
 
@@ -21,6 +23,9 @@ func _ready():
 	hard_point = get_parent()
 	car = hard_point.get_parent().owner
 	initialize_raycast()
+	
+	if BUFF_RECEIVER and car.active_buffs.has("shock"):
+		BUFF_RECEIVER.toggle_shock_fx(true)
 
 func _physics_process(_delta):
 	if target == null:

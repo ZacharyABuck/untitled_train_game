@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://dcjdwfh7kpq52"]
+
+[sub_resource type="Curve" id="Curve_m105d"]
+_data = [Vector2(0.0192308, 0.0856777), 0.0, 0.0, 0, 0, Vector2(0.554487, 0.0773658), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_cn3vv"]
+width = 128
+curve_y = SubResource("Curve_m105d")
+
+[sub_resource type="Curve" id="Curve_0ipob"]
+_data = [Vector2(0.497093, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0079726), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_shey6"]
+curve = SubResource("Curve_0ipob")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_atymf"]
+particle_flag_disable_z = true
+spread = 0.0
+initial_velocity_max = 50.0
+directional_velocity_min = -100.0
+directional_velocity_max = 100.0
+directional_velocity_curve = SubResource("CurveXYZTexture_cn3vv")
+gravity = Vector3(0, -200, 0)
+scale_curve = SubResource("CurveTexture_shey6")
+
+[sub_resource type="Gradient" id="Gradient_imeao"]
+offsets = PackedFloat32Array(0.362069, 0.364943)
+colors = PackedColorArray(0.364706, 0.6, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_b2jg0"]
+gradient = SubResource("Gradient_imeao")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.602564, 0.380342)
+
+[node name="ShockTurretFX" type="GPUParticles2D"]
+emitting = false
+amount = 3
+amount_ratio = 0.6075
+process_material = SubResource("ParticleProcessMaterial_atymf")
+texture = SubResource("GradientTexture2D_b2jg0")
+lifetime = 0.5
+explosiveness = 0.16
+randomness = 0.19
+
+[connection signal="finished" from="." to="." method="_on_finished"]
