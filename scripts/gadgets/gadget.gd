@@ -8,8 +8,3 @@ var car
 func _ready():
 	hard_point = get_parent()
 	car = hard_point.car
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

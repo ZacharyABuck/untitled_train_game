@@ -23,6 +23,9 @@ var lifetime = 3
 
 var active_buffs: Array = []
 
+signal hit_target
+var last_enemy_hit: Area2D
+
 func _ready():
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	hitbox = HITBOX
@@ -38,7 +41,9 @@ func _physics_process(delta):
 		move_and_collide(continuous_target * speed * delta)
 
 func _on_area_2d_area_entered(area):
-	if area is HurtboxComponent:
+	if area is HurtboxComponent and area != last_enemy_hit:
+		hit_target.emit(area)
+		
 		hitbox.set_deferred("monitoring", false)
 		hitbox.set_deferred("monitorable", false)
 		linear_velocity = Vector2.ZERO

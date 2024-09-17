@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dc2bi7y1acmc8"]
+[gd_scene load_steps=8 format=3 uid="uid://dc2bi7y1acmc8"]
 
 [ext_resource type="Texture2D" uid="uid://bpf7ssbhn8k1w" path="res://sprites/train/crate.png" id="1_8trct"]
 [ext_resource type="Script" path="res://components/HurtboxComponent.gd" id="1_ik3mv"]
 [ext_resource type="Script" path="res://scripts/train/cargo.gd" id="1_qydvn"]
-[ext_resource type="Script" path="res://components/HealthComponent.gd" id="2_rq1u3"]
+[ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://components/health_component.tscn" id="4_3vbjw"]
+[ext_resource type="AudioStream" uid="uid://b2i5rchvtysog" path="res://sounds/train/crate_breaking.wav" id="5_2mvxf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bgo4r"]
 radius = 21.0238
@@ -18,19 +19,24 @@ script = ExtResource("1_qydvn")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_bgo4r")
 
-[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component", "hurt_sfx")]
 script = ExtResource("1_ik3mv")
 health_component = NodePath("../HealthComponent")
+hurt_sfx = NodePath("../HurtSFX")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_cuxve")
 
-[node name="HealthComponent" type="Node2D" parent="."]
-script = ExtResource("2_rq1u3")
-MAX_HEALTH = 20.0
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_8trct")
 hframes = 7
 vframes = 2
+
+[node name="HealthComponent" parent="." instance=ExtResource("4_3vbjw")]
+MAX_HEALTH = 20.0
+
+[node name="HurtSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_2mvxf")
+volume_db = -20.0
+bus = &"SFX"

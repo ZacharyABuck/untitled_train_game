@@ -11,6 +11,12 @@ func populate(new_edge):
 	style_box_texture.texture = EdgeInfo.edge_roster[new_edge]["sprite"]
 	$BG.add_theme_stylebox_override("panel", style_box_texture)
 	$DescriptionLabel.text = "[center]" + EdgeInfo.edge_roster[new_edge]["description"] + "[/center]"
+	
+	if CurrentRun.world.current_edge_info.edge_inventory.has(new_edge):
+		$NextLevelInfo/LevelLabel.text = "[center]Level " + str(CurrentRun.world.current_edge_info.edge_inventory[new_edge]["level"]) +\
+										" -> Level " + str(CurrentRun.world.current_edge_info.edge_inventory[new_edge]["level"] + 1)
+	else:
+		$NextLevelInfo/LevelLabel.text = ""
 
 # -- REACT TO MOUSE HOVER -- #
 func _on_mouse_entered():
@@ -19,6 +25,7 @@ func _on_mouse_entered():
 		var shadow_tween = get_tree().create_tween()
 		shadow_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 		shadow_tween.tween_property($Shadow, "scale", Vector2(1.01, 1.01), .1).set_ease(Tween.EASE_IN)
+		$NextLevelInfo.show()
 
 # -- REACT TO MOUSE EXITED -- #
 func _on_mouse_exited():
@@ -26,6 +33,7 @@ func _on_mouse_exited():
 		var shadow_tween = get_tree().create_tween()
 		shadow_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 		shadow_tween.tween_property($Shadow, "scale", Vector2(1, 1), .1).set_ease(Tween.EASE_IN)
+		$NextLevelInfo.hide()
 
 # -- WHEN CLICKED -- #
 func _on_gui_input(event):

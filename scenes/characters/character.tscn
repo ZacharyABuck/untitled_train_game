@@ -1,12 +1,13 @@
-[gd_scene load_steps=21 format=3 uid="uid://crisc7glr0lru"]
+[gd_scene load_steps=22 format=3 uid="uid://crisc7glr0lru"]
 
 [ext_resource type="Texture2D" uid="uid://4x8a5b3tydex" path="res://sprites/characters/sprite_sheets/timbo.png" id="1_6ggv8"]
 [ext_resource type="Script" path="res://scripts/characters/character.gd" id="1_7ww7q"]
 [ext_resource type="Script" path="res://scripts/characters/character_state_machine.gd" id="2_1ccev"]
 [ext_resource type="Script" path="res://scripts/characters/character_state_idle.gd" id="4_45hgv"]
 [ext_resource type="Script" path="res://scripts/characters/character_state_running.gd" id="5_3q3pl"]
-[ext_resource type="Script" path="res://components/HealthComponent.gd" id="6_pty73"]
+[ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://components/health_component.tscn" id="6_t77if"]
 [ext_resource type="Script" path="res://components/HurtboxComponent.gd" id="7_0odwf"]
+[ext_resource type="AudioStream" uid="uid://clkk66hf1rpbc" path="res://sounds/combat/character_ow.mp3" id="8_vb2pc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_swtlo"]
 size = Vector2(32, 38)
@@ -131,14 +132,14 @@ autostart = true
 [node name="IdleTimer" type="Timer" parent="."]
 wait_time = 2.0
 
-[node name="HealthComponent" type="Node2D" parent="." node_paths=PackedStringArray("HEALTHBAR")]
-script = ExtResource("6_pty73")
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("HEALTHBAR") instance=ExtResource("6_t77if")]
 MAX_HEALTH = 20.0
 HEALTHBAR = NodePath("../ProgressBar")
 
-[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component", "hurt_sfx")]
 script = ExtResource("7_0odwf")
 health_component = NodePath("../HealthComponent")
+hurt_sfx = NodePath("../HurtSFX")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 shape = SubResource("RectangleShape2D_xf4c1")
@@ -152,6 +153,11 @@ offset_bottom = -24.0
 max_value = 20.0
 value = 20.0
 show_percentage = false
+
+[node name="HurtSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_vb2pc")
+volume_db = -15.0
+bus = &"SFX"
 
 [connection signal="timeout" from="MoveTimer" to="StateMachine/idle" method="_on_move_timer_timeout"]
 [connection signal="timeout" from="IdleTimer" to="StateMachine/running" method="_on_idle_timer_timeout"]

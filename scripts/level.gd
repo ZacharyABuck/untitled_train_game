@@ -27,11 +27,16 @@ var is_day: bool = true
 var in_event: bool = false
 var max_night_light: float = .75
 
+enum weather_state {clear, rain}
+@onready var rain_animations = $UI/Weather/Rain/RainAnimations
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	generate_track()
 	spawn_player()
 	ExperienceSystem.level_up.connect(self.handle_level_up)
+	calculate_weather()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -60,6 +65,16 @@ func calculate_day_cycle():
 		#then go back to daytime
 		else:
 			world_light.energy = clamp(max_night_light-(max_night_light*percent), 0, max_night_light)
+		
+		
+func calculate_weather():
+	var random_weather = weather_state.values().pick_random()
+	print(random_weather)
+	match weather_state.keys()[random_weather]:
+		"clear":
+			rain_animations.play("fade_out")
+		"rain":
+			rain_animations.play("fade_in")
 
 func instant_night():
 	day_cycle_timer.stop()
@@ -151,17 +166,8 @@ func spawn_level_enemies():
 	else:
 		#spawn enemies by maximum allowed in EnemyInfo
 		var random_enemy = new_spawner.find_random_enemy()
-		var max = EnemyInfo.enemy_roster[random_enemy]["max_spawn"]
-		new_spawner.spawn_enemy(clamp(spawn_count, 1, max), random_enemy, null, false)
-		#
-		#if EnemyInfo.enemy_roster[random_enemy]["type"] == "ranged":
-			#var max = clamp(round(spawn_count), 1, 5)
-			#new_spawner.spawn_enemy(max, random_enemy, null, false)
-			#if spawn_count - max > 0:
-				#new_spawner.spawn_enemy(round(spawn_count-max), "zombie", null, false)
-		#else:
-			##regular spawning of melee enemies
-			#new_spawner.spawn_enemy(round(spawn_count), random_enemy, null, false)
+		var max_spawn = EnemyInfo.enemy_roster[random_enemy]["max_spawn"]
+		new_spawner.spawn_enemy(clamp(spawn_count, 1, max_spawn), random_enemy, null, false)
 
 func roll_elite_enemy():
 	var rng = randi_range(1,50)
@@ -242,6 +248,11 @@ func equip_new_weapon(weapon, random_damage, random_attack_delay, random_project
 	close_weapon_menu()
 	CurrentRun.world.current_player_info.active_player._instantiate_ranged_weapon(\
 		WeaponInfo.weapons_roster[weapon]["scene"], random_damage, random_attack_delay, random_projectile_speed)
+	
+	CurrentRun.world.current_player_info.current_ranged_weapon_reference = weapon
+	CurrentRun.world.current_player_info.current_ranged_weapon_damage_mod = random_damage
+	CurrentRun.world.current_player_info.current_ranged_weapon_attack_delay_mod = random_attack_delay
+	CurrentRun.world.current_player_info.current_ranged_weapon_speed_mod = random_projectile_speed
 
 func close_weapon_menu():
 	unpause_game()

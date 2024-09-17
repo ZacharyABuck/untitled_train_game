@@ -14,7 +14,7 @@ func populate(random_weapon):
 	var base_projectile_speed = WeaponInfo.weapons_roster[random_weapon]["base_projectile_speed"]
 	
 	random_damage = clamp(randi_range(-2,3), 1, 100)
-	random_attack_delay = randi_range(-.2,.3)
+	random_attack_delay = snappedf(randf_range(-.2,.3), 0.1)
 	random_projectile_speed = randi_range(-50,100)
 	
 	$VBoxContainer/NameLabel.text = "[center]" + WeaponInfo.weapons_roster[random_weapon]["name"] + "[/center]"

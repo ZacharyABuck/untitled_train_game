@@ -132,10 +132,11 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="ExplosiveBullet" type="RigidBody2D" node_paths=PackedStringArray("HITBOX", "ANIMATIONS")]
+[node name="ExplosiveBullet" type="RigidBody2D" node_paths=PackedStringArray("HITBOX", "ANIMATIONS", "SFX")]
 script = ExtResource("1_5nkwu")
 HITBOX = NodePath("Area2D")
 ANIMATIONS = NodePath("AnimatedSprite2D")
+SFX = NodePath("ExplodeSFX")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0

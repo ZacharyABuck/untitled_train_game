@@ -39,7 +39,7 @@ var edge_roster = {
 		"scene" = load("res://scenes/edges/thick_hide.tscn"),
 		"sprite" = load("res://sprites/edges/thick_hide.png"),
 		"description" = "Armor +1",
-		"update" = true,
+		"update" = false,
 	},
 	"cursed_appendage" = {
 		"name" = "Cursed Appendage",
@@ -48,6 +48,22 @@ var edge_roster = {
 		"sprite" = load("res://sprites/edges/cursed_appendage.png"),
 		"description" = "Assistance from Beyond",
 		"update" = true,
+	},
+	"ricochet" = {
+		"name" = "Ricochet",
+		"category" = "Survivalist",
+		"scene" = load("res://scenes/edges/ricochet.tscn"),
+		"sprite" = load("res://sprites/edges/ricochet.png"),
+		"description" = "Bullets bounce",
+		"update" = false,
+	},
+	"mechanic" = {
+		"name" = "Mechanic",
+		"category" = "Survivalist",
+		"scene" = load("res://scenes/edges/mechanic.tscn"),
+		"sprite" = load("res://sprites/edges/mechanic.png"),
+		"description" = "Repair rate +20%",
+		"update" = false,
 	},
 }
 

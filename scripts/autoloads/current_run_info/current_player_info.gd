@@ -18,6 +18,7 @@ var base_melee_damage_bonus: float = 0
 var base_movespeed: int = 300
 var base_armor: float = 0
 var base_attack_delay_modifier: float = 1.0
+var base_repair_rate: float = 0.02
 
 # Current Variables
 var current_health: float
@@ -31,8 +32,16 @@ var current_melee_damage_bonus: float
 var current_movespeed: float
 var current_armor: float
 var current_attack_delay_modifier: float
+var current_repair_rate: float = 0.02
 
+# Weapon Variables
+var current_ranged_weapon_damage_mod: int
+var current_ranged_weapon_attack_delay_mod: float
+var current_ranged_weapon_speed_mod: int
+
+# Edge Related
 var poison_damage = 1
+var ricochet_amount: int = 0
 
 # Current state in player state machine node
 @export_enum("default", "repairing", "ui_default", "ui_edge_selection") var state: String = "default"

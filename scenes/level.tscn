@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://02oiy550pacp"]
+[gd_scene load_steps=50 format=3 uid="uid://02oiy550pacp"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_2a3mn"]
 [ext_resource type="PackedScene" uid="uid://cb1r5v4vqyrx8" path="res://scenes/train/TrainManager.tscn" id="3_3t5p5"]
@@ -24,7 +24,9 @@
 [ext_resource type="PackedScene" uid="uid://vlu5a68ciqp0" path="res://scenes/weapons/weapon_spawner.tscn" id="17_lhsmc"]
 [ext_resource type="Script" path="res://scripts/ui/new_weapon_panel.gd" id="19_fnsj8"]
 [ext_resource type="AudioStream" uid="uid://d2nwj7vu6t12t" path="res://sounds/ui/menu-select-tick.wav" id="20_71clk"]
+[ext_resource type="Shader" path="res://shaders/rain.gdshader" id="22_kbqtr"]
 [ext_resource type="AudioStream" uid="uid://b6nhfkp7qtu2x" path="res://sounds/combat/reloading.mp3" id="22_ookke"]
+[ext_resource type="AudioStream" uid="uid://dqjq17gkaquqx" path="res://sounds/world/rain.wav" id="23_dws0p"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_in3y1"]
 texture = ExtResource("3_mbth6")
@@ -928,26 +930,6 @@ shader_parameter/angle = 0.785398
 shader_parameter/speed = 1.0
 shader_parameter/wait_cycles = 1.0
 
-[sub_resource type="Gradient" id="Gradient_x358j"]
-offsets = PackedFloat32Array(0, 0.689751, 0.803324)
-colors = PackedColorArray(0, 0, 0, 1, 0.531856, 0.531856, 0.531856, 1, 1, 1, 1, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_qt4gw"]
-noise_type = 2
-frequency = 0.0053
-offset = Vector3(1, 0, 0)
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ahocc"]
-seamless = true
-color_ramp = SubResource("Gradient_x358j")
-noise = SubResource("FastNoiseLite_qt4gw")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lc2ou"]
-shader = ExtResource("12_hxkjx")
-shader_parameter/density = 0.2
-shader_parameter/speed = Vector2(0.005, 0.005)
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_ahocc")
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t6h6i"]
 bg_color = Color(0.603922, 0.603922, 0.564706, 0.6)
 corner_radius_top_left = 100
@@ -984,6 +966,99 @@ border_blend = true
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nbjsr"]
 bg_color = Color(0.4, 0.4, 0.4, 0.588235)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mc2q4"]
+shader = ExtResource("22_kbqtr")
+shader_parameter/count = 100
+shader_parameter/slant = 3.25988e-09
+shader_parameter/speed = 50.0
+shader_parameter/blur = 0.0045
+shader_parameter/colour = Color(0, 0.931909, 0.940069, 1)
+shader_parameter/size = Vector2(0.02, 0.1)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_rjoqq"]
+
+[sub_resource type="Animation" id="Animation_6ry7i"]
+resource_name = "fade_in"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RainSFX:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-80.0, -25.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(3.6, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_e30y6"]
+resource_name = "fade_out"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RainSFX:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-25.0, -80.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lvm2e"]
+_data = {
+"fade_in": SubResource("Animation_6ry7i"),
+"fade_out": SubResource("Animation_e30y6")
+}
+
+[sub_resource type="Gradient" id="Gradient_x358j"]
+offsets = PackedFloat32Array(0, 0.689751, 0.803324)
+colors = PackedColorArray(0, 0, 0, 1, 0.531856, 0.531856, 0.531856, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qt4gw"]
+noise_type = 2
+frequency = 0.0053
+offset = Vector3(1, 0, 0)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ahocc"]
+seamless = true
+color_ramp = SubResource("Gradient_x358j")
+noise = SubResource("FastNoiseLite_qt4gw")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lc2ou"]
+shader = ExtResource("12_hxkjx")
+shader_parameter/density = 0.2
+shader_parameter/speed = Vector2(0.005, 0.005)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_ahocc")
 
 [node name="Level" type="Node2D"]
 process_mode = 1
@@ -1169,19 +1244,6 @@ texture_normal = ExtResource("9_kk0cw")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("13_06q2t")
-
-[node name="ParallaxBackground" type="ParallaxBackground" parent="UI"]
-layer = 100
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="UI/ParallaxBackground"]
-motion_mirroring = Vector2(1920, 1080)
-
-[node name="Fog" type="ColorRect" parent="UI/ParallaxBackground/ParallaxLayer"]
-material = SubResource("ShaderMaterial_lc2ou")
-offset_right = 1920.0
-offset_bottom = 1080.0
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
 
 [node name="LevelCompleteButton" type="Button" parent="UI"]
 process_mode = 3
@@ -1392,6 +1454,50 @@ stream = ExtResource("22_ookke")
 volume_db = -10.0
 bus = &"SFX"
 
+[node name="Weather" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Rain" type="TextureRect" parent="UI/Weather"]
+z_index = -5
+material = SubResource("ShaderMaterial_mc2q4")
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+texture = SubResource("CanvasTexture_rjoqq")
+
+[node name="RainSFX" type="AudioStreamPlayer" parent="UI/Weather/Rain"]
+stream = ExtResource("23_dws0p")
+volume_db = -25.0
+autoplay = true
+bus = &"SFX"
+
+[node name="RainAnimations" type="AnimationPlayer" parent="UI/Weather/Rain"]
+libraries = {
+"": SubResource("AnimationLibrary_lvm2e")
+}
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="UI/Weather"]
+layer = 100
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="UI/Weather/ParallaxBackground"]
+motion_mirroring = Vector2(1920, 1080)
+
+[node name="Clouds" type="ColorRect" parent="UI/Weather/ParallaxBackground/ParallaxLayer"]
+material = SubResource("ShaderMaterial_lc2ou")
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="WeatherTimer" type="Timer" parent="UI/Weather"]
+wait_time = 60.0
+autostart = true
+
 [node name="EdgeSFX" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("8_g00h4")
@@ -1410,3 +1516,4 @@ bus = &"SFX"
 [connection signal="pressed" from="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel/Button" to="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel" method="_on_button_pressed"]
 [connection signal="mouse_entered" from="UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel/Button" to="UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel" method="_on_button_mouse_entered"]
 [connection signal="pressed" from="UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel/Button" to="UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel" method="_on_button_pressed"]
+[connection signal="timeout" from="UI/Weather/WeatherTimer" to="." method="calculate_weather"]

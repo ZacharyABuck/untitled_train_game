@@ -28,6 +28,9 @@ var mission_reward_panel = preload("res://scenes/ui/mission_reward_panel.tscn")
 var in_game = false
 var missions_spawned: bool = false
 
+func _ready():
+	music_fade.play("world_start")
+
 func start_game(direction, distance, terrain):
 	await CurrentRun.root.fade_to_black(1.5)
 	

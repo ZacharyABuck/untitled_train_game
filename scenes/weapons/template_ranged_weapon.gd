@@ -19,7 +19,7 @@ var base_bullet = preload("res://scenes/projectiles/fiery_bullet.tscn")
 # -- RANDOM MODS FROM DROPS -- #
 var random_damage_mod: float = 0
 var random_attack_delay_mod: float = 0
-var random_projectile_speed_mod: float = 0
+var random_projectile_speed_mod: int = 0
 
 # -- CURRENT WEAPON STATS -- #
 var current_attack_delay: float
@@ -48,7 +48,9 @@ func shoot():
 		CurrentRun.world.current_level_info.active_level.bullets.add_child(new_bullet)
 		attack_delay_timer.wait_time = current_attack_delay
 		attack_delay_timer.start()
-
+		
+		new_bullet.hit_target.connect(bullet_hit_target)
+		
 func _on_attack_timer_timeout():
 	attack_delay_timer.stop()
 	can_shoot = true
@@ -62,5 +64,23 @@ func _build_bullet(b):
 	b.target = get_global_mouse_position()
 	b.valid_hitbox_types = {"enemy":true, "player":false, "car":false, "cover":false, "terrain":true}
 	b.lifetime = current_lifetime
+	
+	return b
+
+func bullet_hit_target(area):
+	#check for ricochet
+	if CurrentRun.world.current_player_info.ricochet_amount > 0:
+		for bullet in CurrentRun.world.current_player_info.ricochet_amount:
+			var new_bullet = _build_ricochet(current_bullet.instantiate(), area)
+			CurrentRun.world.current_level_info.active_level.bullets.call_deferred("add_child", new_bullet)
+
+func _build_ricochet(b, area):
+	b.global_position = area.global_position
+	b.last_enemy_hit = area
+	b.speed = current_projectile_speed
+	b.damage = current_damage
+	b.target = Vector2(area.global_position.x + randi_range(-100,100), area.global_position.y + randi_range(-100,100))
+	b.valid_hitbox_types = {"enemy":true, "player":false, "car":false, "cover":false, "terrain":true}
+	b.lifetime = .5
 	
 	return b

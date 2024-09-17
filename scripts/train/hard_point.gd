@@ -47,20 +47,20 @@ func add_gadget(requested_gadget):
 		gadget = requested_gadget
 		CurrentRun.world.current_player_info.state = "default"
 
-func spawn_gadget(gadget):
-	var new_gadget = GadgetInfo.gadget_roster[gadget]["scene"].instantiate()
+func spawn_gadget(requested_gadget):
+	var new_gadget = GadgetInfo.gadget_roster[requested_gadget]["scene"].instantiate()
 	add_child(new_gadget)
 	
 	car.gadgets.append(new_gadget)
 
-	match GadgetInfo.gadget_roster[gadget]["location"]:
+	match GadgetInfo.gadget_roster[requested_gadget]["location"]:
 		"hard_point":
 			new_gadget.global_position = global_position
 		"car":
 			new_gadget.global_position = car.global_position
 			new_gadget.icon_sprite.global_position = global_position
 	radial_menu.close_menu()
-	radial_menu.update_menu(gadget)
+	radial_menu.update_menu(requested_gadget)
 
 
 func has_car_gadget() -> bool:

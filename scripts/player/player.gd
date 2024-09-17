@@ -19,8 +19,6 @@ var active_car
 var can_shoot = true
 var current_ranged_weapon
 
-var repair_rate: float = 0.02
-
 signal dead
 
 #Many functions have been moved to the StateMachine. 
@@ -41,9 +39,13 @@ func _ready():
 	if CurrentRun.world.current_player_info.current_ranged_weapon_reference.is_empty():
 		weapon = WeaponInfo.weapons_roster.keys().pick_random()
 		CurrentRun.world.current_player_info.current_ranged_weapon_reference = weapon
+		_instantiate_ranged_weapon(WeaponInfo.weapons_roster[weapon]["scene"], 0, 0, 0)
 	else:
 		weapon = CurrentRun.world.current_player_info.current_ranged_weapon_reference
-	_instantiate_ranged_weapon(WeaponInfo.weapons_roster[weapon]["scene"], 0, 0, 0)
+		_instantiate_ranged_weapon(WeaponInfo.weapons_roster[weapon]["scene"], \
+			CurrentRun.world.current_player_info.current_ranged_weapon_damage_mod, \
+			CurrentRun.world.current_player_info.current_ranged_weapon_attack_delay_mod, \
+			CurrentRun.world.current_player_info.current_ranged_weapon_speed_mod)
 
 	ExperienceSystem.level_up.connect(self.handle_level_up)
 	
@@ -60,7 +62,7 @@ func _strike():
 # -- REPAIR -- #
 func repair():
 	if CurrentRun.world.current_train_info.cars_inventory[active_car]["node"].health < CurrentRun.world.current_train_info.cars_inventory[active_car]["node"].max_health:
-		CurrentRun.world.current_train_info.cars_inventory[active_car]["node"].repair(repair_rate)
+		CurrentRun.world.current_train_info.cars_inventory[active_car]["node"].repair(CurrentRun.world.current_player_info.current_repair_rate)
 		sprite.play("repairing")
 		if !repair_sfx.playing:
 			repair_sfx.play()
