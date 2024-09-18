@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://ckg62mtdgq6ee"]
+[gd_scene load_steps=7 format=3 uid="uid://d2oi16y0qkkix"]
 
-[ext_resource type="Script" path="res://scripts/gadgets/gadget_medical_station.gd" id="1_13wjr"]
-[ext_resource type="Texture2D" uid="uid://caubw3r4ae34" path="res://sprites/gadgets/gadget_medical_station.png" id="2_40hwj"]
+[ext_resource type="Script" path="res://scripts/gadgets/gadget_medical_station.gd" id="1_hhuux"]
+[ext_resource type="Texture2D" uid="uid://caubw3r4ae34" path="res://sprites/gadgets/gadget_medical_station.png" id="2_f1bw6"]
 
 [sub_resource type="Gradient" id="Gradient_gxtix"]
 offsets = PackedFloat32Array(0.407407, 0.514403, 0.62963)
@@ -88,12 +88,12 @@ _data = {
 "flash_ring": SubResource("Animation_dpdbm")
 }
 
-[node name="MedicalStation" type="Node2D" groups=["gadget"]]
-script = ExtResource("1_13wjr")
-heal_amount = 1
+[node name="MedicalStationMoreHealing" type="Node2D" groups=["gadget"]]
+script = ExtResource("1_hhuux")
+heal_amount = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_40hwj")
+texture = ExtResource("2_f1bw6")
 
 [node name="Ring" type="Sprite2D" parent="."]
 modulate = Color(0, 255, 0, 0)

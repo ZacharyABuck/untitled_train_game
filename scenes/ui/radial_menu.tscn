@@ -56,7 +56,6 @@ _data = {
 z_index = 10
 collision_mask = 0
 script = ExtResource("1_po4ci")
-menu_type = "gadgets"
 radius = 100
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

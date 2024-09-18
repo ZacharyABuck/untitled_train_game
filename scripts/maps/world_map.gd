@@ -2,8 +2,8 @@ extends TileMap
 
 var altitude = FastNoiseLite.new()
 @onready var astar = AStar2D.new()
-var chunk_width = 37.0
-var chunk_height = 21.0
+var chunk_width: int = 37
+var chunk_height: int = 21
 var loaded_chunks: Array = []
 
 @onready var route_line = $RouteLine

@@ -1,8 +1,8 @@
 # YOU MUST CREATE AND ASSIGN A COLLISION SHAPE IN THE SCENE WHERE YOU PUT THIS
 extends Area2D
 
-@export_enum("gadgets", "pistol_turret", "light_cover", "none") var menu_type: String
-var possible_types = ["gadgets", "pistol_turret", "light_cover", "none"]
+var possible_types = ["default", "pistol_turret", "light_cover", "explosive_turret", "rifle_turret", "medical_station", "none"]
+var current_type
 @export var radius: int
 @export var collision_shape: CollisionShape2D
 
@@ -17,10 +17,12 @@ var menu_item = preload("res://scenes/ui/menu_item.tscn")
 var car
 
 func _ready():
+	if current_type == null:
+		current_type = "default"
 	$Sprite2D.texture.width = radius * 2.6
 	$Sprite2D.texture.height = radius * 2.6
 	$Sprite2D.modulate = Color.TRANSPARENT
-	spawn_menu(menu_type)
+	spawn_menu(current_type)
 
 func _on_mouse_entered():
 	if CurrentRun.world.current_player_info.state == "default":
@@ -34,7 +36,7 @@ func _on_mouse_exited():
 func _on_input_event(_viewport, event, _shape_idx):
 	if event.is_action_pressed("strike"):
 		#show menu
-		if CurrentRun.world.current_player_info.active_player.active_car == get_parent().car.index and menu_type != "none":
+		if CurrentRun.world.current_player_info.active_player.active_car == get_parent().car.index and current_type != "none":
 			CurrentRun.world.current_player_info.state = "ui_default"
 			open_menu()
 
@@ -42,16 +44,8 @@ func _process(_delta):
 	global_rotation = 0
 
 func spawn_menu(type):
-	match type:
-		"gadgets":
-			for i in GadgetInfo.default_roster:
-				add_item(i)
-		"pistol_turret":
-			for i in GadgetInfo.turret_upgrade_roster:
-				add_item(i)
-		"light_cover":
-			for i in GadgetInfo.light_cover_upgrade_roster:
-				add_item(i)
+	for i in GadgetInfo.upgrade_rosters[type]:
+		add_item(i)
 
 func add_item(item):
 	var item_info = GadgetInfo.gadget_roster[item]
@@ -108,12 +102,12 @@ func close_menu():
 
 func update_menu(gadget):
 	if possible_types.has(gadget):
-		menu_type = gadget
+		current_type = gadget
 		for i in items.get_children():
 			i.queue_free()
 		spawn_menu(gadget)
 		$MouseIndicator.show()
 	else:
-		menu_type = "none"
+		current_type = "none"
 		$MouseIndicator.hide()
 	

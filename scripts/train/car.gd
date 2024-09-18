@@ -63,7 +63,7 @@ func check_for_gadgets():
 				hardpoint.get_child(0).respawn_gadget(CurrentRun.world.current_train_info.cars_inventory[index]["gadgets"][gadget])
 
 func take_damage(amount):
-	health = clamp(health-clamp(amount-armor,0,amount), 0, max_health)
+	health = clamp(health-clamp(amount-armor,1,amount), 1, max_health)
 
 func repair(amount):
 	health = clamp(health+amount, 0, max_health)

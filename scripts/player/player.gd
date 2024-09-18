@@ -31,8 +31,8 @@ func _ready():
 	CurrentRun.world.current_player_info.targets.append(self)
 	camera.make_current()
 	
-	health_component.MAX_HEALTH = CurrentRun.world.current_player_info.base_max_health
-	health_component.ARMOR_VALUE = CurrentRun.world.current_player_info.base_armor
+	health_component.MAX_HEALTH = CurrentRun.world.current_player_info.current_max_health
+	health_component.ARMOR_VALUE = CurrentRun.world.current_player_info.current_armor
 	
 	#pick random weapon
 	var weapon

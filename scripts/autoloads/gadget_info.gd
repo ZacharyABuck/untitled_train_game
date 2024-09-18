@@ -28,7 +28,20 @@ var gadget_roster = {
 		"scene" = load("res://scenes/gadgets/gadget_medical_station.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_medical_station.png"),
 		"cost" = 15,
-		"heal_amount" = 1,
+	},
+	"medical_station_long_range" = {
+		"name" = "Longer Range",
+		"location" = "hard_point",
+		"scene" = load("res://scenes/gadgets/gadget_medical_station_long_range.tscn"),
+		"sprite" = load("res://sprites/gadgets/gadget_medical_station.png"),
+		"cost" = 20,
+	},
+	"medical_station_more_healing" = {
+		"name" = "More Healing",
+		"location" = "hard_point",
+		"scene" = load("res://scenes/gadgets/gadget_medical_station_more_healing.tscn"),
+		"sprite" = load("res://sprites/gadgets/gadget_medical_station.png"),
+		"cost" = 20,
 	},
 	"shockwire" = {
 		"name" = "Shockwire",
@@ -44,6 +57,20 @@ var gadget_roster = {
 		"sprite" = load("res://sprites/gadgets/gadget_rifle_turret.png"),
 		"cost" = 20,
 	},
+	"rifle_turret_quick_loading" = {
+		"name" = "Quick Reload",
+		"location" = "hard_point",
+		"scene" = load("res://scenes/gadgets/gadget_rifle_turret_quick_loading.tscn"),
+		"sprite" = load("res://sprites/gadgets/gadget_rifle_turret.png"),
+		"cost" = 25,
+	},
+	"rifle_turret_more_damage" = {
+		"name" = "More Damage",
+		"location" = "hard_point",
+		"scene" = load("res://scenes/gadgets/gadget_rifle_turret_more_damage.tscn"),
+		"sprite" = load("res://sprites/gadgets/gadget_rifle_turret.png"),
+		"cost" = 25,
+	},
 	"explosive_turret" = {
 		"name" = "Explosive Turret",
 		"location" = "hard_point",
@@ -51,20 +78,27 @@ var gadget_roster = {
 		"sprite" = load("res://sprites/gadgets/gadget_explosive_turret.png"),
 		"cost" = 20,
 	},
+	"explosive_turret_long_range" = {
+		"name" = "Longer Range",
+		"location" = "hard_point",
+		"scene" = load("res://scenes/gadgets/gadget_explosive_turret_long_range.tscn"),
+		"sprite" = load("res://sprites/gadgets/gadget_explosive_turret.png"),
+		"cost" = 25,
+	},
+	"explosive_turret_more_damage" = {
+		"name" = "More Damage",
+		"location" = "hard_point",
+		"scene" = load("res://scenes/gadgets/gadget_explosive_turret_more_damage.tscn"),
+		"sprite" = load("res://sprites/gadgets/gadget_explosive_turret.png"),
+		"cost" = 25,
+	},
 }
 
-var default_roster = {
-	"pistol_turret" = {},
-	"light_cover" = {},
-	"medical_station" = {},
-	"shockwire" = {},
-}
-
-var turret_upgrade_roster = {
-	"rifle_turret" = {},
-	"explosive_turret" = {},
-}
-
-var light_cover_upgrade_roster = {
-	"heavy_cover" = {},
+var upgrade_rosters = {
+	default = ["pistol_turret", "light_cover", "medical_station", "shockwire"],
+	pistol_turret = ["rifle_turret", "explosive_turret"],
+	explosive_turret = ["explosive_turret_long_range", "explosive_turret_more_damage"],
+	rifle_turret = ["rifle_turret_quick_loading", "rifle_turret_more_damage"],
+	light_cover = ["heavy_cover"],
+	medical_station = ["medical_station_long_range", "medical_station_more_healing"]
 }

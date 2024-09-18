@@ -79,58 +79,6 @@ tracks/3/keys = {
 "values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_uqyuv"]
-resource_name = "world_to_level"
-length = 6.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("LevelMusic:volume_db")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [-80.0, 0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("WorldMusic:volume_db")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [-10.0, -80.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("LevelMusic:playing")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("WorldMusic:playing")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(5),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
 [sub_resource type="Animation" id="Animation_d7jfr"]
 resource_name = "world_start"
 length = 6.0
@@ -178,6 +126,58 @@ tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_uqyuv"]
+resource_name = "world_to_level"
+length = 6.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LevelMusic:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-80.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WorldMusic:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-10.0, -80.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LevelMusic:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WorldMusic:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(5),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
@@ -505,7 +505,6 @@ process_mode = 3
 stream = ExtResource("10_3k0cp")
 volume_db = -80.0
 autoplay = true
-stream_paused = true
 bus = &"Music"
 
 [node name="LevelMusic" type="AudioStreamPlayer" parent="Music"]
@@ -972,6 +971,26 @@ theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxEmpty_my1xl")
 text = "+"
 
+[node name="EdgeDebugHBox9" type="HBoxContainer" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer"]
+layout_mode = 2
+
+[node name="EdgeName" type="Label" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox9"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Edge"
+
+[node name="EdgeLevel" type="Label" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox9"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "1"
+
+[node name="LevelUpButton" type="Button" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox9"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_my1xl")
+text = "+"
+
 [node name="LevelAutoCompleteButton" type="Button" parent="DebugUI"]
 z_index = 10
 offset_left = 827.0
@@ -980,6 +999,22 @@ offset_right = 1043.0
 offset_bottom = 551.0
 text = "Auto Complete Level"
 
+[node name="TakeDamageButton" type="Button" parent="DebugUI"]
+offset_left = 1114.0
+offset_top = 486.0
+offset_right = 1282.0
+offset_bottom = 552.0
+text = "Take 10 Damage"
+
+[node name="GainXPButton" type="Button" parent="DebugUI"]
+offset_left = 1110.0
+offset_top = 406.0
+offset_right = 1288.0
+offset_bottom = 466.0
+text = "Gain 10 XP"
+
 [connection signal="pressed" from="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/TownDetails/TravelButton" to="." method="_on_travel_button_pressed"]
 [connection signal="pressed" from="TownsUI/MarginContainer/CloseButton" to="TownsUI" method="_on_close_button_pressed"]
 [connection signal="pressed" from="DebugUI/LevelAutoCompleteButton" to="DebugUI" method="_on_level_auto_complete_button_pressed"]
+[connection signal="pressed" from="DebugUI/TakeDamageButton" to="DebugUI" method="_on_take_damage_button_pressed"]
+[connection signal="pressed" from="DebugUI/GainXPButton" to="DebugUI" method="_on_gain_xp_button_pressed"]

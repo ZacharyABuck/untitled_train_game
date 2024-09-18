@@ -108,10 +108,9 @@ func _handle_death():
 		
 		if character.is_in_group("gadget"):
 			character.hard_point.gadget = null
-			character.hard_point.radial_menu.update_menu("gadgets")
+			character.hard_point.radial_menu.update_menu("default")
 			character.hard_point.radial_menu.show()
 			character.hard_point.car.armor -= clamp(2, 0, 10)
-			print(character.hard_point.car.armor)
 			
 			character.queue_free()
 		

@@ -27,7 +27,8 @@ var is_day: bool = true
 var in_event: bool = false
 var max_night_light: float = .75
 
-enum weather_state {clear, rain}
+var weather_states: Array = ["clear", "rain"]
+var weather: String
 @onready var rain_animations = $UI/Weather/Rain/RainAnimations
 
 
@@ -68,9 +69,10 @@ func calculate_day_cycle():
 		
 		
 func calculate_weather():
-	var random_weather = weather_state.values().pick_random()
+	var random_weather = weather_states.pick_random()
+	weather = random_weather
 	print(random_weather)
-	match weather_state.keys()[random_weather]:
+	match weather:
 		"clear":
 			rain_animations.play("fade_out")
 		"rain":
@@ -113,12 +115,13 @@ func generate_track():
 		add_track_point(last_pos, index, random_pos)
 		index += 1
 		last_pos += random_pos
+		var area
 		if i == CurrentRun.world.current_level_info.level_parameters["distance"] -1:
-			var area = generate_event_area("level_complete", last_pos)
+			area = generate_event_area("level_complete", last_pos)
 		else:
 			for event in CurrentRun.world.current_level_info.events:
 				if i == CurrentRun.world.current_level_info.events[event]["distance"]:
-					var area = generate_event_area(CurrentRun.world.current_level_info.events[event]["type"], last_pos)
+					area = generate_event_area(CurrentRun.world.current_level_info.events[event]["type"], last_pos)
 					CurrentRun.world.current_level_info.events[event]["area"] = area
 
 func generate_event_area(type, pos):
@@ -204,10 +207,16 @@ func level_up_button_pressed():
 
 # Edge Menu
 func populate_edge_menu():
+	var chosen_edges: Array = []
 	for i in 3:
 		var new_panel = edge_panel.instantiate()
 		edge_menu.add_child(new_panel)
+		
 		var random_edge = EdgeInfo.edge_roster.keys().pick_random()
+		while chosen_edges.has(random_edge):
+			random_edge = EdgeInfo.edge_roster.keys().pick_random()
+		
+		chosen_edges.append(random_edge)
 		new_panel.populate(random_edge)
 		new_panel.clicked.connect(edge_selected)
 

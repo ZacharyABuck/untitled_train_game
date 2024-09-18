@@ -43,6 +43,16 @@ func refresh_labels():
 		if world.current_edge_info.edge_inventory.has(hbox.get_child(0).text):
 			hbox.get_child(1).text = str(world.current_edge_info.edge_inventory[hbox.get_child(0).text]["level"])
 
-
 func _on_level_auto_complete_button_pressed():
 	CurrentRun.world.level_complete()
+	hide()
+
+func _on_take_damage_button_pressed():
+	if CurrentRun.world.current_player_info.active_player:
+		var attack = Attack.new()
+		attack.attack_damage = 10
+		CurrentRun.world.current_player_info.active_player.hurtbox_component.damage(attack)
+
+func _on_gain_xp_button_pressed():
+	if CurrentRun.world.current_player_info.active_player:
+		ExperienceSystem.give_experience.emit(10)

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cv3qmikkmenkj"]
+
+[ext_resource type="Script" path="res://scenes/edges/petrichor.gd" id="1_wmwat"]
+
+[node name="Petrichor" type="Node2D"]
+script = ExtResource("1_wmwat")
+edge_reference = "petrichor"

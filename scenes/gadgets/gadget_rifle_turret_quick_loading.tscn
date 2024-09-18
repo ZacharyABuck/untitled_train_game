@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=3 uid="uid://dqm2ydxo1cvr6"]
+
+[ext_resource type="Script" path="res://scripts/gadgets/gadget_rifle_turret.gd" id="1_u8acr"]
+[ext_resource type="Texture2D" uid="uid://daouu3cumm1lh" path="res://sprites/gadgets/gadget_rifle_turret.png" id="2_4rfmq"]
+[ext_resource type="PackedScene" uid="uid://c76dtsauqnpia" path="res://components/projectile_attack_component.tscn" id="3_afppy"]
+[ext_resource type="PackedScene" uid="uid://7oojou0r8v4u" path="res://scenes/projectiles/green_bullet.tscn" id="4_bom3x"]
+[ext_resource type="PackedScene" uid="uid://cpe7uj0omv03o" path="res://components/moving_target_component.tscn" id="5_0a27t"]
+[ext_resource type="PackedScene" uid="uid://blo8u73t6turn" path="res://scenes/buff_receiver.tscn" id="6_fx2wp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bdfa2"]
+radius = 791.01
+
+[sub_resource type="Gradient" id="Gradient_h2hu2"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ot7qh"]
+gradient = SubResource("Gradient_h2hu2")
+height = 90
+fill = 1
+fill_from = Vector2(0.492788, 0.606838)
+fill_to = Vector2(0.61899, 0.192308)
+
+[node name="RifleTurretQuickLoading" type="Node2D" node_paths=PackedStringArray("BUFF_RECEIVER", "moving_target_component") groups=["gadget"]]
+script = ExtResource("1_u8acr")
+BUFF_RECEIVER = NodePath("BuffReceiver")
+moving_target_component = NodePath("MovingTargetComponent")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+rotation = 3.14159
+texture = ExtResource("2_4rfmq")
+
+[node name="ProjectileAttackComponent" parent="." node_paths=PackedStringArray("ATTACK_TIMER", "TARGET_AREA", "BUFF_RECEIVER") instance=ExtResource("3_afppy")]
+TARGET_TYPES = {
+"car": false,
+"cover": false,
+"enemy": true,
+"player": false,
+"terrain": false
+}
+ATTACK_TIMER = NodePath("../AttackTimer")
+BULLET_SPEED = 1500
+DAMAGE_PER_BULLET = 3.0
+PROJECTILE = ExtResource("4_bom3x")
+TARGET_AREA = NodePath("CollisionShape2D")
+BUFF_RECEIVER = NodePath("../BuffReceiver")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ProjectileAttackComponent"]
+shape = SubResource("CircleShape2D_bdfa2")
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="FrontLight" type="PointLight2D" parent="."]
+position = Vector2(219.285, 2.62994)
+rotation = 1.5708
+scale = Vector2(3.56228, 5.0407)
+energy = 0.5
+texture = SubResource("GradientTexture2D_ot7qh")
+
+[node name="MovingTargetComponent" parent="." instance=ExtResource("5_0a27t")]
+collision_layer = 8
+collision_mask = 0
+
+[node name="BuffReceiver" parent="." instance=ExtResource("6_fx2wp")]
+
+[connection signal="area_entered" from="ProjectileAttackComponent" to="." method="_on_projectile_attack_component_area_entered"]

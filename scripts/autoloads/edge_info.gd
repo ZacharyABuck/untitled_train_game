@@ -65,5 +65,13 @@ var edge_roster = {
 		"description" = "Repair rate +20%",
 		"update" = false,
 	},
+	"petrichor" = {
+		"name" = "Petrichor",
+		"category" = "Elsewhere",
+		"scene" = load("res://scenes/edges/petrichor.tscn"),
+		"sprite" = load("res://sprites/edges/petrichor.png"),
+		"description" = "Rain heals you",
+		"update" = true,
+	},
 }
 
