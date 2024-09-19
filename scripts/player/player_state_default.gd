@@ -23,9 +23,12 @@ func animate_movement():
 
 func _unhandled_input(event):
 	if event.is_action_pressed("shoot"):
-		owner._shoot()
-	elif event.is_action_pressed("strike"):
-		owner._strike()
+		owner.charge_timer.start()
+	if event.is_action_released("shoot"):
+		if owner.charging:
+			owner.current_charge_attack.release_charge()
+		else:
+			owner._shoot()
 	elif event.is_action_pressed("repair"):
 		Input.action_release("shoot")
 		CurrentRun.world.current_level_info.active_level.close_all_ui()

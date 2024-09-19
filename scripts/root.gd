@@ -4,15 +4,19 @@ var world = preload("res://scenes/world.tscn")
 
 @onready var escape_menu = $EscapeMenu
 @onready var title_screen = $TitleScreen
+@onready var title_screen_start_button = $TitleScreen/TitleScreenStartButton
 @onready var restart_screen = $RestartScreen
 @onready var black_rect = $EffectsUI/BlackRect
+
 
 func ready():
 	title_screen.show()
 
 func title_screen_start_button_pressed():
-	await fade_to_black(.5)
+	title_screen_start_button.disabled = true
 	
+	await fade_to_black(.5)
+
 	title_screen.hide()
 	var new_world = world.instantiate()
 	CurrentRun.world = new_world
@@ -37,7 +41,7 @@ func show_restart_button():
 
 func restart_button_button_up():
 	await fade_to_black(.5)
-	
+	title_screen_start_button.disabled = false
 	escape_menu.hide()
 	restart_screen.hide()
 	CurrentRun.world.queue_free()

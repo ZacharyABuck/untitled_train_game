@@ -25,6 +25,7 @@ var current_health: float
 var current_max_health: float
 var current_money: int
 var current_ranged_weapon_reference: String
+var current_charge_attack_reference: String
 var current_ranged_damage_multiplier: float
 var current_melee_damage_multiplier: float
 var current_ranged_damage_bonus: float

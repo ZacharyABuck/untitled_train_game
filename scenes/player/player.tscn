@@ -182,9 +182,6 @@ shape = SubResource("RectangleShape2D_ff0f4")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="AutoFireTimer" type="Timer" parent="."]
-wait_time = 0.5
-
 [node name="CarDetector" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 4
@@ -239,6 +236,10 @@ bus = &"Train"
 
 [node name="Buff" parent="." instance=ExtResource("14_q74rt")]
 
-[connection signal="timeout" from="AutoFireTimer" to="." method="_on_auto_fire_timer_timeout"]
+[node name="ChargeTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
 [connection signal="area_entered" from="CarDetector" to="." method="_on_car_detector_area_entered"]
 [connection signal="area_exited" from="CarDetector" to="." method="_on_car_detector_area_exited"]
+[connection signal="timeout" from="ChargeTimer" to="." method="_on_charge_timer_timeout"]

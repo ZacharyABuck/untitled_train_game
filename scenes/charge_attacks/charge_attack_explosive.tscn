@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsusoarcsjwhw"]
+
+[ext_resource type="Script" path="res://scenes/charge_attacks/charge_attack_explosive.gd" id="1_b34xk"]
+[ext_resource type="PackedScene" uid="uid://ikqkup712f5b" path="res://scenes/projectiles/explosive_bullet.tscn" id="2_k61w3"]
+
+[node name="ChargeAttackExplosive" type="Node2D"]
+script = ExtResource("1_b34xk")
+target_types = {
+"car": false,
+"cover": false,
+"enemy": true,
+"player": false,
+"terrain": false
+}
+bullet = ExtResource("2_k61w3")
+bullet_speed = 600
+damage = 15
+lifetime = 2

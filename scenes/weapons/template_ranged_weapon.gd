@@ -54,7 +54,7 @@ func shoot():
 func _on_attack_timer_timeout():
 	attack_delay_timer.stop()
 	can_shoot = true
-	if Input.is_action_pressed("shoot"):
+	if Input.is_action_pressed("shoot") and player.charging == false:
 		shoot()
 
 func _build_bullet(b):

@@ -2,7 +2,6 @@ extends CharacterBody2D
 class_name Player
 
 @onready var sprite = $AnimatedSprite2D
-@onready var auto_fire_timer = $AutoFireTimer
 @onready var hurtbox_component = $HurtboxComponent
 @onready var health_bar = $HealthBar
 @onready var health_component = $HealthComponent
@@ -11,10 +10,13 @@ class_name Player
 @onready var repair_sfx = $RepairSFX
 @onready var camera = $Camera2D
 @onready var buff = $Buff
-
+@onready var charge_timer = $ChargeTimer
 
 
 var active_car
+
+var charging: bool = false
+var current_charge_attack
 
 var can_shoot = true
 var current_ranged_weapon
@@ -46,6 +48,13 @@ func _ready():
 			CurrentRun.world.current_player_info.current_ranged_weapon_damage_mod, \
 			CurrentRun.world.current_player_info.current_ranged_weapon_attack_delay_mod, \
 			CurrentRun.world.current_player_info.current_ranged_weapon_speed_mod)
+	
+	#charge attack
+	var charge_attack
+	if CurrentRun.world.current_player_info.current_charge_attack_reference.is_empty():
+		charge_attack = WeaponInfo.charge_attacks_roster.keys().pick_random()
+		CurrentRun.world.current_player_info.current_charge_attack_reference = charge_attack
+		_instantiate_charge_attack(WeaponInfo.charge_attacks_roster[charge_attack]["scene"])
 
 	ExperienceSystem.level_up.connect(self.handle_level_up)
 	
@@ -55,9 +64,11 @@ func _ready():
 func _shoot():
 	current_ranged_weapon.shoot()
 
-func _strike():
-	# current_melee_weapon.strike()
-	pass
+func _on_charge_timer_timeout():
+	if Input.is_action_pressed("shoot"):
+		charging = true
+		if is_instance_valid(current_charge_attack):
+			current_charge_attack.initiate_charge()
 
 # -- REPAIR -- #
 func repair():
@@ -107,6 +118,13 @@ func refresh_current_ranged_weapon_stats():
 	current_ranged_weapon.current_damage = damage
 	current_ranged_weapon.current_attack_delay = current_ranged_weapon.base_attack_delay * CurrentRun.world.current_player_info.current_attack_delay_modifier
 
+func _instantiate_charge_attack(charge_attack_scene):
+	if is_instance_valid(current_charge_attack):
+		current_charge_attack.queue_free()
+		
+	current_charge_attack = charge_attack_scene.instantiate()
+	add_child(current_charge_attack)
+
 # -- MOVEMENT FUNCTIONS -- #
 func _on_car_detector_area_entered(area):
 	if area.get_parent().is_in_group("car"):
@@ -125,3 +143,4 @@ func _on_car_detector_area_exited(area):
 
 func handle_level_up():
 	refresh_current_ranged_weapon_stats()
+
