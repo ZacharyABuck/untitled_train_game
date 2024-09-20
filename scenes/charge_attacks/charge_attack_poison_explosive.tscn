@@ -16,7 +16,7 @@ target_types = {
 }
 bullet = ExtResource("2_wuosx")
 bullet_speed = 400
-damage = 5
+damage = 8
 charge_sound = NodePath("ChargeSound")
 shoot_sound = NodePath("ShootSound")
 lifetime = 2

@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://ciig1qohmymji"]
+[gd_scene load_steps=12 format=3 uid="uid://ciig1qohmymji"]
 
 [ext_resource type="Script" path="res://scenes/charge_attacks/charge_targeting_component.gd" id="1_ntswt"]
+[ext_resource type="AudioStream" uid="uid://n1dms4u41qfo" path="res://sounds/ui/targeting_success.mp3" id="2_gxxqy"]
 
 [sub_resource type="Gradient" id="Gradient_xyfqg"]
 offsets = PackedFloat32Array(0.521978, 0.557692, 0.601648)
@@ -24,6 +25,32 @@ height = 512
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
+[sub_resource type="Curve" id="Curve_7puvw"]
+_data = [Vector2(0, 0.985961), 0.0, 0.0, 0, 0, Vector2(0.644444, 0.985961), 0.0, 0.0, 0, 0, Vector2(0.769444, 0.0102592), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_3kggn"]
+curve = SubResource("Curve_7puvw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0sxky"]
+particle_flag_disable_z = true
+velocity_pivot = Vector3(1, 0, 0)
+spread = 127.577
+initial_velocity_min = 546.39
+initial_velocity_max = 546.39
+gravity = Vector3(0, 0, 0)
+alpha_curve = SubResource("CurveTexture_3kggn")
+
+[sub_resource type="Gradient" id="Gradient_86r27"]
+offsets = PackedFloat32Array(0.516484, 0.703297)
+colors = PackedColorArray(0.839216, 0.701961, 0.188235, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pft4m"]
+gradient = SubResource("Gradient_86r27")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.623932, 0.418803)
+
 [node name="ChargeTargetingComponent" type="Node2D"]
 script = ExtResource("1_ntswt")
 
@@ -32,3 +59,16 @@ texture = SubResource("GradientTexture2D_1h1fo")
 
 [node name="ShrinkingCircle" type="Sprite2D" parent="."]
 texture = SubResource("GradientTexture2D_j8wg8")
+
+[node name="TargetingSuccessSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_gxxqy")
+volume_db = -5.0
+bus = &"SFX"
+
+[node name="SuccessParticles" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_0sxky")
+texture = SubResource("GradientTexture2D_pft4m")
+one_shot = true
+explosiveness = 1.0

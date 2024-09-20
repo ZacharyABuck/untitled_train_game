@@ -28,7 +28,7 @@ func damage_enemies():
 		var new_attack = Attack.new()
 		new_attack.attack_damage = damage
 		if i is HurtboxComponent and i.get_parent().is_in_group("enemy"):
-			i.damage(new_attack)
+			i.damage(new_attack, null)
 
 func animation_finished():
 	if animations.animation == "shock_visible":

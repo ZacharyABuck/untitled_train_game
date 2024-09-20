@@ -16,7 +16,7 @@ target_types = {
 }
 bullet = ExtResource("2_k61w3")
 bullet_speed = 600
-damage = 8
+damage = 10
 charge_sound = NodePath("ChargeSound")
 shoot_sound = NodePath("ShootSound")
 lifetime = 2

@@ -139,9 +139,6 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 corner_detail = 10
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_m2jei"]
-size = Vector2(36, 46)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qrhpi"]
 bg_color = Color(0.117629, 0.558583, 0.8688, 1)
 corner_radius_top_left = 2
@@ -149,6 +146,9 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 corner_detail = 10
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m2jei"]
+size = Vector2(36, 46)
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 5
@@ -212,6 +212,18 @@ step = 1.0
 value = 50.0
 show_percentage = false
 
+[node name="ChargeAttackBar" type="ProgressBar" parent="."]
+offset_left = -33.0
+offset_top = -45.0
+offset_right = 33.0
+offset_bottom = -40.0
+tooltip_text = "Charge Attack"
+mouse_filter = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_qrhpi")
+max_value = 50.0
+show_percentage = false
+script = ExtResource("15_rqql3")
+
 [node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component", "hurt_sfx")]
 script = ExtResource("8_vuihw")
 health_component = NodePath("../HealthComponent")
@@ -244,18 +256,6 @@ volume_db = -15.0
 bus = &"Train"
 
 [node name="Buff" parent="." instance=ExtResource("14_q74rt")]
-
-[node name="ChargeAttackBar" type="ProgressBar" parent="."]
-offset_left = -33.0
-offset_top = -45.0
-offset_right = 33.0
-offset_bottom = -40.0
-tooltip_text = "Charge Attack"
-mouse_filter = 2
-theme_override_styles/fill = SubResource("StyleBoxFlat_qrhpi")
-max_value = 50.0
-show_percentage = false
-script = ExtResource("15_rqql3")
 
 [connection signal="area_entered" from="CarDetector" to="." method="_on_car_detector_area_entered"]
 [connection signal="area_exited" from="CarDetector" to="." method="_on_car_detector_area_exited"]

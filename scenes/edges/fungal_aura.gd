@@ -24,4 +24,4 @@ func damage_enemies():
 		new_attack.attack_damage = damage
 		new_attack.active_buffs.append("poison")
 		if i is HurtboxComponent and i.get_parent().is_in_group("enemy"):
-			i.damage(new_attack)
+			i.damage(new_attack, null)

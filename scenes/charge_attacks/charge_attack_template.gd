@@ -40,12 +40,16 @@ func initiate_charge():
 func release_charge():
 	player.charging = false
 	final_score = charge_targeting_component.finish()
+	
+	if final_score <= 10:
+		charge_targeting_component.success_sfx.play()
+		charge_targeting_component.glow()
+	elif shoot_sound != null:
+		shoot_sound.play()
+	
 	_shoot()
 
 func _shoot():
-	if shoot_sound != null:
-		shoot_sound.play()
-	
 	var new_bullet = _instantiate_bullet()
 	# Add the bullet to the parent scene of the shooter, which fires the projectile.
 	CurrentRun.world.add_child(new_bullet)
