@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://bsusoarcsjwhw"]
+[gd_scene load_steps=5 format=3 uid="uid://bsusoarcsjwhw"]
 
 [ext_resource type="Script" path="res://scenes/charge_attacks/charge_attack_explosive.gd" id="1_b34xk"]
 [ext_resource type="PackedScene" uid="uid://ikqkup712f5b" path="res://scenes/projectiles/explosive_bullet.tscn" id="2_k61w3"]
+[ext_resource type="AudioStream" uid="uid://cpwl7vt4xocsl" path="res://sounds/combat/charge_attack_start.mp3" id="3_x5sr4"]
+[ext_resource type="AudioStream" uid="uid://24x7wkoobr7a" path="res://sounds/combat/canon_01.wav" id="4_hy8yu"]
 
-[node name="ChargeAttackExplosive" type="Node2D"]
+[node name="ChargeAttackExplosive" type="Node2D" node_paths=PackedStringArray("charge_sound", "shoot_sound")]
 script = ExtResource("1_b34xk")
 target_types = {
 "car": false,
@@ -14,5 +16,17 @@ target_types = {
 }
 bullet = ExtResource("2_k61w3")
 bullet_speed = 600
-damage = 15
+damage = 8
+charge_sound = NodePath("ChargeSound")
+shoot_sound = NodePath("ShootSound")
 lifetime = 2
+
+[node name="ChargeSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_x5sr4")
+volume_db = -10.0
+bus = &"SFX"
+
+[node name="ShootSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_hy8yu")
+volume_db = -10.0
+bus = &"SFX"

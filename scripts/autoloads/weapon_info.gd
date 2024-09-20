@@ -37,5 +37,9 @@ var charge_attacks_roster = {
 	"explosive" = {
 		"name" = "Explosive Attack",
 		"scene" = preload("res://scenes/charge_attacks/charge_attack_explosive.tscn"),
-	}
+	},
+	"poison_explosive" = {
+		"name" = "Poison Bomb",
+		"scene" = preload("res://scenes/charge_attacks/charge_attack_poison_explosive.tscn"),
+	},
 }

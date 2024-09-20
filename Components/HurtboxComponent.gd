@@ -8,9 +8,9 @@ class_name HurtboxComponent
 @export var health_component : HealthComponent
 @export var hurt_sfx: AudioStreamPlayer
 
-func damage(attack: Attack):
+func damage(attack: Attack, shooter):
 	if health_component:
-		health_component.damage(attack)
+		health_component.damage(attack, shooter)
 		health_component.spawn_particles(health_component.blood_fx)
 		for buff in attack.active_buffs:
 			health_component.process_buffs(buff)

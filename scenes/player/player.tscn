@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bp38lfu2xg7sc"]
+[gd_scene load_steps=35 format=3 uid="uid://bp38lfu2xg7sc"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_c8j4p"]
 [ext_resource type="Script" path="res://scripts/player/player_state_machine.gd" id="2_i83vv"]
@@ -14,6 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://bm8ntouv5ol6l" path="res://sounds/player/running_wood.wav" id="12_5foum"]
 [ext_resource type="AudioStream" uid="uid://cpnffnc4clg7y" path="res://sounds/player/repair.mp3" id="13_5ua86"]
 [ext_resource type="PackedScene" uid="uid://uh2tbc2jgtpo" path="res://scenes/buff.tscn" id="14_q74rt"]
+[ext_resource type="Script" path="res://scripts/player/charge_attack_bar.gd" id="15_rqql3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m0gpd"]
 atlas = ExtResource("7_r1yq3")
@@ -141,6 +142,14 @@ corner_detail = 10
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m2jei"]
 size = Vector2(36, 46)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qrhpi"]
+bg_color = Color(0.117629, 0.558583, 0.8688, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 10
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 5
 z_as_relative = false
@@ -236,10 +245,17 @@ bus = &"Train"
 
 [node name="Buff" parent="." instance=ExtResource("14_q74rt")]
 
-[node name="ChargeTimer" type="Timer" parent="."]
-wait_time = 0.2
-one_shot = true
+[node name="ChargeAttackBar" type="ProgressBar" parent="."]
+offset_left = -33.0
+offset_top = -45.0
+offset_right = 33.0
+offset_bottom = -40.0
+tooltip_text = "Charge Attack"
+mouse_filter = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_qrhpi")
+max_value = 50.0
+show_percentage = false
+script = ExtResource("15_rqql3")
 
 [connection signal="area_entered" from="CarDetector" to="." method="_on_car_detector_area_entered"]
 [connection signal="area_exited" from="CarDetector" to="." method="_on_car_detector_area_exited"]
-[connection signal="timeout" from="ChargeTimer" to="." method="_on_charge_timer_timeout"]

@@ -10,13 +10,13 @@ class_name Player
 @onready var repair_sfx = $RepairSFX
 @onready var camera = $Camera2D
 @onready var buff = $Buff
-@onready var charge_timer = $ChargeTimer
 
 
 var active_car
 
 var charging: bool = false
 var current_charge_attack
+@onready var charge_attack_bar = $ChargeAttackBar
 
 var can_shoot = true
 var current_ranged_weapon
@@ -55,6 +55,9 @@ func _ready():
 		charge_attack = WeaponInfo.charge_attacks_roster.keys().pick_random()
 		CurrentRun.world.current_player_info.current_charge_attack_reference = charge_attack
 		_instantiate_charge_attack(WeaponInfo.charge_attacks_roster[charge_attack]["scene"])
+	else:
+		charge_attack = CurrentRun.world.current_player_info.current_charge_attack_reference
+		_instantiate_charge_attack(WeaponInfo.charge_attacks_roster[charge_attack]["scene"])
 
 	ExperienceSystem.level_up.connect(self.handle_level_up)
 	
@@ -64,11 +67,11 @@ func _ready():
 func _shoot():
 	current_ranged_weapon.shoot()
 
-func _on_charge_timer_timeout():
-	if Input.is_action_pressed("shoot"):
+func check_charge():
+	if is_instance_valid(current_charge_attack) and charge_attack_bar.value >= charge_attack_bar.max_value:
 		charging = true
-		if is_instance_valid(current_charge_attack):
-			current_charge_attack.initiate_charge()
+		charge_attack_bar.value = 0
+		current_charge_attack.initiate_charge()
 
 # -- REPAIR -- #
 func repair():

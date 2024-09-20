@@ -991,6 +991,86 @@ theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxEmpty_my1xl")
 text = "+"
 
+[node name="EdgeDebugHBox10" type="HBoxContainer" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer"]
+layout_mode = 2
+
+[node name="EdgeName" type="Label" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox10"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Edge"
+
+[node name="EdgeLevel" type="Label" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox10"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "1"
+
+[node name="LevelUpButton" type="Button" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox10"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_my1xl")
+text = "+"
+
+[node name="EdgeDebugHBox11" type="HBoxContainer" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer"]
+layout_mode = 2
+
+[node name="EdgeName" type="Label" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox11"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Edge"
+
+[node name="EdgeLevel" type="Label" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox11"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "1"
+
+[node name="LevelUpButton" type="Button" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox11"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_my1xl")
+text = "+"
+
+[node name="EdgeDebugHBox12" type="HBoxContainer" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer"]
+layout_mode = 2
+
+[node name="EdgeName" type="Label" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox12"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Edge"
+
+[node name="EdgeLevel" type="Label" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox12"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "1"
+
+[node name="LevelUpButton" type="Button" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox12"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_my1xl")
+text = "+"
+
+[node name="EdgeDebugHBox13" type="HBoxContainer" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer"]
+layout_mode = 2
+
+[node name="EdgeName" type="Label" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox13"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Edge"
+
+[node name="EdgeLevel" type="Label" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox13"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "1"
+
+[node name="LevelUpButton" type="Button" parent="DebugUI/MarginContainer/GridContainer/EdgeContainer/EdgeDebugHBox13"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_my1xl")
+text = "+"
+
 [node name="LevelAutoCompleteButton" type="Button" parent="DebugUI"]
 z_index = 10
 offset_left = 827.0

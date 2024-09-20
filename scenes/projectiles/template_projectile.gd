@@ -11,6 +11,7 @@ class_name Projectile
 @export var ANIMATIONS : AnimatedSprite2D
 @export var SFX : AudioStreamPlayer2D
 
+var shooter
 var target
 var continuous_target
 var speed = 600
@@ -52,7 +53,7 @@ func _on_area_2d_area_entered(area):
 		var attack = Attack.new()
 		attack.active_buffs = active_buffs
 		attack.attack_damage = damage
-		new_hitbox.damage(attack)
+		new_hitbox.damage(attack, shooter)
 		if SFX:
 			SFX.play()
 

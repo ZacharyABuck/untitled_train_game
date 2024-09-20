@@ -34,6 +34,7 @@ var healthbar = false
 @onready var poison_timer = $PoisonTimer
 @onready var shock_timer = $ShockTimer
 
+signal fill_charge_meter
 
 func _ready():
 	#set armor?
@@ -47,7 +48,7 @@ func _ready():
 	if HEALTHBAR != null:
 		_initialize_healthbar()
 	
-func damage(attack : Attack):
+func damage(attack : Attack, shooter):
 	_calculate_final_damage(attack.attack_damage, ARMOR_VALUE)
 	
 	health -= clamp(final_damage, 1, MAX_HEALTH)
@@ -58,7 +59,7 @@ func damage(attack : Attack):
 	if has_healthbar:
 		healthbar.value = health
 	if health <= 0:
-		_handle_death()
+		_handle_death(shooter)
 
 func process_buffs(buff):
 	match buff:
@@ -75,7 +76,7 @@ func _on_poison_timer_timeout():
 	var poison_damage = CurrentRun.world.current_player_info.poison_damage
 	var poison_tick = Attack.new()
 	poison_tick.attack_damage = poison_damage
-	damage(poison_tick)
+	damage(poison_tick, null)
 	spawn_particles(poison_fx)
 	get_parent().modulate = Color.WEB_GREEN
 
@@ -89,7 +90,7 @@ func spawn_particles(fx):
 	new_fx.global_position = character.global_position
 	new_fx.emitting = true
 
-func _handle_death():
+func _handle_death(shooter):
 	if is_killable:
 		if character.is_in_group("enemy"):
 			var rng = randi_range(1,10)
@@ -101,6 +102,7 @@ func _handle_death():
 			if character is RigidBody2D:
 				character.set_collision_layer_value(4, false)
 				character.set_collision_mask_value(4, false)
+			check_edges(shooter)
 		
 		if character.is_in_group("event"):
 			character.queue_free()
@@ -139,6 +141,15 @@ func _handle_death():
 					else:
 						CurrentRun.world.current_mission_info.mission_inventory[i]["reward"] *= .75
 					character.queue_free()
+
+#check for edges that trigger on kills
+func check_edges(shooter):
+	for edge in CurrentRun.world.current_edge_info.edge_inventory:
+		var edge_scene = CurrentRun.world.current_edge_info.edge_inventory[edge]["scene"]
+		if edge == "turret_kills_fill_charge" and shooter is Turret:
+			edge_scene.fill_meter()
+		if edge == "player_kills_fill_charge" and shooter is Player:
+			edge_scene.fill_meter()
 
 func remove_mission(mission_id):
 	CurrentRun.world.current_mission_info.mission_inventory.erase(mission_id)

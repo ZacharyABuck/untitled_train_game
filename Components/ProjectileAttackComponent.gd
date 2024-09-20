@@ -100,6 +100,7 @@ func _instantiate_bullet():
 		new_projectile.lifetime = lifetime
 	new_projectile.target = attack_target.global_position
 	new_projectile.valid_hitbox_types = target_types
+	new_projectile.shooter = shooter
 
 	return new_projectile
 

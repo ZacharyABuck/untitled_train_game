@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://sie3m5qytl8v"]
+
+[ext_resource type="Script" path="res://scenes/charge_attacks/charge_attack_poison_explosive.gd" id="1_kv0yf"]
+[ext_resource type="PackedScene" uid="uid://dcrqlvy418yd8" path="res://scenes/projectiles/poison_explosive_bullet.tscn" id="2_wuosx"]
+[ext_resource type="AudioStream" uid="uid://cpwl7vt4xocsl" path="res://sounds/combat/charge_attack_start.mp3" id="3_n3hld"]
+[ext_resource type="AudioStream" uid="uid://24x7wkoobr7a" path="res://sounds/combat/canon_01.wav" id="4_il75w"]
+
+[node name="ChargeAttackPoisonExplosive" type="Node2D" node_paths=PackedStringArray("charge_sound", "shoot_sound")]
+script = ExtResource("1_kv0yf")
+target_types = {
+"car": false,
+"cover": false,
+"enemy": true,
+"player": false,
+"terrain": false
+}
+bullet = ExtResource("2_wuosx")
+bullet_speed = 400
+damage = 5
+charge_sound = NodePath("ChargeSound")
+shoot_sound = NodePath("ShootSound")
+lifetime = 2
+
+[node name="ChargeSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_n3hld")
+volume_db = -10.0
+bus = &"SFX"
+
+[node name="ShootSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_il75w")
+volume_db = -10.0
+bus = &"SFX"

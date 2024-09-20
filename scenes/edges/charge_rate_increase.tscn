@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://l4xawqro2sgm"]
+
+[ext_resource type="Script" path="res://scenes/edges/charge_rate_increase.gd" id="1_ihy03"]
+
+[node name="ChargeRateIncrease" type="Node2D"]
+script = ExtResource("1_ihy03")
+edge_reference = "charge_rate_increase"

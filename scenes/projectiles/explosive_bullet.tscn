@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://ikqkup712f5b"]
+[gd_scene load_steps=23 format=3 uid="uid://ikqkup712f5b"]
 
 [ext_resource type="Texture2D" uid="uid://c5by803p0sj2a" path="res://sprites/projectiles/explosive_bullet_sprite_sheet.png" id="1_4ltts"]
 [ext_resource type="Script" path="res://scenes/projectiles/explosive_bullet.gd" id="1_5nkwu"]
@@ -132,11 +132,16 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="ExplosiveBullet" type="RigidBody2D" node_paths=PackedStringArray("HITBOX", "ANIMATIONS", "SFX")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_qiwjb"]
+radius = 92.0489
+
+[node name="ExplosiveBullet" type="RigidBody2D" node_paths=PackedStringArray("explode_sfx", "explosion_hitbox", "HITBOX", "ANIMATIONS")]
 script = ExtResource("1_5nkwu")
+explode_sfx = NodePath("ExplodeSFX")
+explosion_hitbox = NodePath("ExplosionArea")
+splash_damage = 3
 HITBOX = NodePath("Area2D")
 ANIMATIONS = NodePath("AnimatedSprite2D")
-SFX = NodePath("ExplodeSFX")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
@@ -152,9 +157,17 @@ position = Vector2(2.76256, 0.05719)
 sprite_frames = SubResource("SpriteFrames_3w143")
 animation = &"travel"
 
-[node name="ExplodeSFX" type="AudioStreamPlayer2D" parent="."]
+[node name="ExplodeSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_ry2sm")
-volume_db = 6.0
 bus = &"SFX"
+
+[node name="ExplosionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionArea"]
+shape = SubResource("CircleShape2D_qiwjb")
 
 [connection signal="animation_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]

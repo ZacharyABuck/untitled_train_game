@@ -22,15 +22,16 @@ func animate_movement():
 			owner.running_sfx.play()
 
 func _unhandled_input(event):
-	if event.is_action_pressed("shoot"):
-		owner.charge_timer.start()
-	if event.is_action_released("shoot"):
+	if event.is_action_pressed("strike"):
+		owner.check_charge()
+	if event.is_action_released("strike"):
 		if owner.charging:
 			owner.current_charge_attack.release_charge()
-		else:
-			owner._shoot()
+	if event.is_action_pressed("shoot"):
+		owner._shoot()
 	elif event.is_action_pressed("repair"):
 		Input.action_release("shoot")
+		Input.action_release("strike")
 		CurrentRun.world.current_level_info.active_level.close_all_ui()
 		CurrentRun.world.current_player_info.state = "repairing"
 

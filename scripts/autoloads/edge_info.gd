@@ -73,5 +73,29 @@ var edge_roster = {
 		"description" = "Rain heals you",
 		"update" = true,
 	},
+	"turret_kills_fill_charge" = {
+		"name" = "Turret Kills Fill Charge",
+		"category" = "Survivalist",
+		"scene" = load("res://scenes/edges/turret_kills_fill_charge.tscn"),
+		"sprite" = load("res://sprites/edges/petrichor.png"),
+		"description" = "Turret Kills Fill Charge",
+		"update" = true,
+	},
+	"player_kills_fill_charge" = {
+		"name" = "Player Kills Fill Charge",
+		"category" = "Survivalist",
+		"scene" = load("res://scenes/edges/player_kills_fill_charge.tscn"),
+		"sprite" = load("res://sprites/edges/petrichor.png"),
+		"description" = "Player Kills Fill Charge",
+		"update" = true,
+	},
+	"charge_rate_increase" = {
+		"name" = "Charge Rate Increase",
+		"category" = "Survivalist",
+		"scene" = load("res://scenes/edges/charge_rate_increase.tscn"),
+		"sprite" = load("res://sprites/edges/petrichor.png"),
+		"description" = "Charge Attack Recovery Up",
+		"update" = false,
+	},
 }
 

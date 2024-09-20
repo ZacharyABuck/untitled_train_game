@@ -6,6 +6,7 @@ var current_type
 @export var radius: int
 @export var collision_shape: CollisionShape2D
 
+var selected: bool = false
 var open: bool = false
 
 var menu_item = preload("res://scenes/ui/menu_item.tscn")
@@ -26,22 +27,23 @@ func _ready():
 
 func _on_mouse_entered():
 	if CurrentRun.world.current_player_info.state == "default":
-		$AnimationPlayer.play("flash")
+		if CurrentRun.world.current_player_info.active_player.active_car == get_parent().car.index and current_type != "none":
+			$AnimationPlayer.play("flash")
+			selected = true
 	else:
 		$AnimationPlayer.play("still")
+		selected = false
 
 func _on_mouse_exited():
 	$AnimationPlayer.play("still")
-
-func _on_input_event(_viewport, event, _shape_idx):
-	if event.is_action_pressed("strike"):
-		#show menu
-		if CurrentRun.world.current_player_info.active_player.active_car == get_parent().car.index and current_type != "none":
-			CurrentRun.world.current_player_info.state = "ui_default"
-			open_menu()
+	selected = false
 
 func _process(_delta):
 	global_rotation = 0
+	
+	if Input.is_action_pressed("interact") and selected:
+		CurrentRun.world.current_player_info.state = "ui_default"
+		open_menu()
 
 func spawn_menu(type):
 	for i in GadgetInfo.upgrade_rosters[type]:

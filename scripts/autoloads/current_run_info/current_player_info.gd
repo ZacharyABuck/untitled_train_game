@@ -19,6 +19,7 @@ var base_movespeed: int = 300
 var base_armor: float = 0
 var base_attack_delay_modifier: float = 1.0
 var base_repair_rate: float = 0.02
+var base_charge_recovery_rate: float = 3.0
 
 # Current Variables
 var current_health: float
@@ -33,7 +34,8 @@ var current_melee_damage_bonus: float
 var current_movespeed: float
 var current_armor: float
 var current_attack_delay_modifier: float
-var current_repair_rate: float = 0.02
+var current_repair_rate: float
+var current_charge_recovery_rate: float
 
 # Weapon Variables
 var current_ranged_weapon_damage_mod: int
@@ -63,6 +65,8 @@ func set_current_variables_to_base_value():
 	current_armor = base_armor
 	current_attack_delay_modifier = base_attack_delay_modifier
 	current_movespeed = base_movespeed
+	current_repair_rate = base_repair_rate
+	current_charge_recovery_rate = base_charge_recovery_rate
 
 # --EXPERIENCE FUNCTIONS-- #
 func handle_give_experience_signal(value):
