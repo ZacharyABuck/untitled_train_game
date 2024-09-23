@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfufn3rv547h3"]
+
+[ext_resource type="Script" path="res://scenes/weapons/mondragon.gd" id="1_pvjmk"]
+[ext_resource type="AudioStream" uid="uid://cktjuxs4l5ah2" path="res://sounds/combat/short_gunshot.wav" id="2_8ngyn"]
+
+[node name="Mondragon" type="Node2D" node_paths=PackedStringArray("attack_delay_timer", "gunshot_sound")]
+script = ExtResource("1_pvjmk")
+attack_delay_timer = NodePath("AttackDelayTimer")
+gunshot_sound = NodePath("Gunshot")
+
+[node name="AttackDelayTimer" type="Timer" parent="."]
+
+[node name="Gunshot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_8ngyn")
+volume_db = -4.0
+bus = &"SFX"

@@ -236,12 +236,19 @@ func edge_selected(edge):
 	if CurrentRun.world.current_player_info.level_up_queue > 0:
 		handle_level_up()
 
-func weapon_picked_up(weapon):
+func weapon_picked_up(weapon, type):
 	var container = $UI/WeaponMarginContainer
+	var current_weapon_panel = $UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel
+	var new_weapon_panel = $UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel
 	container.position.y = -1080
 	
-	$UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel.populate()
-	$UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel.populate(weapon)
+	match type:
+		"weapon":
+			current_weapon_panel.populate()
+			new_weapon_panel.populate(weapon)
+		"charge_attack":
+			current_weapon_panel.populate_charge_attack()
+			new_weapon_panel.populate_charge_attack(weapon)
 	
 	container.show()
 	var tween = create_tween()
@@ -253,15 +260,20 @@ func weapon_picked_up(weapon):
 func keep_current_weapon():
 	close_weapon_menu()
 
-func equip_new_weapon(weapon, random_damage, random_attack_delay, random_projectile_speed):
+func equip_new_weapon(type, weapon, random_damage, random_attack_delay, random_projectile_speed):
 	close_weapon_menu()
-	CurrentRun.world.current_player_info.active_player._instantiate_ranged_weapon(\
-		WeaponInfo.weapons_roster[weapon]["scene"], random_damage, random_attack_delay, random_projectile_speed)
 	
-	CurrentRun.world.current_player_info.current_ranged_weapon_reference = weapon
-	CurrentRun.world.current_player_info.current_ranged_weapon_damage_mod = random_damage
-	CurrentRun.world.current_player_info.current_ranged_weapon_attack_delay_mod = random_attack_delay
-	CurrentRun.world.current_player_info.current_ranged_weapon_speed_mod = random_projectile_speed
+	match type:
+		"weapon":
+			CurrentRun.world.current_player_info.active_player._instantiate_ranged_weapon(\
+				WeaponInfo.weapons_roster[weapon]["scene"], random_damage, random_attack_delay, random_projectile_speed)
+			
+			CurrentRun.world.current_player_info.current_ranged_weapon_reference = weapon
+			CurrentRun.world.current_player_info.current_ranged_weapon_damage_mod = random_damage
+			CurrentRun.world.current_player_info.current_ranged_weapon_attack_delay_mod = random_attack_delay
+			CurrentRun.world.current_player_info.current_ranged_weapon_speed_mod = random_projectile_speed
+		"charge_attack":
+			CurrentRun.world.current_player_info.active_player._instantiate_charge_attack(WeaponInfo.charge_attacks_roster[weapon]["scene"])
 
 func close_weapon_menu():
 	unpause_game()

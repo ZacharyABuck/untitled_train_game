@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dkq1178bfucx1"]
-
-[ext_resource type="Script" path="res://scenes/edges/turret_kills_fill_charge.gd" id="1_qdequ"]
-
-[node name="TurretKillsFillCharge" type="Node2D"]
-script = ExtResource("1_qdequ")
-edge_reference = "turret_kills_fill_charge"

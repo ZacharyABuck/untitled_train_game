@@ -127,6 +127,8 @@ func _instantiate_charge_attack(charge_attack_scene):
 		
 	current_charge_attack = charge_attack_scene.instantiate()
 	add_child(current_charge_attack)
+	
+	CurrentRun.world.current_player_info.current_charge_attack_reference = current_charge_attack.reference
 
 # -- MOVEMENT FUNCTIONS -- #
 func _on_car_detector_area_entered(area):

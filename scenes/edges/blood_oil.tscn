@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkq1178bfucx1"]
+
+[ext_resource type="Script" path="res://scenes/edges/blood_oil.gd" id="1_yur2t"]
+
+[node name="BloodOil" type="Node2D"]
+script = ExtResource("1_yur2t")
+edge_reference = "blood_oil"

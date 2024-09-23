@@ -9,6 +9,7 @@ class_name ChargeAttack
 	"terrain":false
 }
 
+@export var reference: String
 @export var bullet: PackedScene
 @export var bullet_speed: int
 @export var damage: int

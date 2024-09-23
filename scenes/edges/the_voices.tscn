@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://l4xawqro2sgm"]
+
+[ext_resource type="Script" path="res://scenes/edges/the_voices.gd" id="1_v3kct"]
+
+[node name="TheVoices" type="Node2D"]
+script = ExtResource("1_v3kct")
+edge_reference = "the_voices"

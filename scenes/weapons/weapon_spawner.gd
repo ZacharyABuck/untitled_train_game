@@ -16,7 +16,18 @@ func _on_spawn_timer_timeout():
 	new_balloon.landed.connect(spawn_weapon)
 
 func spawn_weapon(car):
-	var random_weapon = WeaponInfo.weapons_roster.keys().pick_random()
+	#random chance of weapon or charge attack
+	var type = "weapon"
+	var rng = randi_range(1,100)
+	if rng >= 60:
+		type = "charge_attack"
+	
+	var random_weapon
+	if type == "charge_attack":
+		random_weapon = WeaponInfo.charge_attacks_roster.keys().pick_random()
+	else:
+		random_weapon = WeaponInfo.weapons_roster.keys().pick_random()
+	
 	var new_weapon = spawned_weapon.instantiate()
 	car.add_child(new_weapon)
-	new_weapon.initialize(random_weapon)
+	new_weapon.initialize(random_weapon, type)
