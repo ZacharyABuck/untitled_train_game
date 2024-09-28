@@ -1,31 +1,15 @@
 [gd_scene load_steps=6 format=3 uid="uid://cpuojfe775650"]
 
 [ext_resource type="Script" path="res://scripts/ui/mission_inventory_panel.gd" id="1_bp06l"]
+[ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="1_i4516"]
 [ext_resource type="Texture2D" uid="uid://dutu0olvdwa37" path="res://sprites/characters/Franch Token.png" id="1_pja34"]
-[ext_resource type="FontFile" uid="uid://tpmg7wha0yio" path="res://fonts/JMH Typewriter-Bold.ttf" id="2_0nndr"]
+[ext_resource type="FontFile" uid="uid://210c7eraosq1" path="res://fonts/JMH Typewriter.otf" id="4_ara7j"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhcox"]
-bg_color = Color(0.745098, 0.54902, 0.447059, 0)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_blend = true
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-shadow_color = Color(0, 0, 0, 0.352941)
-shadow_offset = Vector2(5, 5)
-
-[sub_resource type="LabelSettings" id="LabelSettings_3033b"]
-font = ExtResource("2_0nndr")
-outline_size = 5
-outline_color = Color(0.435294, 0.388235, 0, 1)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mh25m"]
 
 [node name="MissionInventoryPanel" type="PanelContainer"]
 custom_minimum_size = Vector2(312, 64)
-theme_override_styles/panel = SubResource("StyleBoxFlat_rhcox")
+theme = ExtResource("1_i4516")
 script = ExtResource("1_bp06l")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -56,8 +40,10 @@ size_flags_horizontal = 3
 [node name="MissionDescriptionLabel" type="Label" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 6
+theme = ExtResource("1_i4516")
+theme_override_fonts/font = ExtResource("4_ara7j")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_mh25m")
 text = "Escort Franch to Franchtown"
-label_settings = SubResource("LabelSettings_3033b")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2

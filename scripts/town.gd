@@ -37,6 +37,7 @@ func hide_you_are_here():
 
 func _on_mouse_entered():
 	$HoverAnimation.play("name_bounce")
+	$HoverSFX.play()
 
 func _on_mouse_exited():
 	$HoverAnimation.play("name_reset", .5)

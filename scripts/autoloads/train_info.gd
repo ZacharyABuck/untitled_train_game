@@ -2,19 +2,19 @@ extends Node
 
 var cars_roster = {
 	"engine" = {
-		"sprite" = preload("res://sprites/train/lumber_car_bw.png"),
+		"sprite" = preload("res://sprites/train/lumber_car_sketch.png"),
 		"possible_hard_points" = ["FrontLeft","FrontRight"],
 	},
 	"cargo" = {
-		"sprite" = preload("res://sprites/train/lumber_car_bw.png"),
+		"sprite" = preload("res://sprites/train/lumber_car_sketch.png"),
 		"possible_hard_points" = ["LeftUpper", "LeftLower", "RightUpper", "RightLower"],
 	},
 	"passenger" = {
-		"sprite" = preload("res://sprites/train/lumber_car_bw.png"),
+		"sprite" = preload("res://sprites/train/lumber_car_sketch.png"),
 		"possible_hard_points" = ["LeftUpper", "LeftLower", "RightUpper", "RightLower"],
 	},
 	"caboose" = {
-		"sprite" = preload("res://sprites/train/lumber_car_bw.png"),
+		"sprite" = preload("res://sprites/train/lumber_car_sketch.png"),
 		"possible_hard_points" = ["BackLeft", "BackRight"],
 	},
 }

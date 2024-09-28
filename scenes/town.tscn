@@ -5,27 +5,11 @@
 [ext_resource type="FontFile" uid="uid://lxcj83h6gsu7" path="res://fonts/JMH Typewriter-Black.otf" id="2_hdird"]
 [ext_resource type="AudioStream" uid="uid://dj7kocwaaxocr" path="res://sounds/ui/big_select.mp3" id="4_60ynl"]
 [ext_resource type="Texture2D" uid="uid://cofci5enhbedj" path="res://sprites/ui/arrow.png" id="5_u7tm2"]
-[ext_resource type="FontFile" uid="uid://tpmg7wha0yio" path="res://fonts/JMH Typewriter-Bold.ttf" id="6_qf11k"]
+[ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="6_jtu27"]
+[ext_resource type="AudioStream" uid="uid://d2nwj7vu6t12t" path="res://sounds/ui/menu-select-tick.wav" id="7_hsko1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q0ns8"]
 size = Vector2(205, 128)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2hpax"]
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 15
-corner_radius_top_right = 15
-corner_radius_bottom_right = 15
-corner_radius_bottom_left = 15
-expand_margin_left = 20.0
-expand_margin_top = 10.0
-expand_margin_right = 20.0
-expand_margin_bottom = 10.0
-shadow_offset = Vector2(5, 5)
 
 [sub_resource type="Animation" id="Animation_41biy"]
 resource_name = "name_bounce"
@@ -150,30 +134,6 @@ position = Vector2(-8.5, 2)
 shape = SubResource("RectangleShape2D_q0ns8")
 debug_color = Color(0.993255, 0, 0.240295, 0.42)
 
-[node name="NameLabel" type="Label" parent="."]
-z_index = 15
-z_as_relative = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -111.0
-offset_top = 75.0
-offset_right = 93.0
-offset_bottom = 134.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(90, 20)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 10
-theme_override_fonts/font = ExtResource("2_hdird")
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_2hpax")
-text = "townsville"
-horizontal_alignment = 1
-
 [node name="HoverAnimation" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_kefwq")
@@ -187,27 +147,59 @@ bus = &"SFX"
 [node name="ArrowSprite" type="Sprite2D" parent="."]
 visible = false
 texture_filter = 1
-position = Vector2(0, -129.565)
+position = Vector2(1, -138)
 scale = Vector2(4, 4)
 texture = ExtResource("5_u7tm2")
 
 [node name="YouLabel" type="Label" parent="."]
 visible = false
 texture_filter = 1
-offset_left = -48.0
-offset_top = -241.628
-offset_right = 52.0
-offset_bottom = -173.628
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("6_qf11k")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.0
+offset_top = -245.0
+offset_right = 53.0
+offset_bottom = -171.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_jtu27")
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 50
 text = "YOU"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ArrowAnimation" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_q2t07")
 }
 autoplay = "arrow_bounce"
+
+[node name="NameLabel" type="Label" parent="."]
+z_index = 15
+z_as_relative = false
+anchors_preset = -1
+offset_left = -179.0
+offset_top = 66.0
+offset_right = 182.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(180, 40)
+theme = ExtResource("6_jtu27")
+theme_override_fonts/font = ExtResource("2_hdird")
+theme_override_font_sizes/font_size = 50
+text = "townsville"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HoverSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_hsko1")
+volume_db = -15.0
+bus = &"SFX"
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

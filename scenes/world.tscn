@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://csdhvsxyenywf"]
+[gd_scene load_steps=39 format=3 uid="uid://csdhvsxyenywf"]
 
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/world.gd" id="1_u1dsg"]
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/current_player_info.gd" id="2_kodbe"]
@@ -14,12 +14,11 @@
 [ext_resource type="Texture2D" uid="uid://c75pwpkt2lydf" path="res://sprites/tiles/world_map_tileset.png" id="12_digcs"]
 [ext_resource type="Script" path="res://scripts/maps/world_map.gd" id="13_6j7ga"]
 [ext_resource type="Script" path="res://scripts/ui/world_ui.gd" id="16_s8cdk"]
+[ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="17_7ntxb"]
 [ext_resource type="FontFile" uid="uid://dxx340jybsylj" path="res://fonts/JMH Typewriter-Black.ttf" id="17_rwwbi"]
 [ext_resource type="Script" path="res://scripts/ui/towns_ui.gd" id="18_ulvie"]
-[ext_resource type="FontFile" uid="uid://0h755tmfkmuj" path="res://fonts/JMH Typewriter-Thin.ttf" id="19_v1qo5"]
+[ext_resource type="Texture2D" uid="uid://ddgdij8y108qu" path="res://sprites/ui/edge_background_sketch.png" id="19_taibv"]
 [ext_resource type="Texture2D" uid="uid://dswm0gltr2r76" path="res://sprites/ui/town_sketch.png" id="20_fiexs"]
-[ext_resource type="Texture2D" uid="uid://3pmjvwnuc8ea" path="res://sprites/ui/edge_background.png" id="21_fw0e4"]
-[ext_resource type="Shader" path="res://shaders/greyscale.gdshader" id="21_qqtg1"]
 [ext_resource type="FontFile" uid="uid://bt4836ueqhi58" path="res://fonts/WesternBangBang-Regular.ttf" id="22_w4hsh"]
 [ext_resource type="FontFile" uid="uid://tpmg7wha0yio" path="res://fonts/JMH Typewriter-Bold.ttf" id="23_kdpb5"]
 [ext_resource type="Texture2D" uid="uid://bfhfpjjn1ks4" path="res://sprites/ui/train_sketch.png" id="24_o026o"]
@@ -358,92 +357,6 @@ metadata/_better_terrain = {
 "version": "0.2"
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yq70y"]
-bg_color = Color(0.156863, 0.678431, 0.701961, 0.415686)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_blend = true
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-shadow_color = Color(0, 0, 0, 0.396078)
-shadow_size = 10
-shadow_offset = Vector2(10, 10)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_na41l"]
-bg_color = Color(0.635294, 0.635294, 0.635294, 1)
-border_width_left = 25
-border_width_right = 25
-border_color = Color(1, 1, 1, 1)
-border_blend = true
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mjbd1"]
-bg_color = Color(0.635294, 0.635294, 0.635294, 1)
-border_width_left = 25
-border_width_right = 25
-border_color = Color(0.65834, 0.65834, 0.65834, 1)
-border_blend = true
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e40m7"]
-bg_color = Color(0.633757, 0.633757, 0.633757, 1)
-border_width_left = 25
-border_width_right = 25
-border_color = Color(0, 0, 0, 1)
-border_blend = true
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j0qmu"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wgy5e"]
-bg_color = Color(0.107974, 0.107479, 0.106129, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.497474, 0.497474, 0.497474, 1)
-border_blend = true
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-shadow_color = Color(0, 0, 0, 0.309804)
-shadow_size = 20
-shadow_offset = Vector2(20, 20)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xt65u"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8016x"]
-bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-shadow_color = Color(0, 0, 0, 0.32549)
-shadow_size = 5
-shadow_offset = Vector2(5, 5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xklxv"]
-bg_color = Color(0.877616, 0.877616, 0.877616, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-shadow_color = Color(0, 0, 0, 0.364706)
-shadow_size = 5
-shadow_offset = Vector2(5, 5)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yscqu"]
-shader = ExtResource("21_qqtg1")
-shader_parameter/saturation = null
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hfgwk"]
 bg_color = Color(0.753984, 0.753984, 0.753984, 1)
 border_width_left = 10
@@ -593,7 +506,7 @@ size_flags_horizontal = 3
 [node name="PanelContainer" type="PanelContainer" parent="WorldUI/MarginContainer/GridContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_yq70y")
+theme = ExtResource("17_7ntxb")
 
 [node name="MissionInventoryContainer" type="GridContainer" parent="WorldUI/MarginContainer/GridContainer/HBoxContainer/PanelContainer"]
 layout_mode = 2
@@ -639,20 +552,7 @@ theme_override_constants/margin_bottom = 200
 
 [node name="TabContainer" type="TabContainer" parent="TownsUI/MarginContainer"]
 layout_mode = 2
-theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hovered_color = Color(0, 0, 0, 0.843137)
-theme_override_colors/font_unselected_color = Color(0, 0, 0, 0.615686)
-theme_override_constants/side_margin = 0
-theme_override_constants/icon_separation = 0
-theme_override_constants/outline_size = 0
-theme_override_fonts/font = ExtResource("19_v1qo5")
-theme_override_font_sizes/font_size = 20
-theme_override_styles/tab_selected = SubResource("StyleBoxFlat_na41l")
-theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_mjbd1")
-theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_e40m7")
-theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_j0qmu")
-theme_override_styles/panel = SubResource("StyleBoxFlat_wgy5e")
-theme_override_styles/tabbar_background = SubResource("StyleBoxEmpty_xt65u")
+theme = ExtResource("17_7ntxb")
 tab_alignment = 1
 
 [node name="Overview" type="MarginContainer" parent="TownsUI/MarginContainer/TabContainer"]
@@ -677,6 +577,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
+theme = ExtResource("17_7ntxb")
 theme_override_font_sizes/normal_font_size = 50
 bbcode_enabled = true
 text = "[center]Townsville[/center]"
@@ -705,17 +606,12 @@ stretch_mode = 5
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_8016x")
-theme_override_styles/hover = SubResource("StyleBoxFlat_xklxv")
+theme = ExtResource("17_7ntxb")
 text = "Travel to Town"
 
 [node name="MissionDetails" type="TextureRect" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer"]
-material = SubResource("ShaderMaterial_yscqu")
 layout_mode = 2
-texture = ExtResource("21_fw0e4")
+texture = ExtResource("19_taibv")
 expand_mode = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/MissionDetails"]
@@ -738,7 +634,7 @@ theme_override_constants/separation = 10
 [node name="MissionsLabel" type="RichTextLabel" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/MissionDetails/MarginContainer/MissionsContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme = ExtResource("17_7ntxb")
 theme_override_fonts/normal_font = ExtResource("22_w4hsh")
 theme_override_font_sizes/normal_font_size = 50
 bbcode_enabled = true
@@ -786,9 +682,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="CloseButton" type="TextureButton" parent="TownsUI/MarginContainer"]
+[node name="CloseButton" type="TextureButton" parent="TownsUI"]
 layout_direction = 3
-layout_mode = 2
+offset_left = 413.0
+offset_top = 255.0
+offset_right = 413.0
+offset_bottom = 255.0
 size_flags_horizontal = 8
 size_flags_vertical = 0
 texture_normal = ExtResource("25_c7tds")
@@ -1110,7 +1009,7 @@ offset_bottom = 466.0
 text = "Gain 10 XP"
 
 [connection signal="pressed" from="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/TownDetails/TravelButton" to="." method="_on_travel_button_pressed"]
-[connection signal="pressed" from="TownsUI/MarginContainer/CloseButton" to="TownsUI" method="_on_close_button_pressed"]
+[connection signal="pressed" from="TownsUI/CloseButton" to="TownsUI" method="_on_close_button_pressed"]
 [connection signal="pressed" from="DebugUI/LevelAutoCompleteButton" to="DebugUI" method="_on_level_auto_complete_button_pressed"]
 [connection signal="pressed" from="DebugUI/TakeDamageButton" to="DebugUI" method="_on_take_damage_button_pressed"]
 [connection signal="pressed" from="DebugUI/GainXPButton" to="DebugUI" method="_on_gain_xp_button_pressed"]

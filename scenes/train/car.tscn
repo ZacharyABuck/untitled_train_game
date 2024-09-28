@@ -1,7 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://bauu0fl50lkr5"]
+[gd_scene load_steps=13 format=3 uid="uid://bauu0fl50lkr5"]
 
 [ext_resource type="Script" path="res://scripts/train/car.gd" id="1_oecw2"]
-[ext_resource type="Texture2D" uid="uid://bjvq54ovb2a71" path="res://sprites/train/lumber_car_bw.png" id="2_u0tdu"]
+[ext_resource type="Texture2D" uid="uid://bxcwcbx0e8vso" path="res://sprites/train/lumber_car_sketch.png" id="2_w8dsn"]
 [ext_resource type="AudioStream" uid="uid://dpq8xqakb6724" path="res://sounds/train/glass_break.ogg" id="3_jpwrk"]
 [ext_resource type="FontFile" uid="uid://tpmg7wha0yio" path="res://fonts/JMH Typewriter-Bold.ttf" id="3_koavr"]
 [ext_resource type="Script" path="res://scripts/train/cargo_container.gd" id="4_sh43r"]
@@ -25,29 +25,14 @@ size = Vector2(161, 385)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bny34"]
 
-[sub_resource type="Gradient" id="Gradient_c7mik"]
-offsets = PackedFloat32Array(0, 0.282967, 0.843407)
-colors = PackedColorArray(1, 1, 1, 1, 0.29219, 0.29219, 0.29219, 1, 0, 0, 0, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_gbbk1"]
-gradient = SubResource("Gradient_c7mik")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.918803, 0.0598291)
-
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_635ql"]
-b = Vector2(-1, 370)
-
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_aoju7"]
-b = Vector2(117, 0)
-
 [node name="Car" type="Node2D" groups=["car"]]
 script = ExtResource("1_oecw2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.580392, 0.580392, 0.580392, 1)
+texture_filter = 1
 position = Vector2(0, 171)
-texture = ExtResource("2_u0tdu")
+texture = ExtResource("2_w8dsn")
 
 [node name="CornerPoints" type="Node2D" parent="."]
 
@@ -159,12 +144,6 @@ position = Vector2(-31, 191)
 [node name="BackRight" type="Node2D" parent="HardPoints"]
 position = Vector2(39, 189)
 
-[node name="RoomLight" type="PointLight2D" parent="."]
-position = Vector2(-0.499985, 167.5)
-scale = Vector2(5.00781, 5.28906)
-texture = SubResource("GradientTexture2D_gbbk1")
-texture_scale = 2.0
-
 [node name="BoardingPoints" type="Node2D" parent="."]
 
 [node name="0" type="Node2D" parent="BoardingPoints"]
@@ -217,26 +196,6 @@ stream = ExtResource("3_jpwrk")
 volume_db = -20.0
 max_polyphony = 10
 bus = &"Train"
-
-[node name="CharacterBoundary" type="StaticBody2D" parent="."]
-collision_layer = 1024
-collision_mask = 512
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBoundary"]
-position = Vector2(-59, -11)
-shape = SubResource("SegmentShape2D_635ql")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBoundary"]
-position = Vector2(58, -11)
-shape = SubResource("SegmentShape2D_635ql")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="CharacterBoundary"]
-position = Vector2(-59, -11)
-shape = SubResource("SegmentShape2D_aoju7")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="CharacterBoundary"]
-position = Vector2(-59, 356)
-shape = SubResource("SegmentShape2D_aoju7")
 
 [node name="CharacterSpawnPoint" type="Node2D" parent="."]
 position = Vector2(0, 171)
