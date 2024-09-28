@@ -6,6 +6,8 @@ var train_engine
 
 var track_positions: Array = []
 
+var current_fuel: int = 50
+
 var cars_inventory = {
 
 }

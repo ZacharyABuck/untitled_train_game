@@ -1,10 +1,11 @@
-[gd_scene load_steps=70 format=3 uid="uid://bueh3to31tma7"]
+[gd_scene load_steps=73 format=3 uid="uid://bueh3to31tma7"]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/enemy_big_zombie.gd" id="1_e1btv"]
 [ext_resource type="PackedScene" uid="uid://cyv57gynwtrmu" path="res://components/hurtbox_component.tscn" id="2_tblxe"]
 [ext_resource type="AudioStream" uid="uid://qdyuud18a2c4" path="res://sounds/combat/hit_01.wav" id="3_lknth"]
 [ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://components/health_component.tscn" id="4_7chkb"]
 [ext_resource type="Texture2D" uid="uid://cduo5m6k4p2ln" path="res://sprites/enemies/zombie.png" id="5_1454g"]
+[ext_resource type="Shader" path="res://shaders/solid_color.gdshader" id="5_dw70b"]
 [ext_resource type="Script" path="res://components/MeleeAttackComponent.gd" id="6_ld6kk"]
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/zombie_state_machine.gd" id="7_1p2vg"]
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/zombie_state_idle.gd" id="8_ro1g6"]
@@ -13,6 +14,7 @@
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/zombie_state_finish_boarding.gd" id="11_r25hv"]
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/zombie_state_attacking.gd" id="12_qh6v1"]
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/zombie_state_dead.gd" id="13_0wnty"]
+[ext_resource type="PackedScene" uid="uid://fhwaeth7nhpr" path="res://components/status_effect_component.tscn" id="15_6xt5u"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jwejo"]
 radius = 26.6693
@@ -23,6 +25,11 @@ size = Vector2(46, 58)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1tdci"]
 radius = 27.5
 height = 55.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ieprm"]
+shader = ExtResource("5_dw70b")
+shader_parameter/color_override = Color(0.647059, 0, 0, 1)
+shader_parameter/blend_delta = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yf78m"]
 atlas = ExtResource("5_1454g")
@@ -474,9 +481,10 @@ stream = ExtResource("3_lknth")
 volume_db = -15.0
 bus = &"SFX"
 
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("ANIMATION") instance=ExtResource("4_7chkb")]
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("ANIMATION", "status_effect_component") instance=ExtResource("4_7chkb")]
 MAX_HEALTH = 10.0
 ANIMATION = NodePath("../ZombieSpriteSheet")
+status_effect_component = NodePath("../StatusEffectComponent")
 
 [node name="WallDetector" type="Area2D" parent="."]
 collision_layer = 0
@@ -488,6 +496,7 @@ shape = SubResource("CapsuleShape2D_1tdci")
 
 [node name="ZombieSpriteSheet" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_ieprm")
 position = Vector2(2, 8)
 scale = Vector2(1, 1.115)
 sprite_frames = SubResource("SpriteFrames_8jdkj")
@@ -540,6 +549,8 @@ script = ExtResource("12_qh6v1")
 [node name="dead" type="Node2D" parent="StateMachine"]
 process_mode = 4
 script = ExtResource("13_0wnty")
+
+[node name="StatusEffectComponent" parent="." instance=ExtResource("15_6xt5u")]
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="body_entered" from="WallDetector" to="." method="_on_wall_detector_body_entered"]

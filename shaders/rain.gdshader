@@ -1,56 +1,59 @@
-// simple rain/snow shader
-// useful learning resources:
-// https://www.ronja-tutorials.com/post/034-2d-sdf-basics/#circle
-// https://iquilezles.org/articles/distfunctions2d/
-
 shader_type canvas_item;
 
-// can make snow by adjusting values
-uniform int count: hint_range(0, 2000) = 150;
-uniform float slant: hint_range(-0.1, 0.1) = -0.01;
-uniform float speed: hint_range(25.0, 100.0) = 50.0;
-uniform float blur: hint_range(0.0005, 0.1) = 0.002;
-uniform vec4 colour: source_color = vec4(1.0, 1.0, 1.0, 1.0);
-uniform vec2 size = vec2(0.005, 0.2);
 
-float line_sdf(vec2 p, vec2 s) {
-    vec2 d = abs(p) - s;
-    return min(max(d.x, d.y), 0.0) + length(max(d, 0.0));
+uniform sampler2D noise: repeat_enable;
+uniform vec4 line_color: source_color;
+uniform float line_count: hint_range(0.0, 2.0, 0.05) = 0.5;
+uniform float line_density: hint_range(0.0, 1.0) = 0.5;
+uniform float line_faloff: hint_range(0.0, 1.0) = 0.25;
+uniform float mask_size: hint_range(0.0, 1.0) = 0.1;
+uniform float mask_edge: hint_range(0.0, 1.0) = 0.5;
+uniform float animation_speed: hint_range(1.0, 20.0) = 0.5;
+
+
+
+
+float inv_lerp(float from, float to, float value){
+  return (value - from) / (to - from);
 }
 
-float Hash(float x) {
-    return fract(sin(x * 18.34) * 51.78);
+
+
+
+vec2 polar_coordinates(vec2 uv, vec2 center, float zoom, float repeat)
+{
+	vec2 dir = uv - center;
+	float radius = length(dir) * 2.0;
+	float angle = atan(dir.y, dir.x) * 1.0/(PI * 2.0);
+	return mod(vec2(radius * zoom, angle * repeat), 1.0);
 }
 
-float Hash2(float x) {
-    return fract(sin(x * 25.42) * 21.24);
+
+
+
+vec2 rotate_uv(vec2 uv, vec2 pivot, float rotation) {
+    float cosa = cos(rotation);
+    float sina = sin(rotation);
+    uv -= pivot;
+    return vec2(
+        cosa * uv.x - sina * uv.y,
+        cosa * uv.y + sina * uv.x 
+    ) + pivot;
 }
 
-void fragment() {
-	// inspector issue with tiny vec 2
-    vec2 s = size * 0.1;
-	// to work at the start
-    float time = TIME + 1000.0;
-    vec2 uv = UV;
-	// slant each line left or right
-    uv.x += uv.y * slant;
-    float output = 0.0;
-    
-    for (int i = 1; i <= count; i++) {
-        float h1 = Hash(float(i));
-        float h2 = Hash2(float(i));
-		// make it so the lines move in the direction of the slant as well
-		// otherwise they would go directly down no matter what slant is
-        float sl = h1 * uv.y * -slant;
-		// compute random x position of line, multiply by 1.2 to cover the far edges more predictably
-        float pos_mod_x = h1 * 1.2;
-		// there is probably better way to do this, to prevent line from moving too slow compared to other lines
-        float pos_mod_y = max(h2 * speed, pos_mod_x * speed);
-		// wrap y values around to loop the anim
-        vec2 position = vec2(pos_mod_x + sl, -mod(-pos_mod_y * time * 0.1, -1.));
-        float sdf = line_sdf(uv - position, s);
-        output += clamp(- sdf / blur, 0.0, 1.0);
-    }
 
-    COLOR = vec4(colour.rgb, output);
+
+
+void fragment(){
+	vec2 polar_uv = polar_coordinates(rotate_uv(UV, vec2(0.5), floor(fract(TIME) * animation_speed) ) , vec2(0.5), 0.01, line_count);
+	vec3 lines = texture(noise, polar_uv).rgb;
+	
+	float mask_value = length(UV - vec2(0.5));
+	float mask = inv_lerp(mask_size, mask_edge, mask_value);
+	float result = 1.0 - (mask * line_density);
+	
+	result = smoothstep(result, result + line_faloff, lines.r);
+	
+	COLOR.rgb = vec3(line_color.rgb);
+	COLOR.a = min(line_color.a, result);
 }

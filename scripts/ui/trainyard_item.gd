@@ -8,10 +8,15 @@ signal clicked
 
 func populate(new_upgrade):
 	upgrade = new_upgrade
-	icon.texture = TrainInfo.train_upgrade_roster[new_upgrade]["icon"]
-	name_label.text = "[center]" + TrainInfo.train_upgrade_roster[new_upgrade]["name"] + "\n" + "(current: " + str(TrainInfo.train_stats[new_upgrade]) +  ")" + "[/center]"
-	
-	cost_label.text = "[center]Cost: " + str(TrainInfo.train_upgrade_roster[new_upgrade]["cost"]) + "[/center]"
+	if new_upgrade == "fuel":
+		name_label.text = "[center]" + TrainInfo.train_upgrade_roster[new_upgrade]["name"] + "[/center]"
+		cost_label.text = "[center]Cost: " + str(TrainInfo.train_upgrade_roster[new_upgrade]["cost"]) + "[/center]"
+	else:
+		#upgrade = new_upgrade
+		icon.texture = TrainInfo.train_upgrade_roster[new_upgrade]["icon"]
+		name_label.text = "[center]" + TrainInfo.train_upgrade_roster[new_upgrade]["name"] + "\n" + "(current: " + str(TrainInfo.train_stats[new_upgrade]) +  ")" + "[/center]"
+		
+		cost_label.text = "[center]Cost: " + str(TrainInfo.train_upgrade_roster[new_upgrade]["cost"]) + "[/center]"
 
 
 func _on_gui_input(event):
@@ -19,4 +24,5 @@ func _on_gui_input(event):
 		if CurrentRun.world.current_player_info.current_money >= TrainInfo.train_upgrade_roster[upgrade]["cost"]:
 			CurrentRun.world.current_player_info.current_money -= TrainInfo.train_upgrade_roster[upgrade]["cost"]
 			clicked.emit(upgrade)
-			queue_free()
+			if upgrade != "fuel":
+				queue_free()

@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://fhwaeth7nhpr"]
+
+[ext_resource type="Script" path="res://components/status_effect_component.gd" id="1_i8fjp"]
+
+[node name="StatusEffectComponent" type="Node2D"]
+script = ExtResource("1_i8fjp")
+
+[node name="ShockTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="PoisonTickTimer" type="Timer" parent="."]
+
+[node name="PoisonTimer" type="Timer" parent="."]
+wait_time = 15.0
+one_shot = true
+
+[connection signal="timeout" from="ShockTimer" to="." method="_on_shock_timer_timeout"]
+[connection signal="timeout" from="PoisonTickTimer" to="." method="_on_poison_timer_timeout"]

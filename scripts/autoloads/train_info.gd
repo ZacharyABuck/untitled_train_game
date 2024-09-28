@@ -2,19 +2,19 @@ extends Node
 
 var cars_roster = {
 	"engine" = {
-		"sprite" = preload("res://sprites/train/engine.png"),
+		"sprite" = preload("res://sprites/train/lumber_car_bw.png"),
 		"possible_hard_points" = ["FrontLeft","FrontRight"],
 	},
 	"cargo" = {
-		"sprite" = preload("res://sprites/train/coal_car.png"),
+		"sprite" = preload("res://sprites/train/lumber_car_bw.png"),
 		"possible_hard_points" = ["LeftUpper", "LeftLower", "RightUpper", "RightLower"],
 	},
 	"passenger" = {
-		"sprite" = preload("res://sprites/train/lumber_car.png"),
+		"sprite" = preload("res://sprites/train/lumber_car_bw.png"),
 		"possible_hard_points" = ["LeftUpper", "LeftLower", "RightUpper", "RightLower"],
 	},
 	"caboose" = {
-		"sprite" = preload("res://sprites/train/caboose.png"),
+		"sprite" = preload("res://sprites/train/lumber_car_bw.png"),
 		"possible_hard_points" = ["BackLeft", "BackRight"],
 	},
 }
@@ -26,6 +26,12 @@ var train_stats = {
 }
 
 var train_upgrade_roster = {
+	"fuel" = {
+		"name" = "Purchase Fuel (5gal)",
+		"cost" = 2,
+		"icon" = preload("res://sprites/ui/track_single.png"),
+		"value" = 5,
+	},
 	"car_count" = {
 		"name" = "Purchase Train Car",
 		"cost" = 100,

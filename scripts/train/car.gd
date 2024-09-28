@@ -50,11 +50,6 @@ func _ready():
 
 func _process(_delta):
 	health_bar.value = health
-	
-	if CurrentRun.world.current_level_info.active_level.world_light.energy >= .25 and room_light.enabled == false:
-		room_light.enabled = true
-	if CurrentRun.world.current_level_info.active_level.world_light.energy <= .25 and room_light.enabled == true:
-		room_light.enabled = false
 
 func check_for_gadgets():
 	for gadget in CurrentRun.world.current_train_info.cars_inventory[index]["gadgets"].keys():

@@ -1,17 +1,13 @@
-[gd_scene load_steps=50 format=3 uid="uid://02oiy550pacp"]
+[gd_scene load_steps=52 format=3 uid="uid://02oiy550pacp"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_2a3mn"]
 [ext_resource type="PackedScene" uid="uid://cb1r5v4vqyrx8" path="res://scenes/train/TrainManager.tscn" id="3_3t5p5"]
 [ext_resource type="Texture2D" uid="uid://bi5i4fe8imr7h" path="res://sprites/tiles/Desert_Tileset_01.png" id="3_mbth6"]
 [ext_resource type="Script" path="res://scripts/maps/map.gd" id="3_nn34h"]
-[ext_resource type="Texture2D" uid="uid://dhwaeohssorbn" path="res://sprites/images/xbar_yellow.png" id="5_av7jw"]
 [ext_resource type="Shader" path="res://shaders/tilt_shift.gdshader" id="5_qayv6"]
 [ext_resource type="FontFile" uid="uid://lxcj83h6gsu7" path="res://fonts/JMH Typewriter-Black.otf" id="5_uxjuw"]
-[ext_resource type="Texture2D" uid="uid://jidnhqo2mpwb" path="res://sprites/images/xpbar_blue2.png" id="6_mrm4f"]
-[ext_resource type="Texture2D" uid="uid://dutu0olvdwa37" path="res://sprites/characters/Franch Token.png" id="7_ubu34"]
 [ext_resource type="AudioStream" uid="uid://c8nvxqfmljdop" path="res://sounds/ui/book_skimming_short.wav" id="8_g00h4"]
 [ext_resource type="Texture2D" uid="uid://cjq45x38ts8mf" path="res://sprites/ui/level_up_button.png" id="9_kk0cw"]
-[ext_resource type="FontFile" uid="uid://c8paya3d441k7" path="res://fonts/JMH Typewriter-Bold.otf" id="9_msw3l"]
 [ext_resource type="Shader" path="res://shaders/levelupbutton.gdshader" id="9_peqgl"]
 [ext_resource type="AudioStream" uid="uid://d3wi2punv8qyu" path="res://sounds/ui/bell.wav" id="11_5nccy"]
 [ext_resource type="Shader" path="res://shaders/fog.gdshader" id="12_hxkjx"]
@@ -27,6 +23,8 @@
 [ext_resource type="Shader" path="res://shaders/rain.gdshader" id="22_kbqtr"]
 [ext_resource type="AudioStream" uid="uid://b6nhfkp7qtu2x" path="res://sounds/combat/reloading.mp3" id="22_ookke"]
 [ext_resource type="AudioStream" uid="uid://dqjq17gkaquqx" path="res://sounds/world/rain.wav" id="23_dws0p"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vtfsx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_in3y1"]
 texture = ExtResource("3_mbth6")
@@ -922,6 +920,30 @@ _data = {
 "alert_flash_short": SubResource("Animation_dsu7x")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_us48n"]
+bg_color = Color(0.548963, 0.548963, 0.548962, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_md40j"]
+bg_color = Color(0.903598, 0.903598, 0.903598, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gqsql"]
 shader = ExtResource("9_peqgl")
 shader_parameter/shine_color = Color(1, 1, 1, 0.25)
@@ -967,14 +989,27 @@ border_blend = true
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nbjsr"]
 bg_color = Color(0.4, 0.4, 0.4, 0.588235)
 
+[sub_resource type="Gradient" id="Gradient_678u3"]
+offsets = PackedFloat32Array(0.64759, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xqvyy"]
+frequency = 0.3535
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qkm0k"]
+color_ramp = SubResource("Gradient_678u3")
+noise = SubResource("FastNoiseLite_xqvyy")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mc2q4"]
 shader = ExtResource("22_kbqtr")
-shader_parameter/count = 100
-shader_parameter/slant = 3.25988e-09
-shader_parameter/speed = 50.0
-shader_parameter/blur = 0.0045
-shader_parameter/colour = Color(0, 0.931909, 0.940069, 1)
-shader_parameter/size = Vector2(0.02, 0.1)
+shader_parameter/line_color = Color(0, 0.884637, 0.886396, 1)
+shader_parameter/line_count = 1.9
+shader_parameter/line_density = 0.01
+shader_parameter/line_faloff = 0.055
+shader_parameter/mask_size = 0.0
+shader_parameter/mask_edge = 0.845
+shader_parameter/animation_speed = 10.794
+shader_parameter/noise = SubResource("NoiseTexture2D_qkm0k")
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_rjoqq"]
 
@@ -993,18 +1028,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [-80.0, -25.0]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(3.6, 5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_e30y6"]
 resource_name = "fade_out"
@@ -1020,18 +1043,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [-25.0, -80.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lvm2e"]
@@ -1064,18 +1075,8 @@ shader_parameter/noise_texture = SubResource("NoiseTexture2D_ahocc")
 process_mode = 1
 script = ExtResource("1_2a3mn")
 
-[node name="WorldLight" type="DirectionalLight2D" parent="."]
-position = Vector2(2032, 2005)
-energy = 0.0
-blend_mode = 1
-max_distance = 100.0
-
-[node name="DayCycleTimer" type="Timer" parent="WorldLight"]
-wait_time = 60.0
-one_shot = true
-autostart = true
-
 [node name="Map" type="TileMap" parent="."]
+material = SubResource("ShaderMaterial_vtfsx")
 tile_set = SubResource("TileSet_7qj15")
 format = 2
 script = ExtResource("3_nn34h")
@@ -1160,15 +1161,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="MoneyLabel" type="Label" parent="UI"]
-offset_left = 140.0
-offset_top = 98.0
-offset_right = 2022.0
-offset_bottom = 137.0
-theme_override_fonts/font = ExtResource("5_uxjuw")
-theme_override_font_sizes/font_size = 30
-text = "Money = 0"
-
 [node name="AlertLabel" type="Label" parent="UI"]
 offset_right = 1922.0
 offset_bottom = 186.0
@@ -1184,42 +1176,36 @@ libraries = {
 "": SubResource("AnimationLibrary_bqojy")
 }
 
-[node name="TextureRect" type="TextureRect" parent="UI"]
-offset_left = 5.0
-offset_top = 3.0
-offset_right = 261.0
-offset_bottom = 259.0
-scale = Vector2(0.513544, 0.513544)
-texture = ExtResource("7_ubu34")
-
-[node name="PlayerExperienceBar" type="TextureProgressBar" parent="UI"]
-offset_left = 142.0
-offset_top = 59.0
-offset_right = 1144.0
-offset_bottom = 207.0
-scale = Vector2(0.221034, 0.255744)
-max_value = 20.0
-texture_under = ExtResource("5_av7jw")
-texture_progress = ExtResource("6_mrm4f")
+[node name="PlayerExperienceBar" type="ProgressBar" parent="UI"]
+offset_left = 58.0
+offset_top = 73.0
+offset_right = 236.0
+offset_bottom = 112.0
+theme_override_styles/background = SubResource("StyleBoxFlat_us48n")
+theme_override_styles/fill = SubResource("StyleBoxFlat_md40j")
+show_percentage = false
 
 [node name="LevelLabel" type="Label" parent="UI"]
-offset_left = 141.0
-offset_top = 16.0
-offset_right = 203.0
-offset_bottom = 41.0
+offset_left = 82.0
+offset_top = 74.0
+offset_right = 212.0
+offset_bottom = 113.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_uxjuw")
 theme_override_font_sizes/font_size = 30
 text = "Level: 1"
 
-[node name="ExperienceLabel" type="Label" parent="UI"]
-offset_left = 181.0
-offset_top = 58.0
-offset_right = 310.0
-offset_bottom = 97.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("9_msw3l")
+[node name="MoneyLabel" type="Label" parent="UI"]
+offset_left = 66.0
+offset_top = 112.0
+offset_right = 1919.0
+offset_bottom = 151.0
+theme_override_colors/font_color = Color(0.870588, 0.74902, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("5_uxjuw")
 theme_override_font_sizes/font_size = 30
-text = "XP: 0 / 0"
+text = "Money = 0"
 
 [node name="EdgeMenu" type="HBoxContainer" parent="UI"]
 process_mode = 3
@@ -1236,29 +1222,14 @@ alignment = 1
 [node name="LevelUpButton" type="TextureButton" parent="UI"]
 visible = false
 material = SubResource("ShaderMaterial_gqsql")
-offset_left = 378.0
-offset_top = 30.0
-offset_right = 658.0
-offset_bottom = 125.0
+offset_left = 288.0
+offset_top = 45.0
+offset_right = 568.0
+offset_bottom = 140.0
 texture_normal = ExtResource("9_kk0cw")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("13_06q2t")
-
-[node name="LevelCompleteButton" type="Button" parent="UI"]
-process_mode = 3
-visible = false
-top_level = true
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 860.0
-offset_top = 460.0
-offset_right = -760.0
-offset_bottom = -520.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Route Complete!"
 
 [node name="WeaponMarginContainer" type="MarginContainer" parent="UI"]
 process_mode = 3
@@ -1461,6 +1432,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Rain" type="TextureRect" parent="UI/Weather"]
+modulate = Color(1, 1, 1, 0)
 z_index = -5
 material = SubResource("ShaderMaterial_mc2q4")
 custom_minimum_size = Vector2(1920, 1080)
@@ -1472,7 +1444,7 @@ texture = SubResource("CanvasTexture_rjoqq")
 
 [node name="RainSFX" type="AudioStreamPlayer" parent="UI/Weather/Rain"]
 stream = ExtResource("23_dws0p")
-volume_db = -25.0
+volume_db = -40.4
 autoplay = true
 bus = &"SFX"
 
@@ -1510,7 +1482,10 @@ bus = &"SFX"
 
 [node name="WeaponSpawner" parent="." instance=ExtResource("17_lhsmc")]
 
-[connection signal="timeout" from="WorldLight/DayCycleTimer" to="." method="_on_day_cycle_timer_timeout"]
+[node name="WorldLight" type="DirectionalLight2D" parent="."]
+energy = 0.95
+blend_mode = 1
+
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
 [connection signal="mouse_entered" from="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel/Button" to="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel" method="_on_button_mouse_entered"]
 [connection signal="pressed" from="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel/Button" to="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel" method="_on_button_pressed"]

@@ -13,7 +13,9 @@ func get_input():
 	owner.velocity = input_direction * CurrentRun.world.current_player_info.current_movespeed
 	
 func animate_movement():
-	if owner.velocity.is_equal_approx(Vector2.ZERO):
+	if Input.is_action_pressed("shoot"):
+		owner.sprite.play("shooting")
+	elif owner.velocity.is_equal_approx(Vector2.ZERO):
 		owner.sprite.play("standing")
 		owner.running_sfx.stop()
 	else:

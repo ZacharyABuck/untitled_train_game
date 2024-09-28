@@ -14,7 +14,7 @@ var level = preload("res://scenes/level.tscn")
 var mission_reward_panel = preload("res://scenes/ui/mission_reward_panel.tscn")
 
 @onready var towns_ui = $TownsUI
-@onready var money_label = $WorldUI/MarginContainer/GridContainer/HBoxContainer/MoneyLabel
+@onready var money_label = $WorldUI/MarginContainer/GridContainer/HBoxContainer/VBoxContainer/MoneyLabel
 @onready var mission_inventory_container = $WorldUI/MarginContainer/GridContainer/HBoxContainer/PanelContainer/MissionInventoryContainer
 
 @onready var music_fade = $Music/MusicFade
@@ -48,7 +48,7 @@ func start_game(direction, distance, terrain):
 	print("Terrain Type: " + LevelInfo.terrain_roster[terrain])
 	print("Destination: " + CurrentRun.world.current_level_info.destination)
 	print("Distance: " + str(CurrentRun.world.current_level_info.level_parameters["distance"]))
-
+	
 	camera.enabled = false
 
 	if CurrentRun.world.current_player_info.totalExperience == 0:
@@ -65,7 +65,6 @@ func start_game(direction, distance, terrain):
 	var new_level = level.instantiate()
 	add_child(new_level)
 	CurrentRun.world.current_level_info.active_level = new_level
-	new_level.level_complete_button.pressed.connect(level_complete)
 	unpause_game()
 	in_game = true
 	
@@ -92,23 +91,28 @@ func town_clicked(town):
 		towns_ui.trainyard_items_list.hide()
 
 func _on_travel_button_pressed():
-	music_fade.play("world_to_level")
-	
-	var direction = find_direction()
-	var terrain = LevelInfo.terrain_roster.keys().pick_random()
-	var distance = find_distance()
-	CurrentRun.world.current_level_info.destination = CurrentRun.world.current_world_info.selected_town.town_name
-
-	start_game(direction, distance, terrain)
+	if 	CurrentRun.world.current_train_info.current_fuel >= find_fuel_cost():
+		CurrentRun.world.current_train_info.current_fuel -= find_fuel_cost()
+		music_fade.play("world_to_level")
+		
+		var direction = find_direction()
+		var terrain = LevelInfo.terrain_roster.keys().pick_random()
+		var distance = find_distance()
+		CurrentRun.world.current_level_info.destination = CurrentRun.world.current_world_info.selected_town.town_name
+		start_game(direction, distance, terrain)
 
 func find_direction():
-	var direction = CurrentRun.world.current_world_info.world_map_player.global_position.direction_to(CurrentRun.world.current_world_info.selected_town.global_position)
+	var direction = CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"].global_position.direction_to(CurrentRun.world.current_world_info.selected_town.global_position)
 	return direction
 
 func find_distance():
-	var distance = CurrentRun.world.current_world_info.world_map_player.global_position.distance_to(CurrentRun.world.current_world_info.selected_town.global_position)
+	var distance = CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"].global_position.distance_to(CurrentRun.world.current_world_info.selected_town.global_position)
 	var adjusted_distance = round(clamp(distance*.005,3,8))
 	return adjusted_distance
+
+func find_fuel_cost() -> int:
+	var distance = CurrentRun.world.find_distance()
+	return distance*CurrentRun.world.current_train_info.train_stats["car_count"]
 
 func level_complete():
 	music_fade.play("level_to_world")
@@ -122,6 +126,7 @@ func level_complete():
 	update_world_player_pos()
 	check_missions()
 	update_money_label()
+	world_ui.update_fuel_label()
 	world_map.show()
 	missions_spawned = false
 	
@@ -173,10 +178,14 @@ func complete_mission(mission):
 
 func upgrade_train(upgrade):
 	update_money_label()
-	if CurrentRun.world.current_train_info.train_stats.keys().has(upgrade):
-		CurrentRun.world.current_train_info.train_stats[upgrade] += TrainInfo.train_upgrade_roster[upgrade]["value"]
-		if upgrade == "car_count":
-			if CurrentRun.world.current_train_info.cars_inventory.keys().size() > 1:
-				var caboose_index = CurrentRun.world.current_train_info.cars_inventory.keys().size() - 1
-				CurrentRun.world.current_train_info.cars_inventory[caboose_index + 1] = CurrentRun.world.current_train_info.cars_inventory[caboose_index]
-				CurrentRun.world.current_train_info.cars_inventory[caboose_index] = {"node" = null, "type" = null, "hard_points" = {}, "gadgets" = {},}
+	if upgrade == "fuel":
+		CurrentRun.world.current_train_info.current_fuel += TrainInfo.train_upgrade_roster[upgrade]["value"]
+		world_ui.update_fuel_label()
+	else:
+		if CurrentRun.world.current_train_info.train_stats.keys().has(upgrade):
+			CurrentRun.world.current_train_info.train_stats[upgrade] += TrainInfo.train_upgrade_roster[upgrade]["value"]
+			if upgrade == "car_count":
+				if CurrentRun.world.current_train_info.cars_inventory.keys().size() > 1:
+					var caboose_index = CurrentRun.world.current_train_info.cars_inventory.keys().size() - 1
+					CurrentRun.world.current_train_info.cars_inventory[caboose_index + 1] = CurrentRun.world.current_train_info.cars_inventory[caboose_index]
+					CurrentRun.world.current_train_info.cars_inventory[caboose_index] = {"node" = null, "type" = null, "hard_points" = {}, "gadgets" = {},}

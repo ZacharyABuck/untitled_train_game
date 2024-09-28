@@ -3,12 +3,12 @@
 [ext_resource type="PackedScene" uid="uid://bjqtvbefblx2e" path="res://scenes/train/TrainVehicle.tscn" id="1"]
 [ext_resource type="Script" path="res://scripts/train/TrainEngine.gd" id="2_ggyah"]
 
-[sub_resource type="Gradient" id="Gradient_8uqju"]
+[sub_resource type="Gradient" id="Gradient_uf4c3"]
 interpolation_mode = 2
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_pkob8"]
-gradient = SubResource("Gradient_8uqju")
+gradient = SubResource("Gradient_uf4c3")
 height = 90
 fill = 1
 fill_from = Vector2(0.492788, 0.606838)

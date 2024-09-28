@@ -13,22 +13,18 @@ const edge_panel = preload("res://scenes/edges/edge_panel.tscn")
 @onready var enemy_spawn_timer = $EnemySpawnTimer
 @onready var xp_bar = $UI/PlayerExperienceBar
 @onready var level_label = $UI/LevelLabel
-@onready var xp_label = $UI/ExperienceLabel
 @onready var level_up_button = $UI/LevelUpButton
-@onready var level_complete_button = $UI/LevelCompleteButton
+
+var in_event: bool = false
 
 var new_player
 
 var ui_open: bool = false
 
-@onready var world_light = $WorldLight
-@onready var day_cycle_timer = $WorldLight/DayCycleTimer
-var is_day: bool = true
-var in_event: bool = false
-var max_night_light: float = .75
-
 var weather_states: Array = ["clear", "rain"]
 var weather: String
+@onready var rain = $UI/Weather/Rain
+
 @onready var rain_animations = $UI/Weather/Rain/RainAnimations
 
 
@@ -47,8 +43,6 @@ func _process(_delta):
 	xp_bar.value = CurrentRun.world.current_player_info.currentExperience
 	xp_bar.max_value = CurrentRun.world.current_player_info.nextLevelExperience
 	level_label.text = "Level: " + str(CurrentRun.world.current_player_info.currentLevel)
-	xp_label.text = "XP: " + str(CurrentRun.world.current_player_info.currentExperience) + " / " + str(CurrentRun.world.current_player_info.nextLevelExperience)
-	calculate_day_cycle()
 	$UI/PlayerExperienceBar.value = CurrentRun.world.current_player_info.currentExperience
 	
 	#set enemy spawn positions to follow train
@@ -56,46 +50,19 @@ func _process(_delta):
 		enemy_spawn_positions.global_position = CurrentRun.world.current_train_info.train_engine.global_position
 		enemy_spawn_positions.global_rotation = CurrentRun.world.current_train_info.train_engine.car.global_rotation
 
-#set the day time in the tree
-func calculate_day_cycle():
-	if !day_cycle_timer.is_stopped():
-		var percent = ((day_cycle_timer.wait_time-day_cycle_timer.time_left)/day_cycle_timer.wait_time)
-		#first go to night time
-		if is_day:
-			world_light.energy = clamp(max_night_light*percent, 0, max_night_light)
-		#then go back to daytime
-		else:
-			world_light.energy = clamp(max_night_light-(max_night_light*percent), 0, max_night_light)
-		
 		
 func calculate_weather():
 	var random_weather = weather_states.pick_random()
 	weather = random_weather
 	print(random_weather)
+	var tween = create_tween()
 	match weather:
 		"clear":
 			rain_animations.play("fade_out")
+			tween.tween_property(rain, "modulate", Color.TRANSPARENT, 5)
 		"rain":
 			rain_animations.play("fade_in")
-
-func instant_night():
-	day_cycle_timer.stop()
-	var tween = get_tree().create_tween().bind_node(self)
-	tween.tween_property(world_light, "energy", max_night_light, 1)
-
-func instant_day():
-	is_day = true
-	var tween = get_tree().create_tween().bind_node(self)
-	tween.tween_property(world_light, "energy", 0, 1)
-	day_cycle_timer.start()
-
-func _on_day_cycle_timer_timeout():
-	if is_day:
-		is_day = false
-	else:
-		is_day = true
-	await get_tree().create_timer(day_cycle_timer.wait_time*.25).timeout
-	day_cycle_timer.start()
+			tween.tween_property(rain, "modulate", Color.WHITE, 5)
 
 func generate_track():
 	var point_increment = 3000
@@ -272,6 +239,7 @@ func equip_new_weapon(type, weapon, random_damage, random_attack_delay, random_p
 			CurrentRun.world.current_player_info.current_ranged_weapon_damage_mod = random_damage
 			CurrentRun.world.current_player_info.current_ranged_weapon_attack_delay_mod = random_attack_delay
 			CurrentRun.world.current_player_info.current_ranged_weapon_speed_mod = random_projectile_speed
+			CurrentRun.world.current_player_info.active_player.refresh_current_ranged_weapon_stats()
 		"charge_attack":
 			CurrentRun.world.current_player_info.active_player._instantiate_charge_attack(WeaponInfo.charge_attacks_roster[weapon]["scene"])
 

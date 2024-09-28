@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://csdhvsxyenywf"]
+[gd_scene load_steps=50 format=3 uid="uid://csdhvsxyenywf"]
 
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/world.gd" id="1_u1dsg"]
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/current_player_info.gd" id="2_kodbe"]
@@ -13,14 +13,13 @@
 [ext_resource type="AudioStream" uid="uid://dasb0ya67twdd" path="res://music/level_music_no_intro.mp3" id="11_ar4r5"]
 [ext_resource type="Texture2D" uid="uid://c75pwpkt2lydf" path="res://sprites/tiles/world_map_tileset.png" id="12_digcs"]
 [ext_resource type="Script" path="res://scripts/maps/world_map.gd" id="13_6j7ga"]
-[ext_resource type="Shader" path="res://shaders/line.gdshader" id="14_dket0"]
-[ext_resource type="Texture2D" uid="uid://c0ctx778y5g3i" path="res://sprites/ui/track_single.png" id="15_tqgxp"]
 [ext_resource type="Script" path="res://scripts/ui/world_ui.gd" id="16_s8cdk"]
 [ext_resource type="FontFile" uid="uid://dxx340jybsylj" path="res://fonts/JMH Typewriter-Black.ttf" id="17_rwwbi"]
 [ext_resource type="Script" path="res://scripts/ui/towns_ui.gd" id="18_ulvie"]
 [ext_resource type="FontFile" uid="uid://0h755tmfkmuj" path="res://fonts/JMH Typewriter-Thin.ttf" id="19_v1qo5"]
 [ext_resource type="Texture2D" uid="uid://dswm0gltr2r76" path="res://sprites/ui/town_sketch.png" id="20_fiexs"]
 [ext_resource type="Texture2D" uid="uid://3pmjvwnuc8ea" path="res://sprites/ui/edge_background.png" id="21_fw0e4"]
+[ext_resource type="Shader" path="res://shaders/greyscale.gdshader" id="21_qqtg1"]
 [ext_resource type="FontFile" uid="uid://bt4836ueqhi58" path="res://fonts/WesternBangBang-Regular.ttf" id="22_w4hsh"]
 [ext_resource type="FontFile" uid="uid://tpmg7wha0yio" path="res://fonts/JMH Typewriter-Bold.ttf" id="23_kdpb5"]
 [ext_resource type="Texture2D" uid="uid://bfhfpjjn1ks4" path="res://sprites/ui/train_sketch.png" id="24_o026o"]
@@ -359,11 +358,6 @@ metadata/_better_terrain = {
 "version": "0.2"
 }
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gqsc8"]
-shader = ExtResource("14_dket0")
-shader_parameter/amplitutde = Vector2(1, 0)
-shader_parameter/speed = Vector2(0, 0)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yq70y"]
 bg_color = Color(0.156863, 0.678431, 0.701961, 0.415686)
 border_width_left = 5
@@ -380,28 +374,28 @@ shadow_size = 10
 shadow_offset = Vector2(10, 10)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_na41l"]
-bg_color = Color(0.494118, 0.376471, 0.309804, 1)
+bg_color = Color(0.635294, 0.635294, 0.635294, 1)
 border_width_left = 25
 border_width_right = 25
-border_color = Color(0.405586, 0.304309, 0.246831, 1)
+border_color = Color(1, 1, 1, 1)
 border_blend = true
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mjbd1"]
-bg_color = Color(0.593775, 0.461597, 0.386904, 1)
+bg_color = Color(0.635294, 0.635294, 0.635294, 1)
 border_width_left = 25
 border_width_right = 25
-border_color = Color(0.403922, 0.305882, 0.247059, 1)
+border_color = Color(0.65834, 0.65834, 0.65834, 1)
 border_blend = true
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e40m7"]
-bg_color = Color(0.396841, 0.297293, 0.240789, 1)
+bg_color = Color(0.633757, 0.633757, 0.633757, 1)
 border_width_left = 25
 border_width_right = 25
-border_color = Color(0.403922, 0.305882, 0.247059, 1)
+border_color = Color(0, 0, 0, 1)
 border_blend = true
 corner_radius_top_left = 5
 corner_radius_top_right = 5
@@ -409,12 +403,12 @@ corner_radius_top_right = 5
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j0qmu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wgy5e"]
-bg_color = Color(0.492248, 0.376513, 0.308377, 1)
+bg_color = Color(0.107974, 0.107479, 0.106129, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
-border_color = Color(0.379378, 0.283329, 0.228799, 1)
+border_color = Color(0.497474, 0.497474, 0.497474, 1)
 border_blend = true
 corner_radius_top_left = 25
 corner_radius_top_right = 25
@@ -427,7 +421,7 @@ shadow_offset = Vector2(20, 20)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xt65u"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8016x"]
-bg_color = Color(0.606698, 0.47311, 0.397655, 1)
+bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -437,7 +431,7 @@ shadow_size = 5
 shadow_offset = Vector2(5, 5)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xklxv"]
-bg_color = Color(0.71871, 0.58115, 0.500717, 1)
+bg_color = Color(0.877616, 0.877616, 0.877616, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -446,8 +440,12 @@ shadow_color = Color(0, 0, 0, 0.364706)
 shadow_size = 5
 shadow_offset = Vector2(5, 5)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yscqu"]
+shader = ExtResource("21_qqtg1")
+shader_parameter/saturation = null
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hfgwk"]
-bg_color = Color(0.494118, 0.376471, 0.309804, 1)
+bg_color = Color(0.753984, 0.753984, 0.753984, 1)
 border_width_left = 10
 border_width_top = 10
 border_width_right = 10
@@ -496,7 +494,7 @@ script = ExtResource("9_ibroa")
 
 [node name="Camera" type="Camera2D" parent="."]
 anchor_mode = 0
-zoom = Vector2(0.82, 0.82)
+zoom = Vector2(0.6, 0.6)
 
 [node name="Music" type="Node2D" parent="."]
 process_mode = 3
@@ -523,17 +521,6 @@ layer_1/name = "Towns"
 layer_1/tile_data = PackedInt32Array()
 script = ExtResource("13_6j7ga")
 
-[node name="RouteLine" type="Line2D" parent="WorldMap"]
-texture_filter = 1
-texture_repeat = 2
-material = SubResource("ShaderMaterial_gqsc8")
-texture = ExtResource("15_tqgxp")
-texture_mode = 1
-joint_mode = 2
-begin_cap_mode = 2
-end_cap_mode = 2
-antialiased = true
-
 [node name="WorldUI" type="CanvasLayer" parent="."]
 process_mode = 3
 script = ExtResource("16_s8cdk")
@@ -558,9 +545,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="MoneyLabel" type="RichTextLabel" parent="WorldUI/MarginContainer/GridContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="WorldUI/MarginContainer/GridContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="MoneyLabel" type="RichTextLabel" parent="WorldUI/MarginContainer/GridContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 mouse_filter = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.290196)
@@ -572,6 +564,26 @@ theme_override_constants/outline_size = 5
 theme_override_fonts/normal_font = ExtResource("17_rwwbi")
 theme_override_font_sizes/normal_font_size = 30
 text = "Money = $0"
+fit_content = true
+scroll_active = false
+
+[node name="FuelLabel" type="RichTextLabel" parent="WorldUI/MarginContainer/GridContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.290196)
+theme_override_colors/font_outline_color = Color(0.92549, 0.560784, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/shadow_outline_size = 5
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("17_rwwbi")
+theme_override_font_sizes/normal_font_size = 30
+text = "Fuel: 50gal"
+fit_content = true
+scroll_active = false
 
 [node name="HSeparator" type="HSeparator" parent="WorldUI/MarginContainer/GridContainer/HBoxContainer"]
 modulate = Color(1, 1, 1, 0)
@@ -619,6 +631,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 0
 theme_override_constants/margin_left = 400
 theme_override_constants/margin_top = 200
 theme_override_constants/margin_right = 400
@@ -683,7 +696,6 @@ scroll_active = false
 
 [node name="TownImage" type="TextureRect" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/TownDetails"]
 unique_name_in_owner = true
-modulate = Color(0.494118, 0.376471, 0.309804, 1)
 layout_mode = 2
 size_flags_vertical = 8
 texture = ExtResource("20_fiexs")
@@ -693,11 +705,15 @@ stretch_mode = 5
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_8016x")
 theme_override_styles/hover = SubResource("StyleBoxFlat_xklxv")
 text = "Travel to Town"
 
 [node name="MissionDetails" type="TextureRect" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer"]
+material = SubResource("ShaderMaterial_yscqu")
 layout_mode = 2
 texture = ExtResource("21_fw0e4")
 expand_mode = 3

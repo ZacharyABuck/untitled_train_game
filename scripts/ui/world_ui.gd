@@ -4,11 +4,10 @@ var mission_reward_panel = preload("res://scenes/ui/mission_reward_panel.tscn")
 var mission_inventory_panel = preload("res://scenes/ui/mission_inventory_panel.tscn")
 var edge_inventory_label = preload("res://scenes/ui/edge_inventory_label.tscn")
 @onready var rewards_container = $MarginContainer2/RewardsContainer
-@onready var money_label = $MarginContainer/GridContainer/HBoxContainer/MoneyLabel
+@onready var money_label = $MarginContainer/GridContainer/HBoxContainer/VBoxContainer/MoneyLabel
+@onready var fuel_label = $MarginContainer/GridContainer/HBoxContainer/VBoxContainer/FuelLabel
 @onready var mission_inventory_container = $MarginContainer/GridContainer/HBoxContainer/PanelContainer/MissionInventoryContainer
 @onready var edge_label_container = $MarginContainer/GridContainer/EdgeLabelContainer
-
-
 
 func spawn_reward_panel(mission_success, sprite, reward):
 	var new_panel = mission_reward_panel.instantiate()
@@ -31,3 +30,6 @@ func spawn_edge_inventory_label(edge):
 	var new_label = edge_inventory_label.instantiate()
 	edge_label_container.add_child(new_label)
 	new_label.populate(edge)
+
+func update_fuel_label():
+	fuel_label.text = "Fuel: " + str(CurrentRun.world.current_train_info.current_fuel) + "gal"

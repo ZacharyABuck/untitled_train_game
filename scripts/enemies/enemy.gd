@@ -29,7 +29,15 @@ func find_stats(enemy_type):
 	if elite:
 		upgrade_to_elite()
 
+func find_target():
+	#make sure target isn't cargo
+	var rng = CurrentRun.world.current_player_info.targets.pick_random()
+	while rng.is_in_group("cargo"):
+		rng = CurrentRun.world.current_player_info.targets.pick_random()
+	return rng
+
 func upgrade_to_elite():
+	#NEED TO UPDATE HOW ELITE LOOKS AND WORKS
 	animations.modulate = Color.HOT_PINK
 	speed += EnemyInfo.elite_modifiers["speed"]
 	health_component.health += EnemyInfo.elite_modifiers["health"]
@@ -39,11 +47,3 @@ func upgrade_to_elite():
 		"ranged":
 			if projectile_attack_component:
 				projectile_attack_component.damage += EnemyInfo.elite_modifiers["damage"]
-
-func shock(is_shocked):
-	if is_shocked:
-		speed = enemy_stats["speed"] * .3
-	else:
-		speed = enemy_stats["speed"]
-		if elite:
-			speed += EnemyInfo.elite_modifiers["speed"]

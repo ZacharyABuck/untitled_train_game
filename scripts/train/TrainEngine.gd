@@ -20,16 +20,14 @@ var applied_force := 0.0
 var brake_force := 0.0
 var velocity := 0.0
 
-@onready var front_light = $Car/FrontLight
 @onready var train_whistle_sfx = $TrainWhistleSFX
-
-
 
 func _ready() -> void:
 	CurrentRun.world.current_train_info.train_engine = self
 	target_force_percent = CurrentRun.world.current_train_info.train_stats["speed"]
 	super()
 	_update_frictions()
+	lights_on()
 
 # Update the friction forces that depend on mass when the towed mass changes
 func change_towed_mass(mass_delta: float) -> void:
@@ -38,11 +36,6 @@ func change_towed_mass(mass_delta: float) -> void:
 
 func _process(delta: float) -> void:
 	super(delta)
-	if CurrentRun.world.current_level_info.active_level.world_light.energy >= .25 and front_light.enabled == false:
-		front_light.enabled = true
-		lights_on()
-	if CurrentRun.world.current_level_info.active_level.world_light.energy <= .25 and front_light.enabled == true:
-		front_light.enabled = false
 
 func lights_on():
 	$AnimationPlayer.play("lights_on")

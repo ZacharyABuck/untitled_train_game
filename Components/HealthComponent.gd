@@ -17,10 +17,10 @@ class_name HealthComponent
 @export var ANIMATION : AnimatedSprite2D
 @export var HEALTHBAR : ProgressBar
 
+@export var status_effect_component: Node2D
+
 var money = preload("res://scenes/money.tscn")
 var blood_fx = preload("res://scenes/fx/blood_fx.tscn")
-var poison_fx = preload("res://scenes/fx/poison_fx.tscn")
-var shock_fx = preload("res://scenes/fx/shock_fx.tscn")
 
 var health : float
 #var armor : float
@@ -30,9 +30,6 @@ var has_healthbar : bool
 var character
 var animation
 var healthbar = false
-
-@onready var poison_timer = $PoisonTimer
-@onready var shock_timer = $ShockTimer
 
 signal fill_charge_meter
 
@@ -62,27 +59,13 @@ func damage(attack : Attack, shooter):
 		_handle_death(shooter)
 
 func process_buffs(buff):
-	match buff:
-		"poison":
-			if poison_timer.is_stopped():
-				poison_timer.start()
-		"shock":
-			shock_timer.start()
-			if get_parent().has_method("shock"):
-				get_parent().shock(true)
-			spawn_particles(shock_fx)
-
-func _on_poison_timer_timeout():
-	var poison_damage = CurrentRun.world.current_player_info.poison_damage
-	var poison_tick = Attack.new()
-	poison_tick.attack_damage = poison_damage
-	damage(poison_tick, null)
-	spawn_particles(poison_fx)
-	get_parent().modulate = Color.WEB_GREEN
-
-func _on_shock_timer_timeout():
-	if get_parent().has_method("shock"):
-		get_parent().shock(false)
+	if status_effect_component:
+		status_effect_component.health_component = self
+		match buff:
+			"poison":
+				status_effect_component.apply_poison()
+			"shock":
+				status_effect_component.apply_shock()
 
 func spawn_particles(fx):
 	var new_fx = fx.instantiate()

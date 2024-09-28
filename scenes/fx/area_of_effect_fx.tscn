@@ -1,0 +1,67 @@
+[gd_scene load_steps=11 format=3 uid="uid://clnvkb51np5eu"]
+
+[ext_resource type="Script" path="res://scenes/fx/area_of_effect_fx.gd" id="1_ddv1t"]
+[ext_resource type="AudioStream" uid="uid://i5nysmylmxgb" path="res://sounds/combat/squish_explode.wav" id="2_1gbd2"]
+
+[sub_resource type="Curve" id="Curve_n341u"]
+_data = [Vector2(0, 0.978942), 0.0, 0.0, 0, 0, Vector2(0.575, 0.024298), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_f1g6h"]
+curve = SubResource("Curve_n341u")
+
+[sub_resource type="Curve" id="Curve_7cfoh"]
+max_value = 4.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.516667, 3.91577), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_0ame8"]
+curve = SubResource("Curve_7cfoh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1fcns"]
+particle_flag_disable_z = true
+angular_velocity_max = 540.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_0ame8")
+color = Color(1, 0, 0, 1)
+alpha_curve = SubResource("CurveTexture_f1g6h")
+
+[sub_resource type="Gradient" id="Gradient_c8qgy"]
+offsets = PackedFloat32Array(0.164835, 0.651099)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_clgrv"]
+gradient = SubResource("Gradient_c8qgy")
+fill = 1
+fill_from = Vector2(0.512821, 0.495726)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cr55a"]
+radius = 88.0909
+
+[node name="AreaOfEffectFX" type="Node2D"]
+script = ExtResource("1_ddv1t")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_1fcns")
+texture = SubResource("GradientTexture2D_clgrv")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.95
+
+[node name="ExplodeHitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplodeHitbox"]
+shape = SubResource("CircleShape2D_cr55a")
+disabled = true
+
+[node name="ExplodeSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_1gbd2")
+volume_db = -15.0
+bus = &"SFX"
+
+[connection signal="area_entered" from="ExplodeHitbox" to="." method="_on_explode_hitbox_area_entered"]
+[connection signal="finished" from="ExplodeSFX" to="." method="_on_explode_sfx_finished"]

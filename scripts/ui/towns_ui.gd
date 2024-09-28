@@ -10,8 +10,6 @@ extends CanvasLayer
 @onready var no_missions_label = %NoMissionsLabel
 @onready var trainyard_items_list = %TrainyardItemsList
 
-
-
 var trainyard_item = preload("res://scenes/ui/trainyard_item.tscn")
 var mission_panel = preload("res://scenes/ui/mission_panel.tscn")
 
@@ -27,6 +25,8 @@ func populate_town_info(town):
 		for i in missions_container.get_children():
 			i.hide()
 		no_missions_label.show()
+		var fuel_cost = CurrentRun.world.find_fuel_cost()
+		travel_button.text = "Travel to Town (" + str(fuel_cost) + "gal)"
 		travel_button.show()
 	town_name_label.text = "[center]" + town.town_name + "[/center]"
 	show()

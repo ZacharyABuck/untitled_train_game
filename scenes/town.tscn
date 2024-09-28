@@ -1,113 +1,152 @@
-[gd_scene load_steps=10 format=3 uid="uid://cwgn51i4160nt"]
+[gd_scene load_steps=14 format=3 uid="uid://cwgn51i4160nt"]
 
 [ext_resource type="Script" path="res://scripts/town.gd" id="1_mviet"]
+[ext_resource type="Texture2D" uid="uid://degtajbagy7wq" path="res://sprites/town/world_map_town_1.png" id="2_fjydp"]
 [ext_resource type="FontFile" uid="uid://lxcj83h6gsu7" path="res://fonts/JMH Typewriter-Black.otf" id="2_hdird"]
+[ext_resource type="AudioStream" uid="uid://dj7kocwaaxocr" path="res://sounds/ui/big_select.mp3" id="4_60ynl"]
+[ext_resource type="Texture2D" uid="uid://cofci5enhbedj" path="res://sprites/ui/arrow.png" id="5_u7tm2"]
+[ext_resource type="FontFile" uid="uid://tpmg7wha0yio" path="res://fonts/JMH Typewriter-Bold.ttf" id="6_qf11k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q0ns8"]
-size = Vector2(64, 64)
+size = Vector2(205, 128)
 
-[sub_resource type="Gradient" id="Gradient_i0d1y"]
-offsets = PackedFloat32Array(0.804598, 0.83908, 0.87069)
-colors = PackedColorArray(1, 1, 1, 0, 0.988235, 0, 0.827451, 1, 1, 1, 1, 0)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2hpax"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_left = 20.0
+expand_margin_top = 10.0
+expand_margin_right = 20.0
+expand_margin_bottom = 10.0
+shadow_offset = Vector2(5, 5)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_yimb7"]
-gradient = SubResource("Gradient_i0d1y")
-width = 128
-height = 128
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.867521, 0.0726496)
+[sub_resource type="Animation" id="Animation_41biy"]
+resource_name = "name_bounce"
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NameLabel:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1.1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NameLabel:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1.1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5, 1)
+}
 
-[sub_resource type="Animation" id="Animation_0bqnl"]
-resource_name = "ring_expand"
+[sub_resource type="Animation" id="Animation_0hl2m"]
+resource_name = "name_reset"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NameLabel:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NameLabel:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(1)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kefwq"]
+_data = {
+"name_bounce": SubResource("Animation_41biy"),
+"name_reset": SubResource("Animation_0hl2m")
+}
+
+[sub_resource type="Animation" id="Animation_j0vhq"]
+resource_name = "arrow_bounce"
 length = 2.0
 loop_mode = 1
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("TextureRect:texture:fill_to:x")
+tracks/0/path = NodePath("ArrowSprite:position:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0.5, 0, 0, 0, 0, 0.867521, -0.625, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 2)
+"handle_modes": PackedInt32Array(),
+"points": PackedFloat32Array(),
+"times": PackedFloat32Array()
 }
 tracks/1/type = "bezier"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("TextureRect:texture:fill_to:y")
+tracks/1/path = NodePath("ArrowSprite:position:y")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0.5, 0, 0, 0, 0, 0.0726496, -0.625, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 2)
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(-150, -0.25, 0, 0.25, 0, -100, -0.25, 0, 0.25, 0, -150, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1, 2)
 }
-tracks/2/type = "value"
+tracks/2/type = "bezier"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("TextureRect:modulate")
+tracks/2/path = NodePath("YouLabel:position:x")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_mj3jb"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TextureRect:texture:fill_to:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0.867521, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(-48, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TextureRect:texture:fill_to:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0.0726496, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("YouLabel:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(-271, -0.25, 0, 0.4, 0, -210, -0.25, 0, 0.4, 0, -271, -0.25, 0, 0.4, 0),
+"times": PackedFloat32Array(0, 1, 2)
 }
 
-[sub_resource type="Animation" id="Animation_g5w21"]
-resource_name = "fade_out"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TextureRect:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_o0k3g"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q2t07"]
 _data = {
-"RESET": SubResource("Animation_mj3jb"),
-"fade_out": SubResource("Animation_g5w21"),
-"ring_expand": SubResource("Animation_0bqnl")
+"arrow_bounce": SubResource("Animation_j0vhq")
 }
 
 [node name="Town" type="Area2D"]
 script = ExtResource("1_mviet")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_fjydp")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-8.5, 2)
 shape = SubResource("RectangleShape2D_q0ns8")
 debug_color = Color(0.993255, 0, 0.240295, 0.42)
 
@@ -119,38 +158,57 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -73.0
-offset_top = -78.0
-offset_right = 73.0
-offset_bottom = -36.0
+offset_left = -111.0
+offset_top = 75.0
+offset_right = 93.0
+offset_bottom = 134.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0.367678, 0.213422, 0.0780009, 1)
+pivot_offset = Vector2(90, 20)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("2_hdird")
 theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_2hpax")
 text = "townsville"
 horizontal_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0.0179633)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -128.0
-offset_top = -128.0
-offset_right = 128.0
-offset_bottom = 128.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("GradientTexture2D_yimb7")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="HoverAnimation" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_o0k3g")
+"": SubResource("AnimationLibrary_kefwq")
 }
 
+[node name="ClickedSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_60ynl")
+volume_db = -10.0
+bus = &"SFX"
+
+[node name="ArrowSprite" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(0, -129.565)
+scale = Vector2(4, 4)
+texture = ExtResource("5_u7tm2")
+
+[node name="YouLabel" type="Label" parent="."]
+visible = false
+texture_filter = 1
+offset_left = -48.0
+offset_top = -241.628
+offset_right = 52.0
+offset_bottom = -173.628
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_qf11k")
+theme_override_font_sizes/font_size = 50
+text = "YOU"
+
+[node name="ArrowAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_q2t07")
+}
+autoplay = "arrow_bounce"
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

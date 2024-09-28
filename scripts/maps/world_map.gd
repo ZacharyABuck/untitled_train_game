@@ -2,23 +2,19 @@ extends TileMap
 
 var altitude = FastNoiseLite.new()
 @onready var astar = AStar2D.new()
-var chunk_width: int = 37
-var chunk_height: int = 21
+var chunk_width: int = 50
+var chunk_height: int = 29
 var loaded_chunks: Array = []
-
-@onready var route_line = $RouteLine
-
 
 var starting_coords = Vector2i.ZERO
 
 var road_cells = []
-var road_count: int = 1
-var town_count: int = 10
+var road_count: int = 2
+var town_count: int = 5
 
 var town_cells = []
 
 var town = preload("res://scenes/town.tscn")
-var world_map_player = preload("res://scenes/player/world_map_player.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -65,12 +61,11 @@ func handle_towns():
 					valid_town = true
 		
 			new_town.clicked.connect(owner.town_clicked.bind(new_town))
-			new_town.mouse_entered.connect(town_mouse_entered.bind(new_town))
-			new_town.mouse_exited.connect(town_mouse_exited.bind(new_town))
 
 func spawn_map(coords):
 	var new_cells = []
 	#set cells by altitude
+	
 	for x in range(chunk_width):
 		for y in range(chunk_height):
 			var cell = coords + Vector2i(x,y)
@@ -110,13 +105,15 @@ func find_random_road():
 	var mid_x = rect.x*.5
 	var mid_y = rect.y*.5
 	
-	var random_start_x = int(mid_x+randi_range(-3,3))
-	var random_end_x = int(mid_y+randi_range(-3,3))
-	var new_road_cells = spawn_road(Vector2i(random_start_x,0), Vector2i(random_end_x, chunk_height - 1))
+	var margin: int = 5
 	
-	var random_start_y = int(mid_y+randi_range(-3,3))
-	var random_end_y = int(mid_y+randi_range(-3,3))
-	new_road_cells.append_array(spawn_road(Vector2i(0, random_start_y), Vector2i(chunk_width-1, random_end_y)))
+	var random_start_x = int(mid_x+randi_range(-mid_x+margin,mid_x-margin))
+	var random_end_x = int(mid_y+randi_range(-mid_x+margin,mid_x-margin))
+	var new_road_cells = spawn_road(Vector2i(random_start_x,margin), Vector2i(random_end_x, chunk_height - margin))
+	
+	var random_start_y = int(mid_y+randi_range(-mid_y+margin,mid_y-margin))
+	var random_end_y = int(mid_y+randi_range(-mid_y+margin,mid_y-margin))
+	new_road_cells.append_array(spawn_road(Vector2i(margin, random_start_y), Vector2i(chunk_width-margin, random_end_y)))
 	BetterTerrain.update_terrain_cells(self, 0, new_road_cells)
 	return new_road_cells
 
@@ -143,7 +140,7 @@ func spawn_town():
 						for town_cell in town_cells:
 							var this_pos = map_to_local(neighbor)
 							var that_pos = map_to_local(town_cell)
-							if this_pos.distance_to(that_pos) >= 300:
+							if this_pos.distance_to(that_pos) >= 500:
 								index += 1
 						if index >= town_cells.size():
 							return neighbor
@@ -154,20 +151,20 @@ func spawn_player():
 		var random_town_pos = find_town_pos(random_town)
 		CurrentRun.world.current_world_info.active_town = random_town
 		var road_pos = find_closest_road(random_town_pos)
-		
-		var new_player = world_map_player.instantiate()
-		new_player.global_position = map_to_local(road_pos)
-		add_child(new_player)
 	else:
 		var destination_town = CurrentRun.world.current_level_info.destination
 		var destination_town_pos = find_town_pos(destination_town)
 		var road_pos = find_closest_road(destination_town_pos)
 		
-		CurrentRun.world.current_world_info.world_map_player.global_position = map_to_local(road_pos)
 		CurrentRun.world.current_world_info.active_town = CurrentRun.world.current_level_info.destination
 		CurrentRun.world.current_level_info.destination = null
 	print("Active Town: " + CurrentRun.world.current_world_info.active_town)
-	var vector = CurrentRun.world.current_world_info.world_map_player.global_position - Vector2(960, 540)
+	
+	for town in CurrentRun.world.current_world_info.towns_inventory:
+		CurrentRun.world.current_world_info.towns_inventory[town]["scene"].hide_you_are_here()
+	CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"].you_are_here()
+	
+	var vector = CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"].global_position - Vector2(960, 540)
 	var coords = local_to_map(vector)
 	spawn_map(coords)
 
@@ -181,15 +178,3 @@ func find_closest_road(town_pos):
 		var terrain = BetterTerrain.get_cell(self, 0, i)
 		if terrain == 2:
 			return i
-
-func town_mouse_entered(town_node):
-	var route_points: PackedVector2Array = []
-	var start = CurrentRun.world.current_world_info.world_map_player.global_position
-	var end = town_node.global_position
-	route_points.append(start)
-	route_points.append(end)
-	route_line.points = route_points
-	route_line.show()
-
-func town_mouse_exited(_town):
-	route_line.hide()
