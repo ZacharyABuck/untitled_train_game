@@ -6,8 +6,6 @@ var train_engine
 
 var track_positions: Array = []
 
-var current_fuel: int = 50
-
 var cars_inventory = {
 
 }
@@ -16,6 +14,7 @@ var train_stats = {
 	"car_count": 4,
 	"speed": 2.5,
 	"car_health": 100,
+	"fuel_tank": 25,
 }
 
 func clear_variables():

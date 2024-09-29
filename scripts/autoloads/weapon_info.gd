@@ -3,7 +3,7 @@ extends Node
 var weapons_roster = {
 	"revolver" = {
 		"name" = "Revolver",
-		"scene" = preload("res://scenes/weapons/revolver_basic.tscn"),
+		"scene" = load("res://scenes/weapons/revolver_basic.tscn"),
 		"sprite" = preload("res://sprites/weapons/revolver.png"),
 		"base_attack_delay" = .7,
 		"base_projectile_speed" = 1000,
@@ -13,7 +13,7 @@ var weapons_roster = {
 	
 	"rifle" = {
 		"name" = "Rifle",
-		"scene" = preload("res://scenes/weapons/rifle_basic.tscn"),
+		"scene" = load("res://scenes/weapons/rifle_basic.tscn"),
 		"sprite" = preload("res://sprites/weapons/rifle.png"),
 		"base_attack_delay" = 1.5,
 		"base_projectile_speed" = 1000,
@@ -23,7 +23,7 @@ var weapons_roster = {
 	
 	"hatchet" = {
 		"name" = "Hatchet",
-		"scene" = preload("res://scenes/weapons/hatchet.tscn"),
+		"scene" = load("res://scenes/weapons/hatchet.tscn"),
 		"sprite" = preload("res://sprites/weapons/hatchet.png"),
 		"base_attack_delay" = 1.0,
 		"base_projectile_speed" = 400,
@@ -33,14 +33,23 @@ var weapons_roster = {
 
 	"mondragon" = {
 		"name" = "Mondragón",
-		"scene" = preload("res://scenes/weapons/mondragon.tscn"),
+		"scene" = load("res://scenes/weapons/mondragon.tscn"),
 		"sprite" = preload("res://sprites/weapons/mondragon.png"),
 		"base_attack_delay" = .3,
 		"base_projectile_speed" = 1000,
 		"base_damage" = 1.5,
 		"base_lifetime" = 2.0,
 	},
-	
+
+	"shotgun" = {
+		"name" = "Shotgun",
+		"scene" = load("res://scenes/weapons/shotgun_basic.tscn"),
+		"sprite" = preload("res://sprites/weapons/shotgun.png"),
+		"base_attack_delay" = 1.5,
+		"base_projectile_speed" = 600,
+		"base_damage" = 2.0,
+		"base_lifetime" = 1.0,
+	},
 }
 
 var charge_attacks_roster = {

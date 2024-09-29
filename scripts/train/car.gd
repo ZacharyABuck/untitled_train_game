@@ -58,6 +58,8 @@ func check_for_gadgets():
 
 func take_damage(amount):
 	health = clamp(health-clamp(amount-armor,1,amount), 0, max_health)
+	
+	CurrentRun.root.tutorial_ui.trigger_tutorial("train_damage")
 
 func repair(amount):
 	health = clamp(health+amount, 0, max_health)

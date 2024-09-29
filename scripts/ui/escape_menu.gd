@@ -21,9 +21,11 @@ func _on_audio_settings_button_button_up():
 	default.hide()
 	audio_settings.show()
 
-
 func _on_volume_slider_value_changed(value):
-	AudioServer.set_bus_volume_db(0, value)
+	var slider = $AudioSettings/VBoxContainer/VolumeSlider
+	slider.min_value = 0.0001
+	slider.step = 0.0001
+	AudioServer.set_bus_volume_db(0, log(value)*20)
 
 #audio settings back button
 func _on_back_button_button_up():

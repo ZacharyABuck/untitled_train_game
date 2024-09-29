@@ -8,9 +8,15 @@ var world = preload("res://scenes/world.tscn")
 @onready var restart_screen = $RestartScreen
 @onready var black_rect = $EffectsUI/BlackRect
 
+var tutorials_on: bool = false
+@onready var tutorial_ui = $TutorialUI
 
 func ready():
 	title_screen.show()
+
+func set_tutorials(value):
+	tutorials_on = value
+	print(tutorials_on)
 
 func title_screen_start_button_pressed():
 	title_screen_start_button.disabled = true
@@ -24,6 +30,14 @@ func title_screen_start_button_pressed():
 	add_child(new_world)
 	
 	fade_in()
+	
+	var camera = CurrentRun.world.camera
+	camera.zoom = Vector2(.8,.8)
+	var camera_tween = create_tween()
+	camera_tween.tween_property(camera, "zoom", Vector2(.6,.6), 2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	
+	await camera_tween.finished
+	tutorial_ui.trigger_tutorial("world_map")
 	
 func _input(event):
 	if event.is_action_pressed("escape_menu"):

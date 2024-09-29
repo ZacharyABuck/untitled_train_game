@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://c73m6hmotwfe6"]
+[gd_scene load_steps=6 format=3 uid="uid://c73m6hmotwfe6"]
 
 [ext_resource type="Script" path="res://scripts/ui/mission_reward_panel.gd" id="1_ksmlk"]
+[ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="1_m7ip5"]
 [ext_resource type="Texture2D" uid="uid://dutu0olvdwa37" path="res://sprites/characters/Franch Token.png" id="2_7inyn"]
 [ext_resource type="FontFile" uid="uid://bt4836ueqhi58" path="res://fonts/WesternBangBang-Regular.ttf" id="3_mdumm"]
 [ext_resource type="FontFile" uid="uid://c8paya3d441k7" path="res://fonts/JMH Typewriter-Bold.otf" id="4_qy7kq"]
@@ -8,6 +9,7 @@
 [node name="MissionRewardPanel" type="PanelContainer"]
 custom_minimum_size = Vector2(300, 100)
 size_flags_horizontal = 0
+theme = ExtResource("1_m7ip5")
 script = ExtResource("1_ksmlk")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]

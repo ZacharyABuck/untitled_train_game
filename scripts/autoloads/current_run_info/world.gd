@@ -69,6 +69,9 @@ func start_game(direction, distance, terrain):
 	in_game = true
 	
 	CurrentRun.root.fade_in()
+	
+	await get_tree().create_timer(5).timeout
+	CurrentRun.root.tutorial_ui.trigger_tutorial("basic_controls")
 
 func pause_game():
 	if CurrentRun.world.current_level_info.active_level:
@@ -91,8 +94,7 @@ func town_clicked(town):
 		towns_ui.trainyard_items_list.hide()
 
 func _on_travel_button_pressed():
-	if 	CurrentRun.world.current_train_info.current_fuel >= find_fuel_cost():
-		CurrentRun.world.current_train_info.current_fuel -= find_fuel_cost()
+	if CurrentRun.world.current_train_info.train_stats["fuel_tank"] >= find_fuel_cost():
 		music_fade.play("world_to_level")
 		
 		var direction = find_direction()
@@ -126,7 +128,6 @@ func level_complete():
 	update_world_player_pos()
 	check_missions()
 	update_money_label()
-	world_ui.update_fuel_label()
 	world_map.show()
 	missions_spawned = false
 	
@@ -178,14 +179,10 @@ func complete_mission(mission):
 
 func upgrade_train(upgrade):
 	update_money_label()
-	if upgrade == "fuel":
-		CurrentRun.world.current_train_info.current_fuel += TrainInfo.train_upgrade_roster[upgrade]["value"]
-		world_ui.update_fuel_label()
-	else:
-		if CurrentRun.world.current_train_info.train_stats.keys().has(upgrade):
-			CurrentRun.world.current_train_info.train_stats[upgrade] += TrainInfo.train_upgrade_roster[upgrade]["value"]
-			if upgrade == "car_count":
-				if CurrentRun.world.current_train_info.cars_inventory.keys().size() > 1:
-					var caboose_index = CurrentRun.world.current_train_info.cars_inventory.keys().size() - 1
-					CurrentRun.world.current_train_info.cars_inventory[caboose_index + 1] = CurrentRun.world.current_train_info.cars_inventory[caboose_index]
-					CurrentRun.world.current_train_info.cars_inventory[caboose_index] = {"node" = null, "type" = null, "hard_points" = {}, "gadgets" = {},}
+	if CurrentRun.world.current_train_info.train_stats.keys().has(upgrade):
+		CurrentRun.world.current_train_info.train_stats[upgrade] += TrainInfo.train_upgrade_roster[upgrade]["value"]
+		if upgrade == "car_count":
+			if CurrentRun.world.current_train_info.cars_inventory.keys().size() > 1:
+				var caboose_index = CurrentRun.world.current_train_info.cars_inventory.keys().size() - 1
+				CurrentRun.world.current_train_info.cars_inventory[caboose_index + 1] = CurrentRun.world.current_train_info.cars_inventory[caboose_index]
+				CurrentRun.world.current_train_info.cars_inventory[caboose_index] = {"node" = null, "type" = null, "hard_points" = {}, "gadgets" = {},}

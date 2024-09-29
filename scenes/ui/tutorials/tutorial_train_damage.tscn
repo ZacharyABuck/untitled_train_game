@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://u0hh3wne8vv"]
+
+[ext_resource type="Script" path="res://scenes/ui/tutorials/tutorial_train_damage.gd" id="1_ekfqt"]
+[ext_resource type="Texture2D" uid="uid://0uwb285b3p0v" path="res://sprites/characters/bourdalain.png" id="2_mc1re"]
+[ext_resource type="AudioStream" uid="uid://d2nwj7vu6t12t" path="res://sounds/ui/menu-select-tick.wav" id="3_mpaav"]
+
+[node name="TutorialTrainDamage" type="Control" node_paths=PackedStringArray("sfx")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_ekfqt")
+dialogue = ["Your train is taking damage! Every train car has it's own armor.", "Once that armor is depleted, enemies can board your train and attack you or your guests.", "Hold R to repair train cars."]
+sfx = NodePath("SFX")
+sprite = ExtResource("2_mc1re")
+
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_mpaav")
+volume_db = -10.0
+bus = &"SFX"

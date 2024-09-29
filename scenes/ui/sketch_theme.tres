@@ -1,45 +1,14 @@
-[gd_resource type="Theme" load_steps=13 format=3 uid="uid://dkxiakuxtv3c5"]
+[gd_resource type="Theme" load_steps=15 format=3 uid="uid://dkxiakuxtv3c5"]
 
 [ext_resource type="FontFile" uid="uid://lxcj83h6gsu7" path="res://fonts/JMH Typewriter-Black.otf" id="1_8qbmf"]
 [ext_resource type="FontFile" uid="uid://tpmg7wha0yio" path="res://fonts/JMH Typewriter-Bold.ttf" id="1_eg4lo"]
+[ext_resource type="StyleBox" uid="uid://csq3chiitmhpv" path="res://scenes/ui/style_box_button_normal.tres" id="2_6j7mb"]
+[ext_resource type="StyleBox" uid="uid://bkenfd6yb5j3e" path="res://scenes/ui/style_box_button_pressed.tres" id="3_bx4j6"]
+[ext_resource type="StyleBox" uid="uid://ld7bueiobl6e" path="res://scenes/ui/style_box_button_hover.tres" id="4_r8fwg"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xw245"]
-bg_color = Color(0.956863, 0.937255, 0.858824, 1)
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
-border_color = Color(0.303087, 0.162489, 0.112034, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-shadow_size = 2
-shadow_offset = Vector2(2, 2)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_op5ug"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sfqix"]
-bg_color = Color(0.956863, 0.937255, 0.858824, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.482353, 0.27451, 0.2, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-shadow_size = 2
-shadow_offset = Vector2(2, 2)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_88rc5"]
-bg_color = Color(0.482353, 0.27451, 0.2, 1)
-border_color = Color(0.956863, 0.937255, 0.858824, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-shadow_size = 2
-shadow_offset = Vector2(2, 2)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qhafr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k2mj5"]
 bg_color = Color(0.956863, 0.937255, 0.858824, 1)
@@ -120,14 +89,24 @@ border_color = Color(0.482353, 0.27451, 0.2, 1)
 [resource]
 default_font = ExtResource("1_eg4lo")
 Button/colors/font_color = Color(0.482353, 0.27451, 0.2, 1)
+Button/colors/font_focus_color = Color(0.482353, 0.27451, 0.2, 1)
 Button/colors/font_hover_color = Color(0.482353, 0.27451, 0.2, 1)
-Button/colors/font_pressed_color = Color(0.956863, 0.937255, 0.858824, 1)
-Button/colors/icon_hover_color = Color(0.482353, 0.27451, 0.2, 1)
-Button/colors/icon_normal_color = Color(0.956863, 0.937255, 0.858824, 1)
+Button/colors/font_hover_pressed_color = Color(0.482353, 0.27451, 0.2, 1)
+Button/colors/font_pressed_color = Color(0.482353, 0.27451, 0.2, 1)
 Button/fonts/font = ExtResource("1_eg4lo")
-Button/styles/hover = SubResource("StyleBoxFlat_xw245")
-Button/styles/normal = SubResource("StyleBoxFlat_sfqix")
-Button/styles/pressed = SubResource("StyleBoxFlat_88rc5")
+Button/styles/focus = SubResource("StyleBoxEmpty_op5ug")
+Button/styles/hover = ExtResource("4_r8fwg")
+Button/styles/normal = ExtResource("2_6j7mb")
+Button/styles/pressed = ExtResource("3_bx4j6")
+CheckBox/colors/font_color = Color(0.482353, 0.27451, 0.2, 1)
+CheckBox/colors/font_hover_color = Color(0.482353, 0.27451, 0.2, 1)
+CheckBox/colors/font_hover_pressed_color = Color(0.482353, 0.27451, 0.2, 1)
+CheckBox/colors/font_pressed_color = Color(0.482353, 0.27451, 0.2, 1)
+CheckBox/styles/focus = SubResource("StyleBoxEmpty_qhafr")
+CheckBox/styles/hover = ExtResource("4_r8fwg")
+CheckBox/styles/hover_pressed = ExtResource("4_r8fwg")
+CheckBox/styles/normal = ExtResource("2_6j7mb")
+CheckBox/styles/pressed = ExtResource("2_6j7mb")
 Label/colors/font_color = Color(0.482353, 0.27451, 0.2, 1)
 Label/colors/font_outline_color = Color(0.956863, 0.937255, 0.858824, 1)
 Label/fonts/font = ExtResource("1_eg4lo")

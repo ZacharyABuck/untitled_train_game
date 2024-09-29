@@ -36,14 +36,14 @@ var enemy_roster = {
 	},
 	"monstrosity" = {
 		"scene" = load("res://scenes/enemies/enemy_monstrosity.tscn"),
-		"rarity" = 20,
-		"health" = 7,
+		"rarity" = 30,
+		"health" = 4,
 		"type" = "explosive",
-		"damage" = 15.0,
+		"damage" = 10.0,
 		"money" = 1,
 		"speed" = 150,
 		"experience" = 2,
-		"max_spawn" = 5,
+		"max_spawn" = 3,
 	},
 }
 

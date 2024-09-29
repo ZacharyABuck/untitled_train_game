@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://by48hpf2u6kyg"]
+
+[ext_resource type="Script" path="res://scenes/ui/tutorials/tutorial_world_map.gd" id="1_romrn"]
+[ext_resource type="Texture2D" uid="uid://0uwb285b3p0v" path="res://sprites/characters/bourdalain.png" id="2_bfe7r"]
+[ext_resource type="AudioStream" uid="uid://d2nwj7vu6t12t" path="res://sounds/ui/menu-select-tick.wav" id="3_ce17y"]
+
+[node name="TutorialWorldMap" type="Control" node_paths=PackedStringArray("sfx")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_romrn")
+dialogue = ["Welcome to the World Map. Here you can see all of the towns in the world.", "You are located at the flashing arrow. Click the town you're at to see missions and upgrades.", "Click any other town to travel there. You can only travel as far as your fuel tank will let you."]
+sfx = NodePath("SFX")
+sprite = ExtResource("2_bfe7r")
+
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ce17y")
+volume_db = -10.0
+bus = &"SFX"

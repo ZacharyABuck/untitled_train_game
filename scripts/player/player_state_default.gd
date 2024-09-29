@@ -15,6 +15,7 @@ func get_input():
 func animate_movement():
 	if Input.is_action_pressed("shoot"):
 		owner.sprite.play("shooting")
+		owner.running_sfx.stop()
 	elif owner.velocity.is_equal_approx(Vector2.ZERO):
 		owner.sprite.play("standing")
 		owner.running_sfx.stop()

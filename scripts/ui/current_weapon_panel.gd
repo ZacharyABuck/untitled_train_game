@@ -6,6 +6,7 @@ func populate():
 	var current_weapon = CurrentRun.world.current_player_info.active_player.current_ranged_weapon
 	var weapon_id = CurrentRun.world.current_player_info.active_player.current_ranged_weapon.weapon_id
 	
+	$"../CurrentWeapon".text = "[center]Current Weapon[/center]"
 	$VBoxContainer/NameLabel.text = "[center]" + str(WeaponInfo.weapons_roster[weapon_id]["name"]) + "[/center]"
 	$VBoxContainer/HBoxContainer/TextureRect.texture = WeaponInfo.weapons_roster[weapon_id]["sprite"]
 	
@@ -20,6 +21,7 @@ func populate_charge_attack():
 	var current_charge_attack = CurrentRun.world.current_player_info.active_player.current_charge_attack
 	var charge_attack_id = CurrentRun.world.current_player_info.current_charge_attack_reference
 	
+	$"../CurrentWeapon".text = "[center]Current Special[/center]"
 	$VBoxContainer/NameLabel.text = "[center]" + str(WeaponInfo.charge_attacks_roster[charge_attack_id]["name"]) + "[/center]"
 	$VBoxContainer/HBoxContainer/TextureRect.texture = WeaponInfo.charge_attacks_roster[charge_attack_id]["sprite"]
 	

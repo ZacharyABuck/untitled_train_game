@@ -19,6 +19,7 @@ func populate(random_weapon):
 	random_attack_delay = snappedf(randf_range(-.2,.3), 0.1)
 	random_projectile_speed = randi_range(-50,100)
 	
+	$"../NewWeapon".text = "[center]New Weapon[/center]"
 	$VBoxContainer/NameLabel.text = "[center]" + WeaponInfo.weapons_roster[random_weapon]["name"] + "[/center]"
 	$VBoxContainer/HBoxContainer/TextureRect.texture = WeaponInfo.weapons_roster[random_weapon]["sprite"]
 	
@@ -32,6 +33,7 @@ func populate(random_weapon):
 func populate_charge_attack(charge_attack):
 	type = "charge_attack"
 	weapon = charge_attack
+	$"../NewWeapon".text = "[center]New Special[/center]"
 	$VBoxContainer/NameLabel.text = "[center]" + WeaponInfo.charge_attacks_roster[charge_attack]["name"] + "[/center]"
 	$VBoxContainer/HBoxContainer/TextureRect.texture = WeaponInfo.charge_attacks_roster[charge_attack]["sprite"]
 	

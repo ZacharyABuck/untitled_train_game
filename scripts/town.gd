@@ -4,6 +4,7 @@ signal clicked
 
 @onready var name_label = $NameLabel
 @onready var town_sprite = $Sprite2D
+@onready var shadow = $Shadow
 @onready var arrow_sprite = $ArrowSprite
 @onready var you_label = $YouLabel
 
@@ -17,6 +18,8 @@ func _ready():
 	
 	var random_sprite = town_images.pick_random()
 	town_sprite.texture = random_sprite
+	shadow.texture = random_sprite
+	
 
 func _on_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed:

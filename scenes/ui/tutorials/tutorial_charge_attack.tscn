@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://blkpqsb13ta5"]
+
+[ext_resource type="Script" path="res://scenes/ui/tutorials/tutorial_charge_attack.gd" id="1_j6xo5"]
+[ext_resource type="Texture2D" uid="uid://0uwb285b3p0v" path="res://sprites/characters/bourdalain.png" id="2_jd1e2"]
+[ext_resource type="AudioStream" uid="uid://d2nwj7vu6t12t" path="res://sounds/ui/menu-select-tick.wav" id="3_xqn0k"]
+
+[node name="TutorialChargeAttack" type="Control" node_paths=PackedStringArray("sfx")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_j6xo5")
+dialogue = ["Your special attack meter is full! (The blue bar)", "Hold right click to initiate a charge. Release at the right time to maximize damage.", "Your meter refills passively over time."]
+sfx = NodePath("SFX")
+sprite = ExtResource("2_jd1e2")
+
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_xqn0k")
+volume_db = -10.0
+bus = &"SFX"

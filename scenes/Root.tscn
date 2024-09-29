@@ -1,11 +1,18 @@
-[gd_scene load_steps=14 format=3 uid="uid://xmq032mdyq7a"]
+[gd_scene load_steps=15 format=3 uid="uid://xmq032mdyq7a"]
 
 [ext_resource type="Script" path="res://scripts/root.gd" id="1_ghyap"]
+[ext_resource type="Script" path="res://scenes/ui/tutorials/tutorial_ui.gd" id="2_g3gya"]
+[ext_resource type="Texture2D" uid="uid://cgjqovlv6ei7e" path="res://sprites/images/title_screen_sketch.png" id="5_7hjqj"]
 [ext_resource type="FontFile" uid="uid://dxx340jybsylj" path="res://fonts/JMH Typewriter-Black.ttf" id="5_v4riv"]
+[ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="7_34xrp"]
 [ext_resource type="Script" path="res://scripts/ui/escape_menu.gd" id="16_exmmo"]
 [ext_resource type="Texture2D" uid="uid://trsm7lvfhxb4" path="res://sprites/ui/cirlce.png" id="16_jgqyq"]
-[ext_resource type="Texture2D" uid="uid://cgcjxogq4y1b3" path="res://sprites/ui/temp_title_screen.png" id="18_ep071"]
-[ext_resource type="Texture2D" uid="uid://dp60fpuri07q4" path="res://sprites/ui/start_button.png" id="19_dgouy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_midqx"]
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7nyil"]
 bg_color = Color(0.596078, 0.603922, 0.596078, 0.784314)
@@ -32,12 +39,6 @@ corner_radius_bottom_left = 15
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mjp0f"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_midqx"]
-corner_radius_top_left = 15
-corner_radius_top_right = 15
-corner_radius_bottom_right = 15
-corner_radius_bottom_left = 15
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ph6gu"]
 bg_color = Color(0.697889, 0.63501, 0.567869, 1)
 border_width_left = 10
@@ -57,6 +58,38 @@ expand_margin_bottom = 20.0
 [node name="Root" type="Node2D"]
 process_mode = 3
 script = ExtResource("1_ghyap")
+
+[node name="TutorialUI" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("2_g3gya")
+
+[node name="BlackRect" type="ColorRect" parent="TutorialUI"]
+modulate = Color(1, 1, 1, 0.321569)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="TutorialUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 20
+
+[node name="DialogueContainer" type="VBoxContainer" parent="TutorialUI/MarginContainer"]
+layout_mode = 2
+
+[node name="VSeparator" type="VSeparator" parent="TutorialUI/MarginContainer/DialogueContainer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 600)
+layout_mode = 2
 
 [node name="EscapeMenu" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -84,53 +117,33 @@ alignment = 1
 [node name="ReturnToGameButton" type="Button" parent="EscapeMenu/MarginContainer/Default"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme = ExtResource("7_34xrp")
 theme_override_fonts/font = ExtResource("5_v4riv")
 theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = SubResource("StyleBoxFlat_7nyil")
-theme_override_styles/hover = SubResource("StyleBoxFlat_nlb72")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ajyea")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_0w0tm")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_mjp0f")
 text = "Return to game"
 
 [node name="AudioSettingsButton" type="Button" parent="EscapeMenu/MarginContainer/Default"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme = ExtResource("7_34xrp")
 theme_override_fonts/font = ExtResource("5_v4riv")
 theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = SubResource("StyleBoxFlat_7nyil")
-theme_override_styles/hover = SubResource("StyleBoxFlat_nlb72")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ajyea")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_0w0tm")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_mjp0f")
 text = "Audio Settings"
 
 [node name="RestartButton" type="Button" parent="EscapeMenu/MarginContainer/Default"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme = ExtResource("7_34xrp")
 theme_override_fonts/font = ExtResource("5_v4riv")
 theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = SubResource("StyleBoxFlat_7nyil")
-theme_override_styles/hover = SubResource("StyleBoxFlat_nlb72")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ajyea")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_0w0tm")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_mjp0f")
 text = "Restart"
 
 [node name="QuitButton" type="Button" parent="EscapeMenu/MarginContainer/Default"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme = ExtResource("7_34xrp")
 theme_override_fonts/font = ExtResource("5_v4riv")
 theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = SubResource("StyleBoxFlat_7nyil")
-theme_override_styles/hover = SubResource("StyleBoxFlat_nlb72")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ajyea")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_0w0tm")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_mjp0f")
 text = "Quit"
 
 [node name="AreYouSureMenu" type="VBoxContainer" parent="EscapeMenu/MarginContainer"]
@@ -184,6 +197,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 0
 theme_override_constants/margin_left = 700
 theme_override_constants/margin_top = 300
 theme_override_constants/margin_right = 700
@@ -210,8 +224,8 @@ layout_mode = 2
 size_flags_vertical = 1
 theme_override_icons/grabber = ExtResource("16_jgqyq")
 theme_override_styles/slider = SubResource("StyleBoxFlat_ph6gu")
-min_value = -30.0
-max_value = 0.0
+max_value = 1.0
+value = 1.0
 scrollable = false
 tick_count = 19
 
@@ -252,26 +266,32 @@ vertical_alignment = 1
 layer = 4
 
 [node name="TextureRect" type="TextureRect" parent="TitleScreen"]
+texture_filter = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("18_ep071")
+texture = ExtResource("5_7hjqj")
 
-[node name="TitleScreenStartButton" type="TextureButton" parent="TitleScreen"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -162.0
-offset_top = 83.0
-offset_right = 162.0
-offset_bottom = 231.0
-grow_horizontal = 2
-grow_vertical = 2
-texture_normal = ExtResource("19_dgouy")
+[node name="TitleScreenStartButton" type="Button" parent="TitleScreen"]
+offset_left = 817.0
+offset_top = 651.0
+offset_right = 1113.0
+offset_bottom = 742.0
+theme = ExtResource("7_34xrp")
+theme_override_font_sizes/font_size = 30
+text = "Start Game"
+
+[node name="CheckBox" type="CheckBox" parent="TitleScreen"]
+offset_left = 877.0
+offset_top = 750.0
+offset_right = 1041.0
+offset_bottom = 790.0
+theme = ExtResource("7_34xrp")
+theme_override_font_sizes/font_size = 25
+text = "Tutorials"
+alignment = 1
 
 [node name="RestartScreen" type="CanvasLayer" parent="."]
 layer = 5
@@ -283,8 +303,7 @@ offset_left = 845.0
 offset_top = 495.0
 offset_right = 1040.0
 offset_bottom = 569.0
-theme_override_fonts/font = ExtResource("5_v4riv")
-theme_override_font_sizes/font_size = 30
+theme = ExtResource("7_34xrp")
 text = "Restart"
 
 [node name="EffectsUI" type="CanvasLayer" parent="."]
@@ -309,4 +328,5 @@ color = Color(0, 0, 0, 1)
 [connection signal="value_changed" from="EscapeMenu/AudioSettings/VBoxContainer/VolumeSlider" to="EscapeMenu" method="_on_volume_slider_value_changed"]
 [connection signal="button_up" from="EscapeMenu/AudioSettings/VBoxContainer/BackButton" to="EscapeMenu" method="_on_back_button_button_up"]
 [connection signal="pressed" from="TitleScreen/TitleScreenStartButton" to="." method="title_screen_start_button_pressed"]
+[connection signal="toggled" from="TitleScreen/CheckBox" to="." method="set_tutorials"]
 [connection signal="button_up" from="RestartScreen/RestartButton" to="." method="restart_button_button_up"]

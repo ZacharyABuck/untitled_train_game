@@ -9,7 +9,7 @@ var loaded_chunks: Array = []
 var starting_coords = Vector2i.ZERO
 
 var road_cells = []
-var road_count: int = 2
+var road_count: int = 3
 var town_count: int = 5
 
 var town_cells = []
@@ -43,12 +43,15 @@ func handle_towns():
 		var new_town_pos = spawn_town()
 		if new_town_pos:
 			town_cells.append(new_town_pos)
-			BetterTerrain.set_cell(self, 0, new_town_pos, 3)
+			BetterTerrain.set_cell(self, 0, new_town_pos, 0)
 			
+			#create town
 			var new_town = town.instantiate()
 			new_town.global_position = map_to_local(new_town_pos)
+			new_town.scale = Vector2(0,0)
 			add_child(new_town)
 			
+			#check we don't spawn the same town twice
 			var valid_town: bool = false
 			while valid_town == false:
 				var town_info = WorldInfo.towns_roster.keys().pick_random()
@@ -61,11 +64,17 @@ func handle_towns():
 					valid_town = true
 		
 			new_town.clicked.connect(owner.town_clicked.bind(new_town))
+	
+	#animate towns scale with tween
+	for t in CurrentRun.world.current_world_info.towns_inventory:
+		var scene = CurrentRun.world.current_world_info.towns_inventory[t]["scene"]
+		var scale_tween = create_tween()
+		scale_tween.tween_property(scene, "scale", Vector2(1,1), 2).set_trans(Tween.TRANS_ELASTIC)
+		await get_tree().create_timer(.2).timeout
 
 func spawn_map(coords):
 	var new_cells = []
 	#set cells by altitude
-	
 	for x in range(chunk_width):
 		for y in range(chunk_height):
 			var cell = coords + Vector2i(x,y)
@@ -105,7 +114,7 @@ func find_random_road():
 	var mid_x = rect.x*.5
 	var mid_y = rect.y*.5
 	
-	var margin: int = 5
+	var margin: int = 7
 	
 	var random_start_x = int(mid_x+randi_range(-mid_x+margin,mid_x-margin))
 	var random_end_x = int(mid_y+randi_range(-mid_x+margin,mid_x-margin))
@@ -148,33 +157,16 @@ func spawn_town():
 func spawn_player():
 	if CurrentRun.world.current_level_info.destination == null:
 		var random_town = CurrentRun.world.current_world_info.towns_inventory.keys().pick_random()
-		var random_town_pos = find_town_pos(random_town)
 		CurrentRun.world.current_world_info.active_town = random_town
-		var road_pos = find_closest_road(random_town_pos)
 	else:
-		var destination_town = CurrentRun.world.current_level_info.destination
-		var destination_town_pos = find_town_pos(destination_town)
-		var road_pos = find_closest_road(destination_town_pos)
-		
 		CurrentRun.world.current_world_info.active_town = CurrentRun.world.current_level_info.destination
 		CurrentRun.world.current_level_info.destination = null
 	print("Active Town: " + CurrentRun.world.current_world_info.active_town)
 	
-	for town in CurrentRun.world.current_world_info.towns_inventory:
-		CurrentRun.world.current_world_info.towns_inventory[town]["scene"].hide_you_are_here()
+	for t in CurrentRun.world.current_world_info.towns_inventory:
+		CurrentRun.world.current_world_info.towns_inventory[t]["scene"].hide_you_are_here()
 	CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"].you_are_here()
 	
 	var vector = CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"].global_position - Vector2(960, 540)
 	var coords = local_to_map(vector)
 	spawn_map(coords)
-
-func find_town_pos(town_name):
-	for i in town_cells:
-		if i == local_to_map(CurrentRun.world.current_world_info.towns_inventory[town_name]["scene"].global_position):
-			return i
-
-func find_closest_road(town_pos):
-	for i in get_surrounding_cells(town_pos):
-		var terrain = BetterTerrain.get_cell(self, 0, i)
-		if terrain == 2:
-			return i

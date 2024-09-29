@@ -1004,7 +1004,7 @@ noise = SubResource("FastNoiseLite_xqvyy")
 shader = ExtResource("22_kbqtr")
 shader_parameter/line_color = Color(0, 0.884637, 0.886396, 1)
 shader_parameter/line_count = 1.9
-shader_parameter/line_density = 0.01
+shader_parameter/line_density = 0.016
 shader_parameter/line_faloff = 0.055
 shader_parameter/mask_size = 0.0
 shader_parameter/mask_edge = 0.845
@@ -1264,7 +1264,7 @@ theme_override_font_sizes/normal_font_size = 50
 bbcode_enabled = true
 text = "[center]Current Weapon[/center]"
 
-[node name="New Weapon" type="RichTextLabel" parent="UI/WeaponMarginContainer/BG/GridContainer"]
+[node name="NewWeapon" type="RichTextLabel" parent="UI/WeaponMarginContainer/BG/GridContainer"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1444,7 +1444,7 @@ texture = SubResource("CanvasTexture_rjoqq")
 
 [node name="RainSFX" type="AudioStreamPlayer" parent="UI/Weather/Rain"]
 stream = ExtResource("23_dws0p")
-volume_db = -40.4
+volume_db = -26.1
 autoplay = true
 bus = &"SFX"
 

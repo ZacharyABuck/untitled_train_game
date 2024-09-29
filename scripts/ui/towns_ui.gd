@@ -26,7 +26,10 @@ func populate_town_info(town):
 			i.hide()
 		no_missions_label.show()
 		var fuel_cost = CurrentRun.world.find_fuel_cost()
-		travel_button.text = "Travel to Town (" + str(fuel_cost) + "gal)"
+		if fuel_cost > CurrentRun.world.current_train_info.train_stats["fuel_tank"]:
+			travel_button.text = "Travel to Town (" + str(fuel_cost) + "gal, Too Far!)"
+		else:
+			travel_button.text = "Travel to Town (" + str(fuel_cost) + "gal)"
 		travel_button.show()
 	town_name_label.text = "[center]" + town.town_name + "[/center]"
 	show()

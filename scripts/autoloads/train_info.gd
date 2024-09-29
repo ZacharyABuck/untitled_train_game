@@ -23,15 +23,10 @@ var train_stats = {
 	"car_count": 4,
 	"speed": 2.5,
 	"car_health": 100,
+	"fuel_tank": 25,
 }
 
 var train_upgrade_roster = {
-	"fuel" = {
-		"name" = "Purchase Fuel (5gal)",
-		"cost" = 2,
-		"icon" = preload("res://sprites/ui/track_single.png"),
-		"value" = 5,
-	},
 	"car_count" = {
 		"name" = "Purchase Train Car",
 		"cost" = 100,
@@ -49,6 +44,12 @@ var train_upgrade_roster = {
 		"cost" = 30,
 		"icon" = preload("res://sprites/ui/track_single.png"),
 		"value" = 30,
+	},
+	"fuel_tank" = {
+		"name" = "Upgrade Fuel Tank (travel longer distances)",
+		"cost" = 15,
+		"icon" = preload("res://sprites/ui/track_single.png"),
+		"value" = 10,
 	},
 }
 

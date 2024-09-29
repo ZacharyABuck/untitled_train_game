@@ -2,7 +2,7 @@ extends CanvasLayer
 
 @onready var edge_container = $MarginContainer/GridContainer/EdgeContainer
 @onready var world = $".."
-
+@onready var weapon_list = $WeaponList
 
 
 # Called when the node enters the scene tree for the first time.
@@ -20,6 +20,10 @@ func _ready():
 		hbox.get_child(2).pressed.connect(level_up_edge.bind(edge))
 		
 		index += 1
+	
+	for weapon in WeaponInfo.weapons_roster:
+		var weapon_info = WeaponInfo.weapons_roster[weapon]
+		weapon_list.add_item(weapon, weapon_info["sprite"])
 
 func _input(event):
 	if event.is_action_pressed("Debug Menu"):
@@ -56,3 +60,9 @@ func _on_take_damage_button_pressed():
 func _on_gain_xp_button_pressed():
 	if CurrentRun.world.current_player_info.active_player:
 		ExperienceSystem.give_experience.emit(10)
+
+
+func _on_weapon_list_item_clicked(index, at_position, mouse_button_index):
+	var weapon_id = weapon_list.get_item_text(index)
+	if CurrentRun.world.current_player_info.active_player:
+		CurrentRun.world.current_player_info.active_player._instantiate_ranged_weapon(WeaponInfo.weapons_roster[weapon_id]["scene"], 0, 0, 0)

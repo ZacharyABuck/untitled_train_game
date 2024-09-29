@@ -41,7 +41,7 @@ func _on_mouse_exited():
 func _process(_delta):
 	global_rotation = 0
 	
-	if Input.is_action_pressed("interact") and selected:
+	if Input.is_action_pressed("interact") and selected and !open:
 		CurrentRun.world.current_player_info.state = "ui_default"
 		open_menu()
 

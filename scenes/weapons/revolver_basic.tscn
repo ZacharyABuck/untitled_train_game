@@ -1,12 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://bqfmfgta41goq"]
+[gd_scene load_steps=4 format=3 uid="uid://bqfmfgta41goq"]
 
 [ext_resource type="Script" path="res://scenes/weapons/revolver_basic.gd" id="1_msei5"]
+[ext_resource type="PackedScene" uid="uid://lu27a4gu1761" path="res://scenes/projectiles/fiery_bullet.tscn" id="2_0mghi"]
 [ext_resource type="AudioStream" uid="uid://b5vhc2krrx8hf" path="res://sounds/combat/gunshot_02.wav" id="2_hcb81"]
 
 [node name="RevolverBasic" type="Node2D" node_paths=PackedStringArray("attack_delay_timer", "gunshot_sound")]
 script = ExtResource("1_msei5")
 attack_delay_timer = NodePath("AttackTimer")
 gunshot_sound = NodePath("Gunshot")
+weapon_id = "revolver"
+base_bullet = ExtResource("2_0mghi")
 
 [node name="Gunshot" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_hcb81")

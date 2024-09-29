@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/player/player_state_ui.gd" id="5_d4k1u"]
 [ext_resource type="Script" path="res://scripts/player/player_state_edge_selection.gd" id="6_mtyls"]
 [ext_resource type="Texture2D" uid="uid://dae7mdy8yf1oy" path="res://sprites/player/player_spritesheet.png" id="7_kmlob"]
+[ext_resource type="Shader" path="res://shaders/drop_shadow.gdshader" id="7_x7w1q"]
 [ext_resource type="Script" path="res://components/HurtboxComponent.gd" id="8_vuihw"]
 [ext_resource type="AudioStream" uid="uid://b2qst461ri4d4" path="res://sounds/combat/oof.wav" id="9_vw7uv"]
 [ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://components/health_component.tscn" id="10_2vmk3"]
@@ -15,6 +16,11 @@
 [ext_resource type="AudioStream" uid="uid://cpnffnc4clg7y" path="res://sounds/player/repair.mp3" id="13_5ua86"]
 [ext_resource type="PackedScene" uid="uid://uh2tbc2jgtpo" path="res://scenes/buff.tscn" id="14_q74rt"]
 [ext_resource type="Script" path="res://scripts/player/charge_attack_bar.gd" id="15_rqql3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ewtje"]
+shader = ExtResource("7_x7w1q")
+shader_parameter/offset = Vector2(8, 8)
+shader_parameter/modulate = Color(0, 0, 0, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mytbf"]
 atlas = ExtResource("7_kmlob")
@@ -109,19 +115,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Gradient" id="Gradient_8uqju"]
-interpolation_mode = 2
-offsets = PackedFloat32Array(0.118132, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_2dujd"]
-gradient = SubResource("Gradient_8uqju")
-width = 60
-height = 150
-fill = 1
-fill_from = Vector2(0.419, 0.5)
-fill_to = Vector2(0.003, 0.5)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ff0f4"]
 size = Vector2(41, 36)
 
@@ -173,20 +166,22 @@ script = ExtResource("5_d4k1u")
 process_mode = 4
 script = ExtResource("6_mtyls")
 
+[node name="Shadow" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_ewtje")
+position = Vector2(4, 6)
+scale = Vector2(0.6, 0.6)
+sprite_frames = SubResource("SpriteFrames_r2lml")
+animation = &"standing"
+autoplay = "standing"
+offset = Vector2(-7.83, -7.24)
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_r2lml")
-animation = &"running"
+animation = &"standing"
 autoplay = "standing"
-frame = 5
-frame_progress = 0.0630087
-
-[node name="FrontLight" type="PointLight2D" parent="AnimatedSprite2D"]
-visible = false
-position = Vector2(1273.33, -7.62939e-06)
-scale = Vector2(42.4219, 8.33333)
-texture = SubResource("GradientTexture2D_2dujd")
 
 [node name="BodyCollider" type="CollisionShape2D" parent="."]
 visible = false

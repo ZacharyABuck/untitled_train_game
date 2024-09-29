@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://csdhvsxyenywf"]
+[gd_scene load_steps=40 format=3 uid="uid://csdhvsxyenywf"]
 
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/world.gd" id="1_u1dsg"]
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/current_player_info.gd" id="2_kodbe"]
@@ -23,6 +23,7 @@
 [ext_resource type="FontFile" uid="uid://tpmg7wha0yio" path="res://fonts/JMH Typewriter-Bold.ttf" id="23_kdpb5"]
 [ext_resource type="Texture2D" uid="uid://bfhfpjjn1ks4" path="res://sprites/ui/train_sketch.png" id="24_o026o"]
 [ext_resource type="Texture2D" uid="uid://ccydwnn5siydn" path="res://sprites/ui/x.png" id="25_c7tds"]
+[ext_resource type="AudioStream" uid="uid://pblf7wb4tdtt" path="res://sounds/ui/small_pop.mp3" id="25_sbnco"]
 [ext_resource type="Script" path="res://scripts/ui/debug_ui.gd" id="26_ugrr2"]
 
 [sub_resource type="Animation" id="Animation_4oonn"]
@@ -406,8 +407,9 @@ script = ExtResource("8_u6yb2")
 script = ExtResource("9_ibroa")
 
 [node name="Camera" type="Camera2D" parent="."]
-anchor_mode = 0
+position = Vector2(1600, 900)
 zoom = Vector2(0.6, 0.6)
+limit_left = -1000000
 
 [node name="Music" type="Node2D" parent="."]
 process_mode = 3
@@ -477,24 +479,6 @@ theme_override_constants/outline_size = 5
 theme_override_fonts/normal_font = ExtResource("17_rwwbi")
 theme_override_font_sizes/normal_font_size = 30
 text = "Money = $0"
-fit_content = true
-scroll_active = false
-
-[node name="FuelLabel" type="RichTextLabel" parent="WorldUI/MarginContainer/GridContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-mouse_filter = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.290196)
-theme_override_colors/font_outline_color = Color(0.92549, 0.560784, 0, 1)
-theme_override_constants/shadow_offset_x = 5
-theme_override_constants/shadow_offset_y = 5
-theme_override_constants/shadow_outline_size = 5
-theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("17_rwwbi")
-theme_override_font_sizes/normal_font_size = 30
-text = "Fuel: 50gal"
 fit_content = true
 scroll_active = false
 
@@ -684,10 +668,10 @@ alignment = 1
 
 [node name="CloseButton" type="TextureButton" parent="TownsUI"]
 layout_direction = 3
-offset_left = 413.0
-offset_top = 255.0
-offset_right = 413.0
-offset_bottom = 255.0
+offset_left = 394.0
+offset_top = 237.0
+offset_right = 458.0
+offset_bottom = 301.0
 size_flags_horizontal = 8
 size_flags_vertical = 0
 texture_normal = ExtResource("25_c7tds")
@@ -1008,8 +992,23 @@ offset_right = 1288.0
 offset_bottom = 466.0
 text = "Gain 10 XP"
 
+[node name="WeaponList" type="ItemList" parent="DebugUI"]
+offset_left = 1361.0
+offset_top = 309.0
+offset_right = 1673.0
+offset_bottom = 667.0
+fixed_icon_size = Vector2i(10, 10)
+
+[node name="Audio" type="Node2D" parent="."]
+
+[node name="SmallPopSFX" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("25_sbnco")
+volume_db = -10.0
+bus = &"SFX"
+
 [connection signal="pressed" from="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/TownDetails/TravelButton" to="." method="_on_travel_button_pressed"]
 [connection signal="pressed" from="TownsUI/CloseButton" to="TownsUI" method="_on_close_button_pressed"]
 [connection signal="pressed" from="DebugUI/LevelAutoCompleteButton" to="DebugUI" method="_on_level_auto_complete_button_pressed"]
 [connection signal="pressed" from="DebugUI/TakeDamageButton" to="DebugUI" method="_on_take_damage_button_pressed"]
 [connection signal="pressed" from="DebugUI/GainXPButton" to="DebugUI" method="_on_gain_xp_button_pressed"]
+[connection signal="item_clicked" from="DebugUI/WeaponList" to="DebugUI" method="_on_weapon_list_item_clicked"]

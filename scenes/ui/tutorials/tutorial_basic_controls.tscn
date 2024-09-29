@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://s2i1ojmxvaxw"]
+
+[ext_resource type="Script" path="res://scenes/ui/tutorials/tutorial_basic_controls.gd" id="1_sv622"]
+[ext_resource type="Texture2D" uid="uid://0uwb285b3p0v" path="res://sprites/characters/bourdalain.png" id="2_wfcxo"]
+[ext_resource type="AudioStream" uid="uid://d2nwj7vu6t12t" path="res://sounds/ui/menu-select-tick.wav" id="3_26fig"]
+
+[node name="TutorialBasicControls" type="Control" node_paths=PackedStringArray("sfx")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_sv622")
+dialogue = ["Welcome to the frontier! This is where you'll defend your train from incoming enemies.", "Move around with WASD and shoot with Left Click.", "You can also build turrets and other gadgets on your train. Mouse over a build point and press E to build. Make sure you have enough money!", "All sorts of events can happen in the frontier. Be careful out there partner."]
+sfx = NodePath("SFX")
+sprite = ExtResource("2_wfcxo")
+
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_26fig")
+volume_db = -10.0
+bus = &"SFX"

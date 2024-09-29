@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name Player
 
 @onready var sprite = $AnimatedSprite2D
+@onready var shadow = $Shadow
 @onready var hurtbox_component = $HurtboxComponent
 @onready var health_bar = $HealthBar
 @onready var health_component = $HealthComponent
@@ -62,6 +63,10 @@ func _ready():
 	ExperienceSystem.level_up.connect(self.handle_level_up)
 	
 	edge_handler.check_for_edges()
+
+func _process(_delta):
+	shadow.animation = sprite.animation
+	shadow.rotation = sprite.global_rotation
 
 # -- ATTACK FUNCTIONS -- #
 func _shoot():

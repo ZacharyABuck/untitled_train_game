@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bauu0fl50lkr5"]
+[gd_scene load_steps=15 format=3 uid="uid://bauu0fl50lkr5"]
 
 [ext_resource type="Script" path="res://scripts/train/car.gd" id="1_oecw2"]
 [ext_resource type="Texture2D" uid="uid://bxcwcbx0e8vso" path="res://sprites/train/lumber_car_sketch.png" id="2_w8dsn"]
@@ -25,6 +25,12 @@ size = Vector2(161, 385)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bny34"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jdfsu"]
+size = Vector2(109, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5umrc"]
+size = Vector2(7, 359)
+
 [node name="Car" type="Node2D" groups=["car"]]
 script = ExtResource("1_oecw2")
 
@@ -35,6 +41,7 @@ position = Vector2(0, 171)
 texture = ExtResource("2_w8dsn")
 
 [node name="CornerPoints" type="Node2D" parent="."]
+visible = false
 
 [node name="TopLeft" type="Node2D" parent="CornerPoints"]
 position = Vector2(-63, -16)
@@ -51,6 +58,7 @@ position = Vector2(63, 364)
 [node name="TopCenter" type="Node2D" parent="CornerPoints"]
 
 [node name="LeftWall" type="StaticBody2D" parent="."]
+visible = false
 position = Vector2(0, 171)
 collision_layer = 4
 collision_mask = 0
@@ -61,6 +69,7 @@ position = Vector2(-42, 1)
 shape = SubResource("RectangleShape2D_56ap2")
 
 [node name="RightWall" type="StaticBody2D" parent="."]
+visible = false
 position = Vector2(0, 171)
 collision_layer = 4
 collision_mask = 0
@@ -71,6 +80,7 @@ position = Vector2(38, 1)
 shape = SubResource("RectangleShape2D_jbwp3")
 
 [node name="TopWall" type="StaticBody2D" parent="."]
+visible = false
 position = Vector2(0, 171)
 collision_layer = 4
 collision_mask = 0
@@ -82,6 +92,7 @@ shape = SubResource("RectangleShape2D_g76ik")
 disabled = true
 
 [node name="BottomWall" type="StaticBody2D" parent="."]
+visible = false
 position = Vector2(0, 171)
 collision_layer = 4
 collision_mask = 0
@@ -202,3 +213,24 @@ position = Vector2(0, 171)
 
 [node name="CargoContainer" type="Node2D" parent="."]
 script = ExtResource("4_sh43r")
+
+[node name="NPCBoundary" type="StaticBody2D" parent="."]
+visible = false
+collision_layer = 512
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NPCBoundary"]
+position = Vector2(0.5, -5)
+shape = SubResource("RectangleShape2D_jdfsu")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="NPCBoundary"]
+position = Vector2(0.5, 350)
+shape = SubResource("RectangleShape2D_jdfsu")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="NPCBoundary"]
+position = Vector2(-51.5, 175.5)
+shape = SubResource("RectangleShape2D_5umrc")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="NPCBoundary"]
+position = Vector2(53, 175.5)
+shape = SubResource("RectangleShape2D_5umrc")

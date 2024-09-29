@@ -125,11 +125,18 @@ _data = {
 [node name="Town" type="Area2D"]
 script = ExtResource("1_mviet")
 
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.278431)
+position = Vector2(60, 17)
+scale = Vector2(0.734375, 0.367188)
+texture = ExtResource("2_fjydp")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_fjydp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-8.5, 2)
 shape = SubResource("RectangleShape2D_q0ns8")
 debug_color = Color(0.993255, 0, 0.240295, 0.42)
@@ -181,7 +188,6 @@ autoplay = "arrow_bounce"
 [node name="NameLabel" type="Label" parent="."]
 z_index = 15
 z_as_relative = false
-anchors_preset = -1
 offset_left = -179.0
 offset_top = 66.0
 offset_right = 182.0
