@@ -1,10 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bse1rme7qjshm"]
+[gd_scene load_steps=8 format=3 uid="uid://bvmf4rejxni3q"]
 
-[ext_resource type="Texture2D" uid="uid://btdrtgyipi8jv" path="res://sprites/gadgets/gadget_barricade_sprite_sheet.png" id="1_qtqtt"]
-[ext_resource type="Script" path="res://scripts/gadgets/gadget_light_cover.gd" id="1_xxu03"]
-[ext_resource type="PackedScene" uid="uid://cyv57gynwtrmu" path="res://components/hurtbox_component.tscn" id="2_5iwk3"]
-[ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://components/health_component.tscn" id="3_ssjoa"]
-[ext_resource type="AudioStream" uid="uid://bopg4h4b115n1" path="res://sounds/combat/hit_metal.wav" id="4_hiwrg"]
+[ext_resource type="Script" path="res://scripts/gadgets/gadget_light_armor.gd" id="1_qukff"]
+[ext_resource type="Texture2D" uid="uid://q31e82hanpof" path="res://sprites/gadgets/gadget_heavy_cover_sprite_sheet.png" id="2_oyj0m"]
+[ext_resource type="PackedScene" uid="uid://cyv57gynwtrmu" path="res://components/hurtbox_component.tscn" id="3_38esw"]
+[ext_resource type="AudioStream" uid="uid://bopg4h4b115n1" path="res://sounds/combat/hit_metal.wav" id="4_c8sus"]
+[ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://components/health_component.tscn" id="5_ghkjq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rxa71"]
 size = Vector2(32, 127)
@@ -17,16 +17,16 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 corner_detail = 10
 
-[node name="LightCover" type="Node2D" groups=["gadget"]]
-script = ExtResource("1_xxu03")
+[node name="HeavyCover" type="Node2D" groups=["gadget"]]
+script = ExtResource("1_qukff")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(2, 2)
-texture = ExtResource("1_qtqtt")
+texture = ExtResource("2_oyj0m")
 hframes = 5
 
-[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component", "hurt_sfx") instance=ExtResource("2_5iwk3")]
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component", "hurt_sfx") instance=ExtResource("3_38esw")]
 collision_layer = 16
 collision_mask = 0
 health_component = NodePath("../HealthComponent")
@@ -37,12 +37,12 @@ position = Vector2(-1, -0.5)
 shape = SubResource("RectangleShape2D_rxa71")
 
 [node name="Hurt SFX" type="AudioStreamPlayer" parent="HurtboxComponent"]
-stream = ExtResource("4_hiwrg")
+stream = ExtResource("4_c8sus")
 volume_db = -15.0
 bus = &"SFX"
 
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("HEALTHBAR") instance=ExtResource("3_ssjoa")]
-MAX_HEALTH = 10.0
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("HEALTHBAR") instance=ExtResource("5_ghkjq")]
+MAX_HEALTH = 20.0
 HEALTHBAR = NodePath("../HealthBar")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
@@ -53,9 +53,9 @@ offset_right = 33.0
 offset_bottom = -46.0
 tooltip_text = "Health"
 theme_override_styles/fill = SubResource("StyleBoxFlat_188vh")
-max_value = 50.0
+max_value = 20.0
 step = 1.0
-value = 10.0
+value = 20.0
 show_percentage = false
 
 [connection signal="value_changed" from="HealthBar" to="." method="_on_health_bar_value_changed"]

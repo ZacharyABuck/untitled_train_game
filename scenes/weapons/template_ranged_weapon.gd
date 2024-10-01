@@ -3,6 +3,7 @@ class_name Ranged_Weapon
 
 @export var attack_delay_timer : Timer
 @export var gunshot_sound : AudioStreamPlayer2D
+@export var muzzle_flash: AnimatedSprite2D
 
 @onready var player = CurrentRun.world.current_player_info.active_player
 
@@ -30,6 +31,9 @@ var current_lifetime: float
 var current_bullet
 
 func _ready():
+	if muzzle_flash:
+		muzzle_flash.hide()
+	
 	base_attack_delay = WeaponInfo.weapons_roster[weapon_id]["base_attack_delay"]
 	base_projectile_speed = WeaponInfo.weapons_roster[weapon_id]["base_projectile_speed"]
 	base_damage = WeaponInfo.weapons_roster[weapon_id]["base_damage"]
@@ -46,12 +50,17 @@ func _set_current_variables_and_connect_timer():
 	attack_delay_timer.timeout.connect(_on_attack_timer_timeout)
 
 func _process(_delta):
-	pass
+	if muzzle_flash and player:
+		muzzle_flash.global_rotation = player.sprite.global_rotation
 
 func shoot():
 	if can_shoot:
 		can_shoot = false
 		gunshot_sound.play()
+		player.camera.apply_shake(3.0)
+		if muzzle_flash:
+			show_muzzle_flash()
+		
 		var new_bullet = _build_bullet(current_bullet.instantiate())
 		CurrentRun.world.current_level_info.active_level.bullets.add_child(new_bullet)
 		attack_delay_timer.wait_time = current_attack_delay
@@ -64,7 +73,14 @@ func shoot():
 			scatter_shot.target += Vector2(randi_range(-100,100), randi_range(-100,100))
 			CurrentRun.world.current_level_info.active_level.bullets.add_child(scatter_shot)
 			scatter_shot.hit_target.connect(bullet_hit_target)
-		
+
+func show_muzzle_flash():
+	muzzle_flash.show()
+	muzzle_flash.play("default")
+	await muzzle_flash.animation_finished
+	muzzle_flash.hide()
+	
+
 func _on_attack_timer_timeout():
 	attack_delay_timer.stop()
 	can_shoot = true

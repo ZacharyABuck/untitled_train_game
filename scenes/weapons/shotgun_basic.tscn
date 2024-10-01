@@ -1,13 +1,51 @@
-[gd_scene load_steps=4 format=3 uid="uid://bes530p7o7mer"]
+[gd_scene load_steps=10 format=3 uid="uid://bes530p7o7mer"]
 
 [ext_resource type="Script" path="res://scenes/weapons/shotgun_basic.gd" id="1_jsfna"]
 [ext_resource type="PackedScene" uid="uid://lu27a4gu1761" path="res://scenes/projectiles/fiery_bullet.tscn" id="2_gji5k"]
 [ext_resource type="AudioStream" uid="uid://b5vhc2krrx8hf" path="res://sounds/combat/gunshot_02.wav" id="2_ol1va"]
+[ext_resource type="Texture2D" uid="uid://bsmc4ytbr1ahs" path="res://sprites/weapons/muzzle_flashes/muzzle_flash_default.png" id="4_eymhd"]
 
-[node name="ShotgunBasic" type="Node2D" node_paths=PackedStringArray("attack_delay_timer", "gunshot_sound")]
+[sub_resource type="AtlasTexture" id="AtlasTexture_rypj8"]
+atlas = ExtResource("4_eymhd")
+region = Rect2(0, 0, 78, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ahls1"]
+atlas = ExtResource("4_eymhd")
+region = Rect2(78, 0, 78, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w4gwo"]
+atlas = ExtResource("4_eymhd")
+region = Rect2(156, 0, 78, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3sm11"]
+atlas = ExtResource("4_eymhd")
+region = Rect2(234, 0, 78, 62)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_la6lh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rypj8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahls1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w4gwo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3sm11")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="ShotgunBasic" type="Node2D" node_paths=PackedStringArray("attack_delay_timer", "gunshot_sound", "muzzle_flash")]
 script = ExtResource("1_jsfna")
 attack_delay_timer = NodePath("AttackDelayTimer")
 gunshot_sound = NodePath("Gunshot")
+muzzle_flash = NodePath("MuzzleFlash")
 weapon_id = "shotgun"
 base_bullet = ExtResource("2_gji5k")
 
@@ -17,3 +55,8 @@ base_bullet = ExtResource("2_gji5k")
 stream = ExtResource("2_ol1va")
 volume_db = -12.0
 bus = &"SFX"
+
+[node name="MuzzleFlash" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_la6lh")
+offset = Vector2(55, 0)

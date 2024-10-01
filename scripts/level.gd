@@ -12,6 +12,8 @@ const edge_panel = preload("res://scenes/edges/edge_panel.tscn")
 @onready var enemy_spawn_positions = $EnemySpawnPositions
 @onready var enemy_spawn_timer = $EnemySpawnTimer
 @onready var xp_bar = $UI/PlayerExperienceBar
+@onready var player_health_bar = $UI/PlayerHealthBar
+@onready var player_charge_bar = $UI/PlayerChargeBar
 @onready var level_label = $UI/LevelLabel
 @onready var level_up_button = $UI/LevelUpButton
 

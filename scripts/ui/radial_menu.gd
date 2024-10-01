@@ -1,7 +1,7 @@
 # YOU MUST CREATE AND ASSIGN A COLLISION SHAPE IN THE SCENE WHERE YOU PUT THIS
 extends Area2D
 
-var possible_types = ["default", "pistol_turret", "light_cover", "explosive_turret", "rifle_turret", "medical_station", "none"]
+var possible_types = ["default", "pistol_turret", "light_armor", "explosive_turret", "rifle_turret", "medical_station", "none"]
 var current_type
 @export var radius: int
 @export var collision_shape: CollisionShape2D
@@ -26,13 +26,14 @@ func _ready():
 	spawn_menu(current_type)
 
 func _on_mouse_entered():
-	if CurrentRun.world.current_player_info.state == "default":
-		if CurrentRun.world.current_player_info.active_player.active_car == get_parent().car.index and current_type != "none":
-			$AnimationPlayer.play("flash")
-			selected = true
-	else:
-		$AnimationPlayer.play("still")
-		selected = false
+	if CurrentRun.world.current_player_info.active_player:
+		if CurrentRun.world.current_player_info.state == "default":
+			if CurrentRun.world.current_player_info.active_player.active_car == get_parent().car.index and current_type != "none":
+				$AnimationPlayer.play("flash")
+				selected = true
+		else:
+			$AnimationPlayer.play("still")
+			selected = false
 
 func _on_mouse_exited():
 	$AnimationPlayer.play("still")

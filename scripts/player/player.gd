@@ -4,7 +4,6 @@ class_name Player
 @onready var sprite = $AnimatedSprite2D
 @onready var shadow = $Shadow
 @onready var hurtbox_component = $HurtboxComponent
-@onready var health_bar = $HealthBar
 @onready var health_component = $HealthComponent
 @onready var edge_handler = $EdgeHandler
 @onready var running_sfx = $RunningSFX
@@ -17,7 +16,7 @@ var active_car
 
 var charging: bool = false
 var current_charge_attack
-@onready var charge_attack_bar = $ChargeAttackBar
+var charge_attack_bar
 
 var can_shoot = true
 var current_ranged_weapon
@@ -36,6 +35,8 @@ func _ready():
 	
 	health_component.MAX_HEALTH = CurrentRun.world.current_player_info.current_max_health
 	health_component.ARMOR_VALUE = CurrentRun.world.current_player_info.current_armor
+	
+	charge_attack_bar = CurrentRun.world.current_level_info.active_level.player_charge_bar
 	
 	#pick random weapon
 	var weapon

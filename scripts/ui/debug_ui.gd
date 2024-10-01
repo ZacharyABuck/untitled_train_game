@@ -55,7 +55,7 @@ func _on_take_damage_button_pressed():
 	if CurrentRun.world.current_player_info.active_player:
 		var attack = Attack.new()
 		attack.attack_damage = 10
-		CurrentRun.world.current_player_info.active_player.hurtbox_component.damage(attack)
+		CurrentRun.world.current_player_info.active_player.hurtbox_component.damage(attack, null)
 
 func _on_gain_xp_button_pressed():
 	if CurrentRun.world.current_player_info.active_player:

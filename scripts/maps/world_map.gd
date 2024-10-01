@@ -10,7 +10,7 @@ var starting_coords = Vector2i.ZERO
 
 var road_cells = []
 var road_count: int = 3
-var town_count: int = 5
+var town_count: int = 6
 
 var town_cells = []
 

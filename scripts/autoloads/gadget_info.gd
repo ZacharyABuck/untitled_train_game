@@ -8,17 +8,17 @@ var gadget_roster = {
 		"sprite" = load("res://sprites/gadgets/gadget_pistol_turret.png"),
 		"cost" = 7,
 	},
-	"light_cover" = {
-		"name" = "Light Cover",
+	"light_armor" = {
+		"name" = "Light Armor",
 		"location" = "hard_point",
-		"scene" = load("res://scenes/gadgets/gadget_light_cover.tscn"),
+		"scene" = load("res://scenes/gadgets/gadget_light_armor.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_barricade_single.png"),
 		"cost" = 2,
 	},
-	"heavy_cover" = {
-		"name" = "Heavy Cover",
+	"heavy_armor" = {
+		"name" = "Heavy Armor",
 		"location" = "hard_point",
-		"scene" = load("res://scenes/gadgets/gadget_heavy_cover.tscn"),
+		"scene" = load("res://scenes/gadgets/gadget_heavy_armor.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_heavy_cover_single.png"),
 		"cost" = 4,
 	},
@@ -95,10 +95,10 @@ var gadget_roster = {
 }
 
 var upgrade_rosters = {
-	default = ["pistol_turret", "light_cover", "medical_station", "shockwire"],
+	default = ["pistol_turret", "light_armor", "medical_station", "shockwire"],
 	pistol_turret = ["rifle_turret", "explosive_turret"],
 	explosive_turret = ["explosive_turret_long_range", "explosive_turret_more_damage"],
 	rifle_turret = ["rifle_turret_quick_loading", "rifle_turret_more_damage"],
-	light_cover = ["heavy_cover"],
+	light_armor = ["heavy_armor"],
 	medical_station = ["medical_station_long_range", "medical_station_more_healing"]
 }

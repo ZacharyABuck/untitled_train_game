@@ -68,6 +68,8 @@ func start_game(direction, distance, terrain):
 	unpause_game()
 	in_game = true
 	
+	Input.set_custom_mouse_cursor(load("res://sprites/ui/crosshair.png"), 0, Vector2(32,32))
+	
 	CurrentRun.root.fade_in()
 	
 	await get_tree().create_timer(5).timeout
@@ -120,7 +122,7 @@ func level_complete():
 	music_fade.play("level_to_world")
 	await CurrentRun.root.fade_to_black(2)
 	
-	
+	Input.set_custom_mouse_cursor(null,0,Vector2.ZERO)
 	world_ui.refresh_edges()
 	camera.enabled = true
 	world_ui.show()

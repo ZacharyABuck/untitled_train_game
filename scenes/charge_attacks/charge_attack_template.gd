@@ -48,11 +48,11 @@ func release_charge():
 	elif shoot_sound != null:
 		shoot_sound.play()
 	
+	player.camera.apply_shake(15.0)
 	_shoot()
 
 func _shoot():
 	var new_bullet = _instantiate_bullet()
-	# Add the bullet to the parent scene of the shooter, which fires the projectile.
 	CurrentRun.world.add_child(new_bullet)
 
 func _instantiate_bullet():
