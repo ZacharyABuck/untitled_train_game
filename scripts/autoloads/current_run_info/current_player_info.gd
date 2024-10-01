@@ -44,6 +44,7 @@ var current_ranged_weapon_speed_mod: int
 
 # Edge Related
 var poison_damage = 1
+var fire_damage = 2
 var ricochet_amount: int = 0
 
 # Current state in player state machine node

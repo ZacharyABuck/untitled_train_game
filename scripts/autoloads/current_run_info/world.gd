@@ -53,7 +53,8 @@ func start_game(direction, distance, terrain):
 
 	if CurrentRun.world.current_player_info.totalExperience == 0:
 		CurrentRun.world.current_player_info.set_current_variables_to_base_value()
-
+	
+	#find random events
 	for i in CurrentRun.world.current_level_info.events.keys():
 		var random_event = LevelInfo.events_roster.keys().pick_random()
 		while random_event == "level_complete":

@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://dhvqnsm171qhb"]
+
+[ext_resource type="Script" path="res://scripts/events/event_tentacle_trap.gd" id="1_x1jef"]
+[ext_resource type="PackedScene" uid="uid://bs1mx2fx30s7k" path="res://scenes/events/tentacle.tscn" id="2_4nu0a"]
+[ext_resource type="AudioStream" uid="uid://bd5xv876skvda" path="res://sounds/combat/short_squish.mp3" id="3_5x68n"]
+[ext_resource type="AudioStream" uid="uid://bxfrw88rd76hb" path="res://sounds/world/ghost_noise_01.mp3" id="4_aymwv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xn86m"]
+size = Vector2(544, 626)
+
+[node name="EventTentacleTrap" type="Area2D"]
+collision_layer = 128
+collision_mask = 4
+script = ExtResource("1_x1jef")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_xn86m")
+debug_color = Color(0.662745, 0.388235, 0.854902, 0.419608)
+
+[node name="Tentacles" type="Node2D" parent="."]
+
+[node name="Tentacle" parent="Tentacles" instance=ExtResource("2_4nu0a")]
+
+[node name="Tentacle2" parent="Tentacles" instance=ExtResource("2_4nu0a")]
+
+[node name="Tentacle3" parent="Tentacles" instance=ExtResource("2_4nu0a")]
+
+[node name="TentacleKilledSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_5x68n")
+volume_db = -15.0
+bus = &"SFX"
+
+[node name="TriggeredSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_aymwv")
+volume_db = -10.0
+bus = &"SFX"
+
+[connection signal="area_entered" from="." to="." method="trap_triggered"]
+[connection signal="hazard_cleared" from="Tentacles/Tentacle" to="." method="tentacle_killed"]
+[connection signal="hazard_cleared" from="Tentacles/Tentacle2" to="." method="tentacle_killed"]
+[connection signal="hazard_cleared" from="Tentacles/Tentacle3" to="." method="tentacle_killed"]

@@ -50,6 +50,15 @@ var weapons_roster = {
 		"base_damage" = 2.0,
 		"base_lifetime" = 1.0,
 	},
+	"flamethrower" = {
+		"name" = "Flamethrower",
+		"scene" = load("res://scenes/weapons/flamethrower.tscn"),
+		"sprite" = preload("res://sprites/weapons/shotgun.png"),
+		"base_attack_delay" = 0.8,
+		"base_projectile_speed" = 0,
+		"base_damage" = 1.0,
+		"base_lifetime" = .5,
+	},
 }
 
 var charge_attacks_roster = {
@@ -64,5 +73,11 @@ var charge_attacks_roster = {
 		"scene" = preload("res://scenes/charge_attacks/charge_attack_poison_explosive.tscn"),
 		"sprite" = preload("res://sprites/weapons/poison_bomb.png"),
 		"base_damage" = 8,
+	},
+	"zombie_bait" = {
+		"name" = "Zombie Bait",
+		"scene" = preload("res://scenes/charge_attacks/charge_attack_zombie_bait.tscn"),
+		"sprite" = preload("res://sprites/projectiles/meat.png"),
+		"base_damage" = 0,
 	},
 }

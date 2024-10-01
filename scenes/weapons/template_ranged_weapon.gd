@@ -56,7 +56,8 @@ func _process(_delta):
 func shoot():
 	if can_shoot:
 		can_shoot = false
-		gunshot_sound.play()
+		if gunshot_sound:
+			gunshot_sound.play()
 		player.camera.apply_shake(3.0)
 		if muzzle_flash:
 			show_muzzle_flash()
@@ -100,7 +101,8 @@ func _build_bullet(b):
 
 func bullet_hit_target(area):
 	#check for ricochet
-	if CurrentRun.world.current_player_info.ricochet_amount > 0:
+	if CurrentRun.world.current_player_info.ricochet_amount > 0 and \
+	CurrentRun.world.current_player_info.current_ranged_weapon_reference != "flamethrower":
 		for bullet in CurrentRun.world.current_player_info.ricochet_amount:
 			var new_bullet = _build_ricochet(current_bullet.instantiate(), area)
 			CurrentRun.world.current_level_info.active_level.bullets.call_deferred("add_child", new_bullet)

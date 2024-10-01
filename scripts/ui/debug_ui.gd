@@ -62,7 +62,7 @@ func _on_gain_xp_button_pressed():
 		ExperienceSystem.give_experience.emit(10)
 
 
-func _on_weapon_list_item_clicked(index, at_position, mouse_button_index):
+func _on_weapon_list_item_clicked(index, _at_position, _mouse_button_index):
 	var weapon_id = weapon_list.get_item_text(index)
 	if CurrentRun.world.current_player_info.active_player:
 		CurrentRun.world.current_player_info.active_player._instantiate_ranged_weapon(WeaponInfo.weapons_roster[weapon_id]["scene"], 0, 0, 0)

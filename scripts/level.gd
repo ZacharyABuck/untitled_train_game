@@ -85,8 +85,11 @@ func generate_track():
 		index += 1
 		last_pos += random_pos
 		var area
+		
+		#set level complete event on last point
 		if i == CurrentRun.world.current_level_info.level_parameters["distance"] -1:
 			area = generate_event_area("level_complete", last_pos)
+		#set events based on dict
 		else:
 			for event in CurrentRun.world.current_level_info.events:
 				if i == CurrentRun.world.current_level_info.events[event]["distance"]:
@@ -140,6 +143,7 @@ func spawn_level_enemies():
 		var random_enemy = new_spawner.find_random_enemy()
 		var max_spawn = EnemyInfo.enemy_roster[random_enemy]["max_spawn"]
 		new_spawner.spawn_enemy(clamp(spawn_count, 1, max_spawn), random_enemy, null, false)
+	print("Enemies Spawned, Difficulty: " + str(CurrentRun.world.current_level_info.difficulty))
 
 func roll_elite_enemy():
 	var rng = randi_range(1,50)

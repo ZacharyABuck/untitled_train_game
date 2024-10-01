@@ -12,7 +12,7 @@ target_types = {
 "cover": false,
 "enemy": true,
 "player": false,
-"terrain": false
+"terrain": true
 }
 reference = "explosive"
 bullet = ExtResource("2_k61w3")

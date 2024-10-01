@@ -21,7 +21,7 @@ func _set_explosion_collisions():
 	if valid_hitbox_types["cover"]:
 		explosion_hitbox.set_collision_mask_value(5, true)
 	if valid_hitbox_types["terrain"]:
-		# Add in collission mask for terrain if needed.
+		explosion_hitbox.set_collision_mask_value(9, true)
 		pass
 
 #explode if it hits nothing at end of lifetime

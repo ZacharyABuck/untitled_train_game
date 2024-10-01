@@ -67,6 +67,8 @@ func process_buffs(buff):
 				status_effect_component.apply_poison()
 			"shock":
 				status_effect_component.apply_shock()
+			"fire":
+				status_effect_component.apply_fire()
 
 func spawn_particles(fx):
 	var new_fx = fx.instantiate()
@@ -91,6 +93,9 @@ func _handle_death(shooter):
 		if character.is_in_group("event"):
 			character.queue_free()
 			character.event_finished()
+		if character.is_in_group("hazard"):
+			character.hazard_cleared.emit()
+			character.queue_free()
 		
 		if character.is_in_group("gadget"):
 			character.hard_point.gadget = null

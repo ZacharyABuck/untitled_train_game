@@ -16,11 +16,6 @@ func _ready():
 		CurrentRun.world.current_level_info.active_level.pause_game()
 	create_dialogue_box()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 func create_dialogue_box():
 	#destroy current dialogue box
 	if active_dialogue_box:

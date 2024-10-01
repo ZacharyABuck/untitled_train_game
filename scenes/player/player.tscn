@@ -199,7 +199,6 @@ bus = &"SFX"
 
 [node name="HealthComponent" parent="." instance=ExtResource("10_2vmk3")]
 MAX_HEALTH = 50.0
-HEALTHBAR = NodePath("")
 
 [node name="EdgeHandler" type="Node2D" parent="."]
 script = ExtResource("11_6ds4a")

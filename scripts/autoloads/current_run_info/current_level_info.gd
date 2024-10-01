@@ -19,31 +19,31 @@ var level_parameters = {
 
 var events = {
 	"0" = {
-		"distance" = 0,
+		"distance" = 1,
 		"triggered" = false,
 		"type" = null,
 		"area" = null,
 	},
 	"1" = {
-		"distance" = 2,
+		"distance" = 3,
 		"triggered" = false,
 		"type" = null,
 		"area" = null,
 	},
 	"2" = {
-		"distance" = 4,
+		"distance" = 5,
 		"triggered" = false,
 		"type" = null,
 		"area" = null,
 	},
 	"3" = {
-		"distance" = 6,
+		"distance" = 7,
 		"triggered" = false,
 		"type" = null,
 		"area" = null,
 	},
 	"4" = {
-		"distance" = 8,
+		"distance" = 9,
 		"triggered" = false,
 		"type" = null,
 		"area" = null,

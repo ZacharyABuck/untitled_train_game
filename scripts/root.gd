@@ -54,6 +54,7 @@ func show_restart_button():
 	CurrentRun.world.pause_game()
 
 func restart_button_button_up():
+	Input.set_custom_mouse_cursor(null,0,Vector2.ZERO)
 	await fade_to_black(.5)
 	title_screen_start_button.disabled = false
 	escape_menu.hide()

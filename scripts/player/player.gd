@@ -41,7 +41,7 @@ func _ready():
 	#pick random weapon
 	var weapon
 	if CurrentRun.world.current_player_info.current_ranged_weapon_reference.is_empty():
-		weapon = WeaponInfo.weapons_roster.keys().pick_random()
+		weapon = "revolver"
 		CurrentRun.world.current_player_info.current_ranged_weapon_reference = weapon
 		_instantiate_ranged_weapon(WeaponInfo.weapons_roster[weapon]["scene"], 0, 0, 0)
 	else:
@@ -117,7 +117,7 @@ func _instantiate_ranged_weapon(gun_scene_location, random_damage, random_attack
 	current_ranged_weapon.random_damage_mod = random_damage
 	current_ranged_weapon.random_attack_delay_mod = random_attack_delay
 	current_ranged_weapon.random_projectile_speed_mod = random_projectile_speed
-	
+	CurrentRun.world.current_player_info.current_ranged_weapon_reference = current_ranged_weapon.weapon_id
 	add_child(current_ranged_weapon)
 
 func refresh_current_ranged_weapon_stats():

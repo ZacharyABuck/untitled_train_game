@@ -1262,6 +1262,7 @@ script = ExtResource("6_y62cp")
 
 [node name="ChargeReadyLabel" type="Label" parent="UI/PlayerChargeBar"]
 visible = false
+layout_mode = 0
 offset_left = 14.0
 offset_top = 7.0
 offset_right = 165.0

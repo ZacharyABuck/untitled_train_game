@@ -17,13 +17,10 @@ var events_roster = {
 	"stampede" = {
 		"scene" = preload("res://scenes/events/event_stampede.tscn"),
 	},
-	#"shop" = {
-		#"scene" = preload("res://scenes/events/event_shop.tscn"),
-	#},
+	"tentacle_trap" = {
+		"scene" = preload("res://scenes/events/event_tentacle_trap.tscn"),
+	},
 	"level_complete" = {
 		"scene" = preload("res://scenes/events/event_level_complete.tscn"),
 	},
-	#"haunting" = {
-		#"scene" = preload("res://scenes/events/event_haunting.tscn"),
-	#},
 }

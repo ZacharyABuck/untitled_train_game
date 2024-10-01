@@ -1,0 +1,126 @@
+[gd_scene load_steps=16 format=3 uid="uid://4doj03nkuurt"]
+
+[ext_resource type="Script" path="res://scenes/projectiles/zombie_bait_bullet.gd" id="1_mvy7j"]
+[ext_resource type="Shader" path="res://shaders/fog.gdshader" id="2_i5427"]
+[ext_resource type="Texture2D" uid="uid://dcfphx0tyd746" path="res://sprites/projectiles/meat.png" id="3_4i4h3"]
+[ext_resource type="PackedScene" uid="uid://cyv57gynwtrmu" path="res://components/hurtbox_component.tscn" id="4_gad5r"]
+[ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://components/health_component.tscn" id="5_q3yyn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0wgns"]
+radius = 15.0333
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ph0qg"]
+radius = 278.029
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_oioef"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5vvw0"]
+seamless = true
+noise = SubResource("FastNoiseLite_oioef")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pvt5f"]
+shader = ExtResource("2_i5427")
+shader_parameter/density = 1.0
+shader_parameter/speed = Vector2(0.02, 0.01)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_5vvw0")
+
+[sub_resource type="Gradient" id="Gradient_g31qc"]
+offsets = PackedFloat32Array(0.524725, 0.626374)
+colors = PackedColorArray(0.596078, 0.627451, 0, 0.647059, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6svcp"]
+gradient = SubResource("Gradient_g31qc")
+width = 600
+height = 600
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_exexw"]
+radius = 3.5198
+height = 12.854
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lggij"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": false,
+"name": &"hit",
+"speed": 15.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"shoot",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_4i4h3")
+}],
+"loop": true,
+"name": &"travel",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m5m5h"]
+radius = 21.0
+
+[node name="ZombieBaitBullet" type="RigidBody2D" node_paths=PackedStringArray("HITBOX", "ANIMATIONS")]
+collision_layer = 9
+collision_mask = 0
+script = ExtResource("1_mvy7j")
+HITBOX = NodePath("Hitbox")
+ANIMATIONS = NodePath("AnimatedSprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0wgns")
+
+[node name="ZombieDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZombieDetector"]
+visible = false
+shape = SubResource("CircleShape2D_ph0qg")
+
+[node name="AreaSprite" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_pvt5f")
+texture = SubResource("GradientTexture2D_6svcp")
+
+[node name="SlowdownTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+visible = false
+position = Vector2(3.62661e-10, 1.55732)
+rotation = 1.56875
+scale = Vector2(2.036, 2)
+shape = SubResource("CapsuleShape2D_exexw")
+disabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1.71969, 0)
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_lggij")
+animation = &"travel"
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_gad5r")]
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("CircleShape2D_m5m5h")
+
+[node name="HealthComponent" parent="." instance=ExtResource("5_q3yyn")]
+MAX_HEALTH = 10.0
+
+[connection signal="area_entered" from="ZombieDetector" to="." method="_on_zombie_detector_area_entered"]
+[connection signal="timeout" from="SlowdownTimer" to="." method="_on_slowdown_timer_timeout"]

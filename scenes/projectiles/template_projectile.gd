@@ -31,10 +31,10 @@ func _ready():
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	hitbox = HITBOX
 	animations = ANIMATIONS
+	animations.play("travel")
 	_connect_signals()
 	_set_collisions()
 	look_at(target)
-	animations.play("travel")
 	continuous_target = global_position.direction_to(target)
 
 func _physics_process(delta):
@@ -80,7 +80,7 @@ func _set_collisions():
 	if valid_hitbox_types["cover"]:
 		hitbox.set_collision_mask_value(5, true)
 	if valid_hitbox_types["terrain"]:
-		# Add in collission mask for terrain if needed.
+		hitbox.set_collision_mask_value(9, true)
 		pass
 
 func _on_lifetimer_timeout():
