@@ -54,6 +54,7 @@ var targets = []
 
 func _ready():
 	ExperienceSystem.give_experience.connect(self.handle_give_experience_signal)
+	set_current_variables_to_base_value()
 
 func set_current_variables_to_base_value():
 	current_ranged_damage_multiplier = base_ranged_damage_multiplier

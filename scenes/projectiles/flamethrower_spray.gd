@@ -6,6 +6,9 @@ func _ready():
 	await get_tree().create_timer(.5).timeout
 	$Hitbox/CollisionShape2D.disabled = false
 
+func _physics_process(delta):
+	global_position = CurrentRun.world.current_player_info.active_player.global_position
+
 func _on_lifetimer_timeout():
 	$GPUParticles2D.emitting = false
 	await get_tree().create_timer(5).timeout

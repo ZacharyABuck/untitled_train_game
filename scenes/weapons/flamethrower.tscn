@@ -1,13 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://de6cmw0lpp7r"]
+[gd_scene load_steps=4 format=3 uid="uid://de6cmw0lpp7r"]
 
 [ext_resource type="Script" path="res://scenes/weapons/flamethrower.gd" id="1_40b10"]
 [ext_resource type="PackedScene" uid="uid://bspjjlgkl0jut" path="res://scenes/projectiles/flamethrower_spray.tscn" id="2_3xs4n"]
+[ext_resource type="AudioStream" uid="uid://b8g81mkvd0bof" path="res://sounds/combat/flamethrower_long.wav" id="3_l3pux"]
 
-[node name="Flamethrower" type="Node2D" node_paths=PackedStringArray("attack_delay_timer")]
+[node name="Flamethrower" type="Node2D" node_paths=PackedStringArray("attack_delay_timer", "gunshot_sound")]
 script = ExtResource("1_40b10")
 attack_delay_timer = NodePath("AttackTimer")
+gunshot_sound = NodePath("GunshotSFX")
 weapon_id = "flamethrower"
 base_bullet = ExtResource("2_3xs4n")
 
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 2.0
+
+[node name="GunshotSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_l3pux")
+volume_db = -6.0
+panning_strength = 0.11
+bus = &"SFX"

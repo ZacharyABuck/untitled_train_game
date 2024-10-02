@@ -13,9 +13,8 @@ func populate(new_upgrade):
 	
 	cost_label.text = "[center]Cost: " + str(TrainInfo.train_upgrade_roster[new_upgrade]["cost"]) + "[/center]"
 
-
-func _on_gui_input(event):
-	if event is InputEventMouseButton and event.pressed:
-		if CurrentRun.world.current_player_info.current_money >= TrainInfo.train_upgrade_roster[upgrade]["cost"]:
-			CurrentRun.world.current_player_info.current_money -= TrainInfo.train_upgrade_roster[upgrade]["cost"]
-			clicked.emit(upgrade)
+func button_pressed():
+	if CurrentRun.world.current_player_info.current_money >= TrainInfo.train_upgrade_roster[upgrade]["cost"]:
+		CurrentRun.world.current_player_info.current_money -= TrainInfo.train_upgrade_roster[upgrade]["cost"]
+		clicked.emit(upgrade)
+		queue_free()

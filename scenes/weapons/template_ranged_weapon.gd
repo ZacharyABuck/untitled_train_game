@@ -57,7 +57,9 @@ func shoot():
 	if can_shoot:
 		can_shoot = false
 		if gunshot_sound:
-			gunshot_sound.play()
+			if weapon_id == "flamethrower":
+				if !gunshot_sound.playing: gunshot_sound.play()
+			else: gunshot_sound.play()
 		player.camera.apply_shake(3.0)
 		if muzzle_flash:
 			show_muzzle_flash()
@@ -87,6 +89,9 @@ func _on_attack_timer_timeout():
 	can_shoot = true
 	if Input.is_action_pressed("shoot") and player.charging == false:
 		shoot()
+	else:
+		if gunshot_sound:
+			gunshot_sound.stop()
 
 func _build_bullet(b):
 	b.global_position = CurrentRun.world.current_player_info.active_player.global_position

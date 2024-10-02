@@ -107,6 +107,7 @@ interact={
 2d_physics/layer_9="Obstacles"
 2d_physics/layer_10="Characters"
 2d_physics/layer_11="Buffs"
+2d_physics/layer_12="Items"
 
 [physics]
 

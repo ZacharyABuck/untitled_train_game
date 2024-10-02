@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://02oiy550pacp"]
+[gd_scene load_steps=59 format=3 uid="uid://02oiy550pacp"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_2a3mn"]
 [ext_resource type="PackedScene" uid="uid://cb1r5v4vqyrx8" path="res://scenes/train/TrainManager.tscn" id="3_3t5p5"]
@@ -1005,29 +1005,23 @@ shader_parameter/angle = 0.785398
 shader_parameter/speed = 1.0
 shader_parameter/wait_cycles = 1.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t6h6i"]
-bg_color = Color(0.603922, 0.603922, 0.564706, 0.6)
-corner_radius_top_left = 100
-corner_radius_top_right = 100
-corner_radius_bottom_right = 100
-corner_radius_bottom_left = 100
-expand_margin_left = 50.0
-expand_margin_top = 50.0
-expand_margin_right = 50.0
-expand_margin_bottom = 50.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0qum6"]
-bg_color = Color(0.439216, 0.439216, 0.411765, 1)
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
-border_color = Color(0, 0, 0, 1)
-border_blend = true
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0r5bq"]
+bg_color = Color(0.956863, 0.937255, 0.858824, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.482353, 0.27451, 0.2, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 30.0
+expand_margin_top = 30.0
+expand_margin_right = 30.0
+expand_margin_bottom = 30.0
+shadow_size = 2
+shadow_offset = Vector2(2, 2)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_osnes"]
 
@@ -1339,12 +1333,14 @@ theme_override_constants/margin_bottom = 300
 
 [node name="BG" type="Panel" parent="UI/WeaponMarginContainer"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_t6h6i")
+theme = ExtResource("7_v8euj")
+theme_override_styles/panel = SubResource("StyleBoxFlat_0r5bq")
 
 [node name="GridContainer" type="GridContainer" parent="UI/WeaponMarginContainer/BG"]
 layout_mode = 2
 offset_right = 920.0
 offset_bottom = 480.0
+theme_override_constants/h_separation = 30
 columns = 2
 
 [node name="CurrentWeapon" type="RichTextLabel" parent="UI/WeaponMarginContainer/BG/GridContainer"]
@@ -1371,7 +1367,6 @@ text = "[center]New Weapon[/center]"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_0qum6")
 script = ExtResource("16_hmgxt")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel"]
@@ -1444,7 +1439,6 @@ bus = &"SFX"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_0qum6")
 script = ExtResource("19_fnsj8")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel"]

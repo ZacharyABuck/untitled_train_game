@@ -36,7 +36,7 @@ fill_from = Vector2(0.5, 0.5)
 [sub_resource type="CircleShape2D" id="CircleShape2D_555bl"]
 radius = 32.1403
 
-[node name="SpawnedWeapon" type="Node2D"]
+[node name="SpawnedWeapon" type="Node2D" groups=["item"]]
 z_index = 10
 script = ExtResource("1_cgooe")
 
@@ -50,7 +50,8 @@ local_coords = true
 scale = Vector2(0.1, 0.1)
 
 [node name="PlayerDetector" type="Area2D" parent="."]
-collision_layer = 0
+collision_layer = 2048
+collision_mask = 2049
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
 shape = SubResource("CircleShape2D_555bl")
