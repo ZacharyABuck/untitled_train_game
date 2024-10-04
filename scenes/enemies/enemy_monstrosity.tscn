@@ -1,6 +1,6 @@
 [gd_scene load_steps=141 format=3 uid="uid://dergsgx8ratpm"]
 
-[ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/enemy_monstrosity.gd" id="1_14tuh"]
+[ext_resource type="Script" path="res://scripts/enemies/enemy_monstrosity.gd" id="1_14tuh"]
 [ext_resource type="PackedScene" uid="uid://cyv57gynwtrmu" path="res://components/hurtbox_component.tscn" id="2_rr2gh"]
 [ext_resource type="AudioStream" uid="uid://qdyuud18a2c4" path="res://sounds/combat/hit_01.wav" id="3_s8har"]
 [ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://components/health_component.tscn" id="4_fotae"]

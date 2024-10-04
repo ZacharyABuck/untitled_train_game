@@ -535,8 +535,10 @@ theme_override_constants/icon_separation = 0
 theme_override_constants/icon_max_width = 0
 theme_override_constants/outline_size = 0
 tab_alignment = 1
+current_tab = 2
 
 [node name="Overview" type="MarginContainer" parent="TownsUI/MarginContainer/TabContainer"]
+visible = false
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 50
@@ -636,6 +638,30 @@ texture = ExtResource("23_kw3yp")
 stretch_mode = 5
 
 [node name="GunsmithItemsList" type="VBoxContainer" parent="TownsUI/MarginContainer/TabContainer/Gunsmith/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Tinkerer" type="MarginContainer" parent="TownsUI/MarginContainer/TabContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/MarginContainer/TabContainer/Tinkerer"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="TownsUI/MarginContainer/TabContainer/Tinkerer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("23_kw3yp")
+stretch_mode = 5
+
+[node name="TinkererItemList" type="VBoxContainer" parent="TownsUI/MarginContainer/TabContainer/Tinkerer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

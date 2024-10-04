@@ -11,8 +11,12 @@ extends CanvasLayer
 @onready var gunsmith_items_list = %GunsmithItemsList
 var gunsmith_items_amount: int = 3
 
+@onready var tinkerer_item_list = %TinkererItemList
+var tinkerer_item_amount: int = 5
+
 var trainyard_item = preload("res://scenes/ui/trainyard_item.tscn")
 var gunsmith_item = preload("res://scenes/ui/gunsmith_item.tscn")
+var tinkerer_item = preload("res://scenes/ui/tinkerer_item.tscn")
 var mission_panel = preload("res://scenes/ui/mission_panel.tscn")
 
 func populate_town_info(town):
@@ -59,3 +63,12 @@ func spawn_gunsmith_items():
 		gunsmith_items_list.add_child(new_item)
 		new_item.populate(random_weapon)
 		new_item.clicked.connect(owner.current_player_info.equip_new_weapon)
+
+func spawn_tinkerer_items():
+	for i in tinkerer_item_list.get_children():
+		i.queue_free()
+	for i in tinkerer_item_amount:
+		var random_gadget = GadgetInfo.upgrade_rosters["default"].pick_random()
+		var new_item = tinkerer_item.instantiate()
+		tinkerer_item_list.add_child(new_item)
+		new_item.populate(random_gadget)

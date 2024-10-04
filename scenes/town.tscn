@@ -213,10 +213,17 @@ bus = &"SFX"
 [node name="TravelInfo" type="MarginContainer" parent="."]
 visible = false
 z_index = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 offset_left = -250.0
 offset_top = -600.0
 offset_right = 250.0
 offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="TravelInfo"]
 layout_mode = 2
@@ -267,6 +274,10 @@ size_flags_vertical = 0
 texture_normal = ExtResource("8_m8501")
 texture_pressed = ExtResource("8_m8501")
 texture_hover = ExtResource("8_m8501")
+
+[node name="OnScreenNotifier" type="VisibleOnScreenNotifier2D" parent="TravelInfo/MarginContainer/CloseButton"]
+position = Vector2(15.5, 15)
+scale = Vector2(2.25, 2.3)
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

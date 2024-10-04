@@ -18,22 +18,26 @@ func add_gadget(requested_gadget):
 	var requested_gadget_info = GadgetInfo.gadget_roster[requested_gadget]
 	var label = CurrentRun.world.current_level_info.active_level.alert_label
 	# CHECK IF PLAYER HAS ENOUGH MONEY
-	if CurrentRun.world.current_player_info.current_money < requested_gadget_info["cost"]:
-		label.text = "Not Enough Money!"
-		label.get_child(0).play("alert_flash_short")
-		label.show()
+	#if CurrentRun.world.current_player_info.current_money < requested_gadget_info["cost"]:
+		#label.text = "Not Enough Money!"
+		#label.get_child(0).play("alert_flash_short")
+		#label.show()
 	# CHECK IF CAR ALREADY HAS SURROUNDING GADGET
-	elif requested_gadget_info["location"] == "car" and has_car_gadget():
+	if requested_gadget_info["location"] == "car" and has_car_gadget():
 		label.text = "Space Occupied!"
 		label.get_child(0).play("alert_flash_short")
 		label.show()
 	# BUILD GADGET
 	else:
+		if GadgetInfo.upgrade_rosters["default"].has(requested_gadget):
+			CurrentRun.world.current_gadget_info.gadget_inventory[requested_gadget] = clamp(CurrentRun.world.current_gadget_info.gadget_inventory[requested_gadget] - 1, 0, 100)
+		else:
+			CurrentRun.world.current_gadget_info.upgrade_kits = clamp(CurrentRun.world.current_gadget_info.upgrade_kits - 1, 0, 100)
 		CurrentRun.world.current_gadget_info.selected_gadget = null
 		CurrentRun.world.current_train_info.cars_inventory[car.index]["gadgets"][get_parent().name] = requested_gadget
 		CurrentRun.world.current_level_info.active_level.close_all_ui()
 		$BuildSound.play()
-		CurrentRun.world.current_player_info.current_money -= requested_gadget_info["cost"]
+		#CurrentRun.world.current_player_info.current_money -= requested_gadget_info["cost"]
 		print("New Gadget: " + requested_gadget_info["name"])
 		#delete old gadget if upgrading
 		if gadget != null:

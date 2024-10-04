@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://bauu0fl50lkr5"]
+[gd_scene load_steps=16 format=3 uid="uid://bauu0fl50lkr5"]
 
 [ext_resource type="Script" path="res://scripts/train/car.gd" id="1_oecw2"]
 [ext_resource type="Texture2D" uid="uid://bxcwcbx0e8vso" path="res://sprites/train/lumber_car_sketch.png" id="2_w8dsn"]
 [ext_resource type="AudioStream" uid="uid://dpq8xqakb6724" path="res://sounds/train/glass_break.ogg" id="3_jpwrk"]
 [ext_resource type="FontFile" uid="uid://tpmg7wha0yio" path="res://fonts/JMH Typewriter-Bold.ttf" id="3_koavr"]
 [ext_resource type="Script" path="res://scripts/train/cargo_container.gd" id="4_sh43r"]
+[ext_resource type="AudioStream" uid="uid://klsldhdkaetw" path="res://sounds/combat/wood_hit.wav" id="5_weu7a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_56ap2"]
 size = Vector2(17, 386)
@@ -207,6 +208,12 @@ stream = ExtResource("3_jpwrk")
 volume_db = -20.0
 max_polyphony = 10
 bus = &"Train"
+
+[node name="DamageSFX" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, 173)
+stream = ExtResource("5_weu7a")
+volume_db = -10.0
+bus = &"SFX"
 
 [node name="CharacterSpawnPoint" type="Node2D" parent="."]
 position = Vector2(0, 171)

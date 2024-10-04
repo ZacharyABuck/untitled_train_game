@@ -11,8 +11,6 @@ var base_money: int = 20
 var active_player
 var base_max_health : float = 50
 var animation
-var base_ranged_damage_multiplier: float = 1.0
-var base_melee_damage_multiplier: float = 1.0
 var base_ranged_damage_bonus: float = 0
 var base_melee_damage_bonus: float = 0
 var base_movespeed: int = 300
@@ -27,8 +25,6 @@ var current_max_health: float
 var current_money: int
 var current_ranged_weapon_reference: String
 var current_charge_attack_reference: String
-var current_ranged_damage_multiplier: float
-var current_melee_damage_multiplier: float
 var current_ranged_damage_bonus: float
 var current_melee_damage_bonus: float
 var current_movespeed: float
@@ -57,8 +53,6 @@ func _ready():
 	set_current_variables_to_base_value()
 
 func set_current_variables_to_base_value():
-	current_ranged_damage_multiplier = base_ranged_damage_multiplier
-	current_melee_damage_multiplier = base_melee_damage_multiplier
 	current_ranged_damage_bonus = base_ranged_damage_bonus
 	current_melee_damage_bonus = base_melee_damage_bonus
 	current_health = base_max_health

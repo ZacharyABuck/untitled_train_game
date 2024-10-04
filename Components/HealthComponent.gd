@@ -82,6 +82,7 @@ func _handle_death(shooter):
 			var rng = randi_range(-4,2)
 			CurrentRun.world.current_level_info.spawn_money(character.global_position, clamp(character.money+rng,0,int(CurrentRun.world.current_level_info.difficulty)))
 			ExperienceSystem.give_experience.emit(character.experience)
+			CurrentRun.world.current_level_info.active_level.enemy_killed()
 			character.state = "dead"
 			animation.play("death")
 			if character is RigidBody2D:

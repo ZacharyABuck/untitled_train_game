@@ -3,7 +3,7 @@ extends Node
 var enemy_roster = {
 	"bandit" = {
 		"scene" = load("res://scenes/enemies/enemy_bandit.tscn"),
-		"rarity" = 35,
+		"level" = 1.3,
 		"type" = "ranged",
 		"health" = 8,
 		"damage" = 2.0,
@@ -14,7 +14,7 @@ var enemy_roster = {
 	},
 	"zombie" = {
 		"scene" = load("res://scenes/enemies/enemy_zombie.tscn"),
-		"rarity" = 1,
+		"level" = 1.0,
 		"type" = "melee",
 		"health" = 10,
 		"damage" = 5.0,
@@ -25,7 +25,7 @@ var enemy_roster = {
 	},
 	"big zombie" = {
 		"scene" = load("res://scenes/enemies/enemy_big_zombie.tscn"),
-		"rarity" = 60,
+		"level" = 3,
 		"type" = "melee",
 		"health" = 40,
 		"damage" = 10.0,
@@ -36,7 +36,7 @@ var enemy_roster = {
 	},
 	"monstrosity" = {
 		"scene" = load("res://scenes/enemies/enemy_monstrosity.tscn"),
-		"rarity" = 30,
+		"level" = 2.0,
 		"health" = 4,
 		"type" = "melee",
 		"damage" = 10.0,
@@ -45,12 +45,15 @@ var enemy_roster = {
 		"experience" = 2,
 		"max_spawn" = 3,
 	},
-}
-
-var elite_modifiers = {
-	"damage" = 5.0,
-	"health" = 20,
-	"speed" = 20,
-	"experience" = 5,
-	"money" = 2,
+	"spider" = {
+		"scene" = load("res://scenes/enemies/enemy_spider.tscn"),
+		"level" = 1.5,
+		"health" = 2,
+		"type" = "melee",
+		"damage" = 2.0,
+		"money" = 1,
+		"speed" = 300,
+		"experience" = 1,
+		"max_spawn" = 5,
+	},
 }

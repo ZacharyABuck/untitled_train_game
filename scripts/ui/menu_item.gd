@@ -11,6 +11,7 @@ func _on_input_event(_viewport, event, _shape_idx):
 	if event.is_action_pressed("shoot") and active:
 		clicked.emit(gadget)
 
+
 func _on_mouse_entered():
 	if active:
 		CurrentRun.world.current_gadget_info.selected_gadget = gadget

@@ -8,6 +8,8 @@ extends Node2D
 
 @onready var boarding_points = $BoardingPoints
 @onready var boarding_sfx = $BoardingSFX
+@onready var damage_sfx = $DamageSFX
+
 
 #CORNER POINTS FOR MESH
 @onready var top_left = $CornerPoints/TopLeft
@@ -57,6 +59,9 @@ func check_for_gadgets():
 				hardpoint.get_child(0).respawn_gadget(CurrentRun.world.current_train_info.cars_inventory[index]["gadgets"][gadget])
 
 func take_damage(amount):
+	if !damage_sfx.playing:
+		damage_sfx.play()
+	
 	health = clamp(health-clamp(amount-armor,1,amount), 0, max_health)
 	
 	CurrentRun.root.tutorial_ui.trigger_tutorial("train_damage")

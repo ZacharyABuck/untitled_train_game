@@ -10,4 +10,3 @@ func animation_finished():
 			owner.animations.play("boarding")
 		else:
 			owner.state = "finish_boarding"
-			

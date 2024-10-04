@@ -11,6 +11,11 @@ signal clicked
 @onready var travel_button = $TravelInfo/MarginContainer/VBoxContainer/TravelButton
 @onready var gunsmith_icon = $TravelInfo/MarginContainer/VBoxContainer/HBoxContainer/GunsmithIcon
 @onready var trainyard_icon = $TravelInfo/MarginContainer/VBoxContainer/HBoxContainer/TrainyardIcon
+@onready var on_screen_notifier = $TravelInfo/MarginContainer/CloseButton/OnScreenNotifier
+
+
+var top_pos = -600
+var bottom_pos = 200
 
 
 var town_name: String
@@ -53,6 +58,14 @@ func show_travel_info():
 		trainyard_icon.hide()
 	
 	travel_info.show()
+	
+	await get_tree().create_timer(.1).timeout
+	
+	if on_screen_notifier.is_on_screen():
+		pass
+	else:
+		travel_info.position.y = bottom_pos
+	
 
 func hide_travel_info():
 	travel_info.hide()

@@ -111,7 +111,6 @@ func _instantiate_ranged_weapon(gun_scene_location, random_damage, random_attack
 	# Modify base weapon by flat bonus and multiplier of character.
 	var damage = current_ranged_weapon.base_damage
 	damage += CurrentRun.world.current_player_info.current_ranged_damage_bonus
-	damage *= CurrentRun.world.current_player_info.current_ranged_damage_multiplier
 	current_ranged_weapon.base_damage = damage
 	
 	current_ranged_weapon.random_damage_mod = random_damage
@@ -125,7 +124,6 @@ func _instantiate_ranged_weapon(gun_scene_location, random_damage, random_attack
 func refresh_current_ranged_weapon_stats():
 	var damage = current_ranged_weapon.base_damage
 	damage += CurrentRun.world.current_player_info.current_ranged_damage_bonus + CurrentRun.world.current_player_info.current_ranged_weapon_damage_mod
-	damage *= CurrentRun.world.current_player_info.current_ranged_damage_multiplier
 	current_ranged_weapon.current_damage = damage
 	current_ranged_weapon.current_attack_delay = current_ranged_weapon.base_attack_delay * CurrentRun.world.current_player_info.current_attack_delay_modifier
 

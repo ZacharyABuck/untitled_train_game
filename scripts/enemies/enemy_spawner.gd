@@ -10,11 +10,10 @@ func _ready():
 
 func find_random_enemy():
 	var valid = false
-	var random_number = randi_range(1,100)
 	var random_enemy
 	while valid == false:
 		random_enemy = EnemyInfo.enemy_roster.keys().pick_random()
-		if EnemyInfo.enemy_roster[random_enemy]["rarity"] <= random_number:
+		if EnemyInfo.enemy_roster[random_enemy]["level"] <= CurrentRun.world.current_level_info.difficulty:
 			valid = true
 			return random_enemy
 

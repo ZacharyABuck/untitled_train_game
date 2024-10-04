@@ -49,7 +49,7 @@ var train_upgrade_roster = {
 		"name" = "Upgrade Fuel Tank (travel longer distances)",
 		"cost" = 15,
 		"icon" = preload("res://sprites/ui/track_single.png"),
-		"value" = 10,
+		"value" = 5,
 	},
 }
 
