@@ -82,3 +82,24 @@ func handle_give_experience_signal(value):
 		level_up_queue += 1
 
 var level_up_queue: int = 0
+
+func find_random_weapon_stats() -> Array:
+	var difficulty = CurrentRun.world.current_level_info.difficulty
+	var random_damage = clamp(snappedf(randf_range(-1,difficulty*.5), .1), 1, 100)
+	var random_attack_delay = snappedf(randf_range(-.2,.3), 0.1)
+	var random_projectile_speed = randi_range(-50,50)
+	return [random_damage, random_attack_delay, random_projectile_speed]
+
+func equip_new_weapon(type, weapon, random_damage, random_attack_delay, random_projectile_speed):
+	match type:
+		"weapon":
+			current_ranged_weapon_reference = weapon
+			current_ranged_weapon_damage_mod = random_damage
+			current_ranged_weapon_attack_delay_mod = random_attack_delay
+			current_ranged_weapon_speed_mod = random_projectile_speed
+			if active_player:
+				active_player._instantiate_ranged_weapon(WeaponInfo.weapons_roster[weapon]["scene"], random_damage, random_attack_delay, random_projectile_speed)
+				active_player.refresh_current_ranged_weapon_stats()
+		"charge_attack":
+			if active_player:
+				active_player._instantiate_charge_attack(WeaponInfo.charge_attacks_roster[weapon]["scene"])

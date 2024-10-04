@@ -319,6 +319,23 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
+[node name="LoadingLabel" type="Label" parent="EffectsUI/BlackRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.5
+offset_top = -15.5
+offset_right = 44.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7_34xrp")
+text = "Loading..."
+horizontal_alignment = 1
+
 [connection signal="button_up" from="EscapeMenu/MarginContainer/Default/ReturnToGameButton" to="EscapeMenu" method="_on_return_to_game_button_button_up"]
 [connection signal="button_up" from="EscapeMenu/MarginContainer/Default/AudioSettingsButton" to="EscapeMenu" method="_on_audio_settings_button_button_up"]
 [connection signal="button_up" from="EscapeMenu/MarginContainer/Default/RestartButton" to="." method="restart_button_button_up"]

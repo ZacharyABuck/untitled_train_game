@@ -16,12 +16,15 @@ var mission_reward_panel = preload("res://scenes/ui/mission_reward_panel.tscn")
 @onready var towns_ui = $TownsUI
 @onready var money_label = $WorldUI/MarginContainer/GridContainer/HBoxContainer/VBoxContainer/MoneyLabel
 @onready var mission_inventory_container = $WorldUI/MarginContainer/GridContainer/HBoxContainer/PanelContainer/MissionInventoryContainer
+@onready var tab_container = $TownsUI/MarginContainer/TabContainer
+
 
 @onready var music_fade = $Music/MusicFade
 
 @onready var world_map = $WorldMap
 @onready var world_ui = $WorldUI
 @onready var camera = $Camera
+
 
 @onready var debug_ui = $DebugUI
 
@@ -39,31 +42,31 @@ func start_game(direction, distance, terrain):
 	world_map.hide()
 	world_ui.hide()
 	
-	CurrentRun.world.current_player_info.targets.clear()
-	CurrentRun.world.current_level_info.clear_variables()
-	CurrentRun.world.current_train_info.clear_variables()
+	current_player_info.targets.clear()
+	current_level_info.clear_variables()
+	current_train_info.clear_variables()
 
-	CurrentRun.world.current_level_info.level_parameters["direction"] = direction
-	CurrentRun.world.current_level_info.level_parameters["terrain"] = terrain
-	CurrentRun.world.current_level_info.level_parameters["distance"] = distance
+	current_level_info.level_parameters["direction"] = direction
+	current_level_info.level_parameters["terrain"] = terrain
+	current_level_info.level_parameters["distance"] = distance
 	print("Terrain Type: " + LevelInfo.terrain_roster[terrain])
-	print("Destination: " + CurrentRun.world.current_level_info.destination)
-	print("Distance: " + str(CurrentRun.world.current_level_info.level_parameters["distance"]))
+	print("Destination: " + current_level_info.destination)
+	print("Distance: " + str(current_level_info.level_parameters["distance"]))
 	
 	camera.enabled = false
 
 	#find random events
-	for i in CurrentRun.world.current_level_info.events.keys():
+	for i in current_level_info.events.keys():
 		var random_event = LevelInfo.events_roster.keys().pick_random()
 		while random_event == "level_complete":
 			random_event = LevelInfo.events_roster.keys().pick_random()
 
-		CurrentRun.world.current_level_info.events[i]["type"] = random_event
-		print("Event " + str(i) + " = " + str(CurrentRun.world.current_level_info.events[i]["type"]))
+		current_level_info.events[i]["type"] = random_event
+		print("Event " + str(i) + " = " + str(current_level_info.events[i]["type"]))
 
 	var new_level = level.instantiate()
 	add_child(new_level)
-	CurrentRun.world.current_level_info.active_level = new_level
+	current_level_info.active_level = new_level
 	unpause_game()
 	in_game = true
 	
@@ -75,47 +78,60 @@ func start_game(direction, distance, terrain):
 	CurrentRun.root.tutorial_ui.trigger_tutorial("basic_controls")
 
 func pause_game():
-	if CurrentRun.world.current_level_info.active_level:
-		CurrentRun.world.current_level_info.active_level.get_tree().paused = true
+	if current_level_info.active_level:
+		current_level_info.active_level.get_tree().paused = true
 
 func unpause_game():
-	if CurrentRun.world.current_level_info.active_level:
-		CurrentRun.world.current_level_info.active_level.get_tree().paused = false
+	if current_level_info.active_level:
+		current_level_info.active_level.get_tree().paused = false
 
 func town_clicked(town):
-	$TownsUI/MarginContainer/TabContainer.current_tab = 0
-	towns_ui.populate_town_info(town)
-	if CurrentRun.world.current_world_info.active_town == town.town_name:
+	for i in current_world_info.towns_inventory:
+		current_world_info.towns_inventory[i]["scene"].hide_travel_info()
+	
+	if current_world_info.active_town == town.town_name:
+		tab_container.current_tab = 0
+		towns_ui.populate_town_info(town)
 		towns_ui.trainyard_items_list.show()
 		if missions_spawned == false:
 			missions_spawned = true
 			towns_ui.spawn_missions(3)
-			towns_ui.spawn_trainyard_items()
+			if current_world_info.towns_inventory[town.town_name].has("trainyard"):
+				tab_container.set_tab_disabled(2, false)
+				towns_ui.spawn_trainyard_items()
+			else:
+				tab_container.set_tab_disabled(2, true)
+			if current_world_info.towns_inventory[town.town_name].has("gunsmith"):
+				tab_container.set_tab_disabled(1, false)
+				towns_ui.spawn_gunsmith_items()
+			else:
+				tab_container.set_tab_disabled(1, true)
+	
 	else:
-		towns_ui.trainyard_items_list.hide()
+		current_world_info.towns_inventory[town.town_name]["scene"].show_travel_info()
 
 func _on_travel_button_pressed():
-	if CurrentRun.world.current_train_info.train_stats["fuel_tank"] >= find_fuel_cost():
+	if current_train_info.train_stats["fuel_tank"] >= find_fuel_cost():
 		music_fade.play("world_to_level")
-		
+		current_world_info.selected_town.hide_travel_info()
 		var direction = find_direction()
 		var terrain = LevelInfo.terrain_roster.keys().pick_random()
 		var distance = find_distance()
-		CurrentRun.world.current_level_info.destination = CurrentRun.world.current_world_info.selected_town.town_name
+		current_level_info.destination = current_world_info.selected_town.town_name
 		start_game(direction, distance, terrain)
 
 func find_direction():
-	var direction = CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"].global_position.direction_to(CurrentRun.world.current_world_info.selected_town.global_position)
+	var direction = current_world_info.towns_inventory[current_world_info.active_town]["scene"].global_position.direction_to(current_world_info.selected_town.global_position)
 	return direction
 
 func find_distance():
-	var distance = CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"].global_position.distance_to(CurrentRun.world.current_world_info.selected_town.global_position)
+	var distance = current_world_info.towns_inventory[current_world_info.active_town]["scene"].global_position.distance_to(current_world_info.selected_town.global_position)
 	var adjusted_distance = round(clamp(distance*.005,3,8))
 	return adjusted_distance
 
 func find_fuel_cost() -> int:
-	var distance = CurrentRun.world.find_distance()
-	return distance*CurrentRun.world.current_train_info.train_stats["car_count"]
+	var distance = find_distance()
+	return distance*current_train_info.train_stats["car_count"]
 
 func level_complete():
 	music_fade.play("level_to_world")
@@ -135,55 +151,55 @@ func level_complete():
 	CurrentRun.root.fade_in()
 
 func update_money_label():
-	money_label.text = "Money = $" + str(CurrentRun.world.current_player_info.current_money)
+	money_label.text = "Money = $" + str(current_player_info.current_money)
 
 func despawn_level():
-	CurrentRun.world.current_level_info.active_level.queue_free()
-	remove_child(CurrentRun.world.current_level_info.active_level)
-	CurrentRun.world.current_level_info.active_level = null
-	CurrentRun.world.current_player_info.active_player = null
+	current_level_info.active_level.queue_free()
+	remove_child(current_level_info.active_level)
+	current_level_info.active_level = null
+	current_player_info.active_player = null
 
 func update_world_player_pos():
 	world_map.spawn_player()
 
 func check_missions():
-	for i in CurrentRun.world.current_mission_info.mission_inventory.keys():
-		if CurrentRun.world.current_mission_info.mission_inventory[i]["destination"] == CurrentRun.world.current_world_info.active_town:
-			print("Mission Complete: " + str(CurrentRun.world.current_mission_info.mission_inventory[i]["type"]) + " " + str(CurrentRun.world.current_mission_info.mission_inventory[i]["character"]))
+	for i in current_mission_info.mission_inventory.keys():
+		if current_mission_info.mission_inventory[i]["destination"] == current_world_info.active_town:
+			print("Mission Complete: " + str(current_mission_info.mission_inventory[i]["type"]) + " " + str(current_mission_info.mission_inventory[i]["character"]))
 			complete_mission(i)
 		else:
-			CurrentRun.world.current_mission_info.mission_inventory[i]["time_limit"] -= 1
+			current_mission_info.mission_inventory[i]["time_limit"] -= 1
 			#Mission Failed
-			if CurrentRun.world.current_mission_info.mission_inventory[i]["time_limit"] <= 0:
-				world_ui.spawn_reward_panel(false, CharacterInfo.characters_roster[CurrentRun.world.current_mission_info.mission_inventory[i]["character"]]["icon"], CurrentRun.world.current_mission_info.mission_inventory[i]["reward"])
-				CurrentRun.world.current_mission_info.mission_inventory.erase(i)
+			if current_mission_info.mission_inventory[i]["time_limit"] <= 0:
+				world_ui.spawn_reward_panel(false, CharacterInfo.characters_roster[current_mission_info.mission_inventory[i]["character"]]["icon"], current_mission_info.mission_inventory[i]["reward"])
+				current_mission_info.mission_inventory.erase(i)
 	for i in mission_inventory_container.get_children():
-		if !CurrentRun.world.current_mission_info.mission_inventory.keys().has(i.mission_id):
+		if !current_mission_info.mission_inventory.keys().has(i.mission_id):
 			i.queue_free()
 		else:
-			i.time_limit_label.text = str(CurrentRun.world.current_mission_info.mission_inventory[i.mission_id]["time_limit"])
+			i.time_limit_label.text = str(current_mission_info.mission_inventory[i.mission_id]["time_limit"])
 
 func complete_mission(mission):
-	CurrentRun.world.current_player_info.current_money += CurrentRun.world.current_mission_info.mission_inventory[mission]["reward"]
+	current_player_info.current_money += current_mission_info.mission_inventory[mission]["reward"]
 	update_money_label()
-	if CurrentRun.world.current_mission_info.mission_inventory[mission].keys().has("icon"):
-		world_ui.spawn_reward_panel(true, CurrentRun.world.current_mission_info.mission_inventory[mission]["icon"], CurrentRun.world.current_mission_info.mission_inventory[mission]["reward"])
+	if current_mission_info.mission_inventory[mission].keys().has("icon"):
+		world_ui.spawn_reward_panel(true, current_mission_info.mission_inventory[mission]["icon"], current_mission_info.mission_inventory[mission]["reward"])
 	else: 
-		var character_icon = CharacterInfo.characters_roster[CurrentRun.world.current_mission_info.mission_inventory[mission]["character"]]["icon"]
-		world_ui.spawn_reward_panel(true, character_icon, CurrentRun.world.current_mission_info.mission_inventory[mission]["reward"])
+		var character_icon = CharacterInfo.characters_roster[current_mission_info.mission_inventory[mission]["character"]]["icon"]
+		world_ui.spawn_reward_panel(true, character_icon, current_mission_info.mission_inventory[mission]["reward"])
 	for i in mission_inventory_container.get_children():
 		if i.mission_id == mission:
 			i.queue_free()
 			break
-	if CurrentRun.world.current_mission_info.mission_inventory.keys().has(mission):
-		CurrentRun.world.current_mission_info.mission_inventory.erase(mission)
+	if current_mission_info.mission_inventory.keys().has(mission):
+		current_mission_info.mission_inventory.erase(mission)
 
 func upgrade_train(upgrade):
 	update_money_label()
-	if CurrentRun.world.current_train_info.train_stats.keys().has(upgrade):
-		CurrentRun.world.current_train_info.train_stats[upgrade] += TrainInfo.train_upgrade_roster[upgrade]["value"]
+	if current_train_info.train_stats.keys().has(upgrade):
+		current_train_info.train_stats[upgrade] += TrainInfo.train_upgrade_roster[upgrade]["value"]
 		if upgrade == "car_count":
-			if CurrentRun.world.current_train_info.cars_inventory.keys().size() > 1:
-				var caboose_index = CurrentRun.world.current_train_info.cars_inventory.keys().size() - 1
-				CurrentRun.world.current_train_info.cars_inventory[caboose_index + 1] = CurrentRun.world.current_train_info.cars_inventory[caboose_index]
-				CurrentRun.world.current_train_info.cars_inventory[caboose_index] = {"node" = null, "type" = null, "hard_points" = {}, "gadgets" = {},}
+			if current_train_info.cars_inventory.keys().size() > 1:
+				var caboose_index = current_train_info.cars_inventory.keys().size() - 1
+				current_train_info.cars_inventory[caboose_index + 1] = current_train_info.cars_inventory[caboose_index]
+				current_train_info.cars_inventory[caboose_index] = {"node" = null, "type" = null, "hard_points" = {}, "gadgets" = {},}

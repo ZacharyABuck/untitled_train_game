@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/current_gadget_info.gd" id="8_u6yb2"]
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/current_enemy_info.gd" id="9_ibroa"]
 [ext_resource type="AudioStream" uid="uid://bshtqlqkt4twy" path="res://music/world_music.mp3" id="10_3k0cp"]
+[ext_resource type="Script" path="res://scripts/ui/world_map_camera.gd" id="10_j2pst"]
 [ext_resource type="AudioStream" uid="uid://dasb0ya67twdd" path="res://music/level_music_no_intro.mp3" id="11_ar4r5"]
 [ext_resource type="Texture2D" uid="uid://c75pwpkt2lydf" path="res://sprites/tiles/world_map_tileset.png" id="12_digcs"]
 [ext_resource type="Script" path="res://scripts/maps/world_map.gd" id="13_6j7ga"]
@@ -20,7 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://ddgdij8y108qu" path="res://sprites/ui/edge_background_sketch.png" id="19_taibv"]
 [ext_resource type="Texture2D" uid="uid://dswm0gltr2r76" path="res://sprites/ui/town_sketch.png" id="20_fiexs"]
 [ext_resource type="FontFile" uid="uid://bt4836ueqhi58" path="res://fonts/WesternBangBang-Regular.ttf" id="22_w4hsh"]
-[ext_resource type="FontFile" uid="uid://tpmg7wha0yio" path="res://fonts/JMH Typewriter-Bold.ttf" id="23_kdpb5"]
+[ext_resource type="Texture2D" uid="uid://dqk86uxif1wyp" path="res://sprites/ui/rifle_sketch.png" id="23_kw3yp"]
 [ext_resource type="Texture2D" uid="uid://bfhfpjjn1ks4" path="res://sprites/ui/train_sketch.png" id="24_o026o"]
 [ext_resource type="Texture2D" uid="uid://ccydwnn5siydn" path="res://sprites/ui/x.png" id="25_c7tds"]
 [ext_resource type="AudioStream" uid="uid://pblf7wb4tdtt" path="res://sounds/ui/small_pop.mp3" id="25_sbnco"]
@@ -358,22 +359,6 @@ metadata/_better_terrain = {
 "version": "0.2"
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hfgwk"]
-bg_color = Color(0.753984, 0.753984, 0.753984, 1)
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
-border_color = Color(0.375018, 0.279852, 0.22582, 1)
-border_blend = true
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-shadow_color = Color(0, 0, 0, 0.435294)
-shadow_size = 5
-shadow_offset = Vector2(5, 5)
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_my1xl"]
 
 [node name="World" type="Node2D"]
@@ -407,9 +392,11 @@ script = ExtResource("8_u6yb2")
 script = ExtResource("9_ibroa")
 
 [node name="Camera" type="Camera2D" parent="."]
-position = Vector2(1600, 900)
+anchor_mode = 0
 zoom = Vector2(0.6, 0.6)
 limit_left = -1000000
+position_smoothing_enabled = true
+script = ExtResource("10_j2pst")
 
 [node name="Music" type="Node2D" parent="."]
 process_mode = 3
@@ -454,15 +441,18 @@ theme_override_constants/margin_bottom = 875
 
 [node name="GridContainer" type="GridContainer" parent="WorldUI/MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="WorldUI/MarginContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="WorldUI/MarginContainer/GridContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
 [node name="MoneyLabel" type="RichTextLabel" parent="WorldUI/MarginContainer/GridContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -486,10 +476,12 @@ scroll_active = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="WorldUI/MarginContainer/GridContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 theme = ExtResource("17_7ntxb")
 
 [node name="MissionInventoryContainer" type="GridContainer" parent="WorldUI/MarginContainer/GridContainer/HBoxContainer/PanelContainer"]
@@ -501,6 +493,7 @@ columns = 4
 [node name="EdgeLabelContainer" type="HBoxContainer" parent="WorldUI/MarginContainer/GridContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="WorldUI"]
 anchors_preset = 15
@@ -537,6 +530,10 @@ theme_override_constants/margin_bottom = 200
 [node name="TabContainer" type="TabContainer" parent="TownsUI/MarginContainer"]
 layout_mode = 2
 theme = ExtResource("17_7ntxb")
+theme_override_constants/side_margin = 0
+theme_override_constants/icon_separation = 0
+theme_override_constants/icon_max_width = 0
+theme_override_constants/outline_size = 0
 tab_alignment = 1
 
 [node name="Overview" type="MarginContainer" parent="TownsUI/MarginContainer/TabContainer"]
@@ -586,13 +583,6 @@ size_flags_vertical = 8
 texture = ExtResource("20_fiexs")
 stretch_mode = 5
 
-[node name="TravelButton" type="Button" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/TownDetails"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-theme = ExtResource("17_7ntxb")
-text = "Travel to Town"
-
 [node name="MissionDetails" type="TextureRect" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("19_taibv")
@@ -626,15 +616,31 @@ text = "[center]Missions[/center]"
 fit_content = true
 scroll_active = false
 
-[node name="NoMissionsLabel" type="RichTextLabel" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/MissionDetails/MarginContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 100)
+[node name="Gunsmith" type="MarginContainer" parent="TownsUI/MarginContainer/TabContainer"]
+visible = false
 layout_mode = 2
-size_flags_vertical = 4
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_fonts/normal_font = ExtResource("23_kdpb5")
-bbcode_enabled = true
-text = "[center]Visit town to see missions![/center]"
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/MarginContainer/TabContainer/Gunsmith"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Icon" type="TextureRect" parent="TownsUI/MarginContainer/TabContainer/Gunsmith/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("23_kw3yp")
+stretch_mode = 5
+
+[node name="GunsmithItemsList" type="VBoxContainer" parent="TownsUI/MarginContainer/TabContainer/Gunsmith/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 30
+alignment = 1
 
 [node name="Trainyard" type="MarginContainer" parent="TownsUI/MarginContainer/TabContainer"]
 visible = false
@@ -648,12 +654,7 @@ theme_override_constants/margin_bottom = 50
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="PanelContainer" type="PanelContainer" parent="TownsUI/MarginContainer/TabContainer/Trainyard/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_hfgwk")
-
-[node name="Icon" type="TextureRect" parent="TownsUI/MarginContainer/TabContainer/Trainyard/HBoxContainer/PanelContainer"]
+[node name="Icon" type="TextureRect" parent="TownsUI/MarginContainer/TabContainer/Trainyard/HBoxContainer"]
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1007,7 +1008,6 @@ stream = ExtResource("25_sbnco")
 volume_db = -10.0
 bus = &"SFX"
 
-[connection signal="pressed" from="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/TownDetails/TravelButton" to="." method="_on_travel_button_pressed"]
 [connection signal="pressed" from="TownsUI/CloseButton" to="TownsUI" method="_on_close_button_pressed"]
 [connection signal="pressed" from="DebugUI/LevelAutoCompleteButton" to="DebugUI" method="_on_level_auto_complete_button_pressed"]
 [connection signal="pressed" from="DebugUI/TakeDamageButton" to="DebugUI" method="_on_take_damage_button_pressed"]

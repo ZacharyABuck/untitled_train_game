@@ -119,6 +119,8 @@ func _instantiate_ranged_weapon(gun_scene_location, random_damage, random_attack
 	current_ranged_weapon.random_projectile_speed_mod = random_projectile_speed
 	CurrentRun.world.current_player_info.current_ranged_weapon_reference = current_ranged_weapon.weapon_id
 	add_child(current_ranged_weapon)
+	
+	refresh_current_ranged_weapon_stats()
 
 func refresh_current_ranged_weapon_stats():
 	var damage = current_ranged_weapon.base_damage

@@ -1,45 +1,35 @@
 extends Node
 
 var towns_roster = {
-	"Bog Hollow" = {
-		"size" = null,
-		"scene" = null,
-	},
-	"Beavercreek" = {
-		"size" = null,
-		"scene" = null,
-	},
-	"Franchtown" = {
-		"size" = null,
-		"scene" = null,
-	},
-	"Libbleton" = {
-		"size" = null,
-		"scene" = null,
-	},
-	"Grobel" = {
-		"size" = null,
-		"scene" = null,
-	},
-	"Underhill" = {
-		"size" = null,
-		"scene" = null,
-	},
-	"Tessapeak City" = {
-		"size" = null,
-		"scene" = null,
-	},
-	"Dagger Pan" = {
-		"size" = null,
-		"scene" = null,
-	},
-	"Payton's Crossing" = {
-		"size" = null,
-		"scene" = null,
-	},
-	"Puesta del Sol" = {
-		"size" = null,
-		"scene" = null,
-	},
+	"Bog Hollow" = {},
+	"Beavercreek" = {},
+	"Franchtown" = {},
+	"Libbleton" = {},
+	"Grobel" = {},
+	"Underhill" = {},
+	"Tessapeak City" = {},
+	"Dagger Pan" = {},
+	"Payton's Crossing" = {},
+	"Puesta del Sol" = {},
+	"Underland" = {},
+	"Denton" = {},
+	"Indigo Ridge" = {},
+	"Stevenson" = {},
+	"Long Ranch" = {},
+	"Rock Ridge" = {},
+	"Hollow Pass" = {},
+	"King River" = {},
+	"Wren" = {},
+	"Grand Lodge" = {},
+	"Till's Crown" = {},
+	"Dusenberg" = {},
+	"Forager's Trail" = {},
+	"Drangleic" = {},
+	"Avalon Valley" = {},
+	"Arrow Hill" = {},
+	"Saint-Tropez" = {},
+	"Jeatoure Company Town" = {},
+	"Shady Tree" = {},
+	"Queensport" = {},
 }
 

@@ -1,0 +1,131 @@
+[gd_scene load_steps=9 format=3 uid="uid://b663gc3f8l612"]
+
+[ext_resource type="Script" path="res://scripts/ui/gunsmith_item.gd" id="1_ioulm"]
+[ext_resource type="Texture2D" uid="uid://c0ctx778y5g3i" path="res://sprites/ui/track_single.png" id="2_sgryq"]
+[ext_resource type="FontFile" uid="uid://lxcj83h6gsu7" path="res://fonts/JMH Typewriter-Black.otf" id="3_f4sh7"]
+[ext_resource type="FontFile" uid="uid://tpmg7wha0yio" path="res://fonts/JMH Typewriter-Bold.ttf" id="4_fvtgv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kvu6r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h57yh"]
+bg_color = Color(0.956863, 0.937255, 0.858824, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.482353, 0.27451, 0.2, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+shadow_size = 2
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b0f4v"]
+bg_color = Color(0.956863, 0.937255, 0.858824, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.482353, 0.27451, 0.2, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+shadow_size = 4
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f1har"]
+bg_color = Color(0.90116, 0.85849, 0.69205, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.482353, 0.27451, 0.2, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+shadow_size = 2
+shadow_offset = Vector2(2, 2)
+
+[node name="GunsmithItem" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 100)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_kvu6r")
+script = ExtResource("1_ioulm")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_h57yh")
+theme_override_styles/hover = SubResource("StyleBoxFlat_b0f4v")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_f1har")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_sgryq")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+alignment = 1
+
+[node name="ItemName" type="RichTextLabel" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.482353, 0.27451, 0.2, 1)
+theme_override_fonts/normal_font = ExtResource("3_f4sh7")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "[center]Revolver[/center]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Stats" type="RichTextLabel" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.482353, 0.27451, 0.2, 1)
+theme_override_fonts/normal_font = ExtResource("3_f4sh7")
+bbcode_enabled = true
+text = "[center]Damage: 5[/center]
+[center]Cooldown: .7[/center]
+[center]Speed: 600[/center]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Cost" type="RichTextLabel" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.482353, 0.27451, 0.2, 1)
+theme_override_fonts/normal_font = ExtResource("4_fvtgv")
+bbcode_enabled = true
+text = "[center]Cost: 10[/center]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="pressed" from="Button" to="." method="button_pressed"]

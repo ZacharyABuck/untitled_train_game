@@ -7,6 +7,10 @@ signal clicked
 @onready var shadow = $Shadow
 @onready var arrow_sprite = $ArrowSprite
 @onready var you_label = $YouLabel
+@onready var travel_info = $TravelInfo
+@onready var travel_button = $TravelInfo/MarginContainer/VBoxContainer/TravelButton
+@onready var gunsmith_icon = $TravelInfo/MarginContainer/VBoxContainer/HBoxContainer/GunsmithIcon
+@onready var trainyard_icon = $TravelInfo/MarginContainer/VBoxContainer/HBoxContainer/TrainyardIcon
 
 
 var town_name: String
@@ -29,6 +33,29 @@ func _on_input_event(_viewport, event, _shape_idx):
 func set_town_info(town):
 	town_name = town
 	name_label.text = town_name
+	travel_button.pressed.connect(CurrentRun.world._on_travel_button_pressed)
+
+func show_travel_info():
+	CurrentRun.world.current_world_info.selected_town = self
+	var fuel_cost = CurrentRun.world.find_fuel_cost()
+	if fuel_cost > CurrentRun.world.current_train_info.train_stats["fuel_tank"]:
+		travel_button.text = "Too Far!"
+	else:
+		travel_button.text = "All Aboard!"
+	
+	if CurrentRun.world.current_world_info.towns_inventory[town_name].has("gunsmith"):
+		gunsmith_icon.show()
+	else:
+		gunsmith_icon.hide()
+	if CurrentRun.world.current_world_info.towns_inventory[town_name].has("trainyard"):
+		trainyard_icon.show()
+	else:
+		trainyard_icon.hide()
+	
+	travel_info.show()
+
+func hide_travel_info():
+	travel_info.hide()
 
 func you_are_here():
 	arrow_sprite.show()
@@ -44,3 +71,6 @@ func _on_mouse_entered():
 
 func _on_mouse_exited():
 	$HoverAnimation.play("name_reset", .5)
+
+func _on_close_button_pressed():
+	hide_travel_info()

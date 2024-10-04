@@ -15,10 +15,10 @@ func populate(random_weapon):
 	var base_attack_delay = WeaponInfo.weapons_roster[random_weapon]["base_attack_delay"]
 	var base_projectile_speed = WeaponInfo.weapons_roster[random_weapon]["base_projectile_speed"]
 	
-	var difficulty = CurrentRun.world.current_level_info.difficulty
-	random_damage = clamp(snappedf(randf_range(-1,difficulty*.5), .1), 1, 100)
-	random_attack_delay = snappedf(randf_range(-.2,.3), 0.1)
-	random_projectile_speed = randi_range(-50,50)
+	var random_stats = CurrentRun.world.current_player_info.find_random_weapon_stats()
+	random_damage = random_stats[0]
+	random_attack_delay = random_stats[1]
+	random_projectile_speed = random_stats[2]
 	
 	$"../NewWeapon".text = "[center]New Weapon[/center]"
 	$VBoxContainer/NameLabel.text = "[center]" + WeaponInfo.weapons_roster[random_weapon]["name"] + "[/center]"
@@ -44,9 +44,10 @@ func populate_charge_attack(charge_attack):
 	$VBoxContainer/HBoxContainer/VBoxContainer/BulletSpeed.text = ""
 
 func _on_button_pressed():
-	if !equip_new_weapon.is_connected(CurrentRun.world.current_level_info.active_level.equip_new_weapon):
-		equip_new_weapon.connect(CurrentRun.world.current_level_info.active_level.equip_new_weapon)
+	if !equip_new_weapon.is_connected(CurrentRun.world.current_player_info.equip_new_weapon):
+		equip_new_weapon.connect(CurrentRun.world.current_player_info.equip_new_weapon)
 	equip_new_weapon.emit(type, weapon, random_damage, random_attack_delay, random_projectile_speed)
+	CurrentRun.world.current_level_info.active_level.close_weapon_menu()
 
 
 func _on_button_mouse_entered():

@@ -233,22 +233,6 @@ func weapon_picked_up(weapon, type):
 func keep_current_weapon():
 	close_weapon_menu()
 
-func equip_new_weapon(type, weapon, random_damage, random_attack_delay, random_projectile_speed):
-	close_weapon_menu()
-	
-	match type:
-		"weapon":
-			CurrentRun.world.current_player_info.active_player._instantiate_ranged_weapon(\
-				WeaponInfo.weapons_roster[weapon]["scene"], random_damage, random_attack_delay, random_projectile_speed)
-			
-			CurrentRun.world.current_player_info.current_ranged_weapon_reference = weapon
-			CurrentRun.world.current_player_info.current_ranged_weapon_damage_mod = random_damage
-			CurrentRun.world.current_player_info.current_ranged_weapon_attack_delay_mod = random_attack_delay
-			CurrentRun.world.current_player_info.current_ranged_weapon_speed_mod = random_projectile_speed
-			CurrentRun.world.current_player_info.active_player.refresh_current_ranged_weapon_stats()
-		"charge_attack":
-			CurrentRun.world.current_player_info.active_player._instantiate_charge_attack(WeaponInfo.charge_attacks_roster[weapon]["scene"])
-
 func close_weapon_menu():
 	unpause_game()
 	var container = $UI/WeaponMarginContainer
