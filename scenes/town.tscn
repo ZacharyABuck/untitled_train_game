@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cwgn51i4160nt"]
+[gd_scene load_steps=18 format=3 uid="uid://cwgn51i4160nt"]
 
 [ext_resource type="Script" path="res://scripts/town.gd" id="1_mviet"]
 [ext_resource type="Texture2D" uid="uid://degtajbagy7wq" path="res://sprites/town/world_map_town_1.png" id="2_fjydp"]
@@ -10,9 +10,10 @@
 [ext_resource type="Texture2D" uid="uid://dqk86uxif1wyp" path="res://sprites/ui/rifle_sketch.png" id="8_a0fk0"]
 [ext_resource type="Texture2D" uid="uid://ccydwnn5siydn" path="res://sprites/ui/x.png" id="8_m8501"]
 [ext_resource type="Texture2D" uid="uid://bfhfpjjn1ks4" path="res://sprites/ui/train_sketch.png" id="9_i57c5"]
+[ext_resource type="Texture2D" uid="uid://bs75y5b88dpqk" path="res://sprites/ui/gear.png" id="9_nf7vj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q0ns8"]
-size = Vector2(205, 128)
+size = Vector2(405, 253)
 
 [sub_resource type="Animation" id="Animation_41biy"]
 resource_name = "name_bounce"
@@ -139,8 +140,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_fjydp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(-8.5, 2)
+position = Vector2(-3.5, 23.5)
 shape = SubResource("RectangleShape2D_q0ns8")
 debug_color = Color(0.993255, 0, 0.240295, 0.42)
 
@@ -251,6 +251,13 @@ visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 texture = ExtResource("8_a0fk0")
+expand_mode = 4
+
+[node name="TinkererIcon" type="TextureRect" parent="TravelInfo/MarginContainer/VBoxContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+texture = ExtResource("9_nf7vj")
 expand_mode = 4
 
 [node name="TrainyardIcon" type="TextureRect" parent="TravelInfo/MarginContainer/VBoxContainer/HBoxContainer"]

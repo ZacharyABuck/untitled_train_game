@@ -18,3 +18,7 @@ func get_input():
 	# -- DIRECTIONAL INPUT -- #
 	var input_direction = Input.get_vector("left", "right", "up", "down")
 	return input_direction
+
+func _input(event):
+	if event is InputEventScreenDrag and !get_parent().towns_ui.visible:
+		position -= event.relative*3

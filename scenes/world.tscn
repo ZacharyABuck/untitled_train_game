@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://csdhvsxyenywf"]
+[gd_scene load_steps=41 format=3 uid="uid://csdhvsxyenywf"]
 
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/world.gd" id="1_u1dsg"]
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/current_player_info.gd" id="2_kodbe"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://ddgdij8y108qu" path="res://sprites/ui/edge_background_sketch.png" id="19_taibv"]
 [ext_resource type="Texture2D" uid="uid://dswm0gltr2r76" path="res://sprites/ui/town_sketch.png" id="20_fiexs"]
 [ext_resource type="FontFile" uid="uid://bt4836ueqhi58" path="res://fonts/WesternBangBang-Regular.ttf" id="22_w4hsh"]
+[ext_resource type="Texture2D" uid="uid://bs75y5b88dpqk" path="res://sprites/ui/gear.png" id="23_1nvs0"]
 [ext_resource type="Texture2D" uid="uid://dqk86uxif1wyp" path="res://sprites/ui/rifle_sketch.png" id="23_kw3yp"]
 [ext_resource type="Texture2D" uid="uid://bfhfpjjn1ks4" path="res://sprites/ui/train_sketch.png" id="24_o026o"]
 [ext_resource type="Texture2D" uid="uid://ccydwnn5siydn" path="res://sprites/ui/x.png" id="25_c7tds"]
@@ -530,15 +531,13 @@ theme_override_constants/margin_bottom = 200
 [node name="TabContainer" type="TabContainer" parent="TownsUI/MarginContainer"]
 layout_mode = 2
 theme = ExtResource("17_7ntxb")
-theme_override_constants/side_margin = 0
-theme_override_constants/icon_separation = 0
-theme_override_constants/icon_max_width = 0
+theme_override_constants/side_margin = 20
+theme_override_constants/icon_separation = 20
+theme_override_constants/icon_max_width = 32
 theme_override_constants/outline_size = 0
 tab_alignment = 1
-current_tab = 2
 
 [node name="Overview" type="MarginContainer" parent="TownsUI/MarginContainer/TabContainer"]
-visible = false
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 50
@@ -580,6 +579,7 @@ scroll_active = false
 
 [node name="TownImage" type="TextureRect" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/TownDetails"]
 unique_name_in_owner = true
+modulate = Color(0.956863, 0.937255, 0.858824, 1)
 layout_mode = 2
 size_flags_vertical = 8
 texture = ExtResource("20_fiexs")
@@ -645,6 +645,7 @@ theme_override_constants/separation = 30
 alignment = 1
 
 [node name="Tinkerer" type="MarginContainer" parent="TownsUI/MarginContainer/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 50
@@ -658,7 +659,7 @@ layout_mode = 2
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("23_kw3yp")
+texture = ExtResource("23_1nvs0")
 stretch_mode = 5
 
 [node name="TinkererItemList" type="VBoxContainer" parent="TownsUI/MarginContainer/TabContainer/Tinkerer/HBoxContainer"]

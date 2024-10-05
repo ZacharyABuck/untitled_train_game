@@ -2,8 +2,8 @@ extends Node
 
 var cars_roster = {
 	"engine" = {
-		"sprite" = preload("res://sprites/train/lumber_car_sketch.png"),
-		"possible_hard_points" = ["FrontLeft","FrontRight"],
+		"sprite" = preload("res://sprites/train/engine_sketch.png"),
+		"possible_hard_points" = ["LeftUpper","RightUpper"],
 	},
 	"cargo" = {
 		"sprite" = preload("res://sprites/train/lumber_car_sketch.png"),
@@ -15,7 +15,7 @@ var cars_roster = {
 	},
 	"caboose" = {
 		"sprite" = preload("res://sprites/train/lumber_car_sketch.png"),
-		"possible_hard_points" = ["BackLeft", "BackRight"],
+		"possible_hard_points" = ["LeftLower", "RightLower"],
 	},
 }
 
@@ -52,6 +52,3 @@ var train_upgrade_roster = {
 		"value" = 5,
 	},
 }
-
-var hard_point_icon = preload("res://sprites/train/hard_point_icon.png")
-

@@ -6,7 +6,7 @@
 [ext_resource type="FontFile" uid="uid://dxx340jybsylj" path="res://fonts/JMH Typewriter-Black.ttf" id="5_v4riv"]
 [ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="7_34xrp"]
 [ext_resource type="Script" path="res://scripts/ui/escape_menu.gd" id="16_exmmo"]
-[ext_resource type="Texture2D" uid="uid://trsm7lvfhxb4" path="res://sprites/ui/cirlce.png" id="16_jgqyq"]
+[ext_resource type="Texture2D" uid="uid://trsm7lvfhxb4" path="res://sprites/ui/circle.png" id="16_jgqyq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_midqx"]
 corner_radius_top_left = 15

@@ -5,4 +5,4 @@ var selected_gadget = null
 
 var gadget_inventory = {}
 
-var upgrade_kits: int = 1
+var upgrade_kits: int = 0

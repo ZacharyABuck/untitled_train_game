@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=15 format=3 uid="uid://dkxiakuxtv3c5"]
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://dkxiakuxtv3c5"]
 
 [ext_resource type="FontFile" uid="uid://lxcj83h6gsu7" path="res://fonts/JMH Typewriter-Black.otf" id="1_8qbmf"]
 [ext_resource type="FontFile" uid="uid://tpmg7wha0yio" path="res://fonts/JMH Typewriter-Bold.ttf" id="1_eg4lo"]
@@ -86,6 +86,13 @@ border_width_bottom = 5
 border_color = Color(0.482353, 0.27451, 0.2, 1)
 border_blend = true
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o53jj"]
+bg_color = Color(0.956863, 0.937255, 0.858824, 0.501961)
+border_color = Color(0.482353, 0.27451, 0.2, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+expand_margin_top = 5.0
+
 [resource]
 default_font = ExtResource("1_eg4lo")
 Button/colors/font_color = Color(0.482353, 0.27451, 0.2, 1)
@@ -124,3 +131,4 @@ TabContainer/styles/tab_focus = SubResource("StyleBoxEmpty_x8n8c")
 TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_mgs72")
 TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_v6t83")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_ouos0")
+TabContainer/styles/tabbar_background = SubResource("StyleBoxFlat_o53jj")

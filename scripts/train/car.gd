@@ -81,7 +81,6 @@ func spawn_hard_points():
 		if TrainInfo.cars_roster[type]["possible_hard_points"].has(str(i.name)):
 			var new_hard_point = hard_point.instantiate()
 			i.add_child(new_hard_point)
-			i.get_child(0).sprite.texture = TrainInfo.hard_point_icon
 			CurrentRun.world.current_train_info.cars_inventory[index]["hard_points"][i.name] = new_hard_point
 			new_hard_point.location = i.name
 			new_hard_point.car = self

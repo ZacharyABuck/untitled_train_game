@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jidnhqo2mpwb"
-path="res://.godot/imported/xpbar_blue2.png-e767e98be8de8b4ef9bffc644a1bab30.ctex"
+uid="uid://bs75y5b88dpqk"
+path="res://.godot/imported/gear.png-d8f93e0f2625bc47e61e7a88369711a3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/images/xpbar_blue2.png"
-dest_files=["res://.godot/imported/xpbar_blue2.png-e767e98be8de8b4ef9bffc644a1bab30.ctex"]
+source_file="res://sprites/ui/gear.png"
+dest_files=["res://.godot/imported/gear.png-d8f93e0f2625bc47e61e7a88369711a3.ctex"]
 
 [params]
 

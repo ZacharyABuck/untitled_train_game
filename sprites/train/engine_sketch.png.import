@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dymk6a1pjduj8"
-path="res://.godot/imported/xpbar_blue.png-5093be924fb421633ff627ec39ba8d80.ctex"
+uid="uid://dxeb47tkrroxq"
+path="res://.godot/imported/engine_sketch.png-3ddc75417ec227b6f1800d42ddf340ac.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/images/xpbar_blue.png"
-dest_files=["res://.godot/imported/xpbar_blue.png-5093be924fb421633ff627ec39ba8d80.ctex"]
+source_file="res://sprites/train/engine_sketch.png"
+dest_files=["res://.godot/imported/engine_sketch.png-3ddc75417ec227b6f1800d42ddf340ac.ctex"]
 
 [params]
 

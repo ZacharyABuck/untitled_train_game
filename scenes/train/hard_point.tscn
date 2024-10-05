@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://d3gyokft7sh4r"]
+[gd_scene load_steps=6 format=3 uid="uid://d3gyokft7sh4r"]
 
 [ext_resource type="Script" path="res://scripts/train/hard_point.gd" id="1_eq7aa"]
+[ext_resource type="Texture2D" uid="uid://bs75y5b88dpqk" path="res://sprites/ui/gear.png" id="2_1hnhd"]
 [ext_resource type="PackedScene" uid="uid://0sbdevh4bi3d" path="res://scenes/ui/radial_menu.tscn" id="2_jp8ie"]
 [ext_resource type="AudioStream" uid="uid://dh4kel1p4yghr" path="res://sounds/train/drill_01.wav" id="4_xo87c"]
 
@@ -11,6 +12,9 @@ radius = 30.0167
 script = ExtResource("1_eq7aa")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_1hnhd")
 
 [node name="RadialMenu" parent="." node_paths=PackedStringArray("collision_shape") instance=ExtResource("2_jp8ie")]
 collision_mask = 1

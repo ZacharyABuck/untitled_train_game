@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dei68j7xuxxre"
-path="res://.godot/imported/cowboy_temp.png-6a05b0063fa5a53dec85f831c6203224.ctex"
+uid="uid://trsm7lvfhxb4"
+path="res://.godot/imported/circle.png-3281c608b48ece5e7e1197ba04cf5026.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/player/cowboy_temp.png"
-dest_files=["res://.godot/imported/cowboy_temp.png-6a05b0063fa5a53dec85f831c6203224.ctex"]
+source_file="res://sprites/ui/circle.png"
+dest_files=["res://.godot/imported/circle.png-3281c608b48ece5e7e1197ba04cf5026.ctex"]
 
 [params]
 

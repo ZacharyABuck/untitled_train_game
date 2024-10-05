@@ -11,6 +11,7 @@ signal clicked
 @onready var travel_button = $TravelInfo/MarginContainer/VBoxContainer/TravelButton
 @onready var gunsmith_icon = $TravelInfo/MarginContainer/VBoxContainer/HBoxContainer/GunsmithIcon
 @onready var trainyard_icon = $TravelInfo/MarginContainer/VBoxContainer/HBoxContainer/TrainyardIcon
+@onready var tinkerer_icon = $TravelInfo/MarginContainer/VBoxContainer/HBoxContainer/TinkererIcon
 @onready var on_screen_notifier = $TravelInfo/MarginContainer/CloseButton/OnScreenNotifier
 
 
@@ -52,6 +53,10 @@ func show_travel_info():
 		gunsmith_icon.show()
 	else:
 		gunsmith_icon.hide()
+	if CurrentRun.world.current_world_info.towns_inventory[town_name].has("tinkerer"):
+		tinkerer_icon.show()
+	else:
+		tinkerer_icon.hide()
 	if CurrentRun.world.current_world_info.towns_inventory[town_name].has("trainyard"):
 		trainyard_icon.show()
 	else:
@@ -59,7 +64,7 @@ func show_travel_info():
 	
 	travel_info.show()
 	
-	await get_tree().create_timer(.1).timeout
+	await get_tree().create_timer(.05).timeout
 	
 	if on_screen_notifier.is_on_screen():
 		pass

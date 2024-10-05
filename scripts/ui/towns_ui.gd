@@ -19,6 +19,12 @@ var gunsmith_item = preload("res://scenes/ui/gunsmith_item.tscn")
 var tinkerer_item = preload("res://scenes/ui/tinkerer_item.tscn")
 var mission_panel = preload("res://scenes/ui/mission_panel.tscn")
 
+func _ready():
+	$MarginContainer/TabContainer.set_tab_icon(0, load("res://sprites/ui/circle.png"))
+	$MarginContainer/TabContainer.set_tab_icon(1, load("res://sprites/ui/rifle_sketch.png"))
+	$MarginContainer/TabContainer.set_tab_icon(2, load("res://sprites/ui/gear.png"))
+	$MarginContainer/TabContainer.set_tab_icon(3, load("res://sprites/ui/train_sketch.png"))
+
 func populate_town_info(town):
 	#active town clicked
 	if CurrentRun.world.current_world_info.active_town == town.town_name:
@@ -72,3 +78,6 @@ func spawn_tinkerer_items():
 		var new_item = tinkerer_item.instantiate()
 		tinkerer_item_list.add_child(new_item)
 		new_item.populate(random_gadget)
+	var new_upgrade_kit = tinkerer_item.instantiate()
+	tinkerer_item_list.add_child(new_upgrade_kit)
+	new_upgrade_kit.populate("upgrade_kit")
