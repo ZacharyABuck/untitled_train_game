@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://csdhvsxyenywf"]
+[gd_scene load_steps=40 format=3 uid="uid://csdhvsxyenywf"]
 
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/world.gd" id="1_u1dsg"]
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/current_player_info.gd" id="2_kodbe"]
@@ -19,11 +19,9 @@
 [ext_resource type="FontFile" uid="uid://dxx340jybsylj" path="res://fonts/JMH Typewriter-Black.ttf" id="17_rwwbi"]
 [ext_resource type="Script" path="res://scripts/ui/towns_ui.gd" id="18_ulvie"]
 [ext_resource type="Texture2D" uid="uid://ddgdij8y108qu" path="res://sprites/ui/edge_background_sketch.png" id="19_taibv"]
-[ext_resource type="Texture2D" uid="uid://dswm0gltr2r76" path="res://sprites/ui/town_sketch.png" id="20_fiexs"]
+[ext_resource type="Texture2D" uid="uid://bh5tx8yo82agi" path="res://sprites/town/town_screen_image_1.png" id="19_uhtjj"]
+[ext_resource type="Texture2D" uid="uid://trsm7lvfhxb4" path="res://sprites/ui/circle.png" id="20_qdyg3"]
 [ext_resource type="FontFile" uid="uid://bt4836ueqhi58" path="res://fonts/WesternBangBang-Regular.ttf" id="22_w4hsh"]
-[ext_resource type="Texture2D" uid="uid://bs75y5b88dpqk" path="res://sprites/ui/gear.png" id="23_1nvs0"]
-[ext_resource type="Texture2D" uid="uid://dqk86uxif1wyp" path="res://sprites/ui/rifle_sketch.png" id="23_kw3yp"]
-[ext_resource type="Texture2D" uid="uid://bfhfpjjn1ks4" path="res://sprites/ui/train_sketch.png" id="24_o026o"]
 [ext_resource type="Texture2D" uid="uid://ccydwnn5siydn" path="res://sprites/ui/x.png" id="25_c7tds"]
 [ext_resource type="AudioStream" uid="uid://pblf7wb4tdtt" path="res://sounds/ui/small_pop.mp3" id="25_sbnco"]
 [ext_resource type="Script" path="res://scripts/ui/debug_ui.gd" id="26_ugrr2"]
@@ -360,6 +358,15 @@ metadata/_better_terrain = {
 "version": "0.2"
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kndii"]
+bg_color = Color(0.956863, 0.937255, 0.858824, 1)
+border_width_left = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.482353, 0.27451, 0.2, 1)
+expand_margin_left = 20.0
+expand_margin_right = 20.0
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_my1xl"]
 
 [node name="World" type="Node2D"]
@@ -528,69 +535,111 @@ theme_override_constants/margin_top = 200
 theme_override_constants/margin_right = 400
 theme_override_constants/margin_bottom = 200
 
-[node name="TabContainer" type="TabContainer" parent="TownsUI/MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="TownsUI/MarginContainer"]
 layout_mode = 2
 theme = ExtResource("17_7ntxb")
-theme_override_constants/side_margin = 20
-theme_override_constants/icon_separation = 20
-theme_override_constants/icon_max_width = 32
-theme_override_constants/outline_size = 0
-tab_alignment = 1
 
-[node name="Overview" type="MarginContainer" parent="TownsUI/MarginContainer/TabContainer"]
+[node name="Image" type="TextureRect" parent="TownsUI/MarginContainer/PanelContainer"]
 layout_mode = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 50
+texture = ExtResource("19_uhtjj")
+expand_mode = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/MarginContainer/TabContainer/Overview"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="TownDetails" type="VBoxContainer" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 0
-
-[node name="TownNameLabel" type="RichTextLabel" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/TownDetails"]
+[node name="TownNameLabel" type="RichTextLabel" parent="TownsUI/MarginContainer/PanelContainer"]
 unique_name_in_owner = true
+clip_contents = false
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 4
 size_flags_vertical = 0
 theme = ExtResource("17_7ntxb")
 theme_override_font_sizes/normal_font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_kndii")
 bbcode_enabled = true
 text = "[center]Townsville[/center]"
 fit_content = true
 scroll_active = false
+autowrap_mode = 0
 
-[node name="TownDescription" type="RichTextLabel" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/TownDetails"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_font_sizes/normal_font_size = 20
-bbcode_enabled = true
-text = "A bunch of lore A bunch of lore A bunch of lore A bunch of lore A bunch of lore A bunch of lore A bunch of lore A bunch of lore A bunch of lore A bunch of lore A bunch of lore A bunch of lore A bunch of lore "
-fit_content = true
-scroll_active = false
+[node name="TownButtons" type="Node2D" parent="TownsUI/MarginContainer/PanelContainer"]
 
-[node name="TownImage" type="TextureRect" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/TownDetails"]
-unique_name_in_owner = true
-modulate = Color(0.956863, 0.937255, 0.858824, 1)
+[node name="JobsButton" type="Button" parent="TownsUI/MarginContainer/PanelContainer/TownButtons"]
+offset_left = 254.0
+offset_top = 459.234
+offset_right = 350.0
+offset_bottom = 509.234
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("17_7ntxb")
+theme_override_font_sizes/font_size = 30
+text = "Jobs"
+icon = ExtResource("20_qdyg3")
+
+[node name="GunsmithButton" type="Button" parent="TownsUI/MarginContainer/PanelContainer/TownButtons"]
+visible = false
+offset_left = 677.0
+offset_top = 339.234
+offset_right = 834.0
+offset_bottom = 388.234
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("17_7ntxb")
+theme_override_font_sizes/font_size = 30
+text = "Gunsmith"
+
+[node name="TinkererButton" type="Button" parent="TownsUI/MarginContainer/PanelContainer/TownButtons"]
+visible = false
+offset_left = 147.0
+offset_top = 263.234
+offset_right = 304.0
+offset_bottom = 312.234
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("17_7ntxb")
+theme_override_font_sizes/font_size = 30
+text = "Tinkerer"
+
+[node name="TrainyardButton" type="Button" parent="TownsUI/MarginContainer/PanelContainer/TownButtons"]
+visible = false
+offset_left = 431.0
+offset_top = 205.234
+offset_right = 588.0
+offset_bottom = 254.234
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("17_7ntxb")
+theme_override_font_sizes/font_size = 30
+text = "Trainyard"
+
+[node name="MarginContainer" type="MarginContainer" parent="TownsUI/MarginContainer/PanelContainer"]
+visible = false
 layout_mode = 2
-size_flags_vertical = 8
-texture = ExtResource("20_fiexs")
+mouse_filter = 0
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 30
+
+[node name="Jobs" type="MarginContainer" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Jobs"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="MissionDetails" type="TextureRect" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Jobs/HBoxContainer"]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+size_flags_horizontal = 6
+texture = ExtResource("19_taibv")
+expand_mode = 5
 stretch_mode = 5
 
-[node name="MissionDetails" type="TextureRect" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("19_taibv")
-expand_mode = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/MissionDetails"]
+[node name="MarginContainer" type="MarginContainer" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Jobs/HBoxContainer/MissionDetails"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -602,105 +651,265 @@ theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
-[node name="MissionsContainer" type="VBoxContainer" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/MissionDetails/MarginContainer"]
+[node name="JobsContainer" type="VBoxContainer" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Jobs/HBoxContainer/MissionDetails/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="MissionsLabel" type="RichTextLabel" parent="TownsUI/MarginContainer/TabContainer/Overview/HBoxContainer/MissionDetails/MarginContainer/MissionsContainer"]
-unique_name_in_owner = true
+[node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Jobs/HBoxContainer/MissionDetails/MarginContainer/JobsContainer"]
 layout_mode = 2
+
+[node name="ButtonSpacer" type="TextureButton" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Jobs/HBoxContainer/MissionDetails/MarginContainer/JobsContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = ExtResource("25_c7tds")
+stretch_mode = 3
+
+[node name="JobsLabel" type="RichTextLabel" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Jobs/HBoxContainer/MissionDetails/MarginContainer/JobsContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("17_7ntxb")
 theme_override_fonts/normal_font = ExtResource("22_w4hsh")
 theme_override_font_sizes/normal_font_size = 50
 bbcode_enabled = true
-text = "[center]Missions[/center]"
+text = "[center]Jobs[/center]"
 fit_content = true
 scroll_active = false
 
-[node name="Gunsmith" type="MarginContainer" parent="TownsUI/MarginContainer/TabContainer"]
+[node name="JobsCloseButton" type="TextureButton" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Jobs/HBoxContainer/MissionDetails/MarginContainer/JobsContainer/HBoxContainer"]
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = ExtResource("25_c7tds")
+stretch_mode = 3
+
+[node name="Gunsmith" type="MarginContainer" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer"]
 visible = false
 layout_mode = 2
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 50
+mouse_filter = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/MarginContainer/TabContainer/Gunsmith"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Gunsmith"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Icon" type="TextureRect" parent="TownsUI/MarginContainer/TabContainer/Gunsmith/HBoxContainer"]
-texture_filter = 1
+[node name="BG" type="TextureRect" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Gunsmith/HBoxContainer"]
+custom_minimum_size = Vector2(500, 500)
 layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("23_kw3yp")
+size_flags_horizontal = 6
+texture = ExtResource("19_taibv")
+expand_mode = 5
 stretch_mode = 5
 
-[node name="GunsmithItemsList" type="VBoxContainer" parent="TownsUI/MarginContainer/TabContainer/Gunsmith/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 30
-alignment = 1
-
-[node name="Tinkerer" type="MarginContainer" parent="TownsUI/MarginContainer/TabContainer"]
-visible = false
-layout_mode = 2
+[node name="MarginContainer" type="MarginContainer" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Gunsmith/HBoxContainer/BG"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/MarginContainer/TabContainer/Tinkerer"]
-layout_mode = 2
-
-[node name="Icon" type="TextureRect" parent="TownsUI/MarginContainer/TabContainer/Tinkerer/HBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("23_1nvs0")
-stretch_mode = 5
-
-[node name="TinkererItemList" type="VBoxContainer" parent="TownsUI/MarginContainer/TabContainer/Tinkerer/HBoxContainer"]
+[node name="GunsmithItemsList" type="VBoxContainer" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Gunsmith/HBoxContainer/BG/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
 theme_override_constants/separation = 30
-alignment = 1
 
-[node name="Trainyard" type="MarginContainer" parent="TownsUI/MarginContainer/TabContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Gunsmith/HBoxContainer/BG/MarginContainer/GunsmithItemsList"]
+layout_mode = 2
+
+[node name="ButtonSpacer" type="TextureButton" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Gunsmith/HBoxContainer/BG/MarginContainer/GunsmithItemsList/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = ExtResource("25_c7tds")
+stretch_mode = 3
+
+[node name="GunsmithLabel" type="RichTextLabel" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Gunsmith/HBoxContainer/BG/MarginContainer/GunsmithItemsList/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("17_7ntxb")
+theme_override_fonts/normal_font = ExtResource("22_w4hsh")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[center]Gunsmith[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="GunsmithCloseButton" type="TextureButton" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Gunsmith/HBoxContainer/BG/MarginContainer/GunsmithItemsList/HBoxContainer"]
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = ExtResource("25_c7tds")
+stretch_mode = 3
+
+[node name="Tinkerer" type="MarginContainer" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer"]
 visible = false
 layout_mode = 2
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 50
+mouse_filter = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/MarginContainer/TabContainer/Trainyard"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Tinkerer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Icon" type="TextureRect" parent="TownsUI/MarginContainer/TabContainer/Trainyard/HBoxContainer"]
-texture_filter = 1
+[node name="BG" type="TextureRect" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Tinkerer/HBoxContainer"]
+custom_minimum_size = Vector2(500, 500)
 layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("24_o026o")
+size_flags_horizontal = 6
+texture = ExtResource("19_taibv")
+expand_mode = 5
 stretch_mode = 5
 
-[node name="TrainyardItemsList" type="VBoxContainer" parent="TownsUI/MarginContainer/TabContainer/Trainyard/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Tinkerer/HBoxContainer/BG"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="TinkererItemsList" type="VBoxContainer" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Tinkerer/HBoxContainer/BG/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
 theme_override_constants/separation = 30
-alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Tinkerer/HBoxContainer/BG/MarginContainer/TinkererItemsList"]
+layout_mode = 2
+
+[node name="ButtonSpacer" type="TextureButton" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Tinkerer/HBoxContainer/BG/MarginContainer/TinkererItemsList/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = ExtResource("25_c7tds")
+stretch_mode = 3
+
+[node name="TinkererLabel" type="RichTextLabel" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Tinkerer/HBoxContainer/BG/MarginContainer/TinkererItemsList/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("17_7ntxb")
+theme_override_fonts/normal_font = ExtResource("22_w4hsh")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[center]Tinkerer[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="TinkererCloseButton" type="TextureButton" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Tinkerer/HBoxContainer/BG/MarginContainer/TinkererItemsList/HBoxContainer"]
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = ExtResource("25_c7tds")
+stretch_mode = 3
+
+[node name="Trainyard" type="MarginContainer" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Trainyard"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="MissionDetails" type="TextureRect" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Trainyard/HBoxContainer"]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+size_flags_horizontal = 6
+texture = ExtResource("19_taibv")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Trainyard/HBoxContainer/MissionDetails"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="TrainyardItemsList" type="VBoxContainer" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Trainyard/HBoxContainer/MissionDetails/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Trainyard/HBoxContainer/MissionDetails/MarginContainer/TrainyardItemsList"]
+layout_mode = 2
+
+[node name="ButtonSpacer" type="TextureButton" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Trainyard/HBoxContainer/MissionDetails/MarginContainer/TrainyardItemsList/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = ExtResource("25_c7tds")
+stretch_mode = 3
+
+[node name="TrainyardLabel" type="RichTextLabel" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Trainyard/HBoxContainer/MissionDetails/MarginContainer/TrainyardItemsList/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("17_7ntxb")
+theme_override_fonts/normal_font = ExtResource("22_w4hsh")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[center]Trainyard[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="TrainyardCloseButton" type="TextureButton" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Trainyard/HBoxContainer/MissionDetails/MarginContainer/TrainyardItemsList/HBoxContainer"]
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = ExtResource("25_c7tds")
+stretch_mode = 3
+
+[node name="TabContainer" type="TabContainer" parent="TownsUI/MarginContainer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("17_7ntxb")
+theme_override_constants/side_margin = 20
+theme_override_constants/icon_separation = 20
+theme_override_constants/icon_max_width = 32
+theme_override_constants/outline_size = 0
+tab_alignment = 1
 
 [node name="CloseButton" type="TextureButton" parent="TownsUI"]
 layout_direction = 3
-offset_left = 394.0
-offset_top = 237.0
-offset_right = 458.0
-offset_bottom = 301.0
+offset_left = 392.0
+offset_top = 147.0
+offset_right = 456.0
+offset_bottom = 211.0
 size_flags_horizontal = 8
 size_flags_vertical = 0
 texture_normal = ExtResource("25_c7tds")
@@ -1035,6 +1244,14 @@ stream = ExtResource("25_sbnco")
 volume_db = -10.0
 bus = &"SFX"
 
+[connection signal="pressed" from="TownsUI/MarginContainer/PanelContainer/TownButtons/JobsButton" to="TownsUI" method="_on_jobs_button_pressed"]
+[connection signal="pressed" from="TownsUI/MarginContainer/PanelContainer/TownButtons/GunsmithButton" to="TownsUI" method="_on_gunsmith_button_pressed"]
+[connection signal="pressed" from="TownsUI/MarginContainer/PanelContainer/TownButtons/TinkererButton" to="TownsUI" method="_on_tinkerer_button_pressed"]
+[connection signal="pressed" from="TownsUI/MarginContainer/PanelContainer/TownButtons/TrainyardButton" to="TownsUI" method="_on_trainyard_button_pressed"]
+[connection signal="pressed" from="TownsUI/MarginContainer/PanelContainer/MarginContainer/Jobs/HBoxContainer/MissionDetails/MarginContainer/JobsContainer/HBoxContainer/JobsCloseButton" to="TownsUI" method="close_all_windows"]
+[connection signal="pressed" from="TownsUI/MarginContainer/PanelContainer/MarginContainer/Gunsmith/HBoxContainer/BG/MarginContainer/GunsmithItemsList/HBoxContainer/GunsmithCloseButton" to="TownsUI" method="close_all_windows"]
+[connection signal="pressed" from="TownsUI/MarginContainer/PanelContainer/MarginContainer/Tinkerer/HBoxContainer/BG/MarginContainer/TinkererItemsList/HBoxContainer/TinkererCloseButton" to="TownsUI" method="close_all_windows"]
+[connection signal="pressed" from="TownsUI/MarginContainer/PanelContainer/MarginContainer/Trainyard/HBoxContainer/MissionDetails/MarginContainer/TrainyardItemsList/HBoxContainer/TrainyardCloseButton" to="TownsUI" method="close_all_windows"]
 [connection signal="pressed" from="TownsUI/CloseButton" to="TownsUI" method="_on_close_button_pressed"]
 [connection signal="pressed" from="DebugUI/LevelAutoCompleteButton" to="DebugUI" method="_on_level_auto_complete_button_pressed"]
 [connection signal="pressed" from="DebugUI/TakeDamageButton" to="DebugUI" method="_on_take_damage_button_pressed"]

@@ -2,8 +2,8 @@ extends PanelContainer
 
 var weapon: String
 @onready var icon = $HBoxContainer/Icon
-@onready var name_label = $HBoxContainer/VBoxContainer/ItemName
-@onready var cost_label = $HBoxContainer/VBoxContainer/Cost
+@onready var name_label = $HBoxContainer/VBoxContainer2/ItemName
+@onready var cost_label = $HBoxContainer/VBoxContainer2/Cost
 @onready var stats_label = $HBoxContainer/VBoxContainer/Stats
 
 

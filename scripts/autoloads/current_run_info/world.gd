@@ -90,27 +90,20 @@ func town_clicked(town):
 		current_world_info.towns_inventory[i]["scene"].hide_travel_info()
 	
 	if current_world_info.active_town == town.town_name:
-		tab_container.current_tab = 0
 		towns_ui.populate_town_info(town)
 		towns_ui.trainyard_items_list.show()
 		if missions_spawned == false:
 			missions_spawned = true
 			towns_ui.spawn_missions(3)
 			if current_world_info.towns_inventory[town.town_name].has("gunsmith"):
-				tab_container.set_tab_disabled(1, false)
 				towns_ui.spawn_gunsmith_items()
-			else:
-				tab_container.set_tab_disabled(1, true)
+				towns_ui.gunsmith_button.show()
 			if current_world_info.towns_inventory[town.town_name].has("tinkerer"):
-				tab_container.set_tab_disabled(2, false)
 				towns_ui.spawn_tinkerer_items()
-			else:
-				tab_container.set_tab_disabled(2, true)
+				towns_ui.tinkerer_button.show()
 			if current_world_info.towns_inventory[town.town_name].has("trainyard"):
-				tab_container.set_tab_disabled(3, false)
 				towns_ui.spawn_trainyard_items()
-			else:
-				tab_container.set_tab_disabled(3, true)
+				towns_ui.trainyard_button.show()
 	
 	else:
 		current_world_info.towns_inventory[town.town_name]["scene"].show_travel_info()

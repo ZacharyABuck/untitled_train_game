@@ -1,59 +1,61 @@
 extends CanvasLayer
 
 @onready var town_name_label = %TownNameLabel
-@onready var town_description = %TownDescription
-@onready var town_image = %TownImage
 
-@onready var missions_container = %MissionsContainer
-@onready var missions_label = %MissionsLabel
+@onready var shop_containers = $MarginContainer/PanelContainer/MarginContainer
+
+@onready var jobs = $MarginContainer/PanelContainer/MarginContainer/Jobs
+@onready var jobs_container = %JobsContainer
+@onready var jobs_button = $MarginContainer/PanelContainer/TownButtons/JobsButton
+
 @onready var trainyard_items_list = %TrainyardItemsList
+@onready var trainyard = $MarginContainer/PanelContainer/MarginContainer/Trainyard
+@onready var trainyard_button = $MarginContainer/PanelContainer/TownButtons/TrainyardButton
 
+@onready var gunsmith = $MarginContainer/PanelContainer/MarginContainer/Gunsmith
 @onready var gunsmith_items_list = %GunsmithItemsList
 var gunsmith_items_amount: int = 3
+@onready var gunsmith_button = $MarginContainer/PanelContainer/TownButtons/GunsmithButton
 
-@onready var tinkerer_item_list = %TinkererItemList
+@onready var tinkerer = $MarginContainer/PanelContainer/MarginContainer/Tinkerer
+@onready var tinkerer_items_list = %TinkererItemsList
 var tinkerer_item_amount: int = 5
+@onready var tinkerer_button = $MarginContainer/PanelContainer/TownButtons/TinkererButton
 
 var trainyard_item = preload("res://scenes/ui/trainyard_item.tscn")
 var gunsmith_item = preload("res://scenes/ui/gunsmith_item.tscn")
 var tinkerer_item = preload("res://scenes/ui/tinkerer_item.tscn")
 var mission_panel = preload("res://scenes/ui/mission_panel.tscn")
 
-func _ready():
-	$MarginContainer/TabContainer.set_tab_icon(0, load("res://sprites/ui/circle.png"))
-	$MarginContainer/TabContainer.set_tab_icon(1, load("res://sprites/ui/rifle_sketch.png"))
-	$MarginContainer/TabContainer.set_tab_icon(2, load("res://sprites/ui/gear.png"))
-	$MarginContainer/TabContainer.set_tab_icon(3, load("res://sprites/ui/train_sketch.png"))
-
 func populate_town_info(town):
 	#active town clicked
 	if CurrentRun.world.current_world_info.active_town == town.town_name:
-		for i in missions_container.get_children():
+		for i in jobs_container.get_children():
 			i.show()
 	else:
-		for i in missions_container.get_children():
+		for i in jobs_container.get_children():
 			i.hide()
 	town_name_label.text = "[center]" + town.town_name + "[/center]"
 	show()
 
 func _on_close_button_pressed():
 	hide()
+	close_all_windows()
 
 func spawn_missions(count):
-	for i in missions_container.get_children():
-		if i == missions_label:
-			pass
-		else:
+	for i in jobs_container.get_children():
+		if i != jobs_container.get_child(0):
 			i.queue_free()
 	for i in count:
 		var new_mission = mission_panel.instantiate()
-		missions_container.add_child(new_mission)
+		jobs_container.add_child(new_mission)
 		new_mission.find_random_mission()
 		new_mission.clicked.connect(owner.world_ui.spawn_mission_inventory_panel)
 
 func spawn_trainyard_items():
 	for i in trainyard_items_list.get_children():
-		i.queue_free()
+		if i != trainyard_items_list.get_child(0):
+			i.queue_free()
 	for i in TrainInfo.train_upgrade_roster.keys():
 		var new_item = trainyard_item.instantiate()
 		trainyard_items_list.add_child(new_item)
@@ -62,7 +64,8 @@ func spawn_trainyard_items():
 
 func spawn_gunsmith_items():
 	for i in gunsmith_items_list.get_children():
-		i.queue_free()
+		if i != gunsmith_items_list.get_child(0):
+			i.queue_free()
 	for i in gunsmith_items_amount:
 		var random_weapon = WeaponInfo.weapons_roster.keys().pick_random()
 		var new_item = gunsmith_item.instantiate()
@@ -71,13 +74,39 @@ func spawn_gunsmith_items():
 		new_item.clicked.connect(owner.current_player_info.equip_new_weapon)
 
 func spawn_tinkerer_items():
-	for i in tinkerer_item_list.get_children():
-		i.queue_free()
+	for i in tinkerer_items_list.get_children():
+		if i != tinkerer_items_list.get_child(0):
+			i.queue_free()
 	for i in tinkerer_item_amount:
 		var random_gadget = GadgetInfo.upgrade_rosters["default"].pick_random()
 		var new_item = tinkerer_item.instantiate()
-		tinkerer_item_list.add_child(new_item)
+		tinkerer_items_list.add_child(new_item)
 		new_item.populate(random_gadget)
 	var new_upgrade_kit = tinkerer_item.instantiate()
-	tinkerer_item_list.add_child(new_upgrade_kit)
+	tinkerer_items_list.add_child(new_upgrade_kit)
 	new_upgrade_kit.populate("upgrade_kit")
+
+func close_all_windows():
+	shop_containers.hide()
+	for i in shop_containers.get_children():
+		i.hide()
+
+func _on_jobs_button_pressed():
+	close_all_windows()
+	shop_containers.show()
+	jobs.show()
+
+func _on_gunsmith_button_pressed():
+	close_all_windows()
+	shop_containers.show()
+	gunsmith.show()
+
+func _on_tinkerer_button_pressed():
+	close_all_windows()
+	shop_containers.show()
+	tinkerer.show()
+
+func _on_trainyard_button_pressed():
+	close_all_windows()
+	shop_containers.show()
+	trainyard.show()

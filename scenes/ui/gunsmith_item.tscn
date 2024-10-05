@@ -62,7 +62,7 @@ shadow_size = 2
 shadow_offset = Vector2(2, 2)
 
 [node name="GunsmithItem" type="PanelContainer"]
-custom_minimum_size = Vector2(0, 100)
+custom_minimum_size = Vector2(200, 0)
 theme_override_styles/panel = SubResource("StyleBoxEmpty_kvu6r")
 script = ExtResource("1_ioulm")
 
@@ -75,20 +75,19 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_f1har")
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
 mouse_filter = 2
+theme_override_constants/separation = 20
 
 [node name="Icon" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 texture = ExtResource("2_sgryq")
 expand_mode = 3
-stretch_mode = 5
+stretch_mode = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-alignment = 1
 
-[node name="ItemName" type="RichTextLabel" parent="HBoxContainer/VBoxContainer"]
+[node name="ItemName" type="RichTextLabel" parent="HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
@@ -101,6 +100,24 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
+[node name="Cost" type="RichTextLabel" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.482353, 0.27451, 0.2, 1)
+theme_override_fonts/normal_font = ExtResource("4_fvtgv")
+bbcode_enabled = true
+text = "[center]Cost: 10[/center]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+alignment = 1
+
 [node name="Stats" type="RichTextLabel" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -111,18 +128,6 @@ bbcode_enabled = true
 text = "[center]Damage: 5[/center]
 [center]Cooldown: .7[/center]
 [center]Speed: 600[/center]"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-
-[node name="Cost" type="RichTextLabel" parent="HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-theme_override_colors/default_color = Color(0.482353, 0.27451, 0.2, 1)
-theme_override_fonts/normal_font = ExtResource("4_fvtgv")
-bbcode_enabled = true
-text = "[center]Cost: 10[/center]"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
