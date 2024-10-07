@@ -234,22 +234,23 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cf8k3"]
-size = Vector2(122, 90)
+size = Vector2(251, 90)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wlwyb"]
-radius = 124.016
+radius = 252.008
 
 [node name="CursedAppendage" type="Node2D"]
 script = ExtResource("1_mcoad")
 edge_reference = "cursed_appendage"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = -5
 texture_filter = 1
-position = Vector2(63, -3)
+position = Vector2(124, -3)
 rotation = 3.14159
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.4, 0.4)
 sprite_frames = SubResource("SpriteFrames_yamti")
-animation = &"windup"
+animation = &"strike"
 
 [node name="MeleeAttackComponent" parent="." node_paths=PackedStringArray("ATTACK_TIMER", "TARGET_AREA", "ANIMATIONS") instance=ExtResource("3_lt00t")]
 collision_layer = 0
@@ -267,7 +268,7 @@ TARGET_AREA = NodePath("CollisionShape2D")
 ANIMATIONS = NodePath("../AnimatedSprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeAttackComponent"]
-position = Vector2(62, 0)
+position = Vector2(126.5, 0)
 shape = SubResource("RectangleShape2D_cf8k3")
 debug_color = Color(0.886973, 0.0728652, 0.777631, 0.42)
 

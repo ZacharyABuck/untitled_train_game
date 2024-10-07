@@ -16,7 +16,6 @@ var mission_reward_panel = preload("res://scenes/ui/mission_reward_panel.tscn")
 @onready var towns_ui = $TownsUI
 @onready var money_label = $WorldUI/MarginContainer/GridContainer/HBoxContainer/VBoxContainer/MoneyLabel
 @onready var mission_inventory_container = $WorldUI/MarginContainer/GridContainer/HBoxContainer/PanelContainer/MissionInventoryContainer
-@onready var tab_container = $TownsUI/MarginContainer/TabContainer
 
 
 @onready var music_fade = $Music/MusicFade

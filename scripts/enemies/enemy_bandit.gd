@@ -14,6 +14,7 @@ func _physics_process(delta):
 			projectile_attack_component.shoot_if_target_in_range(target)
 		else:
 			state = "moving"
-			move_and_collide(global_position.direction_to(target.global_position)*(speed*delta))
+			velocity = global_position.direction_to(target.global_position)*(speed*delta)
+			move_and_slide()
 	else:
 		queue_free()

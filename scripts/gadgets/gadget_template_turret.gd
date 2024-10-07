@@ -38,7 +38,7 @@ func _physics_process(_delta):
 				check_for_targets()
 
 func set_moving_target():
-	moving_target_component.move_target(target, global_position, target.linear_velocity, gun.BULLET_SPEED)
+	moving_target_component.move_target(target, global_position, target.velocity, gun.BULLET_SPEED)
 
 func shoot_if_raycast_ok():
 	cooldown.start()

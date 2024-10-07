@@ -1,12 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://j1ex3r7vq3i"]
+[gd_scene load_steps=11 format=3 uid="uid://2egu44g1ddtv"]
 
-[ext_resource type="Script" path="res://scripts/gadgets/gadget_pistol_turret.gd" id="1_x11a8"]
-[ext_resource type="Texture2D" uid="uid://c1esbr41s7mmf" path="res://sprites/gadgets/gadget_pistol_turret.png" id="2_57lg3"]
-[ext_resource type="PackedScene" uid="uid://c76dtsauqnpia" path="res://components/projectile_attack_component.tscn" id="3_saoij"]
-[ext_resource type="PackedScene" uid="uid://7oojou0r8v4u" path="res://scenes/projectiles/green_bullet.tscn" id="4_4bkhr"]
-[ext_resource type="AudioStream" uid="uid://cktjuxs4l5ah2" path="res://sounds/combat/short_gunshot.wav" id="5_om6v3"]
-[ext_resource type="PackedScene" uid="uid://cpe7uj0omv03o" path="res://components/moving_target_component.tscn" id="5_tb46h"]
-[ext_resource type="PackedScene" uid="uid://blo8u73t6turn" path="res://scenes/buff_receiver.tscn" id="6_fao0o"]
+[ext_resource type="Script" path="res://scripts/gadgets/gadget_flame_turret.gd" id="1_ejd0h"]
+[ext_resource type="Texture2D" uid="uid://c1esbr41s7mmf" path="res://sprites/gadgets/gadget_pistol_turret.png" id="2_j4go8"]
+[ext_resource type="PackedScene" uid="uid://c76dtsauqnpia" path="res://components/projectile_attack_component.tscn" id="3_gcn6s"]
+[ext_resource type="PackedScene" uid="uid://bspjjlgkl0jut" path="res://scenes/projectiles/flamethrower_spray.tscn" id="4_d8ych"]
+[ext_resource type="AudioStream" uid="uid://hgoi6017bbtd" path="res://sounds/combat/flamethrower.mp3" id="5_er0e2"]
+[ext_resource type="PackedScene" uid="uid://cpe7uj0omv03o" path="res://components/moving_target_component.tscn" id="6_ee6yo"]
+[ext_resource type="PackedScene" uid="uid://blo8u73t6turn" path="res://scenes/buff_receiver.tscn" id="7_0y73d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h5xqt"]
 radius = 440.018
@@ -22,19 +22,20 @@ fill = 1
 fill_from = Vector2(0.492788, 0.606838)
 fill_to = Vector2(0.61899, 0.192308)
 
-[node name="PistolTurret" type="Node2D" node_paths=PackedStringArray("BUFF_RECEIVER", "moving_target_component") groups=["gadget"]]
-script = ExtResource("1_x11a8")
+[node name="FlameTurret" type="Node2D" node_paths=PackedStringArray("BUFF_RECEIVER", "moving_target_component") groups=["gadget"]]
+script = ExtResource("1_ejd0h")
 BUFF_RECEIVER = NodePath("BuffReceiver")
 moving_target_component = NodePath("MovingTargetComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 rotation = 3.14159
-texture = ExtResource("2_57lg3")
+texture = ExtResource("2_j4go8")
 
 [node name="AttackTimer" type="Timer" parent="."]
+wait_time = 3.0
 
-[node name="ProjectileAttackComponent" parent="." node_paths=PackedStringArray("ATTACK_TIMER", "TARGET_AREA", "BUFF_RECEIVER", "SHOOT_SOUND") instance=ExtResource("3_saoij")]
+[node name="ProjectileAttackComponent" parent="." node_paths=PackedStringArray("ATTACK_TIMER", "TARGET_AREA", "BUFF_RECEIVER", "SHOOT_SOUND") instance=ExtResource("3_gcn6s")]
 TARGET_TYPES = {
 "car": false,
 "cover": false,
@@ -43,10 +44,11 @@ TARGET_TYPES = {
 "terrain": false
 }
 ATTACK_TIMER = NodePath("../AttackTimer")
-BULLET_SPEED = 1500
-DAMAGE_PER_BULLET = 1.5
-PROJECTILE = ExtResource("4_4bkhr")
+BULLET_SPEED = 0
+DAMAGE_PER_BULLET = 1.0
+PROJECTILE = ExtResource("4_d8ych")
 TARGET_AREA = NodePath("ProjectileTargetArea")
+LIFETIME = 2
 BUFF_RECEIVER = NodePath("../BuffReceiver")
 SHOOT_SOUND = NodePath("AudioStreamPlayer2D")
 
@@ -55,7 +57,7 @@ shape = SubResource("CircleShape2D_h5xqt")
 debug_color = Color(0.552941, 0.4, 1, 0.419608)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="ProjectileAttackComponent"]
-stream = ExtResource("5_om6v3")
+stream = ExtResource("5_er0e2")
 volume_db = -10.0
 bus = &"SFX"
 
@@ -66,10 +68,10 @@ scale = Vector2(3.56228, 5.0407)
 energy = 0.5
 texture = SubResource("GradientTexture2D_y8sjb")
 
-[node name="MovingTargetComponent" parent="." instance=ExtResource("5_tb46h")]
+[node name="MovingTargetComponent" parent="." instance=ExtResource("6_ee6yo")]
 collision_layer = 8
 collision_mask = 0
 
-[node name="BuffReceiver" parent="." instance=ExtResource("6_fao0o")]
+[node name="BuffReceiver" parent="." instance=ExtResource("7_0y73d")]
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

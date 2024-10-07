@@ -17,7 +17,7 @@ func outer_area_entered(area):
 		for z in new_zombie_count:
 			var new_zombie = zombie.instantiate()
 			$Zombies.call_deferred("add_child", new_zombie)
-			new_zombie.global_position = global_position + Vector2(randi_range(-500,500), randi_range(-500,500))
+			new_zombie.global_position = global_position + Vector2(randi_range(-1000,1000), randi_range(-1000,1000))
 			new_zombie.state = "idle"
 
 #trigger zombies into action
@@ -28,7 +28,7 @@ func zombie_horde_triggered(area):
 		
 		#move and reparent zombies
 		for i in $Zombies.get_children():
-			i.target = CurrentRun.world.current_player_info.active_player
+			i.target = CurrentRun.world.current_train_info.furnace
 			i.state = "moving"
 			i.call_deferred("reparent", CurrentRun.world.current_level_info.active_level.enemies)
 		set_alert_text_and_play(alert_text)

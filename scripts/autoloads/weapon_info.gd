@@ -75,7 +75,7 @@ var charge_attacks_roster = {
 		"base_damage" = 8,
 	},
 	"zombie_bait" = {
-		"name" = "Zombie Bait",
+		"name" = "Poison Bait",
 		"scene" = preload("res://scenes/charge_attacks/charge_attack_zombie_bait.tscn"),
 		"sprite" = preload("res://sprites/projectiles/meat.png"),
 		"base_damage" = 0,

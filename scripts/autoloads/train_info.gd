@@ -19,13 +19,6 @@ var cars_roster = {
 	},
 }
 
-var train_stats = {
-	"car_count": 4,
-	"speed": 2.5,
-	"car_health": 100,
-	"fuel_tank": 25,
-}
-
 var train_upgrade_roster = {
 	"car_count" = {
 		"name" = "Purchase Train Car",
@@ -33,12 +26,12 @@ var train_upgrade_roster = {
 		"icon" = preload("res://sprites/ui/track_single.png"),
 		"value" = 1,
 	},
-	"speed" = {
-		"name" = "Upgrade Train Speed",
-		"cost" = 50,
-		"icon" = preload("res://sprites/ui/track_single.png"),
-		"value" = .5,
-	},
+	#"speed" = {
+		#"name" = "Upgrade Train Speed",
+		#"cost" = 50,
+		#"icon" = preload("res://sprites/ui/track_single.png"),
+		#"value" = .5,
+	#},
 	"car_health" = {
 		"name" = "Upgrade Train Car Health",
 		"cost" = 30,

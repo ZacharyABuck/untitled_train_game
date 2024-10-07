@@ -27,6 +27,10 @@ var gunsmith_item = preload("res://scenes/ui/gunsmith_item.tscn")
 var tinkerer_item = preload("res://scenes/ui/tinkerer_item.tscn")
 var mission_panel = preload("res://scenes/ui/mission_panel.tscn")
 
+func _ready():
+	hide()
+	close_all_windows()
+
 func populate_town_info(town):
 	#active town clicked
 	if CurrentRun.world.current_world_info.active_town == town.town_name:
@@ -46,9 +50,14 @@ func spawn_missions(count):
 	for i in jobs_container.get_children():
 		if i != jobs_container.get_child(0):
 			i.queue_free()
+	var max_destination_distance: int = 1500
 	for i in count:
 		var new_mission = mission_panel.instantiate()
 		jobs_container.add_child(new_mission)
+		
+		new_mission.destination = new_mission.find_random_destination(max_destination_distance)
+		max_destination_distance *= 3
+		
 		new_mission.find_random_mission()
 		new_mission.clicked.connect(owner.world_ui.spawn_mission_inventory_panel)
 
@@ -92,21 +101,25 @@ func close_all_windows():
 		i.hide()
 
 func _on_jobs_button_pressed():
+	AudioSystem.play_audio("basic_button_click")
 	close_all_windows()
 	shop_containers.show()
 	jobs.show()
 
 func _on_gunsmith_button_pressed():
+	AudioSystem.play_audio("basic_button_click")
 	close_all_windows()
 	shop_containers.show()
 	gunsmith.show()
 
 func _on_tinkerer_button_pressed():
+	AudioSystem.play_audio("basic_button_click")
 	close_all_windows()
 	shop_containers.show()
 	tinkerer.show()
 
 func _on_trainyard_button_pressed():
+	AudioSystem.play_audio("basic_button_click")
 	close_all_windows()
 	shop_containers.show()
 	trainyard.show()

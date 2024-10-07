@@ -1,8 +1,7 @@
-[gd_scene load_steps=73 format=3 uid="uid://bueh3to31tma7"]
+[gd_scene load_steps=72 format=3 uid="uid://bueh3to31tma7"]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/enemy_big_zombie.gd" id="1_e1btv"]
 [ext_resource type="PackedScene" uid="uid://cyv57gynwtrmu" path="res://components/hurtbox_component.tscn" id="2_tblxe"]
-[ext_resource type="AudioStream" uid="uid://qdyuud18a2c4" path="res://sounds/combat/hit_01.wav" id="3_lknth"]
 [ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://components/health_component.tscn" id="4_7chkb"]
 [ext_resource type="Texture2D" uid="uid://cduo5m6k4p2ln" path="res://sprites/enemies/zombie.png" id="5_1454g"]
 [ext_resource type="Shader" path="res://shaders/solid_color.gdshader" id="5_dw70b"]
@@ -444,14 +443,11 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mv14h"]
 size = Vector2(37, 54)
 
-[node name="EnemyBigZombie" type="RigidBody2D" node_paths=PackedStringArray("animations", "health_component", "attack_timer") groups=["enemy"]]
+[node name="EnemyBigZombie" type="CharacterBody2D" node_paths=PackedStringArray("animations", "health_component", "attack_timer") groups=["enemy"]]
 z_index = 1
 position = Vector2(0, 6)
 collision_layer = 8
 collision_mask = 8
-lock_rotation = true
-max_contacts_reported = 1
-contact_monitor = true
 script = ExtResource("1_e1btv")
 state = "moving"
 animations = NodePath("ZombieSpriteSheet")
@@ -465,21 +461,15 @@ shape = SubResource("CircleShape2D_jwejo")
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 1.5
 
-[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component", "hurt_sfx") instance=ExtResource("2_tblxe")]
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("2_tblxe")]
 collision_layer = 8
 collision_mask = 4
 health_component = NodePath("../HealthComponent")
-hurt_sfx = NodePath("Hurt SFX")
 
 [node name="Hurtbox" type="CollisionShape2D" parent="HurtboxComponent"]
 visible = false
 position = Vector2(-1, 7)
 shape = SubResource("RectangleShape2D_4v00t")
-
-[node name="Hurt SFX" type="AudioStreamPlayer" parent="HurtboxComponent"]
-stream = ExtResource("3_lknth")
-volume_db = -15.0
-bus = &"SFX"
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("ANIMATION", "status_effect_component") instance=ExtResource("4_7chkb")]
 MAX_HEALTH = 10.0
@@ -552,7 +542,6 @@ script = ExtResource("13_0wnty")
 
 [node name="StatusEffectComponent" parent="." instance=ExtResource("15_6xt5u")]
 
-[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="body_entered" from="WallDetector" to="." method="_on_wall_detector_body_entered"]
 [connection signal="animation_finished" from="ZombieSpriteSheet" to="StateMachine/boarding" method="animation_finished"]
 [connection signal="animation_finished" from="ZombieSpriteSheet" to="StateMachine/finish_boarding" method="animation_finished"]

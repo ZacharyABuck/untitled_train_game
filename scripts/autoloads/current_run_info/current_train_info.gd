@@ -3,6 +3,7 @@ extends Node2D
 
 var train_manager
 var train_engine
+var furnace
 
 var track_positions: Array = []
 

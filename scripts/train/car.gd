@@ -6,6 +6,7 @@ extends Node2D
 @onready var health_bar = $HealthBar
 @onready var hard_points = $HardPoints
 
+@onready var enemy_nav_points = $EnemyNavPoints
 @onready var boarding_points = $BoardingPoints
 @onready var boarding_sfx = $BoardingSFX
 @onready var damage_sfx = $DamageSFX

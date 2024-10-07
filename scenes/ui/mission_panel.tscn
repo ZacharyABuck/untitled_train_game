@@ -1,14 +1,77 @@
-[gd_scene load_steps=6 format=3 uid="uid://c8yvelgj3rqi6"]
+[gd_scene load_steps=9 format=3 uid="uid://c8yvelgj3rqi6"]
 
-[ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="1_lmkfu"]
 [ext_resource type="Script" path="res://scripts/ui/mission_panel.gd" id="1_pgc7n"]
 [ext_resource type="Texture2D" uid="uid://dutu0olvdwa37" path="res://sprites/characters/Franch Token.png" id="2_du86k"]
 [ext_resource type="FontFile" uid="uid://dxx340jybsylj" path="res://fonts/JMH Typewriter-Black.ttf" id="3_3emmr"]
 [ext_resource type="FontFile" uid="uid://tpmg7wha0yio" path="res://fonts/JMH Typewriter-Bold.ttf" id="3_phhcq"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hl22i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jrno0"]
+bg_color = Color(0.956863, 0.937255, 0.858824, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.482353, 0.27451, 0.2, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+shadow_size = 2
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ouhha"]
+bg_color = Color(0.956863, 0.937255, 0.858824, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.482353, 0.27451, 0.2, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+shadow_size = 4
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_06caj"]
+bg_color = Color(0.90116, 0.85849, 0.69205, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.482353, 0.27451, 0.2, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+shadow_size = 2
+shadow_offset = Vector2(2, 2)
+
 [node name="MissionPanel" type="PanelContainer"]
-theme = ExtResource("1_lmkfu")
+offset_right = 412.0
+offset_bottom = 93.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_hl22i")
 script = ExtResource("1_pgc7n")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_jrno0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ouhha")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_06caj")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -59,4 +122,4 @@ text = "Reward: 200"
 fit_content = true
 scroll_active = false
 
-[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

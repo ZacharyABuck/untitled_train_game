@@ -71,15 +71,19 @@ func add_item(item):
 	new_item.hovered.connect(show_gadget_info)
 	new_item.hide()
 
-func show_gadget_info(gadget_name, gadget_cost):
-	if gadget_name == null:
+func show_gadget_info(gadget):
+	if gadget == null:
 		top_text.hide()
-		#bottom_text.hide()
+		bottom_text.hide()
 	else:
+		var gadget_name = GadgetInfo.gadget_roster[gadget]["name"]
 		top_text.text = gadget_name
-		#bottom_text.text = "Cost: $" + str(gadget_cost)
+		if CurrentRun.world.current_gadget_info.gadget_inventory.has(gadget):
+			bottom_text.text = str(CurrentRun.world.current_gadget_info.gadget_inventory[gadget]) + " in inventory"
+		else:
+			bottom_text.text = str(CurrentRun.world.current_gadget_info.upgrade_kits) + " upgrade kits"
 		top_text.show()
-		#bottom_text.show()
+		bottom_text.show()
 
 func open_menu():
 	spawn_menu(current_type)

@@ -24,8 +24,8 @@ class_name ProjectileAttackComponent
 @export var MOBILE_ATTACK := false
 @export var TARGET_AREA : CollisionShape2D
 @export var LIFETIME := 3
-@export var SHOOT_SOUND : AudioStreamPlayer2D
 @export var BUFF_RECEIVER : Area2D
+@export var SHOOT_SOUND: AudioStreamPlayer2D
 
 var attack_timer
 var speed
@@ -43,9 +43,9 @@ var shoot_sound
 func _ready():
 	attack_timer = ATTACK_TIMER
 	speed = BULLET_SPEED
+	shoot_sound = SHOOT_SOUND
 	projectile = PROJECTILE
 	damage = DAMAGE_PER_BULLET
-	shoot_sound = SHOOT_SOUND
 	number_of_bullets = NUMBER_OF_BULLETS
 	shooter = get_parent()
 	target_types = TARGET_TYPES
@@ -74,8 +74,8 @@ func shoot_at_target(target):
 
 func _shoot():
 	attack_timer.start()
-	if shoot_sound != null:
-		shoot_sound.play()
+	if shoot_sound: shoot_sound.play()
+	else: AudioSystem.play_audio_2d("gunshot", global_position)
 	var new_projectile = _instantiate_bullet()
 	# Add the bullet to the parent scene of the shooter, which fires the projectile.
 	CurrentRun.world.add_child(new_projectile)

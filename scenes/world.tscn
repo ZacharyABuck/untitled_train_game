@@ -23,7 +23,6 @@
 [ext_resource type="Texture2D" uid="uid://trsm7lvfhxb4" path="res://sprites/ui/circle.png" id="20_qdyg3"]
 [ext_resource type="FontFile" uid="uid://bt4836ueqhi58" path="res://fonts/WesternBangBang-Regular.ttf" id="22_w4hsh"]
 [ext_resource type="Texture2D" uid="uid://ccydwnn5siydn" path="res://sprites/ui/x.png" id="25_c7tds"]
-[ext_resource type="AudioStream" uid="uid://pblf7wb4tdtt" path="res://sounds/ui/small_pop.mp3" id="25_sbnco"]
 [ext_resource type="Script" path="res://scripts/ui/debug_ui.gd" id="26_ugrr2"]
 
 [sub_resource type="Animation" id="Animation_4oonn"]
@@ -358,6 +357,24 @@ metadata/_better_terrain = {
 "version": "0.2"
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xbybr"]
+bg_color = Color(0.956863, 0.937255, 0.858824, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.482353, 0.27451, 0.2, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 20.0
+expand_margin_top = 10.0
+expand_margin_right = 20.0
+expand_margin_bottom = 10.0
+shadow_size = 2
+shadow_offset = Vector2(2, 2)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kndii"]
 bg_color = Color(0.956863, 0.937255, 0.858824, 1)
 border_width_left = 5
@@ -490,12 +507,14 @@ mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
-theme = ExtResource("17_7ntxb")
+theme_override_styles/panel = SubResource("StyleBoxFlat_xbybr")
 
 [node name="MissionInventoryContainer" type="GridContainer" parent="WorldUI/MarginContainer/GridContainer/HBoxContainer/PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_constants/h_separation = 30
+theme_override_constants/v_separation = 30
 columns = 4
 
 [node name="EdgeLabelContainer" type="HBoxContainer" parent="WorldUI/MarginContainer/GridContainer"]
@@ -524,9 +543,12 @@ visible = false
 script = ExtResource("18_ulvie")
 
 [node name="MarginContainer" type="MarginContainer" parent="TownsUI"]
+texture_filter = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -55.0
+offset_bottom = 55.4688
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 0
@@ -654,10 +676,12 @@ theme_override_constants/margin_bottom = 50
 [node name="JobsContainer" type="VBoxContainer" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Jobs/HBoxContainer/MissionDetails/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 30
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Jobs/HBoxContainer/MissionDetails/MarginContainer/JobsContainer"]
 layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
 
 [node name="ButtonSpacer" type="TextureButton" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Jobs/HBoxContainer/MissionDetails/MarginContainer/JobsContainer/HBoxContainer"]
 modulate = Color(1, 1, 1, 0)
@@ -669,8 +693,8 @@ texture_normal = ExtResource("25_c7tds")
 stretch_mode = 3
 
 [node name="JobsLabel" type="RichTextLabel" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Jobs/HBoxContainer/MissionDetails/MarginContainer/JobsContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 theme = ExtResource("17_7ntxb")
 theme_override_fonts/normal_font = ExtResource("22_w4hsh")
 theme_override_font_sizes/normal_font_size = 50
@@ -727,6 +751,7 @@ theme_override_constants/separation = 30
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Gunsmith/HBoxContainer/BG/MarginContainer/GunsmithItemsList"]
 layout_mode = 2
+alignment = 1
 
 [node name="ButtonSpacer" type="TextureButton" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Gunsmith/HBoxContainer/BG/MarginContainer/GunsmithItemsList/HBoxContainer"]
 modulate = Color(1, 1, 1, 0)
@@ -738,8 +763,8 @@ texture_normal = ExtResource("25_c7tds")
 stretch_mode = 3
 
 [node name="GunsmithLabel" type="RichTextLabel" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Gunsmith/HBoxContainer/BG/MarginContainer/GunsmithItemsList/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 theme = ExtResource("17_7ntxb")
 theme_override_fonts/normal_font = ExtResource("22_w4hsh")
 theme_override_font_sizes/normal_font_size = 50
@@ -796,6 +821,7 @@ theme_override_constants/separation = 30
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Tinkerer/HBoxContainer/BG/MarginContainer/TinkererItemsList"]
 layout_mode = 2
+alignment = 1
 
 [node name="ButtonSpacer" type="TextureButton" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Tinkerer/HBoxContainer/BG/MarginContainer/TinkererItemsList/HBoxContainer"]
 modulate = Color(1, 1, 1, 0)
@@ -807,8 +833,8 @@ texture_normal = ExtResource("25_c7tds")
 stretch_mode = 3
 
 [node name="TinkererLabel" type="RichTextLabel" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Tinkerer/HBoxContainer/BG/MarginContainer/TinkererItemsList/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 theme = ExtResource("17_7ntxb")
 theme_override_fonts/normal_font = ExtResource("22_w4hsh")
 theme_override_font_sizes/normal_font_size = 50
@@ -865,6 +891,7 @@ theme_override_constants/separation = 30
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Trainyard/HBoxContainer/MissionDetails/MarginContainer/TrainyardItemsList"]
 layout_mode = 2
+alignment = 1
 
 [node name="ButtonSpacer" type="TextureButton" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Trainyard/HBoxContainer/MissionDetails/MarginContainer/TrainyardItemsList/HBoxContainer"]
 modulate = Color(1, 1, 1, 0)
@@ -876,8 +903,8 @@ texture_normal = ExtResource("25_c7tds")
 stretch_mode = 3
 
 [node name="TrainyardLabel" type="RichTextLabel" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Trainyard/HBoxContainer/MissionDetails/MarginContainer/TrainyardItemsList/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 theme = ExtResource("17_7ntxb")
 theme_override_fonts/normal_font = ExtResource("22_w4hsh")
 theme_override_font_sizes/normal_font_size = 50
@@ -894,22 +921,12 @@ size_flags_vertical = 0
 texture_normal = ExtResource("25_c7tds")
 stretch_mode = 3
 
-[node name="TabContainer" type="TabContainer" parent="TownsUI/MarginContainer"]
-visible = false
-layout_mode = 2
-theme = ExtResource("17_7ntxb")
-theme_override_constants/side_margin = 20
-theme_override_constants/icon_separation = 20
-theme_override_constants/icon_max_width = 32
-theme_override_constants/outline_size = 0
-tab_alignment = 1
-
 [node name="CloseButton" type="TextureButton" parent="TownsUI"]
 layout_direction = 3
-offset_left = 392.0
-offset_top = 147.0
-offset_right = 456.0
-offset_bottom = 211.0
+offset_left = 400.0
+offset_top = 162.0
+offset_right = 432.0
+offset_bottom = 194.0
 size_flags_horizontal = 8
 size_flags_vertical = 0
 texture_normal = ExtResource("25_c7tds")
@@ -1236,13 +1253,6 @@ offset_top = 309.0
 offset_right = 1673.0
 offset_bottom = 667.0
 fixed_icon_size = Vector2i(10, 10)
-
-[node name="Audio" type="Node2D" parent="."]
-
-[node name="SmallPopSFX" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("25_sbnco")
-volume_db = -10.0
-bus = &"SFX"
 
 [connection signal="pressed" from="TownsUI/MarginContainer/PanelContainer/TownButtons/JobsButton" to="TownsUI" method="_on_jobs_button_pressed"]
 [connection signal="pressed" from="TownsUI/MarginContainer/PanelContainer/TownButtons/GunsmithButton" to="TownsUI" method="_on_gunsmith_button_pressed"]

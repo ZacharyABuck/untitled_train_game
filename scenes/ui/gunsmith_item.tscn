@@ -80,12 +80,14 @@ theme_override_constants/separation = 20
 [node name="Icon" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 texture = ExtResource("2_sgryq")
 expand_mode = 3
 stretch_mode = 4
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="ItemName" type="RichTextLabel" parent="HBoxContainer/VBoxContainer2"]
 layout_mode = 2

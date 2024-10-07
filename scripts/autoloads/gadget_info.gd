@@ -43,11 +43,18 @@ var gadget_roster = {
 		"sprite" = load("res://sprites/gadgets/gadget_medical_station.png"),
 		"cost" = 20,
 	},
-	"shockwire" = {
-		"name" = "Shockwire",
-		"location" = "car",
-		"scene" = load("res://scenes/gadgets/gadget_shockwire.tscn"),
-		"sprite" = load("res://sprites/gadgets/gadget_shockwire_icon.png"),
+	#"shockwire" = {
+		#"name" = "Shockwire",
+		#"location" = "car",
+		#"scene" = load("res://scenes/gadgets/gadget_shockwire.tscn"),
+		#"sprite" = load("res://sprites/gadgets/gadget_shockwire_icon.png"),
+		#"cost" = 10,
+	#},
+	"shock_turret" = {
+		"name" = "Shock Turret",
+		"location" = "hard_point",
+		"scene" = load("res://scenes/gadgets/gadget_shock_turret.tscn"),
+		"sprite" = load("res://sprites/gadgets/gadget_pistol_turret.png"),
 		"cost" = 10,
 	},
 	"rifle_turret" = {
@@ -92,10 +99,17 @@ var gadget_roster = {
 		"sprite" = load("res://sprites/gadgets/gadget_explosive_turret.png"),
 		"cost" = 25,
 	},
+	"flame_turret" = {
+		"name" = "Flame Turret",
+		"location" = "hard_point",
+		"scene" = load("res://scenes/gadgets/gadget_flame_turret.tscn"),
+		"sprite" = load("res://sprites/gadgets/gadget_pistol_turret.png"),
+		"cost" = 10,
+	},
 }
 
 var upgrade_rosters = {
-	default = ["pistol_turret", "light_armor", "medical_station", "shockwire"],
+	default = ["pistol_turret", "light_armor", "medical_station", "flame_turret", "shock_turret"],
 	pistol_turret = ["rifle_turret", "explosive_turret"],
 	explosive_turret = ["explosive_turret_long_range", "explosive_turret_more_damage"],
 	rifle_turret = ["rifle_turret_quick_loading", "rifle_turret_more_damage"],

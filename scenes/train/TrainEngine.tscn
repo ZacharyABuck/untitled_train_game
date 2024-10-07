@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://c2qsc24ng38ir"]
+[gd_scene load_steps=8 format=3 uid="uid://c2qsc24ng38ir"]
 
 [ext_resource type="PackedScene" uid="uid://bjqtvbefblx2e" path="res://scenes/train/TrainVehicle.tscn" id="1"]
 [ext_resource type="Script" path="res://scripts/train/TrainEngine.gd" id="2_ggyah"]
+[ext_resource type="PackedScene" uid="uid://b8cyhwgp2p27m" path="res://scenes/train/furnace.tscn" id="3_l7i3n"]
 
 [sub_resource type="Gradient" id="Gradient_uf4c3"]
 interpolation_mode = 2
@@ -53,7 +54,16 @@ scale = Vector2(5.07813, 10.2344)
 energy = 1.5
 texture = SubResource("GradientTexture2D_pkob8")
 
+[node name="Furnace" parent="Car" index="17" instance=ExtResource("3_l7i3n")]
+position = Vector2(0, 72)
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 libraries = {
 "": SubResource("AnimationLibrary_tvwec")
 }
+
+[node name="SmokeTimer" type="Timer" parent="." index="5"]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="SmokeTimer" to="." method="_on_smoke_timer_timeout"]

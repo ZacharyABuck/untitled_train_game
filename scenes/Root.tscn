@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://xmq032mdyq7a"]
+[gd_scene load_steps=16 format=3 uid="uid://xmq032mdyq7a"]
 
 [ext_resource type="Script" path="res://scripts/root.gd" id="1_ghyap"]
 [ext_resource type="Script" path="res://scenes/ui/tutorials/tutorial_ui.gd" id="2_g3gya"]
 [ext_resource type="Texture2D" uid="uid://cgjqovlv6ei7e" path="res://sprites/images/title_screen_sketch.png" id="5_7hjqj"]
 [ext_resource type="FontFile" uid="uid://dxx340jybsylj" path="res://fonts/JMH Typewriter-Black.ttf" id="5_v4riv"]
 [ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="7_34xrp"]
+[ext_resource type="StyleBox" uid="uid://csq3chiitmhpv" path="res://scenes/ui/style_box_button_normal.tres" id="8_lou6t"]
 [ext_resource type="Script" path="res://scripts/ui/escape_menu.gd" id="16_exmmo"]
 [ext_resource type="Texture2D" uid="uid://trsm7lvfhxb4" path="res://sprites/ui/circle.png" id="16_jgqyq"]
 
@@ -280,7 +281,9 @@ offset_top = 651.0
 offset_right = 1113.0
 offset_bottom = 742.0
 theme = ExtResource("7_34xrp")
+theme_override_colors/font_disabled_color = Color(0.482353, 0.27451, 0.2, 1)
 theme_override_font_sizes/font_size = 30
+theme_override_styles/disabled = ExtResource("8_lou6t")
 text = "Start Game"
 
 [node name="CheckBox" type="CheckBox" parent="TitleScreen"]

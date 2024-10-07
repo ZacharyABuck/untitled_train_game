@@ -26,7 +26,8 @@ func apply_poison():
 	is_poisoned = true
 	if poison_tick_timer.is_stopped():
 		poison_tick_timer.start()
-	poison_timer.start()
+	if poison_timer:
+		poison_timer.start()
 
 func apply_shock():
 	is_shocked = true

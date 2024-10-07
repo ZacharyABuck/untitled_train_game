@@ -14,10 +14,8 @@ signal clicked
 @onready var tinkerer_icon = $TravelInfo/MarginContainer/VBoxContainer/HBoxContainer/TinkererIcon
 @onready var on_screen_notifier = $TravelInfo/MarginContainer/CloseButton/OnScreenNotifier
 
-
 var top_pos = -600
 var bottom_pos = 200
-
 
 var town_name: String
 var town_images: Array = [preload("res://sprites/town/world_map_town_1.png"), preload("res://sprites/town/world_map_town_2.png"), preload("res://sprites/town/world_map_town_3.png")]
@@ -34,7 +32,7 @@ func _ready():
 func _on_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed:
 		clicked.emit()
-		$ClickedSFX.play()
+		AudioSystem.play_audio("big_select")
 
 func set_town_info(town):
 	town_name = town
@@ -85,7 +83,7 @@ func hide_you_are_here():
 
 func _on_mouse_entered():
 	$HoverAnimation.play("name_bounce")
-	$HoverSFX.play()
+	AudioSystem.play_audio("tick")
 
 func _on_mouse_exited():
 	$HoverAnimation.play("name_reset", .5)

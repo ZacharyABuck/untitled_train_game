@@ -1,12 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://cwgn51i4160nt"]
+[gd_scene load_steps=16 format=3 uid="uid://cwgn51i4160nt"]
 
 [ext_resource type="Script" path="res://scripts/town.gd" id="1_mviet"]
 [ext_resource type="Texture2D" uid="uid://degtajbagy7wq" path="res://sprites/town/world_map_town_1.png" id="2_fjydp"]
 [ext_resource type="FontFile" uid="uid://lxcj83h6gsu7" path="res://fonts/JMH Typewriter-Black.otf" id="2_hdird"]
-[ext_resource type="AudioStream" uid="uid://dj7kocwaaxocr" path="res://sounds/ui/big_select.mp3" id="4_60ynl"]
 [ext_resource type="Texture2D" uid="uid://cofci5enhbedj" path="res://sprites/ui/arrow.png" id="5_u7tm2"]
 [ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="6_jtu27"]
-[ext_resource type="AudioStream" uid="uid://d2nwj7vu6t12t" path="res://sounds/ui/menu-select-tick.wav" id="7_hsko1"]
 [ext_resource type="Texture2D" uid="uid://dqk86uxif1wyp" path="res://sprites/ui/rifle_sketch.png" id="8_a0fk0"]
 [ext_resource type="Texture2D" uid="uid://ccydwnn5siydn" path="res://sprites/ui/x.png" id="8_m8501"]
 [ext_resource type="Texture2D" uid="uid://bfhfpjjn1ks4" path="res://sprites/ui/train_sketch.png" id="9_i57c5"]
@@ -149,11 +147,6 @@ libraries = {
 "": SubResource("AnimationLibrary_kefwq")
 }
 
-[node name="ClickedSFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_60ynl")
-volume_db = -10.0
-bus = &"SFX"
-
 [node name="ArrowSprite" type="Sprite2D" parent="."]
 visible = false
 texture_filter = 1
@@ -204,11 +197,6 @@ theme_override_font_sizes/font_size = 50
 text = "townsville"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="HoverSFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_hsko1")
-volume_db = -15.0
-bus = &"SFX"
 
 [node name="TravelInfo" type="MarginContainer" parent="."]
 visible = false

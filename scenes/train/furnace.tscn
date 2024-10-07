@@ -1,0 +1,91 @@
+[gd_scene load_steps=12 format=3 uid="uid://b8cyhwgp2p27m"]
+
+[ext_resource type="Shader" path="res://shaders/fire.gdshader" id="1_uaq3l"]
+[ext_resource type="PackedScene" uid="uid://cyv57gynwtrmu" path="res://components/hurtbox_component.tscn" id="1_vc4y4"]
+[ext_resource type="Script" path="res://scripts/train/furnace.gd" id="1_wbm24"]
+[ext_resource type="Texture2D" uid="uid://ck0ax7wr75kox" path="res://sprites/train/furnace.png" id="2_i8srq"]
+[ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://components/health_component.tscn" id="3_46fpg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2o0d1"]
+shader = ExtResource("1_uaq3l")
+shader_parameter/transparent = Color(0, 0, 0, 0)
+shader_parameter/inner = Color(0, 0, 0.882353, 1)
+shader_parameter/outer = Color(1, 1, 1, 1)
+shader_parameter/inner_threshold = 0.08
+shader_parameter/outer_threshold = 0.03
+shader_parameter/soft_edge = -4.35
+shader_parameter/center = Vector2(0.5, 0.695)
+shader_parameter/OCTAVES = 2
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_nmmua"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_etc5s"]
+size = Vector2(29.5, 30.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dwjki"]
+size = Vector2(39, 41)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8b4sl"]
+bg_color = Color(0.262745, 0, 0, 0.4)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7lvr5"]
+bg_color = Color(0.901961, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Furnace" type="StaticBody2D" groups=["furnace"]]
+collision_mask = 521
+script = ExtResource("1_wbm24")
+
+[node name="FurnaceSprite" type="Sprite2D" parent="."]
+position = Vector2(0, 2.38419e-07)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_i8srq")
+
+[node name="Fire" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_2o0d1")
+position = Vector2(0, 2.38419e-07)
+scale = Vector2(40, 42)
+texture = SubResource("CanvasTexture_nmmua")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_etc5s")
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("1_vc4y4")]
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+visible = false
+shape = SubResource("RectangleShape2D_dwjki")
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("HEALTHBAR") instance=ExtResource("3_46fpg")]
+MAX_HEALTH = 30.0
+HEALTHBAR = NodePath("../FurnaceHealthBar")
+
+[node name="FurnaceHealthBar" type="ProgressBar" parent="."]
+offset_left = -19.0
+offset_top = -31.0
+offset_right = 21.0
+offset_bottom = -21.0
+theme_override_styles/background = SubResource("StyleBoxFlat_8b4sl")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7lvr5")
+max_value = 50.0
+value = 25.0
+show_percentage = false
