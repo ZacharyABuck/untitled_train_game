@@ -1,9 +1,13 @@
 extends Edge
 
-func handle_level_up():
-	update_player_info()
+var armor_amount: int = 3
 
-func update_player_info():
-	CurrentRun.world.current_player_info.current_armor += 1
-	CurrentRun.world.current_player_info.active_player.health_component.ARMOR_VALUE = CurrentRun.world.current_player_info.current_armor
-	print("ARMOR: " + str(CurrentRun.world.current_player_info.active_player.health_component.ARMOR_VALUE))
+func _ready():
+	CurrentRun.world.current_train_info.furnace.health_component.ARMOR_VALUE += armor_amount
+	print("Furnace Armor: " + str(CurrentRun.world.current_train_info.furnace.health_component.ARMOR_VALUE))
+	
+	super()
+
+func handle_level_up():
+	CurrentRun.world.current_train_info.furnace.health_component.ARMOR_VALUE += armor_amount
+	print("Furnace Armor: " + str(CurrentRun.world.current_train_info.furnace.health_component.ARMOR_VALUE))

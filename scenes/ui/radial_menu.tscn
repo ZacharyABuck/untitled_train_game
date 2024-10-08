@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://pm3hv6iafrq7" path="res://sprites/ui/indicator_interact.png" id="3_co6e5"]
 
 [sub_resource type="Gradient" id="Gradient_np4qb"]
-offsets = PackedFloat32Array(0.694215, 0.702479)
-colors = PackedColorArray(0.87451, 0.745098, 0.435294, 0.466667, 0, 0, 0, 0)
+offsets = PackedFloat32Array(0.637363, 0.653846, 0.678571)
+colors = PackedColorArray(0.956863, 0.937255, 0.858824, 1, 0.482353, 0.27451, 0.2, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_buoqf"]
 gradient = SubResource("Gradient_np4qb")

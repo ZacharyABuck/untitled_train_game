@@ -1,7 +1,7 @@
 # YOU MUST CREATE AND ASSIGN A COLLISION SHAPE IN THE SCENE WHERE YOU PUT THIS
 extends Area2D
 
-var possible_types = ["default", "pistol_turret", "light_armor", "explosive_turret", "rifle_turret", "medical_station", "none"]
+var possible_types = ["default", "pistol_turret", "explosive_turret", "rifle_turret", "none"]
 var current_type
 @export var radius: int
 @export var collision_shape: CollisionShape2D
@@ -26,16 +26,13 @@ func _ready():
 
 func _on_mouse_entered():
 	if CurrentRun.world.current_player_info.active_player:
-		if CurrentRun.world.current_player_info.state == "default":
-			if CurrentRun.world.current_player_info.active_player.active_car == get_parent().car.index and current_type != "none":
-				if current_type == "default":
-					for i in GadgetInfo.upgrade_rosters[current_type]:
-						if CurrentRun.world.current_gadget_info.gadget_inventory.has(i) and CurrentRun.world.current_gadget_info.gadget_inventory[i] > 0:
-							$AnimationPlayer.play("flash")
-							selected = true
-				elif CurrentRun.world.current_gadget_info.upgrade_kits > 0:
+		if CurrentRun.world.current_player_info.state == "default" and \
+		CurrentRun.world.current_player_info.active_player.active_car == get_parent().car.index and current_type != "none":
+			for i in GadgetInfo.upgrade_rosters[current_type]:
+				if GadgetInfo.gadget_roster[i]["unlocked"] == true:
 					$AnimationPlayer.play("flash")
 					selected = true
+					break
 		else:
 			$AnimationPlayer.play("still")
 			selected = false
@@ -53,12 +50,8 @@ func _process(_delta):
 
 func spawn_menu(type):
 	for i in GadgetInfo.upgrade_rosters[type]:
-		if type == "default":
-			if CurrentRun.world.current_gadget_info.gadget_inventory.has(i) and CurrentRun.world.current_gadget_info.gadget_inventory[i] > 0:
-				add_item(i)
-		elif CurrentRun.world.current_gadget_info.upgrade_kits > 0:
+		if GadgetInfo.gadget_roster[i]["unlocked"] == true:
 			add_item(i)
-			
 
 func add_item(item):
 	var item_info = GadgetInfo.gadget_roster[item]
@@ -71,15 +64,16 @@ func add_item(item):
 	new_item.hovered.connect(show_gadget_info)
 	new_item.hide()
 
-func show_gadget_info(gadget_name, gadget_cost):
-	if gadget_name == null:
+func show_gadget_info(gadget):
+	if gadget == null:
 		top_text.hide()
-		#bottom_text.hide()
+		bottom_text.hide()
 	else:
+		var gadget_name = GadgetInfo.gadget_roster[gadget]["name"]
 		top_text.text = gadget_name
-		#bottom_text.text = "Cost: $" + str(gadget_cost)
+		bottom_text.text = "Cost: $" + str(GadgetInfo.gadget_roster[gadget]["cost"])
 		top_text.show()
-		#bottom_text.show()
+		bottom_text.show()
 
 func open_menu():
 	spawn_menu(current_type)

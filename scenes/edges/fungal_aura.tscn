@@ -36,7 +36,7 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.7, 0.1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p5spa"]
-radius = 110.005
+radius = 234.002
 
 [node name="FungalAura" type="Node2D"]
 script = ExtResource("1_dkwsu")
@@ -45,6 +45,7 @@ edge_reference = "fungal_aura"
 [node name="Aura" type="Sprite2D" parent="."]
 z_index = -5
 material = SubResource("ShaderMaterial_8ked5")
+scale = Vector2(2.06641, 2.0625)
 texture = SubResource("GradientTexture2D_2sev8")
 
 [node name="DamageTimer" type="Timer" parent="."]
@@ -56,7 +57,6 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-visible = false
 shape = SubResource("CircleShape2D_p5spa")
 
 [connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]

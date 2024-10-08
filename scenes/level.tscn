@@ -26,6 +26,7 @@
 [ext_resource type="Shader" path="res://shaders/rain.gdshader" id="22_kbqtr"]
 [ext_resource type="AudioStream" uid="uid://b6nhfkp7qtu2x" path="res://sounds/combat/reloading.mp3" id="22_ookke"]
 [ext_resource type="AudioStream" uid="uid://dqjq17gkaquqx" path="res://sounds/world/rain.wav" id="23_dws0p"]
+[ext_resource type="PackedScene" uid="uid://0trmx7iuisj2" path="res://scenes/enemies/enemy_spawn_system.tscn" id="27_yh7dx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vtfsx"]
 
@@ -877,9 +878,6 @@ metadata/_better_terrain = {
 "version": "0.2"
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_tx5uk"]
-radius = 35.0571
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cqxjf"]
 shader = ExtResource("5_qayv6")
 shader_parameter/limit = 0.2
@@ -1134,68 +1132,6 @@ script = ExtResource("3_nn34h")
 
 [node name="Enemies" type="Node2D" parent="."]
 
-[node name="EnemySpawnPositions" type="Node2D" parent="."]
-
-[node name="0" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(-595, -930)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/0"]
-shape = SubResource("CircleShape2D_tx5uk")
-debug_color = Color(0.705882, 0, 0.156863, 0.835294)
-
-[node name="1" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(-950, -617)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/1"]
-shape = SubResource("CircleShape2D_tx5uk")
-debug_color = Color(0.705882, 0, 0.156863, 0.835294)
-
-[node name="2" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(-1187, -157)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/2"]
-shape = SubResource("CircleShape2D_tx5uk")
-debug_color = Color(0.705882, 0, 0.156863, 0.835294)
-
-[node name="3" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(-1178, 321)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/3"]
-shape = SubResource("CircleShape2D_tx5uk")
-debug_color = Color(0.705882, 0, 0.156863, 0.835294)
-
-[node name="4" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(1174, 171)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/4"]
-shape = SubResource("CircleShape2D_tx5uk")
-debug_color = Color(0.705882, 0, 0.156863, 0.835294)
-
-[node name="5" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(1134, -202)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/5"]
-shape = SubResource("CircleShape2D_tx5uk")
-debug_color = Color(0.705882, 0, 0.156863, 0.835294)
-
-[node name="6" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(878, -649)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/6"]
-shape = SubResource("CircleShape2D_tx5uk")
-debug_color = Color(0.705882, 0, 0.156863, 0.835294)
-
-[node name="7" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(383, -942)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/7"]
-shape = SubResource("CircleShape2D_tx5uk")
-debug_color = Color(0.705882, 0, 0.156863, 0.835294)
-
-[node name="EnemyWaveTimer" type="Timer" parent="."]
-wait_time = 30.0
-autostart = true
-
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="TiltShift" type="ColorRect" parent="UI"]
@@ -1284,7 +1220,7 @@ text = "Level: 1"
 [node name="MoneyLabel" type="Label" parent="UI"]
 offset_left = 1690.0
 offset_top = 98.0
-offset_right = 3543.0
+offset_right = 1855.0
 offset_bottom = 137.0
 theme_override_colors/font_color = Color(0.870588, 0.74902, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -1292,6 +1228,18 @@ theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("5_uxjuw")
 theme_override_font_sizes/font_size = 30
 text = "Money = 0"
+
+[node name="ScrapLabel" type="Label" parent="UI"]
+offset_left = 1690.0
+offset_top = 138.0
+offset_right = 1855.0
+offset_bottom = 177.0
+theme_override_colors/font_color = Color(0.870588, 0.466667, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("5_uxjuw")
+theme_override_font_sizes/font_size = 30
+text = "Scrap = 0"
 
 [node name="EdgeMenu" type="HBoxContainer" parent="UI"]
 process_mode = 3
@@ -1568,7 +1516,8 @@ bus = &"SFX"
 
 [node name="WeaponSpawner" parent="." instance=ExtResource("17_lhsmc")]
 
-[connection signal="timeout" from="EnemyWaveTimer" to="." method="wave_timer_timeout"]
+[node name="EnemySpawnSystem" parent="." instance=ExtResource("27_yh7dx")]
+
 [connection signal="mouse_entered" from="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel/Button" to="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel" method="_on_button_mouse_entered"]
 [connection signal="pressed" from="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel/Button" to="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel" method="_on_button_pressed"]
 [connection signal="mouse_entered" from="UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel/Button" to="UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel" method="_on_button_mouse_entered"]

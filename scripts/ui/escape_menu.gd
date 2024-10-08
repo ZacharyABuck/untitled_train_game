@@ -31,7 +31,6 @@ func _on_volume_slider_value_changed(value):
 func _on_back_button_button_up():
 	reset()
 
-
 func quit_button_button_up():
 	default.hide()
 	are_you_sure_menu.show()

@@ -22,7 +22,7 @@ func _setup_train():
 		CurrentRun.world.current_train_info.cars_inventory[0] = {"node" = null, "type" = last_vehicle.car.type, "hard_points" = {}, "gadgets" = {},}
 	CurrentRun.world.current_train_info.cars_inventory[0]["node"] = last_vehicle.car
 	last_vehicle.car.set_parameters()
-	last_vehicle.car.check_for_gadgets()
+	#last_vehicle.car.check_for_gadgets()
 	
 	var need_passenger_car: bool = false
 	for i in CurrentRun.world.current_mission_info.mission_inventory:
@@ -69,7 +69,7 @@ func _setup_train():
 				
 			CurrentRun.world.current_train_info.cars_inventory[index]["node"] = last_vehicle.car
 			last_vehicle.car.set_parameters()
-			last_vehicle.car.check_for_gadgets()
+			#last_vehicle.car.check_for_gadgets()
 
 func _on_timer_timeout() -> void:
 	_setup_train()

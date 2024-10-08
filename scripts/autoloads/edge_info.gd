@@ -17,12 +17,12 @@ var edge_roster = {
 		"description" = "Move Speed +20%",
 		"update" = false,
 	},
-	"shadowstep" = {
-		"name" = "Shadowstep",
-		"category" = "Elsewhere",
-		"scene" = load("res://scenes/edges/shadowstep.tscn"),
-		"sprite" = load("res://sprites/edges/shadowstep.png"),
-		"description" = "Turn to shadows when hit",
+	"spare_bullets" = {
+		"name" = "Spare Bullets",
+		"category" = "Survivalist",
+		"scene" = load("res://scenes/edges/spare_bullets.tscn"),
+		"sprite" = load("res://sprites/edges/spare_bullets.png"),
+		"description" = "Nearby turrets shoots faster",
 		"update" = true,
 	},
 	"fungal_aura" = {
@@ -38,8 +38,8 @@ var edge_roster = {
 		"category" = "Survivalist",
 		"scene" = load("res://scenes/edges/thick_hide.tscn"),
 		"sprite" = load("res://sprites/edges/thick_hide.png"),
-		"description" = "Armor +1",
-		"update" = false,
+		"description" = "Furnace Armor +1",
+		"update" = true,
 	},
 	"cursed_appendage" = {
 		"name" = "Cursed Appendage",

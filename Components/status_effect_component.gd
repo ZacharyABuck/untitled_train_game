@@ -26,7 +26,8 @@ func apply_poison():
 	is_poisoned = true
 	if poison_tick_timer.is_stopped():
 		poison_tick_timer.start()
-	poison_timer.start()
+	if poison_timer:
+		poison_timer.start()
 
 func apply_shock():
 	is_shocked = true
@@ -42,11 +43,9 @@ func apply_fire():
 
 func shock():
 	if is_shocked:
-		character.speed = character.enemy_stats["speed"] * .5
+		character.shock_speed_multiplier = .75
 	else:
-		character.speed = character.enemy_stats["speed"]
-		if character.elite:
-			character.speed += EnemyInfo.elite_modifiers["speed"]
+		character.shock_speed_multiplier = 1
 
 func _on_shock_timer_timeout():
 	is_shocked = false

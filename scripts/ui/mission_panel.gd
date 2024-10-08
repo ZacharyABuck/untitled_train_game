@@ -9,7 +9,6 @@ var time_limit
 signal clicked
 
 func find_random_mission():
-	destination = find_random_destination()
 	
 	var random_mission_type = MissionInfo.mission_type_roster.keys().pick_random()
 	var random_mission = MissionInfo.mission_type_roster[random_mission_type]
@@ -29,7 +28,7 @@ func find_random_mission():
 	var distance = CurrentRun.world.current_world_info.towns_inventory[destination]["scene"].global_position.distance_to\
 	(CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"].global_position)
 	
-	var random_reward = random_mission["reward"] + round(distance*.01)
+	var random_reward = random_mission["reward"] + round(distance*.005)
 	var random_time_limit = randi_range(1,3)
 	if random_time_limit > 1:
 		$HBoxContainer/VBoxContainer/Reward.text = "Reward: " + str(random_reward) + "      " + str(random_time_limit) + " days"
@@ -37,26 +36,30 @@ func find_random_mission():
 		$HBoxContainer/VBoxContainer/Reward.text = "Reward: " + str(random_reward) + "      " + str(random_time_limit) + " day"
 	reward = random_reward
 	time_limit = random_time_limit
+	$Button.mouse_entered.connect(CurrentRun.world.show_travel_line.bind(destination))
+	$Button.mouse_exited.connect(CurrentRun.world.camera.reset)
 
-func find_random_destination():
+func find_random_destination(max_distance):
+	var active_town = CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"]
 	var valid_destination: bool = false
 	while valid_destination == false:
 		var random_destination = CurrentRun.world.current_world_info.towns_inventory.keys().pick_random()
-		if random_destination == CurrentRun.world.current_world_info.active_town:
+		if CurrentRun.world.current_world_info.towns_inventory[random_destination]["scene"] == active_town or \
+		abs(CurrentRun.world.current_world_info.towns_inventory[random_destination]["scene"].global_position.distance_to(active_town.global_position)) > max_distance:
 			pass
 		else:
 			return random_destination
-
-func _on_gui_input(event):
-	if event is InputEventMouseButton and event.pressed:
-		var id = randi()
-		if CurrentRun.world.current_mission_info.mission_inventory.keys().size() < 3:
-			CurrentRun.world.current_mission_info.mission_inventory[id] = \
-			{"type" = mission_type,
-			"destination" = destination,
-			"character" = character,
-			"reward" = reward,
-			"time_limit" = time_limit,
-			"icon" = $HBoxContainer/MissionIcon.texture,}
-			clicked.emit(id)
-			queue_free()
+	
+func _on_button_pressed():
+	var id = randi()
+	if CurrentRun.world.current_mission_info.mission_inventory.keys().size() < 3:
+		CurrentRun.world.current_mission_info.mission_inventory[id] = \
+		{"type" = mission_type,
+		"destination" = destination,
+		"character" = character,
+		"reward" = reward,
+		"time_limit" = time_limit,
+		"icon" = $HBoxContainer/MissionIcon.texture,}
+		clicked.emit(id)
+		modulate = Color.TRANSPARENT
+		$Button.mouse_filter = MOUSE_FILTER_IGNORE

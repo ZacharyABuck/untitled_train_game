@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=3 uid="uid://0trmx7iuisj2"]
+
+[ext_resource type="Script" path="res://scripts/enemies/enemy_spawn_system.gd" id="1_ckjw0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tx5uk"]
+radius = 35.0571
+
+[node name="EnemySpawnSystem" type="Node2D"]
+script = ExtResource("1_ckjw0")
+
+[node name="EnemySpawnPositions" type="Node2D" parent="."]
+
+[node name="Default" type="Node2D" parent="EnemySpawnPositions"]
+
+[node name="0" type="Node2D" parent="EnemySpawnPositions/Default"]
+position = Vector2(-462, 818)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/Default/0"]
+shape = SubResource("CircleShape2D_tx5uk")
+debug_color = Color(0.705882, 0, 0.156863, 0.835294)
+
+[node name="1" type="Node2D" parent="EnemySpawnPositions/Default"]
+position = Vector2(-219, 883)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/Default/1"]
+shape = SubResource("CircleShape2D_tx5uk")
+debug_color = Color(0.705882, 0, 0.156863, 0.835294)
+
+[node name="2" type="Node2D" parent="EnemySpawnPositions/Default"]
+position = Vector2(144, 995)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/Default/2"]
+shape = SubResource("CircleShape2D_tx5uk")
+debug_color = Color(0.705882, 0, 0.156863, 0.835294)
+
+[node name="3" type="Node2D" parent="EnemySpawnPositions/Default"]
+position = Vector2(352, 811)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/Default/3"]
+shape = SubResource("CircleShape2D_tx5uk")
+debug_color = Color(0.705882, 0, 0.156863, 0.835294)
+
+[node name="Extra" type="Node2D" parent="EnemySpawnPositions"]
+
+[node name="0" type="Node2D" parent="EnemySpawnPositions/Extra"]
+position = Vector2(-815, -423)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/Extra/0"]
+shape = SubResource("CircleShape2D_tx5uk")
+debug_color = Color(0.705882, 0, 0.156863, 0.835294)
+
+[node name="1" type="Node2D" parent="EnemySpawnPositions/Extra"]
+position = Vector2(898, -441)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/Extra/1"]
+shape = SubResource("CircleShape2D_tx5uk")
+debug_color = Color(0.705882, 0, 0.156863, 0.835294)
+
+[node name="EnemyWaveTimer" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
+
+[connection signal="timeout" from="EnemyWaveTimer" to="." method="wave_timer_timeout"]

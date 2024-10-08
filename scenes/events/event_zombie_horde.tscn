@@ -21,26 +21,15 @@ shape = SubResource("RectangleShape2D_wrsax")
 [node name="Zombies" type="Node2D" parent="."]
 
 [node name="EnemyZombie" parent="Zombies" instance=ExtResource("2_fviex")]
+position = Vector2(603, 1289)
 state = "idle"
 
 [node name="EnemyZombie2" parent="Zombies" instance=ExtResource("2_fviex")]
-position = Vector2(98, -118)
+position = Vector2(1044, -1342)
 state = "idle"
 
 [node name="EnemyZombie3" parent="Zombies" instance=ExtResource("2_fviex")]
-position = Vector2(-115, -145)
-state = "idle"
-
-[node name="EnemyZombie4" parent="Zombies" instance=ExtResource("2_fviex")]
-position = Vector2(-100, -41)
-state = "idle"
-
-[node name="EnemyZombie5" parent="Zombies" instance=ExtResource("2_fviex")]
-position = Vector2(-103, 123)
-state = "idle"
-
-[node name="EnemyZombie6" parent="Zombies" instance=ExtResource("2_fviex")]
-position = Vector2(108, 81)
+position = Vector2(-205, -1321)
 state = "idle"
 
 [node name="OuterArea" type="Area2D" parent="."]

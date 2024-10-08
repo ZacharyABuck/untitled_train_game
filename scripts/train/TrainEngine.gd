@@ -20,6 +20,7 @@ var applied_force := 0.0
 var brake_force := 0.0
 var velocity := 0.0
 
+var smoke = preload("res://scenes/train/smoke.tscn")
 @onready var train_whistle_sfx = $TrainWhistleSFX
 
 func _ready() -> void:
@@ -82,3 +83,11 @@ func _apply_brake(delta: float) -> void:
 		velocity = max(velocity - brake_force * brake_power * delta, 0)
 	elif velocity < 0:
 		velocity = min(velocity + brake_force * brake_power * delta, 0)
+
+func _on_smoke_timer_timeout():
+	var new_smoke = smoke.instantiate()
+	new_smoke.global_position = global_position
+	CurrentRun.world.add_child(new_smoke)
+	
+	await new_smoke.animation_finished
+	new_smoke.queue_free()

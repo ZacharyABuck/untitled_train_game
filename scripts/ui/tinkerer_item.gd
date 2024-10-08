@@ -6,35 +6,30 @@ var gadget: String
 @onready var cost_label = $HBoxContainer/Cost
 
 
-var cost: int
+var unlock_cost: int
 
 signal clicked
 
 func populate(new_gadget):
 	gadget = new_gadget
 	
-	if gadget == "upgrade_kit":
-		icon.texture = load("res://sprites/ui/gear.png")
-		name_label.text = "Upgrade Kit"
-
-		cost = 20
-	else:
-		icon.texture = GadgetInfo.gadget_roster[gadget]["sprite"]
+	#check if gadget is base level
+	if GadgetInfo.gadget_roster[gadget]["name"] == GadgetInfo.gadget_roster[gadget]["base_gadget_name"]:
 		name_label.text = "[center]" + GadgetInfo.gadget_roster[gadget]["name"] + "[/center]"
+	else:
+		name_label.text = "[center]" + GadgetInfo.gadget_roster[gadget]["name"] + "\n(Upgrade from " + GadgetInfo.gadget_roster[gadget]["base_gadget_name"] + ")" + "[/center]"
 
-		cost = GadgetInfo.gadget_roster[gadget]["cost"]
-	cost_label.text = "[center]Cost: " + str(cost) + "[/center]"
+	
+	icon.texture = GadgetInfo.gadget_roster[gadget]["sprite"]
+	unlock_cost = GadgetInfo.gadget_roster[gadget]["unlock_cost"]
+	cost_label.text = "[right]Unlock: " + str(unlock_cost) + " scrap[/right]"
 
 func button_pressed():
-	if CurrentRun.world.current_player_info.current_money >= cost:
-		CurrentRun.world.current_player_info.current_money -= cost
+	if CurrentRun.world.current_player_info.current_scrap >= unlock_cost:
+		CurrentRun.world.current_player_info.current_scrap -= unlock_cost
 		CurrentRun.world.update_money_label()
+		GadgetInfo.gadget_roster[gadget]["unlocked"] = true
 		
-		if gadget == "upgrade_kit":
-			CurrentRun.world.current_gadget_info.upgrade_kits += 1
-		elif CurrentRun.world.current_gadget_info.gadget_inventory.has(gadget):
-			CurrentRun.world.current_gadget_info.gadget_inventory[gadget] += 1
-		else:
-			CurrentRun.world.current_gadget_info.gadget_inventory[gadget] = 1
+		
 		queue_free()
 

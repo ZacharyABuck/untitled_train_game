@@ -1,0 +1,34 @@
+[gd_scene load_steps=8 format=3 uid="uid://cfg2v7swdbas4"]
+
+[ext_resource type="Script" path="res://scenes/edges/spare_bullets.gd" id="1_ajkxp"]
+[ext_resource type="Shader" path="res://shaders/fog.gdshader" id="2_vu1pg"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_w36ju"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rhkwj"]
+noise = SubResource("FastNoiseLite_w36ju")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bbv2k"]
+shader = ExtResource("2_vu1pg")
+shader_parameter/density = 0.972
+shader_parameter/speed = Vector2(0.2, 0)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_rhkwj")
+
+[sub_resource type="Gradient" id="Gradient_kl4nr"]
+offsets = PackedFloat32Array(0.263736, 0.282967, 0.304945)
+colors = PackedColorArray(0, 0, 0, 0, 0.239886, 0.46276, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_f4mfs"]
+gradient = SubResource("Gradient_kl4nr")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="SpareBullets" type="Node2D"]
+script = ExtResource("1_ajkxp")
+edge_reference = "spare_bullets"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_bbv2k")
+texture = SubResource("GradientTexture2D_f4mfs")

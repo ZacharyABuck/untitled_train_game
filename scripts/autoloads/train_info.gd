@@ -3,7 +3,7 @@ extends Node
 var cars_roster = {
 	"engine" = {
 		"sprite" = preload("res://sprites/train/engine_sketch.png"),
-		"possible_hard_points" = ["LeftUpper","RightUpper"],
+		"possible_hard_points" = ["LeftUpper", "LeftLower", "RightUpper", "RightLower"],
 	},
 	"cargo" = {
 		"sprite" = preload("res://sprites/train/lumber_car_sketch.png"),
@@ -15,15 +15,8 @@ var cars_roster = {
 	},
 	"caboose" = {
 		"sprite" = preload("res://sprites/train/lumber_car_sketch.png"),
-		"possible_hard_points" = ["LeftLower", "RightLower"],
+		"possible_hard_points" = ["LeftUpper", "LeftLower", "RightUpper", "RightLower"],
 	},
-}
-
-var train_stats = {
-	"car_count": 4,
-	"speed": 2.5,
-	"car_health": 100,
-	"fuel_tank": 25,
 }
 
 var train_upgrade_roster = {
@@ -32,12 +25,6 @@ var train_upgrade_roster = {
 		"cost" = 100,
 		"icon" = preload("res://sprites/ui/track_single.png"),
 		"value" = 1,
-	},
-	"speed" = {
-		"name" = "Upgrade Train Speed",
-		"cost" = 50,
-		"icon" = preload("res://sprites/ui/track_single.png"),
-		"value" = .5,
 	},
 	"car_health" = {
 		"name" = "Upgrade Train Car Health",
@@ -51,4 +38,11 @@ var train_upgrade_roster = {
 		"icon" = preload("res://sprites/ui/track_single.png"),
 		"value" = 5,
 	},
+}
+
+var train_stats = {
+	"car_count": 4,
+	"speed": 2.5,
+	"car_health": 100,
+	"fuel_tank": 25,
 }

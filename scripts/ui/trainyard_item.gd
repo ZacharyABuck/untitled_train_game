@@ -9,7 +9,7 @@ signal clicked
 func populate(new_upgrade):
 	upgrade = new_upgrade
 	icon.texture = TrainInfo.train_upgrade_roster[new_upgrade]["icon"]
-	name_label.text = "[center]" + TrainInfo.train_upgrade_roster[new_upgrade]["name"] + "\n" + "(current: " + str(TrainInfo.train_stats[new_upgrade]) +  ")" + "[/center]"
+	name_label.text = "[center]" + TrainInfo.train_upgrade_roster[new_upgrade]["name"] + "\n" + "(current: " + str(CurrentRun.world.current_train_info.train_stats[new_upgrade]) +  ")" + "[/center]"
 	
 	cost_label.text = "[center]Cost: " + str(TrainInfo.train_upgrade_roster[new_upgrade]["cost"]) + "[/center]"
 

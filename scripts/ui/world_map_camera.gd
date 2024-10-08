@@ -8,6 +8,14 @@ func jump_to_player():
 	var active_town = get_parent().current_world_info.towns_inventory[get_parent().current_world_info.active_town]["scene"]
 	position = active_town.global_position - size*.5
 
+func jump_to_pos(pos):
+	var size = get_viewport().get_visible_rect().size
+	position = pos - (size*.8)
+
+func reset():
+	get_parent().travel_line.hide()
+	jump_to_player()
+
 func _process(delta):
 	var size = get_viewport().get_visible_rect().size
 	if camera_limits.size() >= 4:

@@ -1,10 +1,11 @@
 extends RigidBody2D
+class_name Drop
 
-var value: int = 1
+@export var value: int
 var speed: int = 0
 @export_enum("moving_to_player", "initial_force") var state: String
 
-@onready var sfx = $SFX
+@export var sfx: AudioStreamPlayer
 
 
 # Called when the node enters the scene tree for the first time.
@@ -28,8 +29,14 @@ func initial_force():
 func _on_player_detector_body_entered(body):
 	if body.is_in_group("player"):
 		$PlayerDetector.set_collision_mask_value(1, false)
-		CurrentRun.world.current_player_info.current_money += value
+		player_pickup_drop(value)
 		$Sprite2D.hide()
-		sfx.play()
-		await sfx.finished
-		queue_free()
+		if sfx:
+			sfx.play()
+			await sfx.finished
+			queue_free()
+		else:
+			queue_free()
+
+func player_pickup_drop(v):
+	pass

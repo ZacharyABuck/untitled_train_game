@@ -6,8 +6,7 @@ var mission_type_roster = {
 		"character" = null,
 		"description" = "Train engineer for hire. I need transport to ",
 		"destination" = null,
-		#"icon" = preload("res://sprites/player/world_map_train.png"),
-		"reward" = 10,
+		"reward" = 5,
 	},
 	"delivery" = {
 		"name" = "Delivery Mission",
@@ -15,7 +14,7 @@ var mission_type_roster = {
 		"description" = "I have cargo that needs to go to ",
 		"destination" = null,
 		"icon" = preload("res://sprites/train/crate_icon.png"),
-		"reward" = 10,
+		"reward" = 5,
 	},
 }
 
