@@ -7,6 +7,8 @@ var active_map
 var track_cells = []
 var map_positions = []
 
+var enemy_spawn_system
+
 var destination
 
 var difficulty = 1.0

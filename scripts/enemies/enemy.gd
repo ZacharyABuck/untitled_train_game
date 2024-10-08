@@ -7,13 +7,15 @@ class_name Enemy
 @export var projectile_attack_component: ProjectileAttackComponent
 @export var attack_timer: Timer
 
-var elite: bool = false
 var enemy_stats: Dictionary
 var speed: float
 var money: float
 var experience: float
 var damage: float
 var type: String
+
+var shock_speed_multiplier: float = 1
+var train_speed_mod: float = 0
 
 var target
 
@@ -22,9 +24,13 @@ var cars_reached: int = 0
 
 
 func _process(delta):
+	if enemy_stats.has("speed") and CurrentRun.world.current_train_info.train_engine:
+		train_speed_mod = clamp(CurrentRun.world.current_train_info.train_engine.target_force_percent - CurrentRun.world.current_train_info.train_engine.brake_force, 0, 5)
+		speed = (enemy_stats["speed"] + (train_speed_mod*1000)) * shock_speed_multiplier
+	
 	if wave_enemy:
 		if CurrentRun.world.current_train_info.train_stats["car_count"] != cars_reached:
-			if target and global_position.distance_to(target.global_position) < 50:
+			if target != null and global_position.distance_to(target.global_position) < 50:
 				target = find_target()
 				
 

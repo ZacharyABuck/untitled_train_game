@@ -19,6 +19,8 @@ func _ready():
 	cooldown.wait_time = gun.attack_timer.wait_time
 	cooldown.one_shot = true
 
+	gun.area_exited.connect(gun_area_exited)
+
 	initialize_raycast()
 	
 	if BUFF_RECEIVER and car.active_buffs.has("shock"):
@@ -69,6 +71,10 @@ func update_raycast(pos) -> bool:
 		return false
 	else:
 		return true
+
+func gun_area_exited(area):
+	if area.get_parent() == target:
+		check_for_targets()
 
 func check_for_targets():
 	for i in gun.get_overlapping_areas():

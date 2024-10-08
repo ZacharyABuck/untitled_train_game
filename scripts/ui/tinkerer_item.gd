@@ -13,28 +13,19 @@ signal clicked
 func populate(new_gadget):
 	gadget = new_gadget
 	
-	if gadget == "upgrade_kit":
-		icon.texture = load("res://sprites/ui/gear.png")
-		name_label.text = "Upgrade Kit"
-
-		cost = 20
-	else:
-		icon.texture = GadgetInfo.gadget_roster[gadget]["sprite"]
+	#check if gadget is base level
+	if GadgetInfo.gadget_roster[gadget]["name"] == GadgetInfo.gadget_roster[gadget]["base_gadget_name"]:
 		name_label.text = "[center]" + GadgetInfo.gadget_roster[gadget]["name"] + "[/center]"
+	else:
+		name_label.text = "[center]" + GadgetInfo.gadget_roster[gadget]["name"] + "\n(Upgrade from " + GadgetInfo.gadget_roster[gadget]["base_gadget_name"] + ")" + "[/center]"
 
-		cost = GadgetInfo.gadget_roster[gadget]["cost"]
+	
+	icon.texture = GadgetInfo.gadget_roster[gadget]["sprite"]
+	cost = GadgetInfo.gadget_roster[gadget]["cost"]
 	cost_label.text = "[center]Cost: " + str(cost) + "[/center]"
 
 func button_pressed():
-	if CurrentRun.world.current_player_info.current_money >= cost:
-		CurrentRun.world.current_player_info.current_money -= cost
-		CurrentRun.world.update_money_label()
-		
-		if gadget == "upgrade_kit":
-			CurrentRun.world.current_gadget_info.upgrade_kits += 1
-		elif CurrentRun.world.current_gadget_info.gadget_inventory.has(gadget):
-			CurrentRun.world.current_gadget_info.gadget_inventory[gadget] += 1
-		else:
-			CurrentRun.world.current_gadget_info.gadget_inventory[gadget] = 1
-		queue_free()
+	GadgetInfo.gadget_roster[gadget]["unlocked"] == true
+	
+	queue_free()
 

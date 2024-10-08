@@ -20,7 +20,7 @@ func find_random_enemy():
 			return random_enemy
 
 func find_random_position():
-	var random_spawn_point_pos = CurrentRun.world.current_level_info.active_level.enemy_spawn_positions.get_children().pick_random().global_position
+	var random_spawn_point_pos = CurrentRun.world.current_level_info.enemy_spawn_system.default_spawns.get_children().pick_random().global_position
 	var random_position = Vector2(randf_range(-150,150)+random_spawn_point_pos.x, randf_range(-150,150)+random_spawn_point_pos.y)
 	return random_position
 

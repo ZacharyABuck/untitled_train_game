@@ -86,14 +86,27 @@ func spawn_tinkerer_items():
 	for i in tinkerer_items_list.get_children():
 		if i != tinkerer_items_list.get_child(0):
 			i.queue_free()
-	for i in tinkerer_item_amount:
-		var random_gadget = GadgetInfo.upgrade_rosters["default"].pick_random()
-		var new_item = tinkerer_item.instantiate()
-		tinkerer_items_list.add_child(new_item)
-		new_item.populate(random_gadget)
-	var new_upgrade_kit = tinkerer_item.instantiate()
-	tinkerer_items_list.add_child(new_upgrade_kit)
-	new_upgrade_kit.populate("upgrade_kit")
+	
+	for gadget in GadgetInfo.upgrade_rosters["default"]:
+		#spawn base level gadgets
+		if GadgetInfo.gadget_roster[gadget]["unlocked"] == false:
+			var new_item = tinkerer_item.instantiate()
+			tinkerer_items_list.add_child(new_item)
+			new_item.populate(gadget)
+		#if gadget is unlocked, check if upgrades exist
+		elif GadgetInfo.upgrade_rosters.has(gadget):
+			var random_upgrade = GadgetInfo.upgrade_rosters[gadget].pick_random()
+			#while upgrade is unlocked, check down the line
+			while GadgetInfo.gadget_roster[random_upgrade]["unlocked"] == true:
+				if GadgetInfo.upgrade_rosters.has(random_upgrade):
+					random_upgrade = GadgetInfo.upgrade_rosters[random_upgrade].pick_random()
+				else:
+					random_upgrade = GadgetInfo.upgrade_rosters[gadget].pick_random()
+			
+			#spawn upgrade gadget
+			var new_item = tinkerer_item.instantiate()
+			tinkerer_items_list.add_child(new_item)
+			new_item.populate(random_upgrade)
 
 func close_all_windows():
 	shop_containers.hide()

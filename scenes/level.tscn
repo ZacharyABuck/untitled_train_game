@@ -26,6 +26,7 @@
 [ext_resource type="Shader" path="res://shaders/rain.gdshader" id="22_kbqtr"]
 [ext_resource type="AudioStream" uid="uid://b6nhfkp7qtu2x" path="res://sounds/combat/reloading.mp3" id="22_ookke"]
 [ext_resource type="AudioStream" uid="uid://dqjq17gkaquqx" path="res://sounds/world/rain.wav" id="23_dws0p"]
+[ext_resource type="PackedScene" uid="uid://0trmx7iuisj2" path="res://scenes/enemies/enemy_spawn_system.tscn" id="27_yh7dx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vtfsx"]
 
@@ -877,9 +878,6 @@ metadata/_better_terrain = {
 "version": "0.2"
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_tx5uk"]
-radius = 35.0571
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cqxjf"]
 shader = ExtResource("5_qayv6")
 shader_parameter/limit = 0.2
@@ -1133,68 +1131,6 @@ script = ExtResource("3_nn34h")
 [node name="Bullets" type="Node2D" parent="."]
 
 [node name="Enemies" type="Node2D" parent="."]
-
-[node name="EnemySpawnPositions" type="Node2D" parent="."]
-
-[node name="0" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(-472, 628)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/0"]
-shape = SubResource("CircleShape2D_tx5uk")
-debug_color = Color(0.705882, 0, 0.156863, 0.835294)
-
-[node name="1" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(-938, 950)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/1"]
-shape = SubResource("CircleShape2D_tx5uk")
-debug_color = Color(0.705882, 0, 0.156863, 0.835294)
-
-[node name="2" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(-219, 883)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/2"]
-shape = SubResource("CircleShape2D_tx5uk")
-debug_color = Color(0.705882, 0, 0.156863, 0.835294)
-
-[node name="3" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(144, 995)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/3"]
-shape = SubResource("CircleShape2D_tx5uk")
-debug_color = Color(0.705882, 0, 0.156863, 0.835294)
-
-[node name="4" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(-798, 378)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/4"]
-shape = SubResource("CircleShape2D_tx5uk")
-debug_color = Color(0.705882, 0, 0.156863, 0.835294)
-
-[node name="5" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(352, 811)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/5"]
-shape = SubResource("CircleShape2D_tx5uk")
-debug_color = Color(0.705882, 0, 0.156863, 0.835294)
-
-[node name="6" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(920, 379)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/6"]
-shape = SubResource("CircleShape2D_tx5uk")
-debug_color = Color(0.705882, 0, 0.156863, 0.835294)
-
-[node name="7" type="Node2D" parent="EnemySpawnPositions"]
-position = Vector2(506, 616)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/7"]
-shape = SubResource("CircleShape2D_tx5uk")
-debug_color = Color(0.705882, 0, 0.156863, 0.835294)
-
-[node name="EnemyWaveTimer" type="Timer" parent="."]
-wait_time = 12.0
-autostart = true
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -1568,7 +1504,8 @@ bus = &"SFX"
 
 [node name="WeaponSpawner" parent="." instance=ExtResource("17_lhsmc")]
 
-[connection signal="timeout" from="EnemyWaveTimer" to="." method="wave_timer_timeout"]
+[node name="EnemySpawnSystem" parent="." instance=ExtResource("27_yh7dx")]
+
 [connection signal="mouse_entered" from="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel/Button" to="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel" method="_on_button_mouse_entered"]
 [connection signal="pressed" from="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel/Button" to="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel" method="_on_button_pressed"]
 [connection signal="mouse_entered" from="UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel/Button" to="UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel" method="_on_button_mouse_entered"]

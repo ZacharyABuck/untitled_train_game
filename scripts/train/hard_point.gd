@@ -22,29 +22,32 @@ func add_gadget(requested_gadget):
 		label.text = "Space Occupied!"
 		label.get_child(0).play("alert_flash_short")
 		label.show()
-	# BUILD GADGET
+	
 	else:
-		#check if gadget is in inventory
-		if GadgetInfo.upgrade_rosters["default"].has(requested_gadget):
-			CurrentRun.world.current_gadget_info.gadget_inventory[requested_gadget] = clamp(CurrentRun.world.current_gadget_info.gadget_inventory[requested_gadget] - 1, 0, 100)
-		else:
-			CurrentRun.world.current_gadget_info.upgrade_kits = clamp(CurrentRun.world.current_gadget_info.upgrade_kits - 1, 0, 100)
-		CurrentRun.world.current_gadget_info.selected_gadget = null
-		CurrentRun.world.current_train_info.cars_inventory[car.index]["gadgets"][get_parent().name] = requested_gadget
-		CurrentRun.world.current_level_info.active_level.close_all_ui()
-		$BuildSound.play()
-		print("New Gadget: " + requested_gadget_info["name"])
-		#delete old gadget if upgrading
-		if gadget != null:
-			for i in get_children():
-				if i.is_in_group("gadget"):
-					i.queue_free()
-					break
-		
-		#create gadget
-		spawn_gadget(requested_gadget)
-		gadget = requested_gadget
-		CurrentRun.world.current_player_info.state = "default"
+		#check if player has enough money
+		if CurrentRun.world.current_player_info.current_money >= requested_gadget_info["cost"]:
+			
+			CurrentRun.world.current_player_info.current_money -= requested_gadget_info["cost"]
+			CurrentRun.world.update_money_label()
+			
+			CurrentRun.world.current_gadget_info.selected_gadget = null
+			CurrentRun.world.current_train_info.cars_inventory[car.index]["gadgets"][get_parent().name] = requested_gadget
+			CurrentRun.world.current_level_info.active_level.close_all_ui()
+			$BuildSound.play()
+			
+			print("New Gadget: " + requested_gadget_info["name"])
+			
+			#delete old gadget if upgrading
+			if gadget != null:
+				for i in get_children():
+					if i.is_in_group("gadget"):
+						i.queue_free()
+						break
+			
+			#create gadget
+			spawn_gadget(requested_gadget)
+			gadget = requested_gadget
+			CurrentRun.world.current_player_info.state = "default"
 
 func spawn_gadget(requested_gadget):
 	var new_gadget = GadgetInfo.gadget_roster[requested_gadget]["scene"].instantiate()

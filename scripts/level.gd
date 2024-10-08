@@ -6,11 +6,13 @@ var player = preload("res://scenes/player/player.tscn")
 @onready var edge_menu = $UI/EdgeMenu
 const edge_panel = preload("res://scenes/edges/edge_panel.tscn")
 @onready var alert_label = $UI/AlertLabel
+
 @onready var enemies = $Enemies
+@onready var enemy_spawn_system = $EnemySpawnSystem
+
 @onready var train_manager = $TrainManager
 @onready var map = $Map
-@onready var enemy_spawn_positions = $EnemySpawnPositions
-@onready var enemy_wave_timer = $EnemyWaveTimer
+
 @onready var xp_bar = $UI/PlayerExperienceBar
 @onready var player_health_bar = $UI/PlayerHealthBar
 @onready var player_charge_bar = $UI/PlayerChargeBar
@@ -38,11 +40,6 @@ func _ready():
 	spawn_player()
 	ExperienceSystem.level_up.connect(self.handle_level_up)
 	calculate_weather()
-	
-	await get_tree().create_timer(5).timeout
-	
-	spawn_level_enemies()
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -53,13 +50,6 @@ func _process(_delta):
 	level_label.text = "Level: " + str(CurrentRun.world.current_player_info.currentLevel)
 	$UI/PlayerExperienceBar.value = CurrentRun.world.current_player_info.currentExperience
 	
-	#set enemy spawn positions to follow train
-	if CurrentRun.world.current_train_info.cars_inventory.has(CurrentRun.world.current_train_info.train_stats["car_count"] - 1):
-		var node = CurrentRun.world.current_train_info.cars_inventory[CurrentRun.world.current_train_info.train_stats["car_count"] - 1]["node"]
-		enemy_spawn_positions.global_position = node.global_position
-		enemy_spawn_positions.global_rotation = node.global_rotation
-
-		
 func calculate_weather():
 	var random_weather = weather_states.pick_random()
 	weather = random_weather
@@ -127,34 +117,9 @@ func spawn_player():
 	new_player.dead.connect(CurrentRun.root.show_restart_button)
 
 
-func wave_timer_timeout():
-	var count = CurrentRun.world.current_level_info.difficulty
-	for i in round(count):
-		spawn_level_enemies()
-		await get_tree().create_timer(5).timeout
-	CurrentRun.world.current_level_info.difficulty += .05
-	spawning = false
-
-func spawn_level_enemies():
-	var spawn_count = CurrentRun.world.current_level_info.difficulty
-	var new_spawner = EnemySpawner.new()
-	add_child(new_spawner)
-	new_spawner.wave = true
-	
-	#spawn enemies by maximum allowed in EnemyInfo
-	var random_enemy = new_spawner.find_random_enemy()
-	var max_spawn = EnemyInfo.enemy_roster[random_enemy]["max_spawn"]
-	new_spawner.spawn_enemy(clamp(spawn_count, 1, max_spawn), random_enemy, null)
-	print("Enemies Spawned, Difficulty: " + str(CurrentRun.world.current_level_info.difficulty))
-
 func enemy_killed():
-	if !spawning:
-		await get_tree().create_timer(2).timeout
-		if enemies.get_child_count() == 0:
-			spawning = true
-			print("All Enemies Dead")
-			wave_timer_timeout()
-			enemy_wave_timer.start()
+	enemy_spawn_system.check_for_enemies()
+
 
 func handle_level_up():
 	$LevelUpSFX.play()

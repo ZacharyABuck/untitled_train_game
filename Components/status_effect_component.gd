@@ -43,11 +43,9 @@ func apply_fire():
 
 func shock():
 	if is_shocked:
-		character.speed = character.enemy_stats["speed"] * .5
+		character.shock_speed_multiplier = .5
 	else:
-		character.speed = character.enemy_stats["speed"]
-		if character.elite:
-			character.speed += EnemyInfo.elite_modifiers["speed"]
+		character.shock_speed_multiplier = 1
 
 func _on_shock_timer_timeout():
 	is_shocked = false
