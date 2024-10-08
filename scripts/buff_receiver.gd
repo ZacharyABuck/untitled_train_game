@@ -1,6 +1,7 @@
 extends Area2D
 
 var active_buffs: Array = []
+var attack_delay_bonus: float = 0
 
 func toggle_poison_fx(on: bool):
 	if on:

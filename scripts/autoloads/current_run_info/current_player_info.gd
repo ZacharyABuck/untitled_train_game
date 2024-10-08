@@ -8,6 +8,7 @@ var totalExperience: int = 0
 
 # Base Variables
 var base_money: int = 20
+var base_scrap: int = 0
 var active_player
 var base_max_health : float = 50
 var animation
@@ -23,6 +24,7 @@ var base_charge_recovery_rate: float = 3.0
 var current_health: float
 var current_max_health: float
 var current_money: int
+var current_scrap: int
 var current_ranged_weapon_reference: String
 var current_charge_attack_reference: String
 var current_ranged_damage_bonus: float
@@ -58,6 +60,7 @@ func set_current_variables_to_base_value():
 	current_health = base_max_health
 	current_max_health = base_max_health
 	current_money = base_money
+	current_scrap = base_scrap
 	current_armor = base_armor
 	current_attack_delay_modifier = base_attack_delay_modifier
 	current_movespeed = base_movespeed

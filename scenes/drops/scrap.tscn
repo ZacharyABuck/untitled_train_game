@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bdd76cmiwqcqh"]
+
+[ext_resource type="Script" path="res://scenes/drops/scrap.gd" id="1_ohpt4"]
+[ext_resource type="Texture2D" uid="uid://bs75y5b88dpqk" path="res://sprites/ui/gear.png" id="2_uppco"]
+[ext_resource type="AudioStream" uid="uid://jyqc2q6qycxo" path="res://sounds/ui/metal_dropping.wav" id="3_f1cv5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wvagx"]
+
+[node name="Scrap" type="RigidBody2D" node_paths=PackedStringArray("sfx")]
+collision_layer = 0
+script = ExtResource("1_ohpt4")
+value = 1
+state = "initial_force"
+sfx = NodePath("SFX")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_uppco")
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+shape = SubResource("CircleShape2D_wvagx")
+
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_f1cv5")
+volume_db = -15.0
+bus = &"SFX"
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]

@@ -2,25 +2,26 @@ extends CanvasLayer
 
 @onready var town_name_label = %TownNameLabel
 
-@onready var shop_containers = $MarginContainer/PanelContainer/MarginContainer
+@onready var town_screen = $TownScreen
+@onready var shop_containers = $TownScreen/PanelContainer/ShopContainers
 
-@onready var jobs = $MarginContainer/PanelContainer/MarginContainer/Jobs
+@onready var jobs = $Jobs
 @onready var jobs_container = %JobsContainer
-@onready var jobs_button = $MarginContainer/PanelContainer/TownButtons/JobsButton
+@onready var jobs_button = $TownScreen/PanelContainer/TownButtons/JobsButton
 
 @onready var trainyard_items_list = %TrainyardItemsList
-@onready var trainyard = $MarginContainer/PanelContainer/MarginContainer/Trainyard
-@onready var trainyard_button = $MarginContainer/PanelContainer/TownButtons/TrainyardButton
+@onready var trainyard = $TownScreen/PanelContainer/ShopContainers/Trainyard
+@onready var trainyard_button = $TownScreen/PanelContainer/TownButtons/TrainyardButton
 
-@onready var gunsmith = $MarginContainer/PanelContainer/MarginContainer/Gunsmith
+@onready var gunsmith = $TownScreen/PanelContainer/ShopContainers/Gunsmith
 @onready var gunsmith_items_list = %GunsmithItemsList
 var gunsmith_items_amount: int = 3
-@onready var gunsmith_button = $MarginContainer/PanelContainer/TownButtons/GunsmithButton
+@onready var gunsmith_button = $TownScreen/PanelContainer/TownButtons/GunsmithButton
 
-@onready var tinkerer = $MarginContainer/PanelContainer/MarginContainer/Tinkerer
+@onready var tinkerer = $TownScreen/PanelContainer/ShopContainers/Tinkerer
 @onready var tinkerer_items_list = %TinkererItemsList
 var tinkerer_item_amount: int = 5
-@onready var tinkerer_button = $MarginContainer/PanelContainer/TownButtons/TinkererButton
+@onready var tinkerer_button = $TownScreen/PanelContainer/TownButtons/TinkererButton
 
 var trainyard_item = preload("res://scenes/ui/trainyard_item.tscn")
 var gunsmith_item = preload("res://scenes/ui/gunsmith_item.tscn")
@@ -29,7 +30,6 @@ var mission_panel = preload("res://scenes/ui/mission_panel.tscn")
 
 func _ready():
 	hide()
-	close_all_windows()
 
 func populate_town_info(town):
 	#active town clicked
@@ -48,8 +48,8 @@ func _on_close_button_pressed():
 
 func spawn_missions(count):
 	for i in jobs_container.get_children():
-		if i != jobs_container.get_child(0):
-			i.queue_free()
+		i.queue_free()
+	
 	var max_destination_distance: int = 1500
 	for i in count:
 		var new_mission = mission_panel.instantiate()
@@ -110,7 +110,6 @@ func spawn_tinkerer_items():
 					
 					random_upgrade = GadgetInfo.upgrade_rosters[gadget].pick_random()
 					
-					
 			if random_upgrade != null:
 				#spawn upgrade gadget
 				var new_item = tinkerer_item.instantiate()
@@ -118,30 +117,29 @@ func spawn_tinkerer_items():
 				new_item.populate(random_upgrade)
 
 func close_all_windows():
+	AudioSystem.play_audio("basic_button_click", -10)
 	shop_containers.hide()
+	jobs.hide()
+	town_screen.show()
 	for i in shop_containers.get_children():
 		i.hide()
 
 func _on_jobs_button_pressed():
-	AudioSystem.play_audio("basic_button_click")
 	close_all_windows()
-	shop_containers.show()
+	town_screen.hide()
 	jobs.show()
 
 func _on_gunsmith_button_pressed():
-	AudioSystem.play_audio("basic_button_click")
 	close_all_windows()
 	shop_containers.show()
 	gunsmith.show()
 
 func _on_tinkerer_button_pressed():
-	AudioSystem.play_audio("basic_button_click")
 	close_all_windows()
 	shop_containers.show()
 	tinkerer.show()
 
 func _on_trainyard_button_pressed():
-	AudioSystem.play_audio("basic_button_click")
 	close_all_windows()
 	shop_containers.show()
 	trainyard.show()

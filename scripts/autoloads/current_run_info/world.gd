@@ -15,6 +15,7 @@ var mission_reward_panel = preload("res://scenes/ui/mission_reward_panel.tscn")
 
 @onready var towns_ui = $TownsUI
 @onready var money_label = $WorldUI/MarginContainer/GridContainer/HBoxContainer/VBoxContainer/MoneyLabel
+@onready var scrap_label = $WorldUI/MarginContainer/GridContainer/HBoxContainer/VBoxContainer/ScrapLabel
 @onready var mission_inventory_container = $WorldUI/MarginContainer/GridContainer/HBoxContainer/PanelContainer/MissionInventoryContainer
 
 
@@ -23,7 +24,7 @@ var mission_reward_panel = preload("res://scenes/ui/mission_reward_panel.tscn")
 @onready var world_map = $WorldMap
 @onready var world_ui = $WorldUI
 @onready var camera = $Camera
-
+@onready var travel_line = $TravelLine
 
 @onready var debug_ui = $DebugUI
 
@@ -33,6 +34,13 @@ var missions_spawned: bool = false
 func _ready():
 	music_fade.play("world_start")
 	update_money_label()
+
+func show_travel_line(destination):
+	AudioSystem.play_audio("quick_woosh", -10)
+	travel_line.points[0] = current_world_info.towns_inventory[current_world_info.active_town]["scene"].global_position
+	travel_line.points[1] = current_world_info.towns_inventory[destination]["scene"].global_position
+	travel_line.show()
+	camera.jump_to_pos(current_world_info.towns_inventory[destination]["scene"].global_position)
 
 func start_game(direction, distance, terrain):
 	await CurrentRun.root.fade_to_black(1.5)
@@ -85,10 +93,13 @@ func unpause_game():
 		current_level_info.active_level.get_tree().paused = false
 
 func town_clicked(town):
+	camera.jump_to_pos(current_world_info.towns_inventory[town.town_name]["scene"].global_position)
+	
 	for i in current_world_info.towns_inventory:
 		current_world_info.towns_inventory[i]["scene"].hide_travel_info()
 	
 	if current_world_info.active_town == town.town_name:
+		AudioSystem.play_audio("big_select", -10)
 		towns_ui.populate_town_info(town)
 		towns_ui.trainyard_items_list.show()
 		if missions_spawned == false:
@@ -149,6 +160,8 @@ func level_complete():
 
 func update_money_label():
 	money_label.text = "Money = $" + str(current_player_info.current_money)
+	scrap_label.text = "Scrap = " + str(current_player_info.current_scrap)
+	
 
 func despawn_level():
 	current_level_info.active_level.queue_free()

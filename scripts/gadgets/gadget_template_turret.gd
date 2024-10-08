@@ -5,19 +5,12 @@ var target
 @export var BUFF_RECEIVER: Area2D
 
 var raycast: RayCast2D
-var cooldown: Timer
 
 @onready var gun = $ProjectileAttackComponent
 @export var moving_target_component: Area2D
 
 func _ready():
 	super()
-	
-	#create cooldown timer
-	cooldown = Timer.new()
-	add_child(cooldown)
-	cooldown.wait_time = gun.attack_timer.wait_time
-	cooldown.one_shot = true
 
 	gun.area_exited.connect(gun_area_exited)
 
@@ -33,7 +26,7 @@ func _physics_process(_delta):
 	else:
 		set_moving_target()
 		look_at(target.global_position)
-		if cooldown.is_stopped():
+		if gun.attack_timer.is_stopped():
 			if gun.target_is_in_range(target):
 				shoot_if_raycast_ok()
 			else:
@@ -43,7 +36,6 @@ func set_moving_target():
 	moving_target_component.move_target(target, global_position, target.velocity, gun.BULLET_SPEED)
 
 func shoot_if_raycast_ok():
-	cooldown.start()
 	await get_tree().create_timer(.05).timeout
 	if target != null:
 		var raycast_ok = update_raycast(target.global_position)

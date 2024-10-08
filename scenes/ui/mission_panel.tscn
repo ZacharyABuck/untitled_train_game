@@ -62,8 +62,10 @@ shadow_size = 2
 shadow_offset = Vector2(2, 2)
 
 [node name="MissionPanel" type="PanelContainer"]
+custom_minimum_size = Vector2(400, 0)
 offset_right = 412.0
 offset_bottom = 93.0
+size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_hl22i")
 script = ExtResource("1_pgc7n")
 

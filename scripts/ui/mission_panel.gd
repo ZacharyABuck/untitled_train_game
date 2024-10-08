@@ -36,6 +36,8 @@ func find_random_mission():
 		$HBoxContainer/VBoxContainer/Reward.text = "Reward: " + str(random_reward) + "      " + str(random_time_limit) + " day"
 	reward = random_reward
 	time_limit = random_time_limit
+	$Button.mouse_entered.connect(CurrentRun.world.show_travel_line.bind(destination))
+	$Button.mouse_exited.connect(CurrentRun.world.camera.reset)
 
 func find_random_destination(max_distance):
 	var active_town = CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"]
@@ -47,7 +49,7 @@ func find_random_destination(max_distance):
 			pass
 		else:
 			return random_destination
-
+	
 func _on_button_pressed():
 	var id = randi()
 	if CurrentRun.world.current_mission_info.mission_inventory.keys().size() < 3:
@@ -59,4 +61,5 @@ func _on_button_pressed():
 		"time_limit" = time_limit,
 		"icon" = $HBoxContainer/MissionIcon.texture,}
 		clicked.emit(id)
-		queue_free()
+		modulate = Color.TRANSPARENT
+		$Button.mouse_filter = MOUSE_FILTER_IGNORE

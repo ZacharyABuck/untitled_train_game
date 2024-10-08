@@ -43,7 +43,7 @@ func apply_fire():
 
 func shock():
 	if is_shocked:
-		character.shock_speed_multiplier = .5
+		character.shock_speed_multiplier = .75
 	else:
 		character.shock_speed_multiplier = 1
 

@@ -6,7 +6,7 @@ var gadget: String
 @onready var cost_label = $HBoxContainer/Cost
 
 
-var cost: int
+var unlock_cost: int
 
 signal clicked
 
@@ -21,12 +21,12 @@ func populate(new_gadget):
 
 	
 	icon.texture = GadgetInfo.gadget_roster[gadget]["sprite"]
-	cost = GadgetInfo.gadget_roster[gadget]["cost"]
-	cost_label.text = "[center]Cost: " + str(cost) + "[/center]"
+	unlock_cost = GadgetInfo.gadget_roster[gadget]["unlock_cost"]
+	cost_label.text = "[right]Unlock: " + str(unlock_cost) + " scrap[/right]"
 
 func button_pressed():
-	if CurrentRun.world.current_player_info.current_money >= cost:
-		CurrentRun.world.current_player_info.current_money -= cost
+	if CurrentRun.world.current_player_info.current_scrap >= unlock_cost:
+		CurrentRun.world.current_player_info.current_scrap -= unlock_cost
 		CurrentRun.world.update_money_label()
 		GadgetInfo.gadget_roster[gadget]["unlocked"] = true
 		

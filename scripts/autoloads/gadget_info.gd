@@ -8,6 +8,7 @@ var gadget_roster = {
 		"scene" = load("res://scenes/gadgets/gadget_pistol_turret.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_pistol_turret.png"),
 		"cost" = 7,
+		"unlock_cost" = 0,
 		"unlocked" = true,
 	},
 	#"light_armor" = {
@@ -59,6 +60,7 @@ var gadget_roster = {
 		"scene" = load("res://scenes/gadgets/gadget_shock_turret.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_pistol_turret.png"),
 		"cost" = 10,
+		"unlock_cost" = 15,
 		"unlocked" = false,
 	},
 	"rifle_turret" = {
@@ -68,6 +70,7 @@ var gadget_roster = {
 		"scene" = load("res://scenes/gadgets/gadget_rifle_turret.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_rifle_turret.png"),
 		"cost" = 20,
+		"unlock_cost" = 15,
 		"unlocked" = false,
 	},
 	"rifle_turret_quick_loading" = {
@@ -77,6 +80,7 @@ var gadget_roster = {
 		"scene" = load("res://scenes/gadgets/gadget_rifle_turret_quick_loading.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_rifle_turret.png"),
 		"cost" = 25,
+		"unlock_cost" = 20,
 		"unlocked" = false,
 	},
 	"rifle_turret_more_damage" = {
@@ -86,6 +90,7 @@ var gadget_roster = {
 		"scene" = load("res://scenes/gadgets/gadget_rifle_turret_more_damage.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_rifle_turret.png"),
 		"cost" = 25,
+		"unlock_cost" = 20,
 		"unlocked" = false,
 	},
 	"explosive_turret" = {
@@ -95,6 +100,7 @@ var gadget_roster = {
 		"scene" = load("res://scenes/gadgets/gadget_explosive_turret.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_explosive_turret.png"),
 		"cost" = 20,
+		"unlock_cost" = 15,
 		"unlocked" = false,
 	},
 	"explosive_turret_long_range" = {
@@ -104,6 +110,7 @@ var gadget_roster = {
 		"scene" = load("res://scenes/gadgets/gadget_explosive_turret_long_range.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_explosive_turret.png"),
 		"cost" = 25,
+		"unlock_cost" = 20,
 		"unlocked" = false,
 	},
 	"explosive_turret_more_damage" = {
@@ -113,6 +120,7 @@ var gadget_roster = {
 		"scene" = load("res://scenes/gadgets/gadget_explosive_turret_more_damage.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_explosive_turret.png"),
 		"cost" = 25,
+		"unlock_cost" = 20,
 		"unlocked" = false,
 	},
 	"flame_turret" = {
@@ -122,6 +130,7 @@ var gadget_roster = {
 		"scene" = load("res://scenes/gadgets/gadget_flame_turret.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_pistol_turret.png"),
 		"cost" = 10,
+		"unlock_cost" = 15,
 		"unlocked" = false,
 	},
 }

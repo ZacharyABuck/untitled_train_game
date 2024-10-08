@@ -19,7 +19,6 @@ class_name HealthComponent
 
 @export var status_effect_component: Node2D
 
-var money = preload("res://scenes/money.tscn")
 var blood_fx = preload("res://scenes/fx/blood_fx.tscn")
 
 var health : float
@@ -79,8 +78,7 @@ func spawn_particles(fx):
 func _handle_death(shooter):
 	if is_killable:
 		if character.is_in_group("enemy"):
-			var rng = randi_range(-5,2+CurrentRun.world.current_level_info.difficulty)
-			CurrentRun.world.current_level_info.spawn_money(character.global_position, clamp(character.money+rng,0,int(CurrentRun.world.current_level_info.difficulty)))
+			CurrentRun.world.current_level_info.calculate_random_drop(character)
 			ExperienceSystem.give_experience.emit(character.experience)
 			CurrentRun.world.current_level_info.active_level.enemy_killed()
 			character.state = "dead"
@@ -91,8 +89,7 @@ func _handle_death(shooter):
 			check_edges(shooter)
 		
 		if character.is_in_group("furnace"):
-			CurrentRun.world.current_train_info.furnace = null
-			character.queue_free()
+			character.dead.emit()
 		
 		if character.is_in_group("event"):
 			character.queue_free()

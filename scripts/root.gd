@@ -20,7 +20,7 @@ func set_tutorials(value):
 
 func title_screen_start_button_pressed():
 	title_screen_start_button.disabled = true
-	AudioSystem.play_audio("basic_button_click")
+	AudioSystem.play_audio("basic_button_click", -10)
 	await fade_to_black(.5)
 
 	title_screen.hide()

@@ -1220,7 +1220,7 @@ text = "Level: 1"
 [node name="MoneyLabel" type="Label" parent="UI"]
 offset_left = 1690.0
 offset_top = 98.0
-offset_right = 3543.0
+offset_right = 1855.0
 offset_bottom = 137.0
 theme_override_colors/font_color = Color(0.870588, 0.74902, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -1228,6 +1228,18 @@ theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("5_uxjuw")
 theme_override_font_sizes/font_size = 30
 text = "Money = 0"
+
+[node name="ScrapLabel" type="Label" parent="UI"]
+offset_left = 1690.0
+offset_top = 138.0
+offset_right = 1855.0
+offset_bottom = 177.0
+theme_override_colors/font_color = Color(0.870588, 0.466667, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("5_uxjuw")
+theme_override_font_sizes/font_size = 30
+text = "Scrap = 0"
 
 [node name="EdgeMenu" type="HBoxContainer" parent="UI"]
 process_mode = 3

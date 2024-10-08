@@ -44,12 +44,14 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	$UI/MoneyLabel.text = "Money: $" + str(CurrentRun.world.current_player_info.current_money)
+	$UI/ScrapLabel.text = "Scrap: " + str(CurrentRun.world.current_player_info.current_scrap)
+	
 	# These XP functions will be moved to a dedicated node or func that handles all this.
 	xp_bar.value = CurrentRun.world.current_player_info.currentExperience
 	xp_bar.max_value = CurrentRun.world.current_player_info.nextLevelExperience
 	level_label.text = "Level: " + str(CurrentRun.world.current_player_info.currentLevel)
 	$UI/PlayerExperienceBar.value = CurrentRun.world.current_player_info.currentExperience
-	
+
 func calculate_weather():
 	var random_weather = weather_states.pick_random()
 	weather = random_weather

@@ -14,6 +14,6 @@ func damage(attack: Attack, shooter):
 		for buff in attack.active_buffs:
 			health_component.process_buffs(buff)
 		if get_parent() is Player:
-			AudioSystem.play_audio("player_hit")
+			AudioSystem.play_audio("player_hit", -10)
 		else:
-			AudioSystem.play_audio("hit")
+			AudioSystem.play_audio("hit", -15)

@@ -57,9 +57,26 @@ func clear_variables():
 	map_positions.clear()
 	active_map = null
 
-var money = preload("res://scenes/money.tscn")
-func spawn_money(pos, amount):
+var money = preload("res://scenes/drops/money.tscn")
+var scrap = preload("res://scenes/drops/scrap.tscn")
+
+func calculate_random_drop(character):
+	var rng = randi_range(-2,10)
+	var random_drop
+	
+	if rng > 0:
+		random_drop = money
+	else:
+		random_drop = scrap
+		
+	var random_amount = randi_range(-2,1)
+	if random_drop == money:
+		spawn_drop(money, character.global_position, clamp(character.money+random_amount,0,int(difficulty)))
+	elif random_drop == scrap:
+		spawn_drop(scrap, character.global_position, 1+random_amount)
+
+func spawn_drop(drop, pos, amount):
 	for i in amount:
-		var new_money = money.instantiate()
-		new_money.global_position = pos
-		active_level.call_deferred("add_child", new_money)
+		var new_drop = drop.instantiate()
+		new_drop.global_position = pos
+		active_level.call_deferred("add_child", new_drop)

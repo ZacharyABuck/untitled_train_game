@@ -1,20 +1,22 @@
 [gd_scene load_steps=5 format=3 uid="uid://dphvykl8vq0y8"]
 
-[ext_resource type="Script" path="res://scripts/money.gd" id="1_2kksr"]
-[ext_resource type="Texture2D" uid="uid://ccc7b2dox26h2" path="res://sprites/ui/coin_1.png" id="1_ck4p0"]
-[ext_resource type="AudioStream" uid="uid://d3cu6rso7qa33" path="res://sounds/ui/get_money.mp3" id="3_761bl"]
+[ext_resource type="Script" path="res://scenes/drops/money.gd" id="1_u66sj"]
+[ext_resource type="Texture2D" uid="uid://ccc7b2dox26h2" path="res://sprites/ui/coin_1.png" id="2_pcal6"]
+[ext_resource type="AudioStream" uid="uid://d3cu6rso7qa33" path="res://sounds/ui/get_money.mp3" id="3_533yf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wvagx"]
 
-[node name="Money" type="RigidBody2D"]
+[node name="Money" type="RigidBody2D" node_paths=PackedStringArray("sfx")]
 collision_layer = 0
-script = ExtResource("1_2kksr")
+script = ExtResource("1_u66sj")
+value = 1
 state = "initial_force"
+sfx = NodePath("SFX")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_ck4p0")
+texture = ExtResource("2_pcal6")
 
 [node name="PlayerDetector" type="Area2D" parent="."]
 collision_layer = 0
@@ -23,7 +25,7 @@ collision_layer = 0
 shape = SubResource("CircleShape2D_wvagx")
 
 [node name="SFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_761bl")
+stream = ExtResource("3_533yf")
 volume_db = -10.0
 bus = &"SFX"
 
