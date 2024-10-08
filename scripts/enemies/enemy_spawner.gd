@@ -31,7 +31,7 @@ func spawn_enemy(amount, type, pos):
 			new_enemy.wave_enemy = true
 			new_enemy.global_position = find_random_position()
 		else:
-			new_enemy.global_position = pos
+			new_enemy.global_position = pos + Vector2(randf_range(-300,300), randf_range(-300,300))
 		
 		CurrentRun.world.current_level_info.active_level.enemies.call_deferred("add_child", new_enemy)
 		CurrentRun.world.current_enemy_info.enemy_inventory[CurrentRun.world.current_enemy_info.enemy_inventory.keys().size()] = new_enemy

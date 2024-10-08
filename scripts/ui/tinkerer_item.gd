@@ -25,7 +25,11 @@ func populate(new_gadget):
 	cost_label.text = "[center]Cost: " + str(cost) + "[/center]"
 
 func button_pressed():
-	GadgetInfo.gadget_roster[gadget]["unlocked"] == true
-	
-	queue_free()
+	if CurrentRun.world.current_player_info.current_money >= cost:
+		CurrentRun.world.current_player_info.current_money -= cost
+		CurrentRun.world.update_money_label()
+		GadgetInfo.gadget_roster[gadget]["unlocked"] = true
+		
+		
+		queue_free()
 

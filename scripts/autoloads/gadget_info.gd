@@ -121,7 +121,7 @@ var gadget_roster = {
 		"location" = "hard_point",
 		"scene" = load("res://scenes/gadgets/gadget_flame_turret.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_pistol_turret.png"),
-		"cost" = 14,
+		"cost" = 10,
 		"unlocked" = false,
 	},
 }

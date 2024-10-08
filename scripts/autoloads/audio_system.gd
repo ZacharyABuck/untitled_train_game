@@ -10,33 +10,55 @@ var sounds = {
 	
 }
 
+var sounds_inventory = {}
+var max_sounds: int = 3
+
 func play_audio(sound_id):
 	var sound = sounds[sound_id]
 	
-	var new_player = AudioStreamPlayer.new()
-	add_child(new_player)
-	
-	new_player.stream = sound
-	new_player.bus = "SFX"
-	new_player.volume_db = -10
-	
-	new_player.play()
-	
-	await new_player.finished
-	new_player.queue_free()
+	if sounds_inventory.has(sound) and sounds_inventory[sound] >= max_sounds:
+		pass
+	else:
+		
+		var new_player = AudioStreamPlayer.new()
+		add_child(new_player)
+		if sounds_inventory.has(sound):
+			sounds_inventory[sound] += 1
+		else:
+			sounds_inventory[sound] = 1
+		
+		new_player.stream = sound
+		new_player.bus = "SFX"
+		new_player.volume_db = -10
+		
+		new_player.play()
+		
+		await new_player.finished
+		sounds_inventory[sound] = max(sounds_inventory[sound]-1 , 0)
+		new_player.queue_free()
+		
 
 func play_audio_2d(sound_id, pos):
 	var sound = sounds[sound_id]
 	
-	var new_player = AudioStreamPlayer2D.new()
-	new_player.global_position = pos
-	add_child(new_player)
-	
-	new_player.stream = sound
-	new_player.bus = "SFX"
-	new_player.volume_db = -10
-	
-	new_player.play()
-	
-	await new_player.finished
-	new_player.queue_free()
+	if sounds_inventory.has(sound) and sounds_inventory[sound] >= max_sounds:
+		pass
+	else:
+		var new_player = AudioStreamPlayer2D.new()
+		new_player.global_position = pos
+		add_child(new_player)
+		if sounds_inventory.has(sound):
+			sounds_inventory[sound] += 1
+		else:
+			sounds_inventory[sound] = 1
+		
+		new_player.stream = sound
+		new_player.bus = "SFX"
+		new_player.volume_db = -10
+		
+		new_player.play()
+		
+		await new_player.finished
+		sounds_inventory[sound] = max(sounds_inventory[sound]-1 , 0)
+		new_player.queue_free()
+		

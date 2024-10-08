@@ -79,7 +79,7 @@ func spawn_particles(fx):
 func _handle_death(shooter):
 	if is_killable:
 		if character.is_in_group("enemy"):
-			var rng = randi_range(-15,2)
+			var rng = randi_range(-5,2+CurrentRun.world.current_level_info.difficulty)
 			CurrentRun.world.current_level_info.spawn_money(character.global_position, clamp(character.money+rng,0,int(CurrentRun.world.current_level_info.difficulty)))
 			ExperienceSystem.give_experience.emit(character.experience)
 			CurrentRun.world.current_level_info.active_level.enemy_killed()

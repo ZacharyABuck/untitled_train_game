@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://blo8u73t6turn" path="res://scenes/buff_receiver.tscn" id="6_fao0o"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h5xqt"]
-radius = 440.018
+radius = 374.021
 
 [sub_resource type="Gradient" id="Gradient_rgqcg"]
 interpolation_mode = 2
@@ -44,7 +44,7 @@ TARGET_TYPES = {
 }
 ATTACK_TIMER = NodePath("../AttackTimer")
 BULLET_SPEED = 1500
-DAMAGE_PER_BULLET = 1.5
+DAMAGE_PER_BULLET = 1.0
 PROJECTILE = ExtResource("4_4bkhr")
 TARGET_AREA = NodePath("ProjectileTargetArea")
 BUFF_RECEIVER = NodePath("../BuffReceiver")

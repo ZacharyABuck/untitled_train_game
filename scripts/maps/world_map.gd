@@ -62,8 +62,11 @@ func handle_towns():
 				else: 
 					CurrentRun.world.current_world_info.towns_inventory[town_info] = WorldInfo.towns_roster[town_info]
 					CurrentRun.world.current_world_info.towns_inventory[town_info]["scene"] = new_town
-					CurrentRun.world.current_world_info.towns_inventory[town_info]["size"] = randi_range(1,3)
+					CurrentRun.world.current_world_info.towns_inventory[town_info]["size"] = 3
 					var town_size = CurrentRun.world.current_world_info.towns_inventory[town_info]["size"]
+					#CurrentRun.world.current_world_info.towns_inventory[town_info]["gunsmith"] = true
+					#CurrentRun.world.current_world_info.towns_inventory[town_info]["tinkerer"] = true
+					#CurrentRun.world.current_world_info.towns_inventory[town_info]["trainyard"] = true
 					var possible_shops = ["gunsmith", "tinkerer", "trainyard"]
 					var random_shop
 					for t in town_size:

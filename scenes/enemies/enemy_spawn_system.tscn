@@ -43,14 +43,14 @@ debug_color = Color(0.705882, 0, 0.156863, 0.835294)
 [node name="Extra" type="Node2D" parent="EnemySpawnPositions"]
 
 [node name="0" type="Node2D" parent="EnemySpawnPositions/Extra"]
-position = Vector2(-1273, -1002)
+position = Vector2(-815, -423)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/Extra/0"]
 shape = SubResource("CircleShape2D_tx5uk")
 debug_color = Color(0.705882, 0, 0.156863, 0.835294)
 
 [node name="1" type="Node2D" parent="EnemySpawnPositions/Extra"]
-position = Vector2(1248, -1002)
+position = Vector2(898, -441)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnPositions/Extra/1"]
 shape = SubResource("CircleShape2D_tx5uk")

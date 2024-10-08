@@ -97,16 +97,25 @@ func spawn_tinkerer_items():
 		elif GadgetInfo.upgrade_rosters.has(gadget):
 			var random_upgrade = GadgetInfo.upgrade_rosters[gadget].pick_random()
 			#while upgrade is unlocked, check down the line
+			var index = 0
 			while GadgetInfo.gadget_roster[random_upgrade]["unlocked"] == true:
 				if GadgetInfo.upgrade_rosters.has(random_upgrade):
 					random_upgrade = GadgetInfo.upgrade_rosters[random_upgrade].pick_random()
 				else:
+					#check for max upgrades, if all are upgraded spawn none
+					index += 1
+					if index == GadgetInfo.upgrade_rosters.keys().size() - 1:
+						random_upgrade = null
+						break
+					
 					random_upgrade = GadgetInfo.upgrade_rosters[gadget].pick_random()
-			
-			#spawn upgrade gadget
-			var new_item = tinkerer_item.instantiate()
-			tinkerer_items_list.add_child(new_item)
-			new_item.populate(random_upgrade)
+					
+					
+			if random_upgrade != null:
+				#spawn upgrade gadget
+				var new_item = tinkerer_item.instantiate()
+				tinkerer_items_list.add_child(new_item)
+				new_item.populate(random_upgrade)
 
 func close_all_windows():
 	shop_containers.hide()

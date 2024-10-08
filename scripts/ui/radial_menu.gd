@@ -26,10 +26,13 @@ func _ready():
 
 func _on_mouse_entered():
 	if CurrentRun.world.current_player_info.active_player:
-		if CurrentRun.world.current_player_info.state == "default":
-			if CurrentRun.world.current_player_info.active_player.active_car == get_parent().car.index and current_type != "none":
-				$AnimationPlayer.play("flash")
-				selected = true
+		if CurrentRun.world.current_player_info.state == "default" and \
+		CurrentRun.world.current_player_info.active_player.active_car == get_parent().car.index and current_type != "none":
+			for i in GadgetInfo.upgrade_rosters[current_type]:
+				if GadgetInfo.gadget_roster[i]["unlocked"] == true:
+					$AnimationPlayer.play("flash")
+					selected = true
+					break
 		else:
 			$AnimationPlayer.play("still")
 			selected = false

@@ -799,8 +799,7 @@ custom_minimum_size = Vector2(500, 500)
 layout_mode = 2
 size_flags_horizontal = 6
 texture = ExtResource("19_taibv")
-expand_mode = 5
-stretch_mode = 5
+expand_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="TownsUI/MarginContainer/PanelContainer/MarginContainer/Tinkerer/HBoxContainer/BG"]
 layout_mode = 1
