@@ -37,11 +37,11 @@ func _ready():
 	is_killable = IS_KILLABLE
 	animation = ANIMATION
 	character = get_parent()
-	if character is Player:
-		health = CurrentRun.world.current_player_info.current_health
-		HEALTHBAR = CurrentRun.world.current_level_info.active_level.player_health_bar
-	else:
-		health = MAX_HEALTH
+	#if character is Player:
+		#health = CurrentRun.world.current_player_info.current_health
+		#HEALTHBAR = CurrentRun.world.current_level_info.active_level.player_health_bar
+	#else:
+	health = MAX_HEALTH
 	if HEALTHBAR != null:
 		_initialize_healthbar()
 	

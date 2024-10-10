@@ -80,6 +80,7 @@ animations = NodePath("AnimatedSprite2D")
 health_component = NodePath("HealthComponent")
 projectile_attack_component = NodePath("GunAttackComponent")
 attack_timer = NodePath("AttackTimer")
+enemy_reference = "bandit"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

@@ -25,7 +25,7 @@ size = Vector2(29.5, 30.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dwjki"]
 size = Vector2(39, 41)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8b4sl"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p1p2s"]
 bg_color = Color(0.262745, 0, 0, 0.4)
 border_width_left = 2
 border_width_top = 2
@@ -37,7 +37,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7lvr5"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a50ys"]
 bg_color = Color(0.901961, 0, 0, 1)
 border_width_left = 1
 border_width_top = 1
@@ -77,15 +77,19 @@ shape = SubResource("RectangleShape2D_dwjki")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("HEALTHBAR") instance=ExtResource("3_46fpg")]
 MAX_HEALTH = 30.0
-HEALTHBAR = NodePath("../FurnaceHealthBar")
+HEALTHBAR = NodePath("../HealthBarControl/FurnaceHealthBar")
 
-[node name="FurnaceHealthBar" type="ProgressBar" parent="."]
-offset_left = -38.0
-offset_top = -38.0
-offset_right = 38.0
-offset_bottom = -21.0
-theme_override_styles/background = SubResource("StyleBoxFlat_8b4sl")
-theme_override_styles/fill = SubResource("StyleBoxFlat_7lvr5")
+[node name="HealthBarControl" type="Node2D" parent="."]
+top_level = true
+
+[node name="FurnaceHealthBar" type="ProgressBar" parent="HealthBarControl"]
+offset_left = -40.0
+offset_top = -50.0
+offset_right = 40.0
+offset_bottom = -30.0
+pivot_offset = Vector2(40, 50)
+theme_override_styles/background = SubResource("StyleBoxFlat_p1p2s")
+theme_override_styles/fill = SubResource("StyleBoxFlat_a50ys")
 max_value = 50.0
 value = 25.0
 show_percentage = false

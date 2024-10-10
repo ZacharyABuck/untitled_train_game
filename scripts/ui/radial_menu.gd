@@ -1,7 +1,6 @@
 # YOU MUST CREATE AND ASSIGN A COLLISION SHAPE IN THE SCENE WHERE YOU PUT THIS
 extends Area2D
 
-var possible_types = ["default", "pistol_turret", "explosive_turret", "rifle_turret", "none"]
 var current_type
 @export var radius: int
 @export var collision_shape: CollisionShape2D
@@ -108,7 +107,7 @@ func close_menu():
 		i.queue_free()
 
 func update_menu(gadget):
-	if possible_types.has(gadget):
+	if GadgetInfo.upgrade_rosters.keys().has(gadget):
 		current_type = gadget
 		for i in items.get_children():
 			i.queue_free()

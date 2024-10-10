@@ -1,6 +1,8 @@
 extends StaticBody2D
 
 @onready var health_component = $HealthComponent
+@onready var furnace_health_bar = $FurnaceHealthBar
+@onready var health_bar_control = $HealthBarControl
 
 signal dead
 
@@ -8,3 +10,6 @@ signal dead
 func _ready():
 	CurrentRun.world.current_train_info.furnace = self
 	dead.connect(CurrentRun.root.show_restart_button)
+
+func _process(delta):
+	health_bar_control.global_position = global_position

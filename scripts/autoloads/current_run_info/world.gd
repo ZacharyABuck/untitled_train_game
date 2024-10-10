@@ -116,6 +116,8 @@ func town_clicked(town):
 				towns_ui.trainyard_button.show()
 	
 	else:
+		towns_ui.close_all_windows()
+		towns_ui.hide()
 		current_world_info.towns_inventory[town.town_name]["scene"].show_travel_info()
 
 func _on_travel_button_pressed():
@@ -175,6 +177,7 @@ func update_world_player_pos():
 func check_missions():
 	for i in current_mission_info.mission_inventory.keys():
 		if current_mission_info.mission_inventory[i]["destination"] == current_world_info.active_town:
+			#Mission Complete
 			print("Mission Complete: " + str(current_mission_info.mission_inventory[i]["type"]) + " " + str(current_mission_info.mission_inventory[i]["character"]))
 			complete_mission(i)
 		else:
@@ -190,7 +193,7 @@ func check_missions():
 			i.time_limit_label.text = str(current_mission_info.mission_inventory[i.mission_id]["time_limit"])
 
 func complete_mission(mission):
-	current_player_info.current_money += current_mission_info.mission_inventory[mission]["reward"]
+	current_player_info.current_scrap += current_mission_info.mission_inventory[mission]["reward"]
 	update_money_label()
 	if current_mission_info.mission_inventory[mission].keys().has("icon"):
 		world_ui.spawn_reward_panel(true, current_mission_info.mission_inventory[mission]["icon"], current_mission_info.mission_inventory[mission]["reward"])

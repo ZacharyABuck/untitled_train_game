@@ -183,6 +183,7 @@ visible = false
 shape = SubResource("RectangleShape2D_qgewi")
 
 [node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+process_mode = 4
 script = ExtResource("8_vuihw")
 health_component = NodePath("../HealthComponent")
 
@@ -192,6 +193,7 @@ position = Vector2(-1, 2)
 shape = SubResource("RectangleShape2D_m2jei")
 
 [node name="HealthComponent" parent="." instance=ExtResource("10_2vmk3")]
+process_mode = 4
 MAX_HEALTH = 50.0
 
 [node name="EdgeHandler" type="Node2D" parent="."]

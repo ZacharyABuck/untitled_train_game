@@ -37,7 +37,7 @@ var weapons_roster = {
 		"sprite" = preload("res://sprites/weapons/mondragon.png"),
 		"base_attack_delay" = .3,
 		"base_projectile_speed" = 1000,
-		"base_damage" = 1.5,
+		"base_damage" = 1.0,
 		"base_lifetime" = 2.0,
 	},
 

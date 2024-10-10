@@ -12,6 +12,7 @@ var enemy_spawn_system
 var destination
 
 var difficulty = 1.0
+var wave_count: int = 2
 
 var level_parameters = {
 	"distance" = 4,
@@ -61,7 +62,7 @@ var money = preload("res://scenes/drops/money.tscn")
 var scrap = preload("res://scenes/drops/scrap.tscn")
 
 func calculate_random_drop(character):
-	var rng = randi_range(-2,10)
+	var rng = randi_range(-1,20)
 	var random_drop
 	
 	if rng > 0:
@@ -69,7 +70,7 @@ func calculate_random_drop(character):
 	else:
 		random_drop = scrap
 		
-	var random_amount = randi_range(-2,1)
+	var random_amount = randi_range(-4, int(difficulty))
 	if random_drop == money:
 		spawn_drop(money, character.global_position, clamp(character.money+random_amount,0,int(difficulty)))
 	elif random_drop == scrap:

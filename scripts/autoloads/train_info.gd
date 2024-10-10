@@ -20,12 +20,12 @@ var cars_roster = {
 }
 
 var train_upgrade_roster = {
-	"car_count" = {
-		"name" = "Purchase Train Car",
-		"cost" = 100,
-		"icon" = preload("res://sprites/ui/track_single.png"),
-		"value" = 1,
-	},
+	#"car_count" = {
+		#"name" = "Purchase Train Car",
+		#"cost" = 100,
+		#"icon" = preload("res://sprites/ui/track_single.png"),
+		#"value" = 1,
+	#},
 	"car_health" = {
 		"name" = "Upgrade Train Car Health",
 		"cost" = 30,

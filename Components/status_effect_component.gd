@@ -31,7 +31,8 @@ func apply_poison():
 
 func apply_shock():
 	is_shocked = true
-	shock_timer.start()
+	if shock_timer:
+		shock_timer.start()
 	spawn_particles(shock_fx)
 	shock()
 

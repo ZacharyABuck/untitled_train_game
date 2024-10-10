@@ -6,6 +6,7 @@ class_name Enemy
 @export var health_component: HealthComponent
 @export var projectile_attack_component: ProjectileAttackComponent
 @export var attack_timer: Timer
+@export var enemy_reference: String
 
 var enemy_stats: Dictionary
 var speed: float
@@ -21,7 +22,11 @@ var target
 
 var wave_enemy: bool = false
 var cars_reached: int = 0
+var last_car: int
 
+func _ready():
+	find_stats(enemy_reference)
+	last_car = CurrentRun.world.current_train_info.train_stats["car_count"] - 1
 
 func _process(delta):
 	if enemy_stats.has("speed") and CurrentRun.world.current_train_info.train_engine:
@@ -39,14 +44,13 @@ func find_stats(enemy_type):
 	type = enemy_stats["type"]
 	speed = enemy_stats["speed"]
 	money = enemy_stats["money"]
-	experience = enemy_stats["experience"]
+	experience = enemy_stats["experience"] * CurrentRun.world.current_level_info.difficulty
 	damage = enemy_stats["damage"]
-	health_component.health = enemy_stats["health"]
+	health_component.health = enemy_stats["health"] * CurrentRun.world.current_level_info.difficulty
 
 func find_target():
 	var new_target
 	if wave_enemy:
-		var last_car = CurrentRun.world.current_train_info.train_stats["car_count"] - 1
 		if last_car == cars_reached:
 			new_target = find_random_target()
 		else:
@@ -59,7 +63,6 @@ func find_target():
 		
 
 func find_next_nav_point():
-	var last_car = CurrentRun.world.current_train_info.train_stats["car_count"] - 1
 	if CurrentRun.world.current_train_info.cars_inventory.has(last_car - cars_reached):
 		var target_car = CurrentRun.world.current_train_info.cars_inventory[last_car - cars_reached]["node"]
 		var nav_point = target_car.enemy_nav_points.get_child(0)
@@ -71,10 +74,10 @@ func find_next_nav_point():
 		return nav_point
 
 func find_random_target():
-	if CurrentRun.world.current_train_info.furnace != null:
-		return CurrentRun.world.current_train_info.furnace
-	else:
-		var rng = CurrentRun.world.current_player_info.targets.pick_random()
-		while rng.is_in_group("cargo"):
-			rng = CurrentRun.world.current_player_info.targets.pick_random()
-		return rng
+	#if CurrentRun.world.current_train_info.furnace != null:
+	return CurrentRun.world.current_train_info.furnace
+	#else:
+		#var rng = CurrentRun.world.current_player_info.targets.pick_random()
+		#while rng.is_in_group("cargo"):
+			#rng = CurrentRun.world.current_player_info.targets.pick_random()
+		#return rng

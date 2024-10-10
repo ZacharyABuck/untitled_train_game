@@ -23,7 +23,7 @@ var enemy_roster = {
 		"experience" = 3,
 		"max_spawn" = 100,
 	},
-	"big zombie" = {
+	"big_zombie" = {
 		"scene" = load("res://scenes/enemies/enemy_big_zombie.tscn"),
 		"level" = 1.5,
 		"type" = "melee",
@@ -32,11 +32,11 @@ var enemy_roster = {
 		"money" = 3,
 		"speed" = 7000,
 		"experience" = 10,
-		"max_spawn" = 2,
+		"max_spawn" = 1,
 	},
 	"monstrosity" = {
 		"scene" = load("res://scenes/enemies/enemy_monstrosity.tscn"),
-		"level" = 2.0,
+		"level" = 1.8,
 		"health" = 4,
 		"type" = "melee",
 		"damage" = 10.0,
@@ -52,7 +52,7 @@ var enemy_roster = {
 		"type" = "melee",
 		"damage" = 2.0,
 		"money" = 1,
-		"speed" = 10000,
+		"speed" = 12000,
 		"experience" = 1,
 		"max_spawn" = 5,
 	},

@@ -4,14 +4,16 @@ extends Node2D
 @onready var extra_spawns = $EnemySpawnPositions/Extra
 
 @onready var enemy_wave_timer = $EnemyWaveTimer
+@onready var spawn_interval_timer = $SpawnIntervalTimer
 
-var wave_count: int = 2
-var spawn_interval: int = 2
+var wave_count: int
 var spawning: bool = false
+var spawn_index: int = 0
 var level
 
 func _ready():
 	CurrentRun.world.current_level_info.enemy_spawn_system = self
+	wave_count = CurrentRun.world.current_level_info.wave_count
 	level = get_parent()
 	await get_tree().create_timer(5).timeout
 	spawn_level_enemies()
@@ -33,14 +35,22 @@ func check_for_enemies():
 			wave_timer_timeout()
 			enemy_wave_timer.start()
 
-
 func wave_timer_timeout():
-	for i in round(wave_count):
-		spawn_level_enemies()
-		await get_tree().create_timer(spawn_interval).timeout
-	CurrentRun.world.current_level_info.difficulty += .05
+	spawn_interval_timer.start()
+	spawn_level_enemies()
+	CurrentRun.world.current_level_info.difficulty += .025
 	wave_count += 1
-	spawning = false
+	CurrentRun.world.current_level_info.wave_count = wave_count
+
+func _on_spawn_interval_timer_timeout():
+	spawn_index += 1
+	if spawn_index >= wave_count:
+		spawn_interval_timer.stop()
+		spawn_index = 0
+		spawning = false
+	else:
+		spawn_interval_timer.start()
+		spawn_level_enemies()
 
 func spawn_level_enemies():
 	var spawn_count = CurrentRun.world.current_level_info.difficulty
@@ -53,3 +63,4 @@ func spawn_level_enemies():
 	var max_spawn = EnemyInfo.enemy_roster[random_enemy]["max_spawn"]
 	new_spawner.spawn_enemy(clamp(spawn_count, 1, max_spawn), random_enemy, null)
 	print("Enemies Spawned, Wave: " + str(wave_count) + " Difficulty: " + str(CurrentRun.world.current_level_info.difficulty))
+

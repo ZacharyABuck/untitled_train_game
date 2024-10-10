@@ -28,12 +28,12 @@ func find_random_mission():
 	var distance = CurrentRun.world.current_world_info.towns_inventory[destination]["scene"].global_position.distance_to\
 	(CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"].global_position)
 	
-	var random_reward = random_mission["reward"] + round(distance*.005)
+	var random_reward = random_mission["reward"] + round(distance*.002)
 	var random_time_limit = randi_range(1,3)
 	if random_time_limit > 1:
-		$HBoxContainer/VBoxContainer/Reward.text = "Reward: " + str(random_reward) + "      " + str(random_time_limit) + " days"
+		$HBoxContainer/VBoxContainer/Reward.text = "Reward: " + str(random_reward) + " scrap      " + str(random_time_limit) + " days"
 	else:
-		$HBoxContainer/VBoxContainer/Reward.text = "Reward: " + str(random_reward) + "      " + str(random_time_limit) + " day"
+		$HBoxContainer/VBoxContainer/Reward.text = "Reward: " + str(random_reward) + " scrap      " + str(random_time_limit) + " day"
 	reward = random_reward
 	time_limit = random_time_limit
 	$Button.mouse_entered.connect(CurrentRun.world.show_travel_line.bind(destination))

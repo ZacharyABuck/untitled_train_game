@@ -1,0 +1,77 @@
+[gd_scene load_steps=11 format=3 uid="uid://rst2pv4el83r"]
+
+[ext_resource type="Script" path="res://scripts/gadgets/gadget_flame_turret.gd" id="1_geupm"]
+[ext_resource type="Texture2D" uid="uid://c1esbr41s7mmf" path="res://sprites/gadgets/gadget_pistol_turret.png" id="2_mrdij"]
+[ext_resource type="PackedScene" uid="uid://c76dtsauqnpia" path="res://components/projectile_attack_component.tscn" id="3_c4q58"]
+[ext_resource type="PackedScene" uid="uid://beds1gyq356uk" path="res://scenes/projectiles/flamethrower_spray_wide_area.tscn" id="4_6tff3"]
+[ext_resource type="AudioStream" uid="uid://hgoi6017bbtd" path="res://sounds/combat/flamethrower.mp3" id="5_4ywhy"]
+[ext_resource type="PackedScene" uid="uid://cpe7uj0omv03o" path="res://components/moving_target_component.tscn" id="6_7pvgs"]
+[ext_resource type="PackedScene" uid="uid://blo8u73t6turn" path="res://scenes/buff_receiver.tscn" id="7_hkfyf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h5xqt"]
+radius = 440.018
+
+[sub_resource type="Gradient" id="Gradient_rgqcg"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y8sjb"]
+gradient = SubResource("Gradient_rgqcg")
+height = 90
+fill = 1
+fill_from = Vector2(0.492788, 0.606838)
+fill_to = Vector2(0.61899, 0.192308)
+
+[node name="FlameTurretWideArea" type="Node2D" node_paths=PackedStringArray("BUFF_RECEIVER", "moving_target_component") groups=["gadget"]]
+script = ExtResource("1_geupm")
+BUFF_RECEIVER = NodePath("BuffReceiver")
+moving_target_component = NodePath("MovingTargetComponent")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+rotation = 3.14159
+texture = ExtResource("2_mrdij")
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="ProjectileAttackComponent" parent="." node_paths=PackedStringArray("ATTACK_TIMER", "TARGET_AREA", "BUFF_RECEIVER", "SHOOT_SOUND") instance=ExtResource("3_c4q58")]
+TARGET_TYPES = {
+"car": false,
+"cover": false,
+"enemy": true,
+"player": false,
+"terrain": false
+}
+ATTACK_TIMER = NodePath("../AttackTimer")
+BULLET_SPEED = 0
+DAMAGE_PER_BULLET = 1.0
+PROJECTILE = ExtResource("4_6tff3")
+TARGET_AREA = NodePath("ProjectileTargetArea")
+LIFETIME = 2
+BUFF_RECEIVER = NodePath("../BuffReceiver")
+SHOOT_SOUND = NodePath("AudioStreamPlayer2D")
+
+[node name="ProjectileTargetArea" type="CollisionShape2D" parent="ProjectileAttackComponent"]
+shape = SubResource("CircleShape2D_h5xqt")
+debug_color = Color(0.552941, 0.4, 1, 0.419608)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="ProjectileAttackComponent"]
+stream = ExtResource("5_4ywhy")
+volume_db = -10.0
+bus = &"SFX"
+
+[node name="FrontLight" type="PointLight2D" parent="."]
+position = Vector2(219.285, 2.62994)
+rotation = 1.5708
+scale = Vector2(3.56228, 5.0407)
+energy = 0.5
+texture = SubResource("GradientTexture2D_y8sjb")
+
+[node name="MovingTargetComponent" parent="." instance=ExtResource("6_7pvgs")]
+collision_layer = 8
+collision_mask = 0
+
+[node name="BuffReceiver" parent="." instance=ExtResource("7_hkfyf")]
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

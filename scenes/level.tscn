@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://02oiy550pacp"]
+[gd_scene load_steps=60 format=3 uid="uid://02oiy550pacp"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_2a3mn"]
 [ext_resource type="PackedScene" uid="uid://cb1r5v4vqyrx8" path="res://scenes/train/TrainManager.tscn" id="3_3t5p5"]
@@ -1035,21 +1035,22 @@ border_blend = true
 bg_color = Color(0.4, 0.4, 0.4, 0.588235)
 
 [sub_resource type="Gradient" id="Gradient_678u3"]
-offsets = PackedFloat32Array(0.64759, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+offsets = PackedFloat32Array(0.0933735, 0.629518)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_xqvyy"]
 frequency = 0.3535
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qkm0k"]
+invert = true
+seamless = true
 color_ramp = SubResource("Gradient_678u3")
 noise = SubResource("FastNoiseLite_xqvyy")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mc2q4"]
 shader = ExtResource("22_kbqtr")
-shader_parameter/line_color = Color(0, 0.884637, 0.886396, 1)
+shader_parameter/line_color = Color(0, 0.886275, 0.886275, 1)
 shader_parameter/line_count = 1.9
-shader_parameter/line_density = 0.016
+shader_parameter/line_density = 0.048
 shader_parameter/line_faloff = 0.055
 shader_parameter/mask_size = 0.0
 shader_parameter/mask_edge = 0.845
@@ -1073,6 +1074,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [-80.0, -25.0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/line_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0.886275, 0.886275, 0), Color(0, 0.886275, 0.886275, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_e30y6"]
 resource_name = "fade_out"
@@ -1089,9 +1102,37 @@ tracks/0/keys = {
 "update": 0,
 "values": [-25.0, -80.0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/line_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0.886275, 0.886275, 1), Color(0, 0.886275, 0.886275, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_xvox3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/line_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0.886275, 0.886275, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lvm2e"]
 _data = {
+"RESET": SubResource("Animation_xvox3"),
 "fade_in": SubResource("Animation_6ry7i"),
 "fade_out": SubResource("Animation_e30y6")
 }
@@ -1168,6 +1209,8 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_y5gsu")
 show_percentage = false
 
 [node name="PlayerHealthBar" type="ProgressBar" parent="UI"]
+process_mode = 4
+visible = false
 offset_left = 60.0
 offset_top = 59.0
 offset_right = 238.0
@@ -1180,9 +1223,9 @@ show_percentage = false
 
 [node name="PlayerChargeBar" type="ProgressBar" parent="UI"]
 offset_left = 60.0
-offset_top = 103.0
+offset_top = 51.0
 offset_right = 238.0
-offset_bottom = 142.0
+offset_bottom = 90.0
 theme_override_styles/background = SubResource("StyleBoxFlat_61f3p")
 theme_override_styles/fill = SubResource("StyleBoxFlat_g3wox")
 max_value = 50.0
@@ -1466,7 +1509,6 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Rain" type="TextureRect" parent="UI/Weather"]
-modulate = Color(1, 1, 1, 0)
 z_index = -5
 material = SubResource("ShaderMaterial_mc2q4")
 custom_minimum_size = Vector2(1920, 1080)
@@ -1478,7 +1520,7 @@ texture = SubResource("CanvasTexture_rjoqq")
 
 [node name="RainSFX" type="AudioStreamPlayer" parent="UI/Weather/Rain"]
 stream = ExtResource("23_dws0p")
-volume_db = -26.1
+volume_db = -80.0
 autoplay = true
 bus = &"SFX"
 
@@ -1515,6 +1557,7 @@ volume_db = -8.0
 bus = &"SFX"
 
 [node name="WeaponSpawner" parent="." instance=ExtResource("17_lhsmc")]
+process_mode = 4
 
 [node name="EnemySpawnSystem" parent="." instance=ExtResource("27_yh7dx")]
 

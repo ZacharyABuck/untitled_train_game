@@ -20,6 +20,7 @@ class_name ProjectileAttackComponent
 @export var BULLET_SPEED := 800
 @export var DAMAGE_PER_BULLET : float = 2.0
 @export var NUMBER_OF_BULLETS := 1 
+@export var SCATTER_SHOT_AMOUNT: int
 @export var PROJECTILE : PackedScene # <--Must extend 'Projectile'
 @export var MOBILE_ATTACK := false
 @export var TARGET_AREA : CollisionShape2D
@@ -33,6 +34,7 @@ var speed
 var projectile
 var damage
 var number_of_bullets
+var scatter_shot_amount
 var shooter
 var type
 var target_types
@@ -40,6 +42,8 @@ var mobile_attack
 var attack_target
 var lifetime
 var shoot_sound
+
+signal gun_shot
 
 func _ready():
 	attack_timer = ATTACK_TIMER
@@ -49,6 +53,7 @@ func _ready():
 	projectile = PROJECTILE
 	damage = DAMAGE_PER_BULLET
 	number_of_bullets = NUMBER_OF_BULLETS
+	scatter_shot_amount = SCATTER_SHOT_AMOUNT
 	shooter = get_parent()
 	target_types = TARGET_TYPES
 	lifetime = LIFETIME
@@ -75,6 +80,8 @@ func shoot_at_target(target):
 		_shoot()
 
 func _shoot():
+	gun_shot.emit()
+	
 	if BUFF_RECEIVER:
 		attack_timer.wait_time = max(.1, default_attack_time - BUFF_RECEIVER.attack_delay_bonus)
 	
@@ -84,6 +91,11 @@ func _shoot():
 	var new_projectile = _instantiate_bullet()
 	# Add the bullet to the parent scene of the shooter, which fires the projectile.
 	CurrentRun.world.add_child(new_projectile)
+	
+	for shot in scatter_shot_amount:
+		var scatter_shot = _instantiate_bullet()
+		scatter_shot.target += Vector2(randi_range(-100,100), randi_range(-100,100))
+		CurrentRun.world.add_child(scatter_shot)
 
 func _instantiate_bullet():
 	# Set core variables of Bullet. The Bullet needs to always have these variables.

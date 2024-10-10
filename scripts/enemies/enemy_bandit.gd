@@ -1,12 +1,12 @@
 extends Enemy
 
 func _ready():
-	find_stats("bandit")
-	target = CurrentRun.world.current_player_info.active_player
+	super()
+	target = CurrentRun.world.current_train_info.furnace
 
 func _physics_process(delta):
 	if target == null:
-		target = CurrentRun.world.current_player_info.active_player
+		target = CurrentRun.world.current_train_info.furnace
 	if state != "dead":
 		look_at(target.global_position)
 		if projectile_attack_component.target_is_in_range(target):

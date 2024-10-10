@@ -290,16 +290,20 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mv14h"]
 size = Vector2(28, 36)
 
-[node name="EnemySpider" type="CharacterBody2D" node_paths=PackedStringArray("animations", "health_component", "attack_timer") groups=["enemy"]]
+[node name="EnemySpider" type="CharacterBody2D" node_paths=PackedStringArray("wall_detector", "hurtbox", "attack_component", "animations", "health_component", "attack_timer") groups=["enemy"]]
 z_index = 1
 position = Vector2(0, 6)
 collision_layer = 8
-collision_mask = 8
+collision_mask = 0
 script = ExtResource("1_u2x0v")
+wall_detector = NodePath("WallDetector")
+hurtbox = NodePath("HurtboxComponent/Hurtbox")
+attack_component = NodePath("MeleeAttackComponent")
 state = "moving"
 animations = NodePath("ZombieSpriteSheet")
 health_component = NodePath("HealthComponent")
 attack_timer = NodePath("AttackTimer")
+enemy_reference = "spider"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.5, 9)
@@ -393,7 +397,6 @@ script = ExtResource("14_etvd0")
 
 [node name="StatusEffectComponent" parent="." instance=ExtResource("15_lu8na")]
 
-[connection signal="body_entered" from="WallDetector" to="." method="_on_wall_detector_body_entered"]
 [connection signal="animation_finished" from="ZombieSpriteSheet" to="StateMachine/boarding" method="animation_finished"]
 [connection signal="animation_finished" from="ZombieSpriteSheet" to="StateMachine/finish_boarding" method="animation_finished"]
 [connection signal="animation_finished" from="ZombieSpriteSheet" to="StateMachine/attacking" method="animation_finished"]

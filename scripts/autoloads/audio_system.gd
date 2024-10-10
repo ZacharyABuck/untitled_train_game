@@ -13,6 +13,9 @@ var sounds = {
 var sounds_inventory = {}
 var max_sounds: int = 3
 
+func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
 func play_audio(sound_id, db):
 	var sound = sounds[sound_id]
 	
@@ -32,11 +35,11 @@ func play_audio(sound_id, db):
 		new_player.volume_db = db
 		
 		new_player.play()
-		
-		await new_player.finished
-		sounds_inventory[sound] = max(sounds_inventory[sound]-1 , 0)
-		new_player.queue_free()
-		
+		new_player.finished.connect(delete_audio_player.bind(new_player, sound))
+
+func delete_audio_player(audio_player, sound):
+	sounds_inventory[sound] = max(sounds_inventory[sound]-1 , 0)
+	audio_player.queue_free()
 
 func play_audio_2d(sound_id, pos, db):
 	var sound = sounds[sound_id]

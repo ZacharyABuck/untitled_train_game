@@ -16,9 +16,9 @@ func populate(mission):
 	var description_text
 	match mission_details["type"]:
 		"escort":
-			description_text = "Take " + str(mission_details["character"]) + " to \n" + str(mission_details["destination"] + "  $" + str(mission_details["reward"]))
+			description_text = "Take " + str(mission_details["character"]) + " to \n" + str(mission_details["destination"] + "  " + str(mission_details["reward"]) + " scrap")
 		"delivery":
-			description_text = "Deliver cargo to \n" + str(mission_details["destination"] + "  $" + str(mission_details["reward"]))
+			description_text = "Deliver cargo to \n" + str(mission_details["destination"] + "  " + str(mission_details["reward"]) + " scrap")
 	
 	$HBoxContainer/VBoxContainer/MissionDescriptionLabel.text = description_text
 	

@@ -10,7 +10,7 @@ var totalExperience: int = 0
 var base_money: int = 20
 var base_scrap: int = 0
 var active_player
-var base_max_health : float = 50
+#var base_max_health : float = 50
 var animation
 var base_ranged_damage_bonus: float = 0
 var base_melee_damage_bonus: float = 0
@@ -21,8 +21,8 @@ var base_repair_rate: float = 0.02
 var base_charge_recovery_rate: float = 3.0
 
 # Current Variables
-var current_health: float
-var current_max_health: float
+#var current_health: float
+#var current_max_health: float
 var current_money: int
 var current_scrap: int
 var current_ranged_weapon_reference: String
@@ -57,8 +57,8 @@ func _ready():
 func set_current_variables_to_base_value():
 	current_ranged_damage_bonus = base_ranged_damage_bonus
 	current_melee_damage_bonus = base_melee_damage_bonus
-	current_health = base_max_health
-	current_max_health = base_max_health
+	#current_health = base_max_health
+	#current_max_health = base_max_health
 	current_money = base_money
 	current_scrap = base_scrap
 	current_armor = base_armor
@@ -73,7 +73,7 @@ func handle_give_experience_signal(value):
 	totalExperience += value
 	if currentExperience >= nextLevelExperience:
 		currentExperience = 0 + (currentExperience - nextLevelExperience)
-		nextLevelExperience = nextLevelExperience*2
+		nextLevelExperience = nextLevelExperience * 2
 		currentLevel += 1
 		ExperienceSystem.level_up.emit()
 		level_up_queue += 1

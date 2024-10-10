@@ -908,16 +908,20 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mv14h"]
 size = Vector2(28, 36)
 
-[node name="EnemyMonstrosity" type="CharacterBody2D" node_paths=PackedStringArray("animations", "health_component", "attack_timer") groups=["enemy"]]
+[node name="EnemyMonstrosity" type="CharacterBody2D" node_paths=PackedStringArray("wall_detector", "hurtbox", "attack_component", "animations", "health_component", "attack_timer") groups=["enemy"]]
 z_index = 1
 position = Vector2(0, 6)
 collision_layer = 8
-collision_mask = 8
+collision_mask = 0
 script = ExtResource("1_14tuh")
+wall_detector = NodePath("WallDetector")
+hurtbox = NodePath("HurtboxComponent/Hurtbox")
+attack_component = NodePath("MeleeAttackComponent")
 state = "moving"
 animations = NodePath("MonstrositySpriteSheet")
 health_component = NodePath("HealthComponent")
 attack_timer = NodePath("AttackTimer")
+enemy_reference = "monstrosity"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.5, 9)
@@ -960,8 +964,6 @@ position = Vector2(2, 8)
 scale = Vector2(0.617188, 0.6875)
 sprite_frames = SubResource("SpriteFrames_8jdkj")
 animation = &"boarding"
-frame = 12
-frame_progress = 1.0
 
 [node name="MeleeAttackComponent" type="Area2D" parent="." node_paths=PackedStringArray("ATTACK_TIMER", "TARGET_AREA", "ANIMATIONS")]
 collision_layer = 0
@@ -1009,14 +1011,10 @@ script = ExtResource("13_b0u2t")
 process_mode = 4
 script = ExtResource("14_47xnd")
 
-[node name="ExplodeTimer" type="Timer" parent="."]
-one_shot = true
-
 [node name="StatusEffectComponent" parent="." instance=ExtResource("17_71mqj")]
 
-[connection signal="body_entered" from="WallDetector" to="." method="_on_wall_detector_body_entered"]
+[connection signal="animation_finished" from="MonstrositySpriteSheet" to="." method="animation_finished"]
 [connection signal="animation_finished" from="MonstrositySpriteSheet" to="StateMachine/boarding" method="animation_finished"]
 [connection signal="animation_finished" from="MonstrositySpriteSheet" to="StateMachine/finish_boarding" method="animation_finished"]
 [connection signal="animation_finished" from="MonstrositySpriteSheet" to="StateMachine/attacking" method="animation_finished"]
 [connection signal="animation_finished" from="MonstrositySpriteSheet" to="StateMachine/dead" method="animation_finished"]
-[connection signal="timeout" from="ExplodeTimer" to="." method="_on_explode_timer_timeout"]

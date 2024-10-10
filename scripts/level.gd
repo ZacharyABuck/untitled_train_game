@@ -14,7 +14,8 @@ const edge_panel = preload("res://scenes/edges/edge_panel.tscn")
 @onready var map = $Map
 
 @onready var xp_bar = $UI/PlayerExperienceBar
-@onready var player_health_bar = $UI/PlayerHealthBar
+#@onready var player_health_bar = $UI/PlayerHealthBar
+
 @onready var player_charge_bar = $UI/PlayerChargeBar
 @onready var level_label = $UI/LevelLabel
 @onready var level_up_button = $UI/LevelUpButton
@@ -56,14 +57,11 @@ func calculate_weather():
 	var random_weather = weather_states.pick_random()
 	weather = random_weather
 	print(random_weather)
-	var tween = create_tween()
 	match weather:
 		"clear":
 			rain_animations.play("fade_out")
-			tween.tween_property(rain, "modulate", Color.TRANSPARENT, 5)
 		"rain":
 			rain_animations.play("fade_in")
-			tween.tween_property(rain, "modulate", Color.WHITE, 5)
 
 func generate_track():
 	var point_increment = 3000

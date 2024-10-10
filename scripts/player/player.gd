@@ -3,8 +3,8 @@ class_name Player
 
 @onready var sprite = $AnimatedSprite2D
 @onready var shadow = $Shadow
-@onready var hurtbox_component = $HurtboxComponent
-@onready var health_component = $HealthComponent
+#@onready var hurtbox_component = $HurtboxComponent
+#@onready var health_component = $HealthComponent
 @onready var edge_handler = $EdgeHandler
 @onready var running_sfx = $RunningSFX
 @onready var repair_sfx = $RepairSFX
@@ -33,8 +33,8 @@ func _ready():
 	CurrentRun.world.current_player_info.targets.append(self)
 	camera.make_current()
 	
-	health_component.MAX_HEALTH = CurrentRun.world.current_player_info.current_max_health
-	health_component.ARMOR_VALUE = CurrentRun.world.current_player_info.current_armor
+	#health_component.MAX_HEALTH = CurrentRun.world.current_player_info.current_max_health
+	#health_component.ARMOR_VALUE = CurrentRun.world.current_player_info.current_armor
 	
 	charge_attack_bar = CurrentRun.world.current_level_info.active_level.player_charge_bar
 	
@@ -87,16 +87,16 @@ func repair():
 		if !repair_sfx.playing:
 			repair_sfx.play()
 
-# -- EDGE FUNCTIONS -- #
-func player_hurt(damage):
-	#check for shadowstep
-	if CurrentRun.world.current_edge_info.edge_inventory.has("shadowstep"):
-		var shadowstep_scene = CurrentRun.world.current_edge_info.edge_inventory["shadowstep"]["scene"]
-		shadowstep_scene.enable_shadow()
-		
-	CurrentRun.world.current_player_info.current_health -= damage
-	if CurrentRun.world.current_player_info.current_health < 0:
-		dead.emit()
+## -- EDGE FUNCTIONS -- #
+#func player_hurt(damage):
+	##check for shadowstep
+	#if CurrentRun.world.current_edge_info.edge_inventory.has("shadowstep"):
+		#var shadowstep_scene = CurrentRun.world.current_edge_info.edge_inventory["shadowstep"]["scene"]
+		#shadowstep_scene.enable_shadow()
+		#
+	#CurrentRun.world.current_player_info.current_health -= damage
+	#if CurrentRun.world.current_player_info.current_health < 0:
+		#dead.emit()
 
 
 # -- EQUIPMENT FUNCTIONS -- #

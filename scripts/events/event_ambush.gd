@@ -1,6 +1,6 @@
 extends Event
 
-var alert_text: String = "Ambush!"
+var alert_text: String = "Train Obstructed!"
 var starting_spawn_amount: int = 2
 
 func ambush_triggered(area):
@@ -14,4 +14,4 @@ func ambush_triggered(area):
 		
 		var random_spawn_point = CurrentRun.world.current_level_info.enemy_spawn_system.extra_spawns.get_children().pick_random().global_position
 		print(random_spawn_point)
-		new_spawner.spawn_enemy(round(starting_spawn_amount+(difficulty*.5)), "bandit", random_spawn_point)
+		new_spawner.spawn_enemy(round(starting_spawn_amount+(difficulty)), "spider", random_spawn_point)
