@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://csdhvsxyenywf"]
+[gd_scene load_steps=48 format=3 uid="uid://csdhvsxyenywf"]
 
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/world.gd" id="1_u1dsg"]
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/current_player_info.gd" id="2_kodbe"]
@@ -403,6 +403,18 @@ border_color = Color(0.517647, 0.32549, 0.25098, 0.52549)
 expand_margin_top = 20.0
 expand_margin_bottom = 20.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1b6qb"]
+bg_color = Color(0.956863, 0.937255, 0.858824, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.517647, 0.32549, 0.25098, 0.52549)
+expand_margin_left = 20.0
+expand_margin_top = 20.0
+expand_margin_right = 20.0
+expand_margin_bottom = 20.0
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_my1xl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ssevu"]
@@ -570,7 +582,6 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="TownsUI" type="CanvasLayer" parent="."]
-visible = false
 script = ExtResource("18_ulvie")
 
 [node name="TownScreen" type="MarginContainer" parent="TownsUI"]
@@ -821,7 +832,6 @@ texture_normal = ExtResource("25_c7tds")
 stretch_mode = 3
 
 [node name="Trainyard" type="MarginContainer" parent="TownsUI"]
-visible = false
 offset_left = 455.0
 offset_top = 230.0
 offset_right = 1465.0
@@ -852,7 +862,7 @@ theme_override_constants/margin_bottom = 50
 [node name="TrainyardItemsList" type="VBoxContainer" parent="TownsUI/Trainyard/HBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 100
+theme_override_constants/separation = 50
 
 [node name="Header" type="HBoxContainer" parent="TownsUI/Trainyard/HBoxContainer/PanelContainer/MarginContainer/TrainyardItemsList"]
 layout_mode = 2
@@ -900,6 +910,16 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 75
 alignment = 1
+
+[node name="TechTreeContainer" type="PanelContainer" parent="TownsUI/Trainyard/HBoxContainer/PanelContainer/MarginContainer/TrainyardItemsList"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1b6qb")
+
+[node name="TechTree" type="HBoxContainer" parent="TownsUI/Trainyard/HBoxContainer/PanelContainer/MarginContainer/TrainyardItemsList/TechTreeContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
 
 [node name="Jobs" type="MarginContainer" parent="TownsUI"]
 visible = false

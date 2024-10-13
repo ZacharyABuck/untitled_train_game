@@ -8,9 +8,9 @@ extends PanelContainer
 @onready var car_sprite = $VBoxContainer/CarSprite
 @onready var gadget_name_label = $VBoxContainer/CarSprite/VBoxContainer/GadgetNameLabel
 
-
 var car_number: int
 var slots: Dictionary
+signal clicked
 
 func _ready():
 	slots = {"LeftUpper": left_upper, "LeftLower": left_lower, "RightUpper": right_upper, "RightLower": right_lower}
@@ -25,11 +25,12 @@ func _ready():
 		car_sprite.texture = TrainInfo.cars_roster["engine"]["sprite"]
 
 func check_for_gadgets():
-	var cars_inventory = CurrentRun.world.current_train_info.cars_inventory
-	for gadget in cars_inventory[car_number]["gadgets"].keys():
-		for hard_point in cars_inventory[car_number]["hard_points"].keys():
-			if hard_point == gadget:
-				populate_slot(gadget, cars_inventory[car_number]["gadgets"][gadget])
+	if !CurrentRun.world.current_train_info.cars_inventory.is_empty():
+		var cars_inventory = CurrentRun.world.current_train_info.cars_inventory
+		for gadget in cars_inventory[car_number]["gadgets"].keys():
+			for hard_point in cars_inventory[car_number]["hard_points"].keys():
+				if hard_point == gadget:
+					populate_slot(gadget, cars_inventory[car_number]["gadgets"][gadget])
 
 func populate_slot(location, gadget):
 	for slot in slots.keys():
@@ -47,4 +48,6 @@ func hide_slot_info():
 	gadget_name_label.hide()
 
 func hard_point_pressed(slot):
-	pass
+	if slot.has_meta("gadget"): 
+		var gadget = slot.get_meta("gadget")
+		clicked.emit(gadget, car_number, slot)

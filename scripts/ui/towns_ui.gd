@@ -78,38 +78,39 @@ func spawn_gunsmith_items():
 		new_item.clicked.connect(owner.current_player_info.equip_new_weapon)
 
 func spawn_tinkerer_items():
-	for i in tinkerer_items_list.get_children():
-		if i != tinkerer_items_list.get_child(0):
-			i.queue_free()
-	
-	for gadget in GadgetInfo.upgrade_rosters["default"]:
-		#spawn base level gadgets
-		if GadgetInfo.gadget_roster[gadget]["unlocked"] == false:
-			var new_item = tinkerer_item.instantiate()
-			tinkerer_items_list.add_child(new_item)
-			new_item.populate(gadget)
-		#if gadget is unlocked, check if upgrades exist
-		elif GadgetInfo.upgrade_rosters.has(gadget):
-			var random_upgrade = GadgetInfo.upgrade_rosters[gadget].pick_random()
-			#while upgrade is unlocked, check down the line
-			var index = 0
-			while GadgetInfo.gadget_roster[random_upgrade]["unlocked"] == true:
-				if GadgetInfo.upgrade_rosters.has(random_upgrade):
-					random_upgrade = GadgetInfo.upgrade_rosters[random_upgrade].pick_random()
-				else:
-					#check for max upgrades, if all are upgraded spawn none
-					index += 1
-					if index == GadgetInfo.upgrade_rosters.keys().size() - 1:
-						random_upgrade = null
-						break
-					
-					random_upgrade = GadgetInfo.upgrade_rosters[gadget].pick_random()
-					
-			if random_upgrade != null:
-				#spawn upgrade gadget
-				var new_item = tinkerer_item.instantiate()
-				tinkerer_items_list.add_child(new_item)
-				new_item.populate(random_upgrade)
+	pass
+	#for i in tinkerer_items_list.get_children():
+		#if i != tinkerer_items_list.get_child(0):
+			#i.queue_free()
+	#
+	#for gadget in GadgetInfo.upgrade_rosters["default"]:
+		##spawn base level gadgets
+		#if GadgetInfo.gadget_roster[gadget]["unlocked"] == false:
+			#var new_item = tinkerer_item.instantiate()
+			#tinkerer_items_list.add_child(new_item)
+			#new_item.populate(gadget)
+		##if gadget is unlocked, check if upgrades exist
+		#elif GadgetInfo.upgrade_rosters.has(gadget):
+			#var random_upgrade = GadgetInfo.upgrade_rosters[gadget].pick_random()
+			##while upgrade is unlocked, check down the line
+			#var index = 0
+			#while GadgetInfo.gadget_roster[random_upgrade]["unlocked"] == true:
+				#if GadgetInfo.upgrade_rosters.has(random_upgrade):
+					#random_upgrade = GadgetInfo.upgrade_rosters[random_upgrade].pick_random()
+				#else:
+					##check for max upgrades, if all are upgraded spawn none
+					#index += 1
+					#if index == GadgetInfo.upgrade_rosters.keys().size() - 1:
+						#random_upgrade = null
+						#break
+					#
+					#random_upgrade = GadgetInfo.upgrade_rosters[gadget].pick_random()
+					#
+			#if random_upgrade != null:
+				##spawn upgrade gadget
+				#var new_item = tinkerer_item.instantiate()
+				#tinkerer_items_list.add_child(new_item)
+				#new_item.populate(random_upgrade)
 
 func close_all_windows():
 	AudioSystem.play_audio("basic_button_click", -10)

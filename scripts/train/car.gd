@@ -39,12 +39,9 @@ var type
 
 var target
 
-var starting_color
-
 var cargo_count: int
 
 func _ready():
-	starting_color = $Sprite2D.modulate
 	
 	max_health = CurrentRun.world.current_train_info.train_stats["car_health"]
 	health_bar.max_value = max_health

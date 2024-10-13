@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccourhpevi40u"]
+
+[ext_resource type="Script" path="res://scripts/ui/tech_tree_column.gd" id="1_2j0tr"]
+[ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="1_crrok"]
+
+[node name="TechTreeColumn" type="VBoxContainer"]
+theme_override_constants/separation = 50
+alignment = 1
+script = ExtResource("1_2j0tr")
+
+[node name="TechTreeButton" type="Button" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_crrok")
+toggle_mode = true
+text = "Pistol Turret"
+
+[node name="TechTreeButton2" type="Button" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_crrok")
+toggle_mode = true
+text = "Pistol Turret"
+
+[node name="TechTreeButton3" type="Button" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_crrok")
+toggle_mode = true
+text = "Pistol Turret"
+
+[node name="TechTreeButton4" type="Button" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_crrok")
+toggle_mode = true
+text = "Pistol Turret"

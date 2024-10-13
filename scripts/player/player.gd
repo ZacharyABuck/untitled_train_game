@@ -3,15 +3,11 @@ class_name Player
 
 @onready var sprite = $AnimatedSprite2D
 @onready var shadow = $Shadow
-#@onready var hurtbox_component = $HurtboxComponent
-#@onready var health_component = $HealthComponent
 @onready var edge_handler = $EdgeHandler
 @onready var running_sfx = $RunningSFX
 @onready var repair_sfx = $RepairSFX
 @onready var camera = $Camera2D
 @onready var buff = $Buff
-
-var active_car
 
 var charging: bool = false
 var current_charge_attack
@@ -22,18 +18,11 @@ var current_ranged_weapon
 
 signal dead
 
-#Many functions have been moved to the StateMachine. 
-##Each child of Statemachine has the relevant behavior for that state.
-##CurrentRun.world.current_player_info contains the different state options
-
 # -- BASE FUNCTIONS -- #
 func _ready():
 	CurrentRun.world.current_player_info.active_player = self
 	CurrentRun.world.current_player_info.targets.append(self)
 	camera.make_current()
-	
-	#health_component.MAX_HEALTH = CurrentRun.world.current_player_info.current_max_health
-	#health_component.ARMOR_VALUE = CurrentRun.world.current_player_info.current_armor
 	
 	charge_attack_bar = CurrentRun.world.current_level_info.active_level.player_charge_bar
 	
@@ -78,14 +67,6 @@ func check_charge():
 		charge_attack_bar.value = 0
 		current_charge_attack.initiate_charge()
 
-# -- REPAIR -- #
-func repair():
-	if CurrentRun.world.current_train_info.cars_inventory[active_car]["node"].health < CurrentRun.world.current_train_info.cars_inventory[active_car]["node"].max_health:
-		CurrentRun.world.current_train_info.cars_inventory[active_car]["node"].repair(CurrentRun.world.current_player_info.current_repair_rate)
-		sprite.play("repairing")
-		if !repair_sfx.playing:
-			repair_sfx.play()
-
 # -- EQUIPMENT FUNCTIONS -- #
 func _instantiate_ranged_weapon(gun_scene_location, random_damage, random_attack_delay, random_projectile_speed):
 	# Clear the existing ranged weapon so we can load the new one.
@@ -126,16 +107,7 @@ func _instantiate_charge_attack(charge_attack_scene):
 # -- MOVEMENT FUNCTIONS -- #
 func _on_car_detector_area_entered(area):
 	if area.get_parent().is_in_group("car"):
-		active_car = area.get_parent().index
-		CurrentRun.world.current_train_info.cars_inventory[active_car]["node"].sprite.modulate = Color.WHITE
-		call_deferred("reparent", CurrentRun.world.current_train_info.cars_inventory[active_car]["node"])
-		for i in CurrentRun.world.current_train_info.cars_inventory:
-			if i != active_car:
-				CurrentRun.world.current_train_info.cars_inventory[i]["node"].sprite.modulate = CurrentRun.world.current_train_info.cars_inventory[i]["node"].starting_color
-
-func _on_car_detector_area_exited(area):
-	if area.get_parent().is_in_group("car"):
-		CurrentRun.world.current_train_info.cars_inventory[active_car]["node"].sprite.modulate = CurrentRun.world.current_train_info.cars_inventory[active_car]["node"].starting_color
+		call_deferred("reparent", area.get_parent())
 
 # -- EDGE AND LEVEL FUNCTIONS -- #
 

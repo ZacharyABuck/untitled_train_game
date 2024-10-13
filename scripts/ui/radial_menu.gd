@@ -17,40 +17,54 @@ var menu_item = preload("res://scenes/ui/menu_item.tscn")
 var car
 
 func _ready():
-	if current_type == null:
-		current_type = "default"
+
 	$Sprite2D.texture.width = radius * 2.6
 	$Sprite2D.texture.height = radius * 2.6
 	$Sprite2D.modulate = Color.TRANSPARENT
 
-func _on_mouse_entered():
-	if CurrentRun.world.current_player_info.active_player:
-		if CurrentRun.world.current_player_info.state == "default" and \
-		CurrentRun.world.current_player_info.active_player.active_car == get_parent().car.index and current_type != "none":
-			for i in GadgetInfo.upgrade_rosters[current_type]:
-				if GadgetInfo.gadget_roster[i]["unlocked"] == true:
-					$AnimationPlayer.play("flash")
-					selected = true
-					break
-		else:
-			$AnimationPlayer.play("still")
-			selected = false
 
-func _on_mouse_exited():
-	$AnimationPlayer.play("still")
-	selected = false
+func _on_body_entered(body):
+	if body is Player:
+		if CurrentRun.world.current_player_info.active_player:
+			if CurrentRun.world.current_player_info.state == "default":
+				if current_type == null:
+					for i in GadgetInfo.gadget_roster:
+						if GadgetInfo.gadget_roster[i].has("unlocked") and GadgetInfo.gadget_roster[i]["unlocked"] == true:
+							$AnimationPlayer.play("flash")
+							selected = true
+							break
+				else:
+					for i in GadgetInfo.gadget_roster:
+						if GadgetInfo.gadget_roster[i]["last_gadget"] == current_type:
+							$AnimationPlayer.play("flash")
+							selected = true
+							break
+			else:
+				$AnimationPlayer.play("still")
+				selected = false
+
+func _on_body_exited(body):
+	if body is Player:
+		$AnimationPlayer.play("still")
+		selected = false
 
 func _process(_delta):
 	global_rotation = 0
 	
-	if Input.is_action_pressed("interact") and selected and !open:
+func _input(event):
+	if event.is_action_pressed("interact") and selected and !open:
 		CurrentRun.world.current_player_info.state = "ui_default"
 		open_menu()
 
 func spawn_menu(type):
-	for i in GadgetInfo.upgrade_rosters[type]:
-		if GadgetInfo.gadget_roster[i]["unlocked"] == true:
-			add_item(i)
+	if type == null:
+		for i in GadgetInfo.gadget_roster:
+			if GadgetInfo.gadget_roster[i].has("unlocked") and GadgetInfo.gadget_roster[i]["unlocked"] == true:
+				add_item(i)
+	else:
+		for i in GadgetInfo.gadget_roster:
+			if GadgetInfo.gadget_roster[i]["last_gadget"] == type:
+				add_item(i)
 
 func add_item(item):
 	var item_info = GadgetInfo.gadget_roster[item]
@@ -105,14 +119,23 @@ func close_menu():
 	bottom_text.hide()
 	for i in items.get_children():
 		i.queue_free()
+	
+	await get_tree().create_timer(.1).timeout
+	for i in get_overlapping_bodies():
+		_on_body_entered(i)
 
 func update_menu(gadget):
-	if GadgetInfo.upgrade_rosters.keys().has(gadget):
-		current_type = gadget
-		for i in items.get_children():
-			i.queue_free()
-		$MouseIndicator.show()
-	else:
-		current_type = "none"
-		$MouseIndicator.hide()
+	for item in items.get_children():
+		item.queue_free()
 	
+	current_type = gadget
+	
+	for i in GadgetInfo.gadget_roster:
+		if GadgetInfo.gadget_roster[i]["last_gadget"] == gadget:
+			$MouseIndicator.show()
+			break
+		else:
+			$MouseIndicator.hide()
+	
+
+
