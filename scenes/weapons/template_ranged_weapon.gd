@@ -97,10 +97,10 @@ func _build_bullet(b):
 	b.global_position = CurrentRun.world.current_player_info.active_player.global_position
 	b.speed = current_projectile_speed
 	b.damage = current_damage
-	b.target = get_global_mouse_position()
 	b.valid_hitbox_types = {"enemy":true, "player":false, "car":false, "cover":false, "terrain":true}
 	b.lifetime = current_lifetime
 	b.shooter = player
+	b.target = get_global_mouse_position()
 	
 	return b
 

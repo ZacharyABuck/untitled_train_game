@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://csdhvsxyenywf"]
+[gd_scene load_steps=47 format=3 uid="uid://csdhvsxyenywf"]
 
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/world.gd" id="1_u1dsg"]
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/current_player_info.gd" id="2_kodbe"]
@@ -25,7 +25,9 @@
 [ext_resource type="Texture2D" uid="uid://trsm7lvfhxb4" path="res://sprites/ui/circle.png" id="20_qdyg3"]
 [ext_resource type="FontFile" uid="uid://bt4836ueqhi58" path="res://fonts/WesternBangBang-Regular.ttf" id="22_w4hsh"]
 [ext_resource type="Texture2D" uid="uid://ccydwnn5siydn" path="res://sprites/ui/x.png" id="25_c7tds"]
+[ext_resource type="Script" path="res://scripts/ui/trainyard.gd" id="26_kunaq"]
 [ext_resource type="Script" path="res://scripts/ui/debug_ui.gd" id="26_ugrr2"]
+[ext_resource type="Script" path="res://scripts/ui/end_screen_ui.gd" id="27_la4rl"]
 
 [sub_resource type="Animation" id="Animation_4oonn"]
 resource_name = "level_to_world"
@@ -391,7 +393,19 @@ border_color = Color(0.482353, 0.27451, 0.2, 1)
 expand_margin_left = 20.0
 expand_margin_right = 20.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oej0w"]
+bg_color = Color(0.956863, 0.937255, 0.858824, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.517647, 0.32549, 0.25098, 0.52549)
+expand_margin_top = 20.0
+expand_margin_bottom = 20.0
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_my1xl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ssevu"]
 
 [node name="World" type="Node2D"]
 process_mode = 3
@@ -511,24 +525,6 @@ theme_override_constants/outline_size = 5
 theme_override_fonts/normal_font = ExtResource("17_rwwbi")
 theme_override_font_sizes/normal_font_size = 30
 text = "Money = $0"
-fit_content = true
-scroll_active = false
-
-[node name="ScrapLabel" type="RichTextLabel" parent="WorldUI/MarginContainer/GridContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-mouse_filter = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.290196)
-theme_override_colors/font_outline_color = Color(0.92549, 0.631373, 0, 1)
-theme_override_constants/shadow_offset_x = 5
-theme_override_constants/shadow_offset_y = 5
-theme_override_constants/shadow_outline_size = 5
-theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("17_rwwbi")
-theme_override_font_sizes/normal_font_size = 30
-text = "Scrap = 0"
 fit_content = true
 scroll_active = false
 
@@ -667,7 +663,6 @@ theme_override_font_sizes/font_size = 30
 text = "Trainyard"
 
 [node name="ShopContainers" type="MarginContainer" parent="TownsUI/TownScreen/PanelContainer"]
-visible = false
 layout_mode = 2
 mouse_filter = 0
 theme_override_constants/margin_left = 50
@@ -814,76 +809,6 @@ size_flags_vertical = 0
 texture_normal = ExtResource("25_c7tds")
 stretch_mode = 3
 
-[node name="Trainyard" type="MarginContainer" parent="TownsUI/TownScreen/PanelContainer/ShopContainers"]
-visible = false
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_bottom = 0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/TownScreen/PanelContainer/ShopContainers/Trainyard"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="MissionDetails" type="TextureRect" parent="TownsUI/TownScreen/PanelContainer/ShopContainers/Trainyard/HBoxContainer"]
-custom_minimum_size = Vector2(500, 500)
-layout_mode = 2
-size_flags_horizontal = 6
-texture = ExtResource("19_taibv")
-expand_mode = 5
-stretch_mode = 5
-
-[node name="MarginContainer" type="MarginContainer" parent="TownsUI/TownScreen/PanelContainer/ShopContainers/Trainyard/HBoxContainer/MissionDetails"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 50
-
-[node name="TrainyardItemsList" type="VBoxContainer" parent="TownsUI/TownScreen/PanelContainer/ShopContainers/Trainyard/HBoxContainer/MissionDetails/MarginContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_constants/separation = 30
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/TownScreen/PanelContainer/ShopContainers/Trainyard/HBoxContainer/MissionDetails/MarginContainer/TrainyardItemsList"]
-layout_mode = 2
-alignment = 1
-
-[node name="ButtonSpacer" type="TextureButton" parent="TownsUI/TownScreen/PanelContainer/ShopContainers/Trainyard/HBoxContainer/MissionDetails/MarginContainer/TrainyardItemsList/HBoxContainer"]
-modulate = Color(1, 1, 1, 0)
-layout_direction = 3
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-texture_normal = ExtResource("25_c7tds")
-stretch_mode = 3
-
-[node name="TrainyardLabel" type="RichTextLabel" parent="TownsUI/TownScreen/PanelContainer/ShopContainers/Trainyard/HBoxContainer/MissionDetails/MarginContainer/TrainyardItemsList/HBoxContainer"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-theme = ExtResource("17_7ntxb")
-theme_override_fonts/normal_font = ExtResource("22_w4hsh")
-theme_override_font_sizes/normal_font_size = 50
-bbcode_enabled = true
-text = "[center]Trainyard[/center]"
-fit_content = true
-scroll_active = false
-
-[node name="TrainyardCloseButton" type="TextureButton" parent="TownsUI/TownScreen/PanelContainer/ShopContainers/Trainyard/HBoxContainer/MissionDetails/MarginContainer/TrainyardItemsList/HBoxContainer"]
-layout_direction = 3
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-texture_normal = ExtResource("25_c7tds")
-stretch_mode = 3
-
 [node name="CloseButton" type="TextureButton" parent="TownsUI"]
 layout_direction = 3
 offset_left = 400.0
@@ -894,6 +819,87 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 texture_normal = ExtResource("25_c7tds")
 stretch_mode = 3
+
+[node name="Trainyard" type="MarginContainer" parent="TownsUI"]
+visible = false
+offset_left = 455.0
+offset_top = 230.0
+offset_right = 1465.0
+offset_bottom = 900.0
+mouse_filter = 2
+script = ExtResource("26_kunaq")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/Trainyard"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="TownsUI/Trainyard/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme = ExtResource("17_7ntxb")
+
+[node name="MarginContainer" type="MarginContainer" parent="TownsUI/Trainyard/HBoxContainer/PanelContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="TrainyardItemsList" type="VBoxContainer" parent="TownsUI/Trainyard/HBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 100
+
+[node name="Header" type="HBoxContainer" parent="TownsUI/Trainyard/HBoxContainer/PanelContainer/MarginContainer/TrainyardItemsList"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="ButtonSpacer" type="TextureButton" parent="TownsUI/Trainyard/HBoxContainer/PanelContainer/MarginContainer/TrainyardItemsList/Header"]
+modulate = Color(1, 1, 1, 0)
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 0
+mouse_filter = 2
+texture_normal = ExtResource("25_c7tds")
+stretch_mode = 3
+
+[node name="TrainyardLabel" type="RichTextLabel" parent="TownsUI/Trainyard/HBoxContainer/PanelContainer/MarginContainer/TrainyardItemsList/Header"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("17_7ntxb")
+theme_override_fonts/normal_font = ExtResource("22_w4hsh")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[center]Trainyard[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="TrainyardCloseButton" type="TextureButton" parent="TownsUI/Trainyard/HBoxContainer/PanelContainer/MarginContainer/TrainyardItemsList/Header"]
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 0
+texture_normal = ExtResource("25_c7tds")
+stretch_mode = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="TownsUI/Trainyard/HBoxContainer/PanelContainer/MarginContainer/TrainyardItemsList"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_oej0w")
+
+[node name="TrainCarContainer" type="HBoxContainer" parent="TownsUI/Trainyard/HBoxContainer/PanelContainer/MarginContainer/TrainyardItemsList/PanelContainer"]
+layout_direction = 3
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 75
+alignment = 1
 
 [node name="Jobs" type="MarginContainer" parent="TownsUI"]
 visible = false
@@ -1300,16 +1306,90 @@ offset_right = 1673.0
 offset_bottom = 667.0
 fixed_icon_size = Vector2i(10, 10)
 
+[node name="EndScreenUI" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("27_la4rl")
+
+[node name="ColorRect" type="ColorRect" parent="EndScreenUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.956863, 0.937255, 0.858824, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="EndScreenUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EndScreenUI/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="RouteCompleteLabel" type="Label" parent="EndScreenUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("17_7ntxb")
+theme_override_font_sizes/font_size = 80
+text = "Route Complete!"
+horizontal_alignment = 1
+
+[node name="PathLabel" type="Label" parent="EndScreenUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("17_7ntxb")
+theme_override_font_sizes/font_size = 40
+text = "Franchtown to Loversville"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="EndScreenUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+theme_override_styles/separator = SubResource("StyleBoxEmpty_ssevu")
+
+[node name="MissionCompleteContainer" type="HBoxContainer" parent="EndScreenUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="NoMissionsLabel" type="Label" parent="EndScreenUI/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("17_7ntxb")
+text = "No Missions Completed"
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="EndScreenUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 400
+theme_override_styles/separator = SubResource("StyleBoxEmpty_ssevu")
+
+[node name="ReturnButton" type="Button" parent="EndScreenUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("17_7ntxb")
+theme_override_font_sizes/font_size = 40
+text = "Return to World Map"
+
 [connection signal="pressed" from="TownsUI/TownScreen/PanelContainer/TownButtons/JobsButton" to="TownsUI" method="_on_jobs_button_pressed"]
 [connection signal="pressed" from="TownsUI/TownScreen/PanelContainer/TownButtons/GunsmithButton" to="TownsUI" method="_on_gunsmith_button_pressed"]
 [connection signal="pressed" from="TownsUI/TownScreen/PanelContainer/TownButtons/TinkererButton" to="TownsUI" method="_on_tinkerer_button_pressed"]
 [connection signal="pressed" from="TownsUI/TownScreen/PanelContainer/TownButtons/TrainyardButton" to="TownsUI" method="_on_trainyard_button_pressed"]
 [connection signal="pressed" from="TownsUI/TownScreen/PanelContainer/ShopContainers/Gunsmith/HBoxContainer/BG/MarginContainer/GunsmithItemsList/HBoxContainer/GunsmithCloseButton" to="TownsUI" method="close_all_windows"]
 [connection signal="pressed" from="TownsUI/TownScreen/PanelContainer/ShopContainers/Tinkerer/HBoxContainer/BG/MarginContainer/TinkererItemsList/HBoxContainer/TinkererCloseButton" to="TownsUI" method="close_all_windows"]
-[connection signal="pressed" from="TownsUI/TownScreen/PanelContainer/ShopContainers/Trainyard/HBoxContainer/MissionDetails/MarginContainer/TrainyardItemsList/HBoxContainer/TrainyardCloseButton" to="TownsUI" method="close_all_windows"]
 [connection signal="pressed" from="TownsUI/CloseButton" to="TownsUI" method="_on_close_button_pressed"]
+[connection signal="pressed" from="TownsUI/Trainyard/HBoxContainer/PanelContainer/MarginContainer/TrainyardItemsList/Header/TrainyardCloseButton" to="TownsUI/Trainyard" method="close_button_pressed"]
 [connection signal="pressed" from="TownsUI/Jobs/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/JobsCloseButton" to="TownsUI" method="close_all_windows"]
 [connection signal="pressed" from="DebugUI/LevelAutoCompleteButton" to="DebugUI" method="_on_level_auto_complete_button_pressed"]
 [connection signal="pressed" from="DebugUI/TakeDamageButton" to="DebugUI" method="_on_take_damage_button_pressed"]
 [connection signal="pressed" from="DebugUI/GainXPButton" to="DebugUI" method="_on_gain_xp_button_pressed"]
 [connection signal="item_clicked" from="DebugUI/WeaponList" to="DebugUI" method="_on_weapon_list_item_clicked"]
+[connection signal="pressed" from="EndScreenUI/MarginContainer/VBoxContainer/ReturnButton" to="EndScreenUI" method="_on_return_button_pressed"]

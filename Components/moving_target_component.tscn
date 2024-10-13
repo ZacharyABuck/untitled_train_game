@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cpe7uj0omv03o"]
+[gd_scene load_steps=5 format=3 uid="uid://cpe7uj0omv03o"]
 
 [ext_resource type="Script" path="res://components/moving_target_component.gd" id="1_ay0d4"]
+[ext_resource type="Script" path="res://scripts/ui/aim_assist_visual.gd" id="2_n0dhq"]
+[ext_resource type="Texture2D" uid="uid://trsm7lvfhxb4" path="res://sprites/ui/circle.png" id="5_yw1si"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xolje"]
 
@@ -11,3 +13,21 @@ script = ExtResource("1_ay0d4")
 modulate = Color(1, 0, 1, 1)
 shape = SubResource("CircleShape2D_xolje")
 debug_color = Color(0.976471, 0, 1, 1)
+
+[node name="AimAssistVisual" type="Node2D" parent="."]
+process_mode = 4
+visible = false
+top_level = true
+script = ExtResource("2_n0dhq")
+
+[node name="Line2D" type="Line2D" parent="AimAssistVisual"]
+visible = false
+texture_filter = 1
+points = PackedVector2Array(0, 0, 50, 0)
+width = 3.0
+default_color = Color(0.85098, 0.341176, 0.388235, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="AimAssistVisual"]
+texture_filter = 1
+position = Vector2(36, 0)
+texture = ExtResource("5_yw1si")

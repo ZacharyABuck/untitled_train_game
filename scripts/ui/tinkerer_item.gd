@@ -22,11 +22,11 @@ func populate(new_gadget):
 	
 	icon.texture = GadgetInfo.gadget_roster[gadget]["sprite"]
 	unlock_cost = GadgetInfo.gadget_roster[gadget]["unlock_cost"]
-	cost_label.text = "[right]Unlock: " + str(unlock_cost) + " scrap[/right]"
+	cost_label.text = "[right]Unlock: $" + str(unlock_cost) + "[/right]"
 
 func button_pressed():
-	if CurrentRun.world.current_player_info.current_scrap >= unlock_cost:
-		CurrentRun.world.current_player_info.current_scrap -= unlock_cost
+	if CurrentRun.world.current_player_info.current_money >= unlock_cost:
+		CurrentRun.world.current_player_info.current_money -= unlock_cost
 		CurrentRun.world.update_money_label()
 		GadgetInfo.gadget_roster[gadget]["unlocked"] = true
 		

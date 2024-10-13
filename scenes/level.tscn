@@ -1059,6 +1059,21 @@ shader_parameter/noise = SubResource("NoiseTexture2D_qkm0k")
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_rjoqq"]
 
+[sub_resource type="Animation" id="Animation_xvox3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/line_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0.886275, 0.886275, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_6ry7i"]
 resource_name = "fade_in"
 length = 5.0
@@ -1113,21 +1128,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(0, 0.886275, 0.886275, 1), Color(0, 0.886275, 0.886275, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_xvox3"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/line_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0.886275, 0.886275, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lvm2e"]
@@ -1271,18 +1271,6 @@ theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("5_uxjuw")
 theme_override_font_sizes/font_size = 30
 text = "Money = 0"
-
-[node name="ScrapLabel" type="Label" parent="UI"]
-offset_left = 1690.0
-offset_top = 138.0
-offset_right = 1855.0
-offset_bottom = 177.0
-theme_override_colors/font_color = Color(0.870588, 0.466667, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 5
-theme_override_fonts/font = ExtResource("5_uxjuw")
-theme_override_font_sizes/font_size = 30
-text = "Scrap = 0"
 
 [node name="EdgeMenu" type="HBoxContainer" parent="UI"]
 process_mode = 3

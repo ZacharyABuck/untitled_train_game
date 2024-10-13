@@ -15,7 +15,6 @@ var mission_reward_panel = preload("res://scenes/ui/mission_reward_panel.tscn")
 
 @onready var towns_ui = $TownsUI
 @onready var money_label = $WorldUI/MarginContainer/GridContainer/HBoxContainer/VBoxContainer/MoneyLabel
-@onready var scrap_label = $WorldUI/MarginContainer/GridContainer/HBoxContainer/VBoxContainer/ScrapLabel
 @onready var mission_inventory_container = $WorldUI/MarginContainer/GridContainer/HBoxContainer/PanelContainer/MissionInventoryContainer
 
 
@@ -23,6 +22,7 @@ var mission_reward_panel = preload("res://scenes/ui/mission_reward_panel.tscn")
 
 @onready var world_map = $WorldMap
 @onready var world_ui = $WorldUI
+@onready var end_screen_ui = $EndScreenUI
 @onready var camera = $Camera
 @onready var travel_line = $TravelLine
 
@@ -101,7 +101,6 @@ func town_clicked(town):
 	if current_world_info.active_town == town.town_name:
 		AudioSystem.play_audio("big_select", -10)
 		towns_ui.populate_town_info(town)
-		towns_ui.trainyard_items_list.show()
 		if missions_spawned == false:
 			missions_spawned = true
 			towns_ui.spawn_missions(3)
@@ -112,7 +111,7 @@ func town_clicked(town):
 				towns_ui.spawn_tinkerer_items()
 				towns_ui.tinkerer_button.show()
 			if current_world_info.towns_inventory[town.town_name].has("trainyard"):
-				towns_ui.spawn_trainyard_items()
+				towns_ui.trainyard.spawn_trainyard_items()
 				towns_ui.trainyard_button.show()
 	
 	else:
@@ -157,13 +156,12 @@ func level_complete():
 	update_money_label()
 	world_map.show()
 	missions_spawned = false
-	
 	CurrentRun.root.fade_in()
+	
+	end_screen_ui.fade_in()
 
 func update_money_label():
-	money_label.text = "Money = $" + str(current_player_info.current_money)
-	scrap_label.text = "Scrap = " + str(current_player_info.current_scrap)
-	
+	money_label.text = "Money = $" + str("%.2f" % current_player_info.current_money)
 
 func despawn_level():
 	current_level_info.active_level.queue_free()
@@ -175,31 +173,37 @@ func update_world_player_pos():
 	world_map.spawn_player()
 
 func check_missions():
+	var index = 0
 	for i in current_mission_info.mission_inventory.keys():
 		if current_mission_info.mission_inventory[i]["destination"] == current_world_info.active_town:
 			#Mission Complete
 			print("Mission Complete: " + str(current_mission_info.mission_inventory[i]["type"]) + " " + str(current_mission_info.mission_inventory[i]["character"]))
 			complete_mission(i)
+			index += 1
 		else:
 			current_mission_info.mission_inventory[i]["time_limit"] -= 1
 			#Mission Failed
 			if current_mission_info.mission_inventory[i]["time_limit"] <= 0:
-				world_ui.spawn_reward_panel(false, CharacterInfo.characters_roster[current_mission_info.mission_inventory[i]["character"]]["icon"], current_mission_info.mission_inventory[i]["reward"])
+				end_screen_ui.spawn_reward_panel(false, CharacterInfo.characters_roster[current_mission_info.mission_inventory[i]["character"]]["icon"], current_mission_info.mission_inventory[i]["reward"])
 				current_mission_info.mission_inventory.erase(i)
+				index += 1
 	for i in mission_inventory_container.get_children():
 		if !current_mission_info.mission_inventory.keys().has(i.mission_id):
 			i.queue_free()
 		else:
 			i.time_limit_label.text = str(current_mission_info.mission_inventory[i.mission_id]["time_limit"])
+	
+	if index == 0:
+		end_screen_ui.show_no_missions_label()
 
 func complete_mission(mission):
-	current_player_info.current_scrap += current_mission_info.mission_inventory[mission]["reward"]
+	current_player_info.current_money += current_mission_info.mission_inventory[mission]["reward"]
 	update_money_label()
 	if current_mission_info.mission_inventory[mission].keys().has("icon"):
-		world_ui.spawn_reward_panel(true, current_mission_info.mission_inventory[mission]["icon"], current_mission_info.mission_inventory[mission]["reward"])
+		end_screen_ui.spawn_reward_panel(true, current_mission_info.mission_inventory[mission]["icon"], current_mission_info.mission_inventory[mission]["reward"])
 	else: 
 		var character_icon = CharacterInfo.characters_roster[current_mission_info.mission_inventory[mission]["character"]]["icon"]
-		world_ui.spawn_reward_panel(true, character_icon, current_mission_info.mission_inventory[mission]["reward"])
+		end_screen_ui.spawn_reward_panel(true, character_icon, current_mission_info.mission_inventory[mission]["reward"])
 	for i in mission_inventory_container.get_children():
 		if i.mission_id == mission:
 			i.queue_free()

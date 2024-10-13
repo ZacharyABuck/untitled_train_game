@@ -28,7 +28,7 @@ func _ready():
 	find_stats(enemy_reference)
 	last_car = CurrentRun.world.current_train_info.train_stats["car_count"] - 1
 
-func _process(delta):
+func _process(_delta):
 	if enemy_stats.has("speed") and CurrentRun.world.current_train_info.train_engine:
 		train_speed_mod = clamp(CurrentRun.world.current_train_info.train_engine.target_force_percent - CurrentRun.world.current_train_info.train_engine.brake_force, 0, 5)
 		speed = (enemy_stats["speed"] + (train_speed_mod*1000)) * shock_speed_multiplier
@@ -37,7 +37,6 @@ func _process(delta):
 		if CurrentRun.world.current_train_info.train_stats["car_count"] != cars_reached:
 			if target != null and global_position.distance_to(target.global_position) < 50:
 				target = find_target()
-				
 
 func find_stats(enemy_type):
 	enemy_stats = EnemyInfo.enemy_roster[enemy_type]

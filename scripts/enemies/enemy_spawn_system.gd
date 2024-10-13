@@ -18,7 +18,7 @@ func _ready():
 	await get_tree().create_timer(5).timeout
 	spawn_level_enemies()
 
-func _process(delta):
+func _process(_delta):
 	#set enemy spawn positions to follow train
 	if CurrentRun.world.current_train_info.cars_inventory.has(CurrentRun.world.current_train_info.train_stats["car_count"] - 1):
 		var node = CurrentRun.world.current_train_info.cars_inventory[CurrentRun.world.current_train_info.train_stats["car_count"] - 1]["node"]

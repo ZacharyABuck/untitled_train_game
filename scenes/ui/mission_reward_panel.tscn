@@ -49,9 +49,3 @@ theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "[center]Reward: $200[/center]"
 fit_content = true
-
-[node name="DespawnTimer" type="Timer" parent="."]
-wait_time = 3.0
-autostart = true
-
-[connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]

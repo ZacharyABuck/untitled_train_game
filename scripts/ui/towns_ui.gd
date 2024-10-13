@@ -9,8 +9,7 @@ extends CanvasLayer
 @onready var jobs_container = %JobsContainer
 @onready var jobs_button = $TownScreen/PanelContainer/TownButtons/JobsButton
 
-@onready var trainyard_items_list = %TrainyardItemsList
-@onready var trainyard = $TownScreen/PanelContainer/ShopContainers/Trainyard
+@onready var trainyard = $Trainyard
 @onready var trainyard_button = $TownScreen/PanelContainer/TownButtons/TrainyardButton
 
 @onready var gunsmith = $TownScreen/PanelContainer/ShopContainers/Gunsmith
@@ -30,6 +29,12 @@ var mission_panel = preload("res://scenes/ui/mission_panel.tscn")
 
 func _ready():
 	hide()
+	shop_containers.hide()
+	jobs.hide()
+	trainyard.hide()
+	town_screen.show()
+	for i in shop_containers.get_children():
+		i.hide()
 
 func populate_town_info(town):
 	#active town clicked
@@ -60,16 +65,6 @@ func spawn_missions(count):
 		
 		new_mission.find_random_mission()
 		new_mission.clicked.connect(owner.world_ui.spawn_mission_inventory_panel)
-
-func spawn_trainyard_items():
-	for i in trainyard_items_list.get_children():
-		if i != trainyard_items_list.get_child(0):
-			i.queue_free()
-	for i in TrainInfo.train_upgrade_roster.keys():
-		var new_item = trainyard_item.instantiate()
-		trainyard_items_list.add_child(new_item)
-		new_item.populate(i)
-		new_item.clicked.connect(owner.upgrade_train)
 
 func spawn_gunsmith_items():
 	for i in gunsmith_items_list.get_children():
@@ -120,6 +115,7 @@ func close_all_windows():
 	AudioSystem.play_audio("basic_button_click", -10)
 	shop_containers.hide()
 	jobs.hide()
+	trainyard.hide()
 	town_screen.show()
 	for i in shop_containers.get_children():
 		i.hide()

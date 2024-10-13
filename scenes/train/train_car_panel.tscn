@@ -1,0 +1,183 @@
+[gd_scene load_steps=12 format=3 uid="uid://pd80ruqnxb77"]
+
+[ext_resource type="Script" path="res://scripts/ui/train_car_panel.gd" id="1_l16mi"]
+[ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="1_v1ey6"]
+[ext_resource type="Texture2D" uid="uid://bxcwcbx0e8vso" path="res://sprites/train/lumber_car_sketch.png" id="2_cvciv"]
+[ext_resource type="FontFile" uid="uid://lxcj83h6gsu7" path="res://fonts/JMH Typewriter-Black.otf" id="4_xof8g"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rp64k"]
+bg_color = Color(0.956863, 0.937255, 0.858824, 1)
+expand_margin_left = 15.0
+expand_margin_top = 15.0
+expand_margin_right = 15.0
+expand_margin_bottom = 15.0
+shadow_color = Color(0.592157, 0.592157, 0.592157, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v0go7"]
+bg_color = Color(0.956863, 0.937255, 0.858824, 1)
+border_color = Color(0.482353, 0.27451, 0.2, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 10.0
+expand_margin_right = 10.0
+shadow_color = Color(0, 0, 0, 0.388235)
+shadow_size = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_35qca"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3h1ng"]
+bg_color = Color(0.956863, 0.937255, 0.858824, 1)
+border_color = Color(0.482353, 0.27451, 0.2, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 10.0
+expand_margin_right = 10.0
+shadow_color = Color(0, 0, 0, 0.388235)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gop4w"]
+bg_color = Color(0.9262, 0.893003, 0.76233, 1)
+border_color = Color(0.482353, 0.27451, 0.2, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 10.0
+expand_margin_right = 10.0
+shadow_color = Color(0, 0, 0, 0.388235)
+shadow_size = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6ujkq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yclmd"]
+
+[node name="TrainCarPanel" type="PanelContainer"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_rp64k")
+script = ExtResource("1_l16mi")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_direction = 2
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="LeftLower" type="PanelContainer" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_v0go7")
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/LeftLower"]
+layout_mode = 2
+theme = ExtResource("1_v1ey6")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_35qca")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3h1ng")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gop4w")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_6ujkq")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_35qca")
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/LeftLower"]
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 5
+stretch_mode = 5
+
+[node name="LeftUpper" type="PanelContainer" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_v0go7")
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/LeftUpper"]
+layout_mode = 2
+theme = ExtResource("1_v1ey6")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_35qca")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3h1ng")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gop4w")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_6ujkq")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_35qca")
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/LeftUpper"]
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 5
+stretch_mode = 5
+
+[node name="CarSprite" type="TextureRect" parent="VBoxContainer"]
+material = SubResource("ShaderMaterial_yclmd")
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+texture = ExtResource("2_cvciv")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CarSprite"]
+layout_mode = 0
+offset_right = 149.0
+offset_bottom = 50.0
+alignment = 1
+
+[node name="GadgetNameLabel" type="RichTextLabel" parent="VBoxContainer/CarSprite/VBoxContainer"]
+visible = false
+texture_filter = 1
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/normal_font = ExtResource("4_xof8g")
+bbcode_enabled = true
+text = "[center]Gadget Name[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_direction = 2
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="RightLower" type="PanelContainer" parent="VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_v0go7")
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer2/RightLower"]
+layout_mode = 2
+theme = ExtResource("1_v1ey6")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_35qca")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3h1ng")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gop4w")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_6ujkq")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_35qca")
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer2/RightLower"]
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 5
+stretch_mode = 5
+
+[node name="RightUpper" type="PanelContainer" parent="VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_v0go7")
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer2/RightUpper"]
+layout_mode = 2
+theme = ExtResource("1_v1ey6")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_35qca")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3h1ng")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gop4w")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_6ujkq")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_35qca")
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer2/RightUpper"]
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 5
+stretch_mode = 5

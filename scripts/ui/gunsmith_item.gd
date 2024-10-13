@@ -30,11 +30,11 @@ func populate(new_weapon):
 	icon.texture = WeaponInfo.weapons_roster[weapon]["sprite"]
 	name_label.text = "[center]" + WeaponInfo.weapons_roster[weapon]["name"]
 	
-	cost_label.text = "[center]Cost: " + str(cost + damage_mod) + " scrap[/center]"
+	cost_label.text = "[center]Cost: $" + str(cost + damage_mod) + "[/center]"
 
 func button_pressed():
-	if CurrentRun.world.current_player_info.current_scrap >= cost:
-		CurrentRun.world.current_player_info.current_scrap -= cost
+	if CurrentRun.world.current_player_info.current_money >= cost:
+		CurrentRun.world.current_player_info.current_money -= cost
 		CurrentRun.world.update_money_label()
 		clicked.emit("weapon", weapon, damage_mod, attack_delay_mod, projectile_speed_mod)
 		queue_free()

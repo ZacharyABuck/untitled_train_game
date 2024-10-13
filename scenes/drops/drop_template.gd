@@ -1,7 +1,7 @@
 extends RigidBody2D
 class_name Drop
 
-@export var value: int
+@export var value: float
 var speed: int = 0
 @export_enum("moving_to_player", "initial_force") var state: String
 
@@ -38,5 +38,5 @@ func _on_player_detector_body_entered(body):
 		else:
 			queue_free()
 
-func player_pickup_drop(v):
+func player_pickup_drop(_v):
 	pass

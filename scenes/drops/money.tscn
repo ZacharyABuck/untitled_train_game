@@ -9,7 +9,6 @@
 [node name="Money" type="RigidBody2D" node_paths=PackedStringArray("sfx")]
 collision_layer = 0
 script = ExtResource("1_u66sj")
-value = 1
 state = "initial_force"
 sfx = NodePath("SFX")
 

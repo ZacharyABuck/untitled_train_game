@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://dlf3ut18w14gl"]
+[gd_scene load_steps=73 format=3 uid="uid://dlf3ut18w14gl"]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/enemy_zombie.gd" id="1_kv2s3"]
 [ext_resource type="PackedScene" uid="uid://cyv57gynwtrmu" path="res://components/hurtbox_component.tscn" id="3_aknae"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/zombie_state_dead.gd" id="8_httoe"]
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/zombie_state_idle.gd" id="8_pu41x"]
 [ext_resource type="PackedScene" uid="uid://fhwaeth7nhpr" path="res://components/status_effect_component.tscn" id="15_dkrpb"]
+[ext_resource type="PackedScene" uid="uid://cpe7uj0omv03o" path="res://components/moving_target_component.tscn" id="15_ghxgt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jwejo"]
 radius = 10.5
@@ -543,6 +544,8 @@ process_mode = 4
 script = ExtResource("8_httoe")
 
 [node name="StatusEffectComponent" parent="." instance=ExtResource("15_dkrpb")]
+
+[node name="MovingTargetComponent" parent="." instance=ExtResource("15_ghxgt")]
 
 [connection signal="animation_finished" from="ZombieSpriteSheet" to="StateMachine/boarding" method="animation_finished"]
 [connection signal="animation_finished" from="ZombieSpriteSheet" to="StateMachine/finish_boarding" method="animation_finished"]

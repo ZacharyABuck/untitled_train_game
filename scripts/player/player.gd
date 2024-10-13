@@ -11,7 +11,6 @@ class_name Player
 @onready var camera = $Camera2D
 @onready var buff = $Buff
 
-
 var active_car
 
 var charging: bool = false
@@ -86,18 +85,6 @@ func repair():
 		sprite.play("repairing")
 		if !repair_sfx.playing:
 			repair_sfx.play()
-
-## -- EDGE FUNCTIONS -- #
-#func player_hurt(damage):
-	##check for shadowstep
-	#if CurrentRun.world.current_edge_info.edge_inventory.has("shadowstep"):
-		#var shadowstep_scene = CurrentRun.world.current_edge_info.edge_inventory["shadowstep"]["scene"]
-		#shadowstep_scene.enable_shadow()
-		#
-	#CurrentRun.world.current_player_info.current_health -= damage
-	#if CurrentRun.world.current_player_info.current_health < 0:
-		#dead.emit()
-
 
 # -- EQUIPMENT FUNCTIONS -- #
 func _instantiate_ranged_weapon(gun_scene_location, random_damage, random_attack_delay, random_projectile_speed):

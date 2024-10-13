@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=16 format=3 uid="uid://dkxiakuxtv3c5"]
+[gd_resource type="Theme" load_steps=17 format=3 uid="uid://dkxiakuxtv3c5"]
 
 [ext_resource type="FontFile" uid="uid://lxcj83h6gsu7" path="res://fonts/JMH Typewriter-Black.otf" id="1_8qbmf"]
 [ext_resource type="FontFile" uid="uid://tpmg7wha0yio" path="res://fonts/JMH Typewriter-Bold.ttf" id="1_eg4lo"]
@@ -26,6 +26,18 @@ expand_margin_top = 5.0
 expand_margin_right = 15.0
 expand_margin_bottom = 5.0
 shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4876o"]
+bg_color = Color(0.956863, 0.937255, 0.858824, 1)
+border_color = Color(0.482353, 0.27451, 0.2, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 10.0
+expand_margin_right = 10.0
+shadow_size = 2
+shadow_offset = Vector2(5, 5)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_chs01"]
 bg_color = Color(0.956863, 0.937255, 0.858824, 1)
@@ -118,6 +130,7 @@ Label/colors/font_color = Color(0.482353, 0.27451, 0.2, 1)
 Label/colors/font_outline_color = Color(0.956863, 0.937255, 0.858824, 1)
 Label/fonts/font = ExtResource("1_eg4lo")
 Label/styles/normal = SubResource("StyleBoxFlat_k2mj5")
+Panel/styles/panel = SubResource("StyleBoxFlat_4876o")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_chs01")
 RichTextLabel/colors/default_color = Color(0.482353, 0.27451, 0.2, 1)
 RichTextLabel/colors/font_outline_color = Color(0.956863, 0.937255, 0.858824, 1)

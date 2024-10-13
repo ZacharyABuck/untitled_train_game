@@ -39,6 +39,7 @@ script = ExtResource("1_oecw2")
 modulate = Color(0.580392, 0.580392, 0.580392, 1)
 texture_filter = 1
 position = Vector2(0, 171)
+rotation = -1.5708
 texture = ExtResource("2_w8dsn")
 
 [node name="CornerPoints" type="Node2D" parent="."]
@@ -116,6 +117,7 @@ shape = SubResource("RectangleShape2D_a1ef6")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 process_mode = 3
+visible = false
 offset_left = -60.0
 offset_top = 158.0
 offset_right = 62.0

@@ -44,8 +44,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	$UI/MoneyLabel.text = "Money: $" + str(CurrentRun.world.current_player_info.current_money)
-	$UI/ScrapLabel.text = "Scrap: " + str(CurrentRun.world.current_player_info.current_scrap)
+	$UI/MoneyLabel.text = "Money: $" + str("%.2f" % CurrentRun.world.current_player_info.current_money)
 	
 	# These XP functions will be moved to a dedicated node or func that handles all this.
 	xp_bar.value = CurrentRun.world.current_player_info.currentExperience
