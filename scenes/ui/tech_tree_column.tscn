@@ -4,6 +4,7 @@
 [ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="1_crrok"]
 
 [node name="TechTreeColumn" type="VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
 theme_override_constants/separation = 50
 alignment = 1
 script = ExtResource("1_2j0tr")

@@ -18,8 +18,10 @@ func _setup_train():
 	engine.car.type = "engine"
 	var last_vehicle = engine
 	last_vehicle.car.index = 0
-	if CurrentRun.world.current_train_info.cars_inventory.keys().size() == 0:
-		CurrentRun.world.current_train_info.cars_inventory[0] = {"node" = null, "type" = last_vehicle.car.type, "hard_points" = {}, "gadgets" = {},}
+
+	if CurrentRun.world.current_train_info.cars_inventory[0]["merc"] != null:
+		last_vehicle.car.spawn_merc()
+
 	CurrentRun.world.current_train_info.cars_inventory[0]["node"] = last_vehicle.car
 	last_vehicle.car.set_parameters()
 	last_vehicle.car.check_for_gadgets()
@@ -61,12 +63,10 @@ func _setup_train():
 			else:
 				last_vehicle.car.type = "cargo"
 			last_vehicle.car.index = index
-			#check if its a new car
-			if CurrentRun.world.current_train_info.cars_inventory.keys().size() - 1 < index:
-				CurrentRun.world.current_train_info.cars_inventory[index] = {"node" = null, "type" = last_vehicle.car.type, "hard_points" = {}, "gadgets" = {},}
-			else:
-				pass
-				
+
+			if CurrentRun.world.current_train_info.cars_inventory[index]["merc"] != null:
+				last_vehicle.car.spawn_merc()
+
 			CurrentRun.world.current_train_info.cars_inventory[index]["node"] = last_vehicle.car
 			last_vehicle.car.set_parameters()
 			last_vehicle.car.check_for_gadgets()

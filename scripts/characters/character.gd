@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Character
 
 @export_enum("idle", "running") var state: String
 

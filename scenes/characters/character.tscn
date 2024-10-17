@@ -136,10 +136,9 @@ wait_time = 2.0
 MAX_HEALTH = 20.0
 HEALTHBAR = NodePath("../ProgressBar")
 
-[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component", "hurt_sfx")]
+[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
 script = ExtResource("7_0odwf")
 health_component = NodePath("../HealthComponent")
-hurt_sfx = NodePath("../HurtSFX")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 shape = SubResource("RectangleShape2D_xf4c1")

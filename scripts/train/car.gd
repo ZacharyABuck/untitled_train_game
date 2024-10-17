@@ -23,11 +23,12 @@ extends Node2D
 
 @onready var character_spawn_point = $CharacterSpawnPoint
 
+var merc = preload("res://scenes/characters/merc.tscn")
 var character = preload("res://scenes/characters/character.tscn")
 var cargo = preload("res://scenes/train/cargo.tscn")
 var hard_point = preload("res://scenes/train/hard_point.tscn")
 
-var active_buffs: Array = []
+var active_buffs: Dictionary
 var gadgets: Array = []
 
 var max_health: float
@@ -54,7 +55,10 @@ func check_for_gadgets():
 	for gadget in CurrentRun.world.current_train_info.cars_inventory[index]["gadgets"].keys():
 		for hardpoint in hard_points.get_children():
 			if hardpoint.name == gadget:
-				hardpoint.get_child(0).respawn_gadget(CurrentRun.world.current_train_info.cars_inventory[index]["gadgets"][gadget])
+				if CurrentRun.world.current_train_info.cars_inventory[index]["gadgets"][gadget]["upkeep_paid"]:
+					hardpoint.get_child(0).respawn_gadget(CurrentRun.world.current_train_info.cars_inventory[index]["gadgets"][gadget]["gadget"])
+				else:
+					CurrentRun.world.current_train_info.cars_inventory[index]["gadgets"].erase(gadget)
 
 func take_damage(amount):
 	if !damage_sfx.playing:
@@ -89,6 +93,12 @@ func hide_radial_menus():
 	for i in hard_points.get_children():
 		if i.get_child(0).radial_menu != null:
 			i.get_child(0).radial_menu.close_menu()
+
+func spawn_merc():
+	var new_merc = merc.instantiate()
+	new_merc.position = character_spawn_point.position + Vector2(randi_range(-25,25),randi_range(-100,100))
+	new_merc.merc_name = CurrentRun.world.current_train_info.cars_inventory[index]["merc"]
+	add_child(new_merc)
 
 func spawn_characters():
 	for i in CurrentRun.world.current_mission_info.mission_inventory:

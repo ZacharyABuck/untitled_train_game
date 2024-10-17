@@ -13,5 +13,4 @@ func ambush_triggered(area):
 		add_child(new_spawner)
 		
 		var random_spawn_point = CurrentRun.world.current_level_info.enemy_spawn_system.extra_spawns.get_children().pick_random().global_position
-		print(random_spawn_point)
 		new_spawner.spawn_enemy(round(starting_spawn_amount+(difficulty)), "spider", random_spawn_point)

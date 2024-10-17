@@ -10,7 +10,6 @@ var car
 
 
 func respawn_gadget(requested_gadget):
-	CurrentRun.world.current_train_info.cars_inventory[car.index]["gadgets"][get_parent().name] = requested_gadget
 	gadget = requested_gadget
 	spawn_gadget(requested_gadget)
 
@@ -31,7 +30,8 @@ func add_gadget(requested_gadget):
 			CurrentRun.world.update_money_label()
 			
 			CurrentRun.world.current_gadget_info.selected_gadget = null
-			CurrentRun.world.current_train_info.cars_inventory[car.index]["gadgets"][get_parent().name] = requested_gadget
+			
+			CurrentRun.world.current_train_info.cars_inventory[car.index]["gadgets"][get_parent().name] = {"gadget" = requested_gadget, "upkeep_paid" = true}
 			CurrentRun.world.current_level_info.active_level.close_all_ui()
 			$BuildSound.play()
 			

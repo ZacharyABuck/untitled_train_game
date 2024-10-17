@@ -2,7 +2,7 @@ extends Projectile
 
 func _ready():
 	super()
-	active_buffs.append("fire")
+	active_buffs["fire"] = true
 	await get_tree().create_timer(.5).timeout
 	$Hitbox/CollisionShape2D.disabled = false
 

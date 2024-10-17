@@ -8,6 +8,7 @@ extends Node2D
 @onready var current_mission_info = $Info/CurrentMissionInfo
 @onready var current_gadget_info = $Info/CurrentGadgetInfo
 @onready var current_enemy_info = $Info/CurrentEnemyInfo
+@onready var current_character_info = $Info/CurrentCharacterInfo
 
 var level = preload("res://scenes/level.tscn")
 
@@ -107,9 +108,6 @@ func town_clicked(town):
 			if current_world_info.towns_inventory[town.town_name].has("gunsmith"):
 				towns_ui.spawn_gunsmith_items()
 				towns_ui.gunsmith_button.show()
-			if current_world_info.towns_inventory[town.town_name].has("tinkerer"):
-				towns_ui.spawn_tinkerer_items()
-				towns_ui.tinkerer_button.show()
 			if current_world_info.towns_inventory[town.town_name].has("trainyard"):
 				towns_ui.trainyard.spawn_trainyard_items()
 				towns_ui.trainyard_button.show()
@@ -154,6 +152,7 @@ func level_complete():
 	update_world_player_pos()
 	check_missions()
 	update_money_label()
+	current_train_info.set_all_gadget_upkeep(false)
 	world_map.show()
 	missions_spawned = false
 	CurrentRun.root.fade_in()
@@ -197,8 +196,15 @@ func check_missions():
 		end_screen_ui.show_no_missions_label()
 
 func complete_mission(mission):
-	current_player_info.current_money += current_mission_info.mission_inventory[mission]["reward"]
-	update_money_label()
+	if current_mission_info.mission_inventory[mission]["reward"].has("money"):
+		current_player_info.current_money += current_mission_info.mission_inventory[mission]["reward"]["money"]
+		update_money_label()
+	if current_mission_info.mission_inventory[mission]["reward"].has("gadget"):
+		GadgetInfo.gadget_roster[current_mission_info.mission_inventory[mission]["reward"]["gadget"]]["unlocked"] = true
+	if current_mission_info.mission_inventory[mission]["reward"].has("merc"):
+		var new_merc_name = find_random_merc()
+		var new_merc_type = current_mission_info.mission_inventory[mission]["reward"]["merc"]
+		current_character_info.mercs_inventory[new_merc_name] = {"type": new_merc_type, "ranks": {"0": CharacterInfo.mercs_roster[new_merc_type]["ranks"]["0"]}}
 	if current_mission_info.mission_inventory[mission].keys().has("icon"):
 		end_screen_ui.spawn_reward_panel(true, current_mission_info.mission_inventory[mission]["icon"], current_mission_info.mission_inventory[mission]["reward"])
 	else: 
@@ -220,3 +226,18 @@ func upgrade_train(upgrade):
 				var caboose_index = current_train_info.cars_inventory.keys().size() - 1
 				current_train_info.cars_inventory[caboose_index + 1] = current_train_info.cars_inventory[caboose_index]
 				current_train_info.cars_inventory[caboose_index] = {"node" = null, "type" = null, "hard_points" = {}, "gadgets" = {},}
+
+func find_random_merc():
+	var merc_name = CharacterInfo.characters_roster.keys().pick_random()
+	var valid = false
+	while valid == false:
+		var index = 0
+		for merc in current_character_info.mercs_inventory.keys():
+			if merc != merc_name:
+				index += 1
+		if index >= current_character_info.mercs_inventory.keys().size() - 1:
+			valid = true
+		else:
+			merc_name = CharacterInfo.characters_roster.keys().pick_random()
+	
+	return merc_name

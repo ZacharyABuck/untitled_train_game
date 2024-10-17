@@ -15,8 +15,8 @@ var experience: float
 var damage: float
 var type: String
 
-var shock_speed_multiplier: float = 1
-var train_speed_mod: float = 0
+var shock_speed_multiplier: float = 1.0
+var train_speed_mod: float = 0.0
 
 var target
 
@@ -30,8 +30,8 @@ func _ready():
 
 func _process(_delta):
 	if enemy_stats.has("speed") and CurrentRun.world.current_train_info.train_engine:
-		train_speed_mod = clamp(CurrentRun.world.current_train_info.train_engine.target_force_percent - CurrentRun.world.current_train_info.train_engine.brake_force, 0, 5)
-		speed = (enemy_stats["speed"] + (train_speed_mod*1000)) * shock_speed_multiplier
+		train_speed_mod = max(CurrentRun.world.current_train_info.train_engine.velocity, 0)
+		speed = (enemy_stats["speed"] + (train_speed_mod*45)) * shock_speed_multiplier
 	
 	if wave_enemy:
 		if CurrentRun.world.current_train_info.train_stats["car_count"] != cars_reached:

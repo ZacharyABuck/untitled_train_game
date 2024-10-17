@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://02oiy550pacp"]
+[gd_scene load_steps=54 format=3 uid="uid://02oiy550pacp"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_2a3mn"]
 [ext_resource type="PackedScene" uid="uid://cb1r5v4vqyrx8" path="res://scenes/train/TrainManager.tscn" id="3_3t5p5"]
@@ -10,11 +10,8 @@
 [ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="7_v8euj"]
 [ext_resource type="AudioStream" uid="uid://c8nvxqfmljdop" path="res://sounds/ui/book_skimming_short.wav" id="8_g00h4"]
 [ext_resource type="AudioStream" uid="uid://bt0eo54at8rls" path="res://sounds/ui/charge_ready_sfx.mp3" id="8_kek5m"]
-[ext_resource type="Texture2D" uid="uid://cjq45x38ts8mf" path="res://sprites/ui/level_up_button.png" id="9_kk0cw"]
-[ext_resource type="Shader" path="res://shaders/levelupbutton.gdshader" id="9_peqgl"]
 [ext_resource type="AudioStream" uid="uid://d3wi2punv8qyu" path="res://sounds/ui/bell.wav" id="11_5nccy"]
 [ext_resource type="Shader" path="res://shaders/fog.gdshader" id="12_hxkjx"]
-[ext_resource type="Script" path="res://scripts/ui/level_up_button.gd" id="13_06q2t"]
 [ext_resource type="FontFile" uid="uid://tpmg7wha0yio" path="res://fonts/JMH Typewriter-Bold.ttf" id="15_jo5ee"]
 [ext_resource type="Script" path="res://scripts/ui/current_weapon_panel.gd" id="16_hmgxt"]
 [ext_resource type="FontFile" uid="uid://dxx340jybsylj" path="res://fonts/JMH Typewriter-Black.ttf" id="16_x3efs"]
@@ -921,30 +918,6 @@ _data = {
 "alert_flash_short": SubResource("Animation_dsu7x")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w3a1w"]
-bg_color = Color(0.372192, 0.371429, 0.357672, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y5gsu"]
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7bss3"]
 bg_color = Color(0.262745, 0, 0, 0.4)
 border_width_left = 2
@@ -994,14 +967,6 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vuv3c"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gqsql"]
-shader = ExtResource("9_peqgl")
-shader_parameter/shine_color = Color(1, 1, 1, 0.25)
-shader_parameter/line_width = 0.1
-shader_parameter/angle = 0.785398
-shader_parameter/speed = 1.0
-shader_parameter/wait_cycles = 1.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0r5bq"]
 bg_color = Color(0.956863, 0.937255, 0.858824, 1)
@@ -1199,15 +1164,6 @@ libraries = {
 "": SubResource("AnimationLibrary_bqojy")
 }
 
-[node name="PlayerExperienceBar" type="ProgressBar" parent="UI"]
-offset_left = 1682.0
-offset_top = 59.0
-offset_right = 1860.0
-offset_bottom = 98.0
-theme_override_styles/background = SubResource("StyleBoxFlat_w3a1w")
-theme_override_styles/fill = SubResource("StyleBoxFlat_y5gsu")
-show_percentage = false
-
 [node name="PlayerHealthBar" type="ProgressBar" parent="UI"]
 process_mode = 4
 visible = false
@@ -1250,21 +1206,11 @@ stream = ExtResource("8_kek5m")
 volume_db = -15.0
 bus = &"SFX"
 
-[node name="LevelLabel" type="Label" parent="UI"]
-offset_left = 1706.0
-offset_top = 60.0
-offset_right = 1836.0
-offset_bottom = 99.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_uxjuw")
-theme_override_font_sizes/font_size = 30
-text = "Level: 1"
-
 [node name="MoneyLabel" type="Label" parent="UI"]
 offset_left = 1690.0
-offset_top = 98.0
+offset_top = 44.0
 offset_right = 1855.0
-offset_bottom = 137.0
+offset_bottom = 83.0
 theme_override_colors/font_color = Color(0.870588, 0.74902, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
@@ -1283,18 +1229,6 @@ mouse_filter = 2
 mouse_force_pass_scroll_events = false
 theme_override_constants/separation = 500
 alignment = 1
-
-[node name="LevelUpButton" type="TextureButton" parent="UI"]
-visible = false
-material = SubResource("ShaderMaterial_gqsql")
-offset_left = 1386.0
-offset_top = 48.0
-offset_right = 1666.0
-offset_bottom = 143.0
-texture_normal = ExtResource("9_kk0cw")
-ignore_texture_size = true
-stretch_mode = 0
-script = ExtResource("13_06q2t")
 
 [node name="WeaponMarginContainer" type="MarginContainer" parent="UI"]
 process_mode = 3

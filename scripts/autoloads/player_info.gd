@@ -3,10 +3,10 @@ extends Node
 #CURRENTLY NOT IN USE
 
 # Experience Variables
-#var currentExperience: int = 0
-#var currentLevel: int = 1
-#var nextLevelExperience: int = 10
-#var totalExperience: int = 0
+#var current_experience: int = 0
+#var current_level: int = 1
+#var next_level_experience: int = 10
+#var total_experience: int = 0
 #
 ## Base Variables
 #var base_money: int = 15

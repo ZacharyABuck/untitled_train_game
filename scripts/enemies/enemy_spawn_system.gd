@@ -32,13 +32,21 @@ func check_for_enemies():
 		if level.enemies.get_child_count() == 0:
 			spawning = true
 			print("All Enemies Dead")
+			
+			await get_tree().create_timer(5).timeout
+
 			wave_timer_timeout()
 			enemy_wave_timer.start()
 
 func wave_timer_timeout():
+	var label = CurrentRun.world.current_level_info.active_level.alert_label
+	label.text = "Wave Spawning!!!"
+	label.get_child(0).play("alert_flash")
+	label.show()
+	
 	spawn_interval_timer.start()
 	spawn_level_enemies()
-	CurrentRun.world.current_level_info.difficulty += .025
+	CurrentRun.world.current_level_info.difficulty += .01
 	wave_count += 1
 	CurrentRun.world.current_level_info.wave_count = wave_count
 

@@ -3,11 +3,11 @@ extends Edge
 var damage = 1
 @onready var damage_timer = $DamageTimer
 @onready var hitbox = $HitBox
+var buffs = {"poison": true}
 
 func _ready():
 	super()
-	if !CurrentRun.world.current_player_info.active_player.buff.active_buffs.has("poison"):
-		CurrentRun.world.current_player_info.active_player.buff.active_buffs.append("poison")
+	WeaponInfo.attach_buffs(buffs, CurrentRun.world.current_player_info.active_player.buff.active_buffs)
 
 func handle_level_up():
 	if edge_level % 2 == 1:
@@ -22,6 +22,6 @@ func damage_enemies():
 	for i in hitbox.get_overlapping_areas():
 		var new_attack = Attack.new()
 		new_attack.attack_damage = damage
-		new_attack.active_buffs.append("poison")
+		WeaponInfo.attach_buffs(buffs, new_attack.active_buffs)
 		if i is HurtboxComponent and i.get_parent().is_in_group("enemy"):
 			i.damage(new_attack, null)

@@ -1,5 +1,6 @@
 extends VBoxContainer
 
+
 var trainyard
 
 func _ready():
@@ -7,14 +8,21 @@ func _ready():
 		if i is Button:
 			i.pressed.connect(button_pressed.bind(i))
 
-func set_button_info(button, gadget):
-	button.set_meta("gadget", gadget)
-	button.text = GadgetInfo.gadget_roster[gadget]["name"] + "\n Upgrade: $" + str(GadgetInfo.gadget_roster[gadget]["cost"])
-	button.show()
-
 func button_pressed(button):
-	var gadget = button.get_meta("gadget")
-	if CurrentRun.world.current_player_info.current_money >= GadgetInfo.gadget_roster[gadget]["cost"]:
-		CurrentRun.world.current_player_info.current_money -= GadgetInfo.gadget_roster[gadget]["cost"]
+	var merc = button.get_meta("merc")
+	var rank = button.get_meta("rank")
+	var upgrade = button.get_meta("upgrade")
+	
+	var cost = CharacterInfo.mercs_roster[CurrentRun.world.current_character_info.mercs_inventory[merc]["type"]]["ranks"][rank][upgrade]["cost"]
+	if CurrentRun.world.current_player_info.current_money >= cost:
+		AudioSystem.play_audio("drill", -15)
+		
+		CurrentRun.world.current_player_info.current_money -= cost
 		CurrentRun.world.update_money_label()
-		trainyard.upgrade_gadget(gadget)
+		
+		CurrentRun.world.current_character_info.mercs_inventory[merc]["ranks"][rank] = \
+			{upgrade : CharacterInfo.mercs_roster[CurrentRun.world.current_character_info.mercs_inventory[merc]["type"]]["ranks"][rank][upgrade]}
+		
+		trainyard.tech_tree_button_pressed(merc)
+	else:
+		button.button_pressed = false

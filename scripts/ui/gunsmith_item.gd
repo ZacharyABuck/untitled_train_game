@@ -7,7 +7,7 @@ var weapon: String
 @onready var stats_label = $HBoxContainer/VBoxContainer/Stats
 
 
-var cost: int = 10
+var cost: float = 10
 
 var damage_mod: float
 var attack_delay_mod: float

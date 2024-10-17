@@ -17,14 +17,9 @@ extends CanvasLayer
 var gunsmith_items_amount: int = 3
 @onready var gunsmith_button = $TownScreen/PanelContainer/TownButtons/GunsmithButton
 
-@onready var tinkerer = $TownScreen/PanelContainer/ShopContainers/Tinkerer
-@onready var tinkerer_items_list = %TinkererItemsList
-var tinkerer_item_amount: int = 5
-@onready var tinkerer_button = $TownScreen/PanelContainer/TownButtons/TinkererButton
-
 var trainyard_item = preload("res://scenes/ui/trainyard_item.tscn")
 var gunsmith_item = preload("res://scenes/ui/gunsmith_item.tscn")
-var tinkerer_item = preload("res://scenes/ui/tinkerer_item.tscn")
+
 var mission_panel = preload("res://scenes/ui/mission_panel.tscn")
 
 func _ready():
@@ -77,43 +72,9 @@ func spawn_gunsmith_items():
 		new_item.populate(random_weapon)
 		new_item.clicked.connect(owner.current_player_info.equip_new_weapon)
 
-func spawn_tinkerer_items():
-	pass
-	#for i in tinkerer_items_list.get_children():
-		#if i != tinkerer_items_list.get_child(0):
-			#i.queue_free()
-	#
-	#for gadget in GadgetInfo.upgrade_rosters["default"]:
-		##spawn base level gadgets
-		#if GadgetInfo.gadget_roster[gadget]["unlocked"] == false:
-			#var new_item = tinkerer_item.instantiate()
-			#tinkerer_items_list.add_child(new_item)
-			#new_item.populate(gadget)
-		##if gadget is unlocked, check if upgrades exist
-		#elif GadgetInfo.upgrade_rosters.has(gadget):
-			#var random_upgrade = GadgetInfo.upgrade_rosters[gadget].pick_random()
-			##while upgrade is unlocked, check down the line
-			#var index = 0
-			#while GadgetInfo.gadget_roster[random_upgrade]["unlocked"] == true:
-				#if GadgetInfo.upgrade_rosters.has(random_upgrade):
-					#random_upgrade = GadgetInfo.upgrade_rosters[random_upgrade].pick_random()
-				#else:
-					##check for max upgrades, if all are upgraded spawn none
-					#index += 1
-					#if index == GadgetInfo.upgrade_rosters.keys().size() - 1:
-						#random_upgrade = null
-						#break
-					#
-					#random_upgrade = GadgetInfo.upgrade_rosters[gadget].pick_random()
-					#
-			#if random_upgrade != null:
-				##spawn upgrade gadget
-				#var new_item = tinkerer_item.instantiate()
-				#tinkerer_items_list.add_child(new_item)
-				#new_item.populate(random_upgrade)
-
 func close_all_windows():
 	AudioSystem.play_audio("basic_button_click", -10)
+	trainyard.reset()
 	shop_containers.hide()
 	jobs.hide()
 	trainyard.hide()
@@ -130,11 +91,6 @@ func _on_gunsmith_button_pressed():
 	close_all_windows()
 	shop_containers.show()
 	gunsmith.show()
-
-func _on_tinkerer_button_pressed():
-	close_all_windows()
-	shop_containers.show()
-	tinkerer.show()
 
 func _on_trainyard_button_pressed():
 	close_all_windows()

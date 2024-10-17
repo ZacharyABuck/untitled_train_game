@@ -114,13 +114,30 @@ text = "Mission Description Mission Description Mission Description Mission Desc
 fit_content = true
 scroll_active = false
 
-[node name="Reward" type="RichTextLabel" parent="HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+
+[node name="Reward" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
 mouse_filter = 2
 theme_override_colors/default_color = Color(0.787569, 0.787569, 0, 1)
 theme_override_fonts/normal_font = ExtResource("3_3emmr")
 text = "Reward: 200"
+fit_content = true
+scroll_active = false
+
+[node name="TimeLimit" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.787569, 0.787569, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_3emmr")
+bbcode_enabled = true
+text = "[right]Reward: 200[/right]"
 fit_content = true
 scroll_active = false
 

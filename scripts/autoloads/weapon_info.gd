@@ -81,3 +81,24 @@ var charge_attacks_roster = {
 		"base_damage" = 0,
 	},
 }
+
+func attach_buffs(buffs, receiver_buffs):
+	for buff in buffs:
+		#if value is a float
+		if buff == "damage" or buff == "attack_delay" or buff == "scatter_shot":
+			if receiver_buffs.has(buff):
+				receiver_buffs[buff] += buffs[buff]
+			else: receiver_buffs[buff] = buffs[buff]
+		#if value is a bool
+		else:
+			receiver_buffs[buff] = true
+
+func detach_buffs(buffs, receiver_buffs):
+	for buff in buffs:
+		#if value is a float
+		if buff == "damage" or buff == "attack_delay" or buff == "scatter_shot":
+			if receiver_buffs.has(buff):
+				receiver_buffs[buff] -= max(buffs[buff], 0)
+		#if value is a bool
+		else:
+			receiver_buffs[buff] = false

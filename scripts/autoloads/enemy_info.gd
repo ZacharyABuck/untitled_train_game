@@ -19,7 +19,7 @@ var enemy_roster = {
 		"health" = 10,
 		"damage" = 5.0,
 		"money" = 0.50,
-		"speed" = 7500,
+		"speed" = 6000,
 		"experience" = 3,
 		"max_spawn" = 100,
 	},

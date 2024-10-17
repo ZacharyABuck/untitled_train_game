@@ -22,7 +22,7 @@ var animations
 var valid_hitbox_types
 var lifetime = 3
 
-var active_buffs: Array = []
+var active_buffs: Dictionary
 
 signal hit_target
 var last_enemy_hit: Area2D
@@ -51,8 +51,15 @@ func _on_area_2d_area_entered(area):
 		animations.play("hit")
 		var new_hitbox : HurtboxComponent = area
 		var attack = Attack.new()
-		attack.active_buffs = active_buffs
-		attack.attack_damage = damage
+		
+		WeaponInfo.attach_buffs(active_buffs, attack.active_buffs)
+
+		if active_buffs.has("damage"):
+			attack.attack_damage = damage * active_buffs["damage"]
+		else:
+			attack.attack_damage = damage
+		print(attack.attack_damage)
+		
 		new_hitbox.damage(attack, shooter)
 		if SFX:
 			SFX.play()

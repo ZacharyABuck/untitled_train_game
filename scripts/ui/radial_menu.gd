@@ -14,6 +14,7 @@ var menu_item = preload("res://scenes/ui/menu_item.tscn")
 @onready var bottom_text = $BottomText
 @onready var items = $Items
 
+var slot
 var car
 
 func _ready():
@@ -73,7 +74,8 @@ func add_item(item):
 	items.add_child(new_item)
 	new_item.sprite.texture = item_info["sprite"]
 	new_item.gadget = item
-	new_item.clicked.connect(get_parent().add_gadget)
+	if get_parent().has_method("add_gadget"):
+		new_item.clicked.connect(get_parent().add_gadget)
 	new_item.hovered.connect(show_gadget_info)
 	new_item.hide()
 
@@ -84,7 +86,7 @@ func show_gadget_info(gadget):
 	else:
 		var gadget_name = GadgetInfo.gadget_roster[gadget]["name"]
 		top_text.text = gadget_name
-		bottom_text.text = "Cost: $" + str(GadgetInfo.gadget_roster[gadget]["cost"])
+		bottom_text.text = "Cost: $" + str("%.2f" % GadgetInfo.gadget_roster[gadget]["cost"])
 		top_text.show()
 		bottom_text.show()
 
@@ -94,8 +96,9 @@ func open_menu():
 	open = true
 	$MenuOpenSound.play()
 	$AnimationPlayer.play("still")
-	CurrentRun.world.current_level_info.active_level.ui_open = true
-	Engine.set_time_scale(.2)
+	if CurrentRun.world.current_level_info.active_level != null:
+		CurrentRun.world.current_level_info.active_level.ui_open = true
+		Engine.set_time_scale(.2)
 	var spacing = TAU / items.get_children().size()
 	var index = 1
 	var bg_tween = get_tree().create_tween().bind_node(self)

@@ -3,7 +3,7 @@ extends PanelContainer
 var mission_type
 var character
 var destination
-var reward
+var rewards = {}
 var time_limit
 
 signal clicked
@@ -28,13 +28,29 @@ func find_random_mission():
 	var distance = CurrentRun.world.current_world_info.towns_inventory[destination]["scene"].global_position.distance_to\
 	(CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"].global_position)
 	
-	var random_reward = random_mission["reward"] + round(distance*.002)
+	var random_money = random_mission["reward"] + round(distance*.002)
+	rewards["money"] = random_money
+	$HBoxContainer/VBoxContainer/HBoxContainer/Reward.text = "Reward: $" + str(random_money)
+	
+
+	var rng = randi_range(1,4)
+	if rng == 1:
+		var random_gadget = GadgetInfo.find_random_locked_gadget()
+		if random_gadget != null:
+			rewards["gadget"] = random_gadget
+			$HBoxContainer/VBoxContainer/HBoxContainer/Reward.text = $HBoxContainer/VBoxContainer/HBoxContainer/Reward.text + "\n + Gadget Unlock"
+	if rng == 2:
+		var random_merc_type = CharacterInfo.mercs_roster.keys().pick_random()
+		if random_merc_type != null:
+			rewards["merc"] = random_merc_type
+			$HBoxContainer/VBoxContainer/HBoxContainer/Reward.text = $HBoxContainer/VBoxContainer/HBoxContainer/Reward.text + "\n + Merc Joins Your Crew"
+	
 	var random_time_limit = randi_range(1,3)
 	if random_time_limit > 1:
-		$HBoxContainer/VBoxContainer/Reward.text = "Reward: $" + str(random_reward) + "      " + str(random_time_limit) + " days"
+		$HBoxContainer/VBoxContainer/HBoxContainer/TimeLimit.text = str(random_time_limit) + " days"
 	else:
-		$HBoxContainer/VBoxContainer/Reward.text = "Reward: $" + str(random_reward) + "      " + str(random_time_limit) + " day"
-	reward = random_reward
+		$HBoxContainer/VBoxContainer/HBoxContainer/TimeLimit.text = str(random_time_limit) + " day"
+	
 	time_limit = random_time_limit
 	$Button.mouse_entered.connect(CurrentRun.world.show_travel_line.bind(destination))
 	$Button.mouse_exited.connect(CurrentRun.world.camera.reset)
@@ -57,7 +73,7 @@ func _on_button_pressed():
 		{"type" = mission_type,
 		"destination" = destination,
 		"character" = character,
-		"reward" = reward,
+		"reward" = rewards,
 		"time_limit" = time_limit,
 		"icon" = $HBoxContainer/MissionIcon.texture,}
 		clicked.emit(id)

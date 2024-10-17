@@ -13,12 +13,7 @@ const edge_panel = preload("res://scenes/edges/edge_panel.tscn")
 @onready var train_manager = $TrainManager
 @onready var map = $Map
 
-@onready var xp_bar = $UI/PlayerExperienceBar
-#@onready var player_health_bar = $UI/PlayerHealthBar
-
 @onready var player_charge_bar = $UI/PlayerChargeBar
-@onready var level_label = $UI/LevelLabel
-@onready var level_up_button = $UI/LevelUpButton
 
 var spawning: bool = false
 
@@ -39,18 +34,13 @@ var weather: String
 func _ready():
 	generate_track()
 	spawn_player()
-	ExperienceSystem.level_up.connect(self.handle_level_up)
+	CurrentRun.world.current_player_info.route_experience = 0
 	calculate_weather()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	$UI/MoneyLabel.text = "Money: $" + str("%.2f" % CurrentRun.world.current_player_info.current_money)
-	
-	# These XP functions will be moved to a dedicated node or func that handles all this.
-	xp_bar.value = CurrentRun.world.current_player_info.currentExperience
-	xp_bar.max_value = CurrentRun.world.current_player_info.nextLevelExperience
-	level_label.text = "Level: " + str(CurrentRun.world.current_player_info.currentLevel)
-	$UI/PlayerExperienceBar.value = CurrentRun.world.current_player_info.currentExperience
+
 
 func calculate_weather():
 	var random_weather = weather_states.pick_random()
@@ -120,62 +110,62 @@ func enemy_killed():
 	enemy_spawn_system.check_for_enemies()
 
 
-func handle_level_up():
-	$LevelUpSFX.play()
-	level_up_button.scale = Vector2(1.2, 1.2)
-	level_up_button.disabled = false
-	level_up_button.show()
-	var tween = create_tween()
-	tween.tween_property(level_up_button, "scale", Vector2(1, 1), .2).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_IN)
+#func handle_level_up():
+	#$LevelUpSFX.play()
+	#level_up_button.scale = Vector2(1.2, 1.2)
+	#level_up_button.disabled = false
+	#level_up_button.show()
+	#var tween = create_tween()
+	#tween.tween_property(level_up_button, "scale", Vector2(1, 1), .2).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_IN)
+#
+#func level_up_button_pressed():
+	#if CurrentRun.world.current_player_info.level_up_queue > 0:
+		#CurrentRun.world.current_player_info.level_up_queue = clamp(CurrentRun.world.current_player_info.level_up_queue -1, 0, 100)
+		#
+		#level_up_button.disabled = true
+		#level_up_button.hide()
+		#
+		#populate_edge_menu()
+		#edge_menu.set_position(Vector2(0, -2000))
+		#CurrentRun.world.current_level_info.active_level.edge_menu.show()
+#
+		#var pos_tween = create_tween()
+		#pos_tween.tween_property(edge_menu, "position", Vector2.ZERO, .5).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_IN)
+		#await pos_tween.finished
+#
+		#$EdgeSFX.play()
+		#pause_game()
 
-func level_up_button_pressed():
-	if CurrentRun.world.current_player_info.level_up_queue > 0:
-		CurrentRun.world.current_player_info.level_up_queue = clamp(CurrentRun.world.current_player_info.level_up_queue -1, 0, 100)
-		
-		level_up_button.disabled = true
-		level_up_button.hide()
-		
-		populate_edge_menu()
-		edge_menu.set_position(Vector2(0, -2000))
-		CurrentRun.world.current_level_info.active_level.edge_menu.show()
-
-		var pos_tween = create_tween()
-		pos_tween.tween_property(edge_menu, "position", Vector2.ZERO, .5).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_IN)
-		await pos_tween.finished
-
-		$EdgeSFX.play()
-		pause_game()
-
-# Edge Menu
-func populate_edge_menu():
-	var chosen_edges: Array = []
-	for i in 3:
-		var new_panel = edge_panel.instantiate()
-		edge_menu.add_child(new_panel)
-		
-		var random_edge = EdgeInfo.edge_roster.keys().pick_random()
-		while chosen_edges.has(random_edge):
-			random_edge = EdgeInfo.edge_roster.keys().pick_random()
-		
-		chosen_edges.append(random_edge)
-		new_panel.populate(random_edge)
-		new_panel.clicked.connect(edge_selected)
-
-func edge_selected(edge):
-	new_player.edge_handler.add_edge(edge)
-	var tween = create_tween()
-	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	tween.tween_property(edge_menu, "modulate", Color.TRANSPARENT, .2)
-	await tween.finished
-	CurrentRun.world.current_level_info.active_level.edge_menu.hide()
-	for i in edge_menu.get_children():
-		i.queue_free()
-	edge_menu.modulate = Color.WHITE
-	unpause_game()
-	CurrentRun.world.current_player_info.state = "default"
+## Edge Menu
+#func populate_edge_menu():
+	#var chosen_edges: Array = []
+	#for i in 3:
+		#var new_panel = edge_panel.instantiate()
+		#edge_menu.add_child(new_panel)
+		#
+		#var random_edge = EdgeInfo.edge_roster.keys().pick_random()
+		#while chosen_edges.has(random_edge):
+			#random_edge = EdgeInfo.edge_roster.keys().pick_random()
+		#
+		#chosen_edges.append(random_edge)
+		#new_panel.populate(random_edge)
+		#new_panel.clicked.connect(edge_selected)
+#
+#func edge_selected(edge):
+	#new_player.edge_handler.add_edge(edge)
+	#var tween = create_tween()
+	#tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	#tween.tween_property(edge_menu, "modulate", Color.TRANSPARENT, .2)
+	#await tween.finished
+	#CurrentRun.world.current_level_info.active_level.edge_menu.hide()
+	#for i in edge_menu.get_children():
+		#i.queue_free()
+	#edge_menu.modulate = Color.WHITE
+	#unpause_game()
+	#CurrentRun.world.current_player_info.state = "default"
 	
-	if CurrentRun.world.current_player_info.level_up_queue > 0:
-		handle_level_up()
+	#if CurrentRun.world.current_player_info.level_up_queue > 0:
+		#handle_level_up()
 
 func weapon_picked_up(weapon, type):
 	var container = $UI/WeaponMarginContainer

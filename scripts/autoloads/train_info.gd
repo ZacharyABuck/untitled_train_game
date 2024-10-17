@@ -44,5 +44,5 @@ var train_stats = {
 	"car_count": 4,
 	"speed": 2.5,
 	"car_health": 0,
-	"fuel_tank": 25,
+	"fuel_tank": 30,
 }

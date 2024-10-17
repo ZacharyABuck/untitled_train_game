@@ -86,7 +86,7 @@ shape = SubResource("CircleShape2D_tx5uk")
 debug_color = Color(0.705882, 0, 0.156863, 0.835294)
 
 [node name="EnemyWaveTimer" type="Timer" parent="."]
-wait_time = 30.0
+wait_time = 45.0
 autostart = true
 
 [node name="SpawnIntervalTimer" type="Timer" parent="."]

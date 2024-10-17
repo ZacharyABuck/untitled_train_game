@@ -5,7 +5,7 @@ func _physics_process(_delta):
 
 func _on_move_timer_timeout():
 	var rng = randi_range(1,10)
-	if rng > 5:
+	if rng > 4:
 		var random_pos = find_random_position()
 		owner.target = random_pos
 		owner.state = "running"

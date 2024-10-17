@@ -1,0 +1,93 @@
+[gd_scene load_steps=6 format=3 uid="uid://dxc4v2llao2td"]
+
+[ext_resource type="Texture2D" uid="uid://cnqeewi6lnq8f" path="res://sprites/characters/mercs/merc_01.png" id="1_04hrn"]
+[ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="1_ti6mp"]
+[ext_resource type="Script" path="res://scripts/ui/merc_container.gd" id="2_uf5xt"]
+[ext_resource type="Texture2D" uid="uid://ccydwnn5siydn" path="res://sprites/ui/x.png" id="4_gonc2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d4bkq"]
+
+[node name="MercContainer" type="PanelContainer"]
+z_index = 20
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -135.0
+offset_top = -37.5
+offset_right = 135.0
+offset_bottom = 37.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_d4bkq")
+script = ExtResource("2_uf5xt")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("1_ti6mp")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("1_ti6mp")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "[center]Bob[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("1_ti6mp")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "[center]Bulletsmith[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("1_ti6mp")
+texture = ExtResource("1_04hrn")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="CloseSprite" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("4_gonc2")
+
+[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="Button" to="." method="_on_button_mouse_exited"]
