@@ -209,8 +209,10 @@ stream = ExtResource("13_5ua86")
 volume_db = -15.0
 bus = &"Train"
 
-[node name="Buff" parent="." instance=ExtResource("14_q74rt")]
+[node name="BuffArea" parent="." instance=ExtResource("14_q74rt")]
 visible = false
 
 [connection signal="area_entered" from="CarDetector" to="." method="_on_car_detector_area_entered"]
 [connection signal="area_exited" from="CarDetector" to="." method="_on_car_detector_area_exited"]
+[connection signal="area_entered" from="BuffArea" to="." method="buff_area_entered"]
+[connection signal="area_exited" from="BuffArea" to="." method="buff_area_exited"]

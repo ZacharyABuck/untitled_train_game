@@ -2,7 +2,7 @@ extends Gadget
 class_name Turret
 
 var target
-@export var BUFF_RECEIVER: Area2D
+var active_buffs: Dictionary
 
 var raycast: RayCast2D
 
@@ -15,9 +15,6 @@ func _ready():
 	gun.area_exited.connect(gun_area_exited)
 
 	initialize_raycast()
-	
-	if BUFF_RECEIVER and car.active_buffs.has("shock"):
-		BUFF_RECEIVER.toggle_shock_fx(true)
 
 func _physics_process(_delta):
 	if target == null:

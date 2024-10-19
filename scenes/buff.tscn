@@ -1,18 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://uh2tbc2jgtpo"]
-
-[ext_resource type="Script" path="res://scripts/buff.gd" id="1_jrtu7"]
+[gd_scene load_steps=2 format=3 uid="uid://uh2tbc2jgtpo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g01ch"]
 radius = 100.0
 
-[node name="Buff" type="Area2D"]
+[node name="BuffArea" type="Area2D"]
 collision_layer = 1024
 collision_mask = 1024
-script = ExtResource("1_jrtu7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_g01ch")
 debug_color = Color(0.0238871, 0.650823, 9.62615e-07, 0.42)
-
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="area_exited" from="." to="." method="_on_area_exited"]

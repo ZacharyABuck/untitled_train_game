@@ -62,18 +62,22 @@ func handle_give_experience_signal(value):
 	route_experience += value
 	total_experience += value
 
-
 func end_of_route_xp():
 	current_experience += route_experience
+
+func has_leveled_up():
 	if current_experience >= next_level_experience:
 		current_experience = 0 + (current_experience - next_level_experience)
 		next_level_experience = next_level_experience * 2
 		current_level += 1
+		return true
+	else:
+		return false
 
 
 func find_random_weapon_stats() -> Array:
 	var difficulty = CurrentRun.world.current_level_info.difficulty
-	var random_damage = clamp(snappedf(randf_range(-1,difficulty*.5), .1), 1, 100)
+	var random_damage = clamp(snappedf(randf_range(-1,difficulty), .1), 1, 100)
 	var random_attack_delay = snappedf(randf_range(-.2,.3), 0.1)
 	var random_projectile_speed = randi_range(-50,50)
 	return [random_damage, random_attack_delay, random_projectile_speed]

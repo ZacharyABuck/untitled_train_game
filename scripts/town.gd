@@ -13,6 +13,8 @@ signal clicked
 @onready var trainyard_icon = $TravelInfo/MarginContainer/VBoxContainer/HBoxContainer/TrainyardIcon
 @onready var tinkerer_icon = $TravelInfo/MarginContainer/VBoxContainer/HBoxContainer/TinkererIcon
 @onready var on_screen_notifier = $TravelInfo/MarginContainer/CloseButton/OnScreenNotifier
+@onready var farthest_town_fx = $FarthestTownFX
+
 
 var top_pos = -600
 var bottom_pos = 200

@@ -66,6 +66,7 @@ func shoot():
 		
 		var new_bullet = _build_bullet(current_bullet.instantiate())
 		CurrentRun.world.current_level_info.active_level.bullets.add_child(new_bullet)
+		
 		attack_delay_timer.wait_time = current_attack_delay
 		attack_delay_timer.start()
 		

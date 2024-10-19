@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://csdhvsxyenywf"]
+[gd_scene load_steps=58 format=3 uid="uid://csdhvsxyenywf"]
 
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/world.gd" id="1_u1dsg"]
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/current_player_info.gd" id="2_kodbe"]
@@ -21,6 +21,7 @@
 [ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="17_7ntxb"]
 [ext_resource type="FontFile" uid="uid://dxx340jybsylj" path="res://fonts/JMH Typewriter-Black.ttf" id="17_rwwbi"]
 [ext_resource type="Script" path="res://scripts/ui/towns_ui.gd" id="18_ulvie"]
+[ext_resource type="Shader" path="res://shaders/fog.gdshader" id="18_wpx82"]
 [ext_resource type="Texture2D" uid="uid://ddgdij8y108qu" path="res://sprites/ui/edge_background_sketch.png" id="19_taibv"]
 [ext_resource type="Texture2D" uid="uid://bh5tx8yo82agi" path="res://sprites/town/town_screen_image_1.png" id="19_uhtjj"]
 [ext_resource type="Texture2D" uid="uid://trsm7lvfhxb4" path="res://sprites/ui/circle.png" id="20_qdyg3"]
@@ -368,6 +369,35 @@ shader = ExtResource("15_7lf57")
 shader_parameter/amplitutde = Vector2(1, 0)
 shader_parameter/speed = Vector2(0, 0)
 
+[sub_resource type="Gradient" id="Gradient_sd53r"]
+offsets = PackedFloat32Array(0, 0.328313)
+colors = PackedColorArray(0.596078, 0.878431, 0.878431, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wnxk2"]
+noise_type = 0
+frequency = 0.0173
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_e4lqg"]
+width = 256
+seamless = true
+color_ramp = SubResource("Gradient_sd53r")
+noise = SubResource("FastNoiseLite_wnxk2")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7dxwb"]
+shader = ExtResource("18_wpx82")
+shader_parameter/density = 1.0
+shader_parameter/speed = Vector2(0.1, 0.05)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_e4lqg")
+
+[sub_resource type="Gradient" id="Gradient_77n0r"]
+offsets = PackedFloat32Array(0, 0.196809, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.397322, 0.202637, 0.109703, 1, 0.00712825, 0.00712825, 0.00712825, 0.992872)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_m2cl1"]
+gradient = SubResource("Gradient_77n0r")
+fill_from = Vector2(0.512821, 0)
+fill_to = Vector2(0.521368, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xbybr"]
 bg_color = Color(0.956863, 0.937255, 0.858824, 1)
 border_width_left = 5
@@ -494,6 +524,13 @@ texture = ExtResource("16_y14fm")
 texture_mode = 1
 round_precision = 1
 
+[node name="StormSprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_7dxwb")
+position = Vector2(-1031, 466)
+rotation = 1.5708
+scale = Vector2(54.0625, 45.1715)
+texture = SubResource("GradientTexture2D_m2cl1")
+
 [node name="WorldUI" type="CanvasLayer" parent="."]
 process_mode = 3
 script = ExtResource("16_s8cdk")
@@ -585,6 +622,7 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="TownsUI" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("18_ulvie")
 
 [node name="TownScreen" type="MarginContainer" parent="TownsUI"]
@@ -1330,7 +1368,6 @@ offset_bottom = 667.0
 fixed_icon_size = Vector2i(10, 10)
 
 [node name="EndScreenUI" type="CanvasLayer" parent="."]
-visible = false
 script = ExtResource("27_la4rl")
 
 [node name="ColorRect" type="ColorRect" parent="EndScreenUI"]
@@ -1347,6 +1384,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 0
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
@@ -1397,14 +1435,31 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_ssevu")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="EndScreenUI/MarginContainer/VBoxContainer"]
 layout_mode = 2
+alignment = 1
+
+[node name="LevelMinLabel" type="Label" parent="EndScreenUI/MarginContainer/VBoxContainer/HBoxContainer"]
+z_index = 1
+layout_mode = 2
+size_flags_horizontal = 10
+theme = ExtResource("17_7ntxb")
+text = "Level 1"
+horizontal_alignment = 1
 
 [node name="LevelUpBar" type="ProgressBar" parent="EndScreenUI/MarginContainer/VBoxContainer/HBoxContainer"]
-visible = false
 custom_minimum_size = Vector2(800, 50)
 layout_mode = 2
 size_flags_horizontal = 6
 theme = ExtResource("17_7ntxb")
+max_value = 75.0
 show_percentage = false
+
+[node name="LevelMaxLabel" type="Label" parent="EndScreenUI/MarginContainer/VBoxContainer/HBoxContainer"]
+z_index = 1
+layout_mode = 2
+size_flags_horizontal = 2
+theme = ExtResource("17_7ntxb")
+text = "Level 2"
+horizontal_alignment = 1
 
 [node name="HSeparator3" type="HSeparator" parent="EndScreenUI/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -1418,9 +1473,13 @@ theme = ExtResource("17_7ntxb")
 theme_override_font_sizes/font_size = 40
 text = "Return to World Map"
 
-[node name="EdgeMenu" type="HBoxContainer" parent="EndScreenUI/MarginContainer"]
+[node name="EdgeMenu" type="HBoxContainer" parent="EndScreenUI"]
 process_mode = 3
-layout_mode = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 mouse_force_pass_scroll_events = false
 theme_override_constants/separation = 500

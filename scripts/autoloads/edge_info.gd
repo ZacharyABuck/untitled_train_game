@@ -55,7 +55,7 @@ var edge_roster = {
 		"scene" = load("res://scenes/edges/ricochet.tscn"),
 		"sprite" = load("res://sprites/edges/ricochet.png"),
 		"description" = "Bullets bounce",
-		"update" = false,
+		"update" = true,
 	},
 	#"mechanic" = {
 		#"name" = "Mechanic",

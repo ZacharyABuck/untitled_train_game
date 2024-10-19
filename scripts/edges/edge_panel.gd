@@ -43,6 +43,6 @@ func _on_gui_input(event):
 		$CloseSFX.play()
 		var tween = get_tree().create_tween()
 		tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-		tween.tween_property(self, "scale", Vector2(1.2, 1.2), .5).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
+		tween.tween_property(self, "scale", Vector2(1.05, 1.05), .5).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
 		await tween.finished
 		clicked.emit(edge)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cwgn51i4160nt"]
+[gd_scene load_steps=23 format=3 uid="uid://cwgn51i4160nt"]
 
 [ext_resource type="Script" path="res://scripts/town.gd" id="1_mviet"]
 [ext_resource type="Texture2D" uid="uid://degtajbagy7wq" path="res://sprites/town/world_map_town_1.png" id="2_fjydp"]
@@ -123,6 +123,38 @@ tracks/3/keys = {
 _data = {
 "arrow_bounce": SubResource("Animation_j0vhq")
 }
+
+[sub_resource type="Curve" id="Curve_0xxbi"]
+_data = [Vector2(0.0166667, 0.0313175), 0.0, 0.0, 0, 0, Vector2(0.0916667, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_83r30"]
+curve = SubResource("Curve_0xxbi")
+
+[sub_resource type="Curve" id="Curve_3ns8y"]
+_data = [Vector2(0.0166667, 0.410367), 0.0, 8.42333, 0, 0, Vector2(0.316667, 1), -0.520264, -0.520264, 0, 0, Vector2(0.997222, 0.894708), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_t7vtx"]
+curve = SubResource("Curve_3ns8y")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ac2mv"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_t7vtx")
+color = Color(1, 1, 0, 1)
+alpha_curve = SubResource("CurveTexture_83r30")
+
+[sub_resource type="Gradient" id="Gradient_dmro1"]
+offsets = PackedFloat32Array(0.604396, 0.618132, 0.68956, 0.711538)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 0, 1, 1, 0.376471, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pv0uo"]
+gradient = SubResource("Gradient_dmro1")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [node name="Town" type="Area2D"]
 script = ExtResource("1_mviet")
@@ -273,6 +305,13 @@ texture_hover = ExtResource("8_m8501")
 [node name="OnScreenNotifier" type="VisibleOnScreenNotifier2D" parent="TravelInfo/MarginContainer/CloseButton"]
 position = Vector2(15.5, 15)
 scale = Vector2(2.25, 2.3)
+
+[node name="FarthestTownFX" type="GPUParticles2D" parent="."]
+visible = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_ac2mv")
+texture = SubResource("GradientTexture2D_pv0uo")
+lifetime = 2.0
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

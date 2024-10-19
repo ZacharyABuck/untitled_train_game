@@ -21,6 +21,8 @@ var mission_reward_panel = preload("res://scenes/ui/mission_reward_panel.tscn")
 
 @onready var music_fade = $Music/MusicFade
 
+@onready var storm_sprite = $StormSprite
+
 @onready var world_map = $WorldMap
 @onready var world_ui = $WorldUI
 @onready var end_screen_ui = $EndScreenUI
@@ -35,6 +37,20 @@ var missions_spawned: bool = false
 func _ready():
 	music_fade.play("world_start")
 	update_money_label()
+
+func map_spawned():
+	#fade in animations
+	for t in CurrentRun.world.current_world_info.towns_inventory.keys():
+		var scene = CurrentRun.world.current_world_info.towns_inventory[t]["scene"]
+		var scale_tween = create_tween()
+		scale_tween.tween_property(scene, "scale", Vector2(1,1), 2).set_trans(Tween.TRANS_ELASTIC)
+		await get_tree().create_timer(.1).timeout
+	camera.jump_to_pos(current_world_info.towns_inventory[current_world_info.farthest_town]["scene"].global_position)
+	#await get_tree().create_timer(1).timeout
+	CurrentRun.root.fade_in()
+	await get_tree().create_timer(3).timeout
+	camera.jump_to_pos(current_world_info.towns_inventory[current_world_info.active_town]["scene"].global_position)
+
 
 func show_travel_line(destination):
 	AudioSystem.play_audio("quick_woosh", -10)
@@ -53,6 +69,10 @@ func start_game(direction, distance, terrain):
 	current_player_info.targets.clear()
 	current_level_info.clear_variables()
 	current_train_info.clear_variables()
+	
+	current_world_info.last_route.clear()
+	current_world_info.last_route.append(current_world_info.active_town)
+	current_world_info.last_route.append(current_level_info.destination)
 
 	current_level_info.level_parameters["direction"] = direction
 	current_level_info.level_parameters["terrain"] = terrain

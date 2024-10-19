@@ -116,6 +116,7 @@ scroll_active = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Reward" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2

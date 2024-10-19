@@ -56,7 +56,7 @@ func spawn_missions(count):
 		jobs_container.add_child(new_mission)
 		
 		new_mission.destination = new_mission.find_random_destination(max_destination_distance)
-		max_destination_distance *= 3
+		max_destination_distance += max_destination_distance
 		
 		new_mission.find_random_mission()
 		new_mission.clicked.connect(owner.world_ui.spawn_mission_inventory_panel)

@@ -60,8 +60,10 @@ func find_random_destination(max_distance):
 	var valid_destination: bool = false
 	while valid_destination == false:
 		var random_destination = CurrentRun.world.current_world_info.towns_inventory.keys().pick_random()
-		if CurrentRun.world.current_world_info.towns_inventory[random_destination]["scene"] == active_town or \
-		abs(CurrentRun.world.current_world_info.towns_inventory[random_destination]["scene"].global_position.distance_to(active_town.global_position)) > max_distance:
+		var scene = CurrentRun.world.current_world_info.towns_inventory[random_destination]["scene"]
+		if scene == active_town or \
+		abs(scene.global_position.distance_to(active_town.global_position)) > max_distance or \
+		scene.global_position.x < active_town.global_position.x:
 			pass
 		else:
 			return random_destination

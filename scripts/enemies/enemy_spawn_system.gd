@@ -46,7 +46,7 @@ func wave_timer_timeout():
 	
 	spawn_interval_timer.start()
 	spawn_level_enemies()
-	CurrentRun.world.current_level_info.difficulty += .01
+	CurrentRun.world.current_level_info.difficulty += .03
 	wave_count += 1
 	CurrentRun.world.current_level_info.wave_count = wave_count
 

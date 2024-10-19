@@ -19,6 +19,7 @@ layout_mode = 2
 layout_mode = 2
 texture = ExtResource("1_pja34")
 expand_mode = 2
+stretch_mode = 5
 
 [node name="TimeLimitLabel" type="RichTextLabel" parent="HBoxContainer/CharacterIcon"]
 layout_mode = 2

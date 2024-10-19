@@ -15,7 +15,6 @@ class_name ChargeAttack
 @export var damage: int
 @export var charge_sound: AudioStreamPlayer
 @export var shoot_sound: AudioStreamPlayer
-@export var buff_receiver: Area2D
 @export var lifetime: int
 
 var player

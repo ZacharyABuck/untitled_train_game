@@ -7,7 +7,7 @@ var buffs = {"poison": true}
 
 func _ready():
 	super()
-	WeaponInfo.attach_buffs(buffs, CurrentRun.world.current_player_info.active_player.buff.active_buffs)
+	WeaponInfo.attach_buffs(buffs, CurrentRun.world.current_player_info.active_player.active_buffs)
 
 func handle_level_up():
 	if edge_level % 2 == 1:

@@ -2,21 +2,25 @@ extends TileMap
 
 var altitude = FastNoiseLite.new()
 @onready var astar = AStar2D.new()
-var chunk_width: int = 60
-var chunk_height: int = 60
+var chunk_width: int = 200 #60
+var chunk_height: int = 30 #60
 var loaded_chunks: Array = []
 
 var starting_coords = Vector2i.ZERO
 
 var road_cells = []
-var road_count: int = 4
-var town_count: int = 12
+var vertical_road_count: int = 10
+var horizontal_road_count: int = 2
+var town_count: int = 20
 
 var town_cells = []
 
 var town = preload("res://scenes/town.tscn")
 
+signal finished_spawning_map
+
 func _ready():
+	finished_spawning_map.connect(get_parent().map_spawned)
 	await get_tree().create_timer(.2).timeout
 	altitude.frequency = .05
 	altitude.seed = randi()
@@ -27,17 +31,24 @@ func _ready():
 	
 	handle_roads()
 
-	handle_towns()
+	await handle_towns()
 
-	get_parent().camera.camera_limits.append(get_used_rect().size.x*chunk_width)
-	get_parent().camera.camera_limits.append(get_used_rect().size.y*chunk_height)
+	get_parent().camera.camera_limits.append(tile_set.tile_size.x*chunk_width) 
+	get_parent().camera.camera_limits.append(tile_set.tile_size.y*chunk_height) 
 
-	spawn_player()
+	await spawn_player()
+	
+	finished_spawning_map.emit()
 	
 func handle_roads():
-	for i in road_count:
-		var new_road = find_random_road()
+	var new_road
+	for v in vertical_road_count:
+		new_road = find_random_road(0)
 		road_cells.append_array(new_road)
+	for h in horizontal_road_count:
+		new_road = find_random_road(1)
+		road_cells.append_array(new_road)
+	return true
 
 func handle_towns():
 	for i in town_count:
@@ -75,12 +86,17 @@ func handle_towns():
 		
 			new_town.clicked.connect(owner.town_clicked.bind(new_town))
 	
-	#animate towns scale with tween
-	for t in CurrentRun.world.current_world_info.towns_inventory:
+	var farthest_town = CurrentRun.world.current_world_info.towns_inventory.keys().pick_random()
+	#animate towns scale with tween and check if town is ultimate goal
+	for t in CurrentRun.world.current_world_info.towns_inventory.keys():
 		var scene = CurrentRun.world.current_world_info.towns_inventory[t]["scene"]
-		var scale_tween = create_tween()
-		scale_tween.tween_property(scene, "scale", Vector2(1,1), 2).set_trans(Tween.TRANS_ELASTIC)
-		await get_tree().create_timer(.1).timeout
+		
+		if scene.global_position.x > CurrentRun.world.current_world_info.towns_inventory[farthest_town]["scene"].global_position.x:
+			farthest_town = t
+	
+	CurrentRun.world.current_world_info.farthest_town = farthest_town
+	CurrentRun.world.current_world_info.towns_inventory[farthest_town]["scene"].farthest_town_fx.show()
+	return farthest_town
 
 func spawn_map(coords):
 	
@@ -115,36 +131,39 @@ func spawn_astar():
 			var next_cell = cell + neighbor
 			if get_used_cells(0).has(next_cell):
 				astar.connect_points(id(cell), id(next_cell), false)
+	return true
 
 func id(point):
 	var a = point.x
 	var b = point.y
 	return (a + b) * (a + b + 1) / 2 + b
 
-func find_random_road():
+func find_random_road(index):
 	var rect = get_used_rect().size
 
-	var margin: int = 9
-	var rng: int = randi_range(1,5)
+	var vertical_margin = 8
+	var horizontal_margin: int = 10
 	
-	var random_start_x = clamp(randi_range(0,rect.x), 0+margin, rect.x-margin)
-	var random_end_x = clamp(randi_range(0,rect.x), 0+margin, rect.x-margin)
-	var new_road_cells = spawn_road(Vector2i(random_start_x,margin+rng), Vector2i(random_end_x, chunk_height - margin -rng))
-	
-	var random_start_y = clamp(randi_range(0,rect.y), 0+margin, rect.y-margin)
-	var random_end_y = clamp(randi_range(0,rect.y), 0+margin, rect.y-margin)
-	new_road_cells.append_array(spawn_road(Vector2i(margin+rng, random_start_y), Vector2i(chunk_width - margin-rng, random_end_y)))
+	var new_road_cells = []
+	match index:
+		0: #vertical road
+			var random_start_x = clamp(randi_range(0,rect.x), 0+horizontal_margin, rect.x-horizontal_margin)
+			var random_end_x = clamp(randi_range(0,rect.x), random_start_x+randi_range(-5,5)+horizontal_margin, random_start_x+randi_range(-5,5)-horizontal_margin)
+			new_road_cells = spawn_road(Vector2i(random_start_x, vertical_margin), Vector2i(random_end_x, chunk_height - vertical_margin))
+		1: # horizontal road
+			var random_start_y = clamp(randi_range(0,rect.y), 0+vertical_margin, rect.y-vertical_margin)
+			var random_end_y = clamp(randi_range(0,rect.y), 0+vertical_margin, rect.y-vertical_margin)
+			if new_road_cells.is_empty():
+				new_road_cells = spawn_road(Vector2i(horizontal_margin, random_start_y), Vector2i(chunk_width - horizontal_margin, random_end_y))
+			else:
+				new_road_cells.append_array(spawn_road(Vector2i(horizontal_margin, random_start_y), Vector2i(chunk_width - horizontal_margin, random_end_y)))
+
 	BetterTerrain.update_terrain_cells(self, 0, new_road_cells)
 	return new_road_cells
 
 func spawn_road(start, end) -> PackedVector2Array:
 	var new_road_cells: PackedVector2Array = []
-	var mid = Vector2i((end.x*.5)+randi_range(-5,5), (end.y*.5)+randi_range(-5,5))
-	var path = astar.get_point_path(id(start),id(mid))
-	for i in path:
-		new_road_cells.append(i)
-		BetterTerrain.set_cell(self, 0, i, 2)
-	path = astar.get_point_path(id(mid),id(end))
+	var path = astar.get_point_path(id(start),id(end))
 	for i in path:
 		new_road_cells.append(i)
 		BetterTerrain.set_cell(self, 0, i, 2)
@@ -173,14 +192,24 @@ func spawn_town():
 func spawn_player():
 	if CurrentRun.world.current_level_info.destination == null:
 		var random_town = CurrentRun.world.current_world_info.towns_inventory.keys().pick_random()
+		for town in CurrentRun.world.current_world_info.towns_inventory.keys():
+			if CurrentRun.world.current_world_info.towns_inventory[town]["scene"].global_position.x < CurrentRun.world.current_world_info.towns_inventory[random_town]["scene"].global_position.x:
+				random_town = town
 		CurrentRun.world.current_world_info.active_town = random_town
 	else:
 		CurrentRun.world.current_world_info.active_town = CurrentRun.world.current_level_info.destination
 		CurrentRun.world.current_level_info.destination = null
-	print("Active Town: " + CurrentRun.world.current_world_info.active_town)
 	
-	get_parent().camera.jump_to_player()
+	print("Active Town: " + CurrentRun.world.current_world_info.active_town)
+	var active_town_scene = CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"]
 	
 	for t in CurrentRun.world.current_world_info.towns_inventory:
 		CurrentRun.world.current_world_info.towns_inventory[t]["scene"].hide_you_are_here()
+		if CurrentRun.world.current_world_info.towns_inventory[t]["scene"].global_position.x < active_town_scene.global_position.x:
+			CurrentRun.world.current_world_info.towns_inventory[t]["scene"].name_label.hide()
+			CurrentRun.world.current_world_info.towns_inventory[t]["scene"].process_mode = PROCESS_MODE_DISABLED
+	
 	CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"].you_are_here()
+	CurrentRun.world.storm_sprite.global_position = Vector2(active_town_scene.global_position.x - 1500, active_town_scene.global_position.y)
+	return CurrentRun.world.current_world_info.active_town
+	

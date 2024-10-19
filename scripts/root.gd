@@ -28,8 +28,8 @@ func title_screen_start_button_pressed():
 	CurrentRun.world = new_world
 	CurrentRun.root = self
 	add_child(new_world)
-	
-	fade_in()
+	#
+	#fade_in()
 	
 	var camera = CurrentRun.world.camera
 	camera.zoom = Vector2(.8,.8)

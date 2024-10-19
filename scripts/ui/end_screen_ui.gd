@@ -5,37 +5,52 @@ extends CanvasLayer
 @onready var mission_complete_container = $MarginContainer/VBoxContainer/MissionCompleteContainer
 @onready var return_button = $MarginContainer/VBoxContainer/ReturnButton
 @onready var no_missions_label = $MarginContainer/VBoxContainer/NoMissionsLabel
+
 @onready var level_up_bar = $MarginContainer/VBoxContainer/HBoxContainer/LevelUpBar
-@onready var edge_menu = $MarginContainer/EdgeMenu
+@onready var level_min_label = $MarginContainer/VBoxContainer/HBoxContainer/LevelMinLabel
+@onready var level_max_label = $MarginContainer/VBoxContainer/HBoxContainer/LevelMaxLabel
+
+@onready var edge_menu = $EdgeMenu
 
 var edge_panel = preload("res://scenes/edges/edge_panel.tscn")
 
 var mission_reward_panel = preload("res://scenes/ui/mission_reward_panel.tscn")
+
+
 
 func _ready():
 	hide()
 	return_button.hide()
 	no_missions_label.hide()
 
+
 func fade_in():
 	margin_container.position.y = -1000
+	
+	set_path_label()
+	set_level_labels()
+	
+	CurrentRun.world.world_map.process_mode = PROCESS_MODE_DISABLED
+	
 	show()
 
 	var pos_tween = create_tween()
 	pos_tween.tween_property(margin_container, "position", Vector2(0,0), 1).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
 	await pos_tween.finished
 	
-	await xp_sequence_begin()
-	
-	return_button.show()
+	xp_sequence_begin()
 
 func show_no_missions_label():
 	no_missions_label.show()
 
 func set_path_label():
-	var starting_town = CurrentRun.world.current_world_info.active_town
-	var ending_town = CurrentRun.world.current_level_info.destination
+	var starting_town = CurrentRun.world.current_world_info.last_route[0]
+	var ending_town = CurrentRun.world.current_world_info.last_route[1]
 	path_label.text = starting_town + " to " + ending_town
+
+func set_level_labels():
+	level_min_label.text = "Level " + str(CurrentRun.world.current_player_info.current_level)
+	level_max_label.text = "Level " + str(CurrentRun.world.current_player_info.current_level + 1)
 
 func spawn_reward_panel(mission_success, sprite, reward):
 	var new_panel = mission_reward_panel.instantiate()
@@ -43,6 +58,7 @@ func spawn_reward_panel(mission_success, sprite, reward):
 	new_panel.populate(mission_success, sprite, reward)
 
 func _on_return_button_pressed():
+	CurrentRun.world.world_map.process_mode = PROCESS_MODE_INHERIT
 	AudioSystem.play_audio("basic_button_click", -10)
 	hide()
 	return_button.hide()
@@ -50,37 +66,39 @@ func _on_return_button_pressed():
 
 func xp_sequence_begin():
 	var player_info = CurrentRun.world.current_player_info
-	level_up_bar.max_value = player_info.next_level_experience
-	level_up_bar.value = player_info.current_experience
+
 	level_up_bar.show()
-	var old_level = player_info.current_level
-	
+
 	player_info.end_of_route_xp()
 	await get_tree().create_timer(.5).timeout
 	
-	if player_info.current_level > old_level:
-		var fill_tween = create_tween()
-		fill_tween.tween_property(level_up_bar, "value", level_up_bar.max_value, 3).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-		await fill_tween.finished
+	check_for_level()
+
+func check_for_level():
+	var player_info = CurrentRun.world.current_player_info
+	if player_info.has_leveled_up():
+		await fill_xp_bar(level_up_bar.max_value)
 		level_up_bar.max_value = player_info.next_level_experience
+		level_up_bar.min_value = 0
 		level_up_bar.value = 0
-		
+		set_level_labels()
 		level_up_sequence()
 		
-		var fill_tween_2 = create_tween()
-		fill_tween_2.tween_property(level_up_bar, "value", player_info.current_experience, 2).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
-		await fill_tween_2.finished
-		return true
-		
 	else:
-		var fill_tween = create_tween()
-		fill_tween.tween_property(level_up_bar, "value", player_info.current_experience, 3).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
-		await fill_tween.finished
-		return true
+		await fill_xp_bar(player_info.current_experience)
+		return_button.show()
 	
+func fill_xp_bar(value):
+	var fill_tween = create_tween()
+	fill_tween.tween_property(level_up_bar, "value", value, 3).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	await fill_tween.finished
+	return true
+
 func level_up_sequence():
 	populate_edge_menu()
 	edge_menu.show()
+	animate_edge_menu()
+
 
 # Edge Menu
 func populate_edge_menu():
@@ -96,6 +114,19 @@ func populate_edge_menu():
 		chosen_edges.append(random_edge)
 		new_panel.populate(random_edge)
 		new_panel.clicked.connect(edge_selected)
+		new_panel.hide()
+
+func animate_edge_menu():
+	var index = 1
+	var increment = (get_viewport().size.x*.75)/edge_menu.get_child_count()
+	for edge in edge_menu.get_children():
+		var end_pos = Vector2(increment*index, get_viewport().size.y*.5)
+		edge.top_level = true
+		edge.global_position = Vector2(-500, get_viewport().size.y*.5)
+		edge.show()
+		var pos_tween = create_tween()
+		pos_tween.tween_property(edge, "global_position", end_pos, 1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+		index += 1
 
 func edge_selected(edge):
 	add_edge(edge)
@@ -107,8 +138,9 @@ func edge_selected(edge):
 	for i in edge_menu.get_children():
 		i.queue_free()
 	edge_menu.modulate = Color.WHITE
-	#unpause_game()
-	CurrentRun.world.current_player_info.state = "default"
+
+	
+	check_for_level()
 
 func add_edge(edge_reference):
 	var existing_edge_found = false

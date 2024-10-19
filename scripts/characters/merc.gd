@@ -14,10 +14,8 @@ func _ready():
 			if ranks[rank][buff]["value"] is int or ranks[rank][buff]["value"] is float:
 				if buffs.has(buff):
 					buffs[buff] += ranks[rank][buff]["value"]
-					print(buffs[buff])
 				else:
 					buffs[buff] = ranks[rank][buff]["value"]
 			else:
 				buffs[buff] = ranks[rank][buff]["value"]
-		
 	WeaponInfo.attach_buffs(buffs, car.active_buffs)

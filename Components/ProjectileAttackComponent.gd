@@ -17,7 +17,7 @@ class_name ProjectileAttackComponent
 @export var MOBILE_ATTACK := false
 @export var TARGET_AREA : CollisionShape2D
 @export var LIFETIME := 3
-@export var BUFF_RECEIVER : Area2D
+#@export var BUFF_RECEIVER : Area2D
 @export var SHOOT_SOUND: AudioStreamPlayer2D
 
 var attack_timer
@@ -76,15 +76,15 @@ func shoot_at_target(target):
 func _shoot():
 	gun_shot.emit()
 	
-	if BUFF_RECEIVER:
-		WeaponInfo.detach_buffs(owner.car.active_buffs, BUFF_RECEIVER.active_buffs)
-		WeaponInfo.attach_buffs(owner.car.active_buffs, BUFF_RECEIVER.active_buffs)
-		if BUFF_RECEIVER.active_buffs.has("attack_delay"):
-			attack_timer.wait_time = max(.1, default_attack_time - BUFF_RECEIVER.active_buffs["attack_delay"])
-		if BUFF_RECEIVER.active_buffs.has("scatter_shot"):
-			scatter_shot_amount = SCATTER_SHOT_AMOUNT + BUFF_RECEIVER.active_buffs["scatter_shot"]
+	WeaponInfo.detach_buffs(owner.car.active_buffs, shooter.active_buffs)
+	WeaponInfo.attach_buffs(owner.car.active_buffs, shooter.active_buffs)
+	if shooter.active_buffs.has("attack_delay"):
+		attack_timer.wait_time = max(.1, default_attack_time - shooter.active_buffs["attack_delay"])
 	else:
 		attack_timer.wait_time = default_attack_time
+	if shooter.active_buffs.has("scatter_shot"):
+		scatter_shot_amount = SCATTER_SHOT_AMOUNT + shooter.active_buffs["scatter_shot"]
+	else:
 		scatter_shot_amount = SCATTER_SHOT_AMOUNT
 	
 	attack_timer.start()
@@ -92,9 +92,8 @@ func _shoot():
 	else: AudioSystem.play_audio_2d("gunshot", global_position, -15)
 	var new_projectile = _instantiate_bullet()
 	
-		#check for buffs
-	if BUFF_RECEIVER != null:
-		WeaponInfo.attach_buffs(BUFF_RECEIVER.active_buffs, new_projectile.active_buffs)
+	#check for buffs
+	WeaponInfo.attach_buffs(shooter.active_buffs, new_projectile.active_buffs)
 		
 	# Add the bullet to the parent scene of the shooter, which fires the projectile.
 	CurrentRun.world.add_child(new_projectile)
@@ -151,7 +150,7 @@ func _set_layers(obj):
 		pass
 
 func bullet_hit_target(area):
-	if BUFF_RECEIVER and BUFF_RECEIVER.active_buffs.has("poison_cloud"):
+	if shooter.active_buffs.has("poison_cloud"):
 		var new_cloud = poison_cloud.instantiate()
 		new_cloud.global_position = area.global_position
 		CurrentRun.world.current_level_info.active_level.bullets.call_deferred("add_child", new_cloud)
