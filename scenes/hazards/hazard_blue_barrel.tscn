@@ -1,0 +1,164 @@
+[gd_scene load_steps=23 format=3 uid="uid://df1kgyvter22b"]
+
+[ext_resource type="Script" path="res://scenes/hazards/hazard_blue_barrel.gd" id="1_po7r2"]
+[ext_resource type="Shader" path="res://shaders/solid_color.gdshader" id="2_3wwwa"]
+[ext_resource type="Texture2D" uid="uid://ddvfxrut3r7p3" path="res://sprites/projectiles/poison_explosive_bullet_sprite_sheet.png" id="2_jfyr0"]
+[ext_resource type="Texture2D" uid="uid://c5by803p0sj2a" path="res://sprites/projectiles/explosive_bullet_sprite_sheet.png" id="3_siehr"]
+[ext_resource type="Texture2D" uid="uid://cxsvcc15acvnb" path="res://sprites/hazards/blue_barrel.png" id="5_qaoqo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i1wm3"]
+size = Vector2(40, 49)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ancbx"]
+shader = ExtResource("2_3wwwa")
+shader_parameter/color_override = Color(0, 0.501961, 1, 1)
+shader_parameter/blend_delta = 0.84
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbwrs"]
+atlas = ExtResource("2_jfyr0")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f873u"]
+atlas = ExtResource("2_jfyr0")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tt3cc"]
+atlas = ExtResource("2_jfyr0")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rbtmq"]
+atlas = ExtResource("2_jfyr0")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i21td"]
+atlas = ExtResource("2_jfyr0")
+region = Rect2(0, 192, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1utuj"]
+atlas = ExtResource("2_jfyr0")
+region = Rect2(192, 192, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ng8mo"]
+atlas = ExtResource("2_jfyr0")
+region = Rect2(384, 192, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5set"]
+atlas = ExtResource("2_jfyr0")
+region = Rect2(576, 192, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kjf0q"]
+atlas = ExtResource("2_jfyr0")
+region = Rect2(0, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ymcw"]
+atlas = ExtResource("2_jfyr0")
+region = Rect2(192, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dacxj"]
+atlas = ExtResource("2_jfyr0")
+region = Rect2(384, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvk8q"]
+atlas = ExtResource("3_siehr")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r5oun"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tbwrs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f873u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tt3cc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rbtmq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i21td")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1utuj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ng8mo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l5set")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kjf0q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ymcw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dacxj")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvk8q")
+}],
+"loop": true,
+"name": &"travel",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5gslj"]
+size = Vector2(56, 65)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xtrrd"]
+radius = 92.0489
+
+[node name="HazardBlueBarrel" type="RigidBody2D" node_paths=PackedStringArray("enemy_detector", "explosion_area", "sprite", "explosion_sprite")]
+collision_layer = 4096
+collision_mask = 36
+script = ExtResource("1_po7r2")
+damage = 5
+enemy_detector = NodePath("EnemyDetector")
+explosion_area = NodePath("ExplosionArea")
+sprite = NodePath("Sprite2D")
+explosion_sprite = NodePath("AnimatedSprite2D")
+grabbable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_i1wm3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_ancbx")
+position = Vector2(2.76256, 0.05719)
+sprite_frames = SubResource("SpriteFrames_r5oun")
+animation = &"hit"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_qaoqo")
+
+[node name="EnemyDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector"]
+visible = false
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_5gslj")
+
+[node name="ExplosionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionArea"]
+visible = false
+shape = SubResource("CircleShape2D_xtrrd")

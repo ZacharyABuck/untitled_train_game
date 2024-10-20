@@ -33,6 +33,7 @@ var current_charge_recovery_rate: float
 var current_ranged_weapon_damage_mod: int
 var current_ranged_weapon_attack_delay_mod: float
 var current_ranged_weapon_speed_mod: int
+var current_ranged_weapon_ammo_count: int
 
 # Edge Related
 var poison_damage = 0.5
@@ -40,7 +41,7 @@ var fire_damage = 1
 var ricochet_amount: int = 0
 
 # Current state in player state machine node
-@export_enum("default", "repairing", "ui_default", "ui_edge_selection") var state: String = "default"
+@export_enum("default", "lassoing", "ui_default", "ui_edge_selection") var state: String = "default"
 
 var targets = []
 
@@ -74,7 +75,6 @@ func has_leveled_up():
 	else:
 		return false
 
-
 func find_random_weapon_stats() -> Array:
 	var difficulty = CurrentRun.world.current_level_info.difficulty
 	var random_damage = clamp(snappedf(randf_range(-1,difficulty), .1), 1, 100)
@@ -82,16 +82,14 @@ func find_random_weapon_stats() -> Array:
 	var random_projectile_speed = randi_range(-50,50)
 	return [random_damage, random_attack_delay, random_projectile_speed]
 
-func equip_new_weapon(type, weapon, random_damage, random_attack_delay, random_projectile_speed):
-	match type:
-		"weapon":
-			current_ranged_weapon_reference = weapon
-			current_ranged_weapon_damage_mod = random_damage
-			current_ranged_weapon_attack_delay_mod = random_attack_delay
-			current_ranged_weapon_speed_mod = random_projectile_speed
-			if active_player:
-				active_player._instantiate_ranged_weapon(WeaponInfo.weapons_roster[weapon]["scene"], random_damage, random_attack_delay, random_projectile_speed)
-				active_player.refresh_current_ranged_weapon_stats()
-		"charge_attack":
-			if active_player:
-				active_player._instantiate_charge_attack(WeaponInfo.charge_attacks_roster[weapon]["scene"])
+func equip_new_weapon(weapon, ammo_count, random_damage, random_attack_delay, random_projectile_speed):
+	current_ranged_weapon_reference = weapon
+	current_ranged_weapon_damage_mod = random_damage
+	current_ranged_weapon_attack_delay_mod = random_attack_delay
+	current_ranged_weapon_speed_mod = random_projectile_speed
+	current_ranged_weapon_ammo_count = ammo_count
+	if active_player:
+		active_player._instantiate_ranged_weapon(WeaponInfo.weapons_roster[weapon]["scene"], random_damage, random_attack_delay, random_projectile_speed)
+		active_player.refresh_current_ranged_weapon_stats()
+	CurrentRun.world.current_level_info.active_level.set_weapon_label(weapon, ammo_count)
+

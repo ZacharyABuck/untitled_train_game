@@ -6,7 +6,6 @@ func _physics_process(delta):
 	if owner.target != null:
 		owner.velocity = owner.global_position.direction_to(owner.target.global_position)*(owner.speed*delta)
 		owner.move_and_slide()
-		#owner.move_and_collide(owner.global_position.direction_to(owner.target.global_position)*(owner.speed*delta))
 		owner.look_at(owner.target.global_position)
 		if owner.attack_component.target_is_in_range(owner.target) and owner.boarded:
 			owner.state = "attacking"

@@ -27,7 +27,7 @@ func spawn_cars_inventory():
 	for car in TrainInfo.train_stats["car_count"]:
 		cars_inventory[car] = {"node" = null, "type" = null, "hard_points" = {}, "gadgets" = {}, "merc" = null,}
 
-func set_all_gadget_upkeep(value):
+func set_all_gadget_upkeep(_value):
 	for car in cars_inventory.keys():
 		for gadget in cars_inventory[car]["gadgets"]:
 			cars_inventory[car]["gadgets"][gadget]["upkeep_paid"] = false

@@ -172,6 +172,7 @@ texture = ExtResource("2_fjydp")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-3.5, 23.5)
 shape = SubResource("RectangleShape2D_q0ns8")
+disabled = true
 debug_color = Color(0.993255, 0, 0.240295, 0.42)
 
 [node name="HoverAnimation" type="AnimationPlayer" parent="."]

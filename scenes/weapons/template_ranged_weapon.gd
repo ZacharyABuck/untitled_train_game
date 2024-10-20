@@ -66,7 +66,7 @@ func shoot():
 		
 		var new_bullet = _build_bullet(current_bullet.instantiate())
 		CurrentRun.world.current_level_info.active_level.bullets.add_child(new_bullet)
-		
+
 		attack_delay_timer.wait_time = current_attack_delay
 		attack_delay_timer.start()
 		
@@ -77,18 +77,24 @@ func shoot():
 			scatter_shot.target += Vector2(randi_range(-100,100), randi_range(-100,100))
 			CurrentRun.world.current_level_info.active_level.bullets.add_child(scatter_shot)
 			scatter_shot.hit_target.connect(bullet_hit_target)
+			
+		if weapon_id != "revolver":
+			CurrentRun.world.current_player_info.current_ranged_weapon_ammo_count -= 1
+			CurrentRun.world.current_level_info.active_level.set_weapon_label(weapon_id, CurrentRun.world.current_player_info.current_ranged_weapon_ammo_count)
+			if CurrentRun.world.current_player_info.current_ranged_weapon_ammo_count <= 0:
+				var default_weapon = WeaponInfo.weapons_roster["revolver"]
+				CurrentRun.world.current_player_info.equip_new_weapon("revolver", 0, 0, 0, 0)
 
 func show_muzzle_flash():
 	muzzle_flash.show()
 	muzzle_flash.play("default")
 	await muzzle_flash.animation_finished
 	muzzle_flash.hide()
-	
 
 func _on_attack_timer_timeout():
 	attack_delay_timer.stop()
 	can_shoot = true
-	if Input.is_action_pressed("shoot") and player.charging == false:
+	if Input.is_action_pressed("shoot") and CurrentRun.world.current_player_info.state == "default":
 		shoot()
 	else:
 		if gunshot_sound:

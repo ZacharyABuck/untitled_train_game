@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://csdhvsxyenywf"]
+[gd_scene load_steps=57 format=3 uid="uid://csdhvsxyenywf"]
 
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/world.gd" id="1_u1dsg"]
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/current_player_info.gd" id="2_kodbe"]
@@ -22,7 +22,6 @@
 [ext_resource type="FontFile" uid="uid://dxx340jybsylj" path="res://fonts/JMH Typewriter-Black.ttf" id="17_rwwbi"]
 [ext_resource type="Script" path="res://scripts/ui/towns_ui.gd" id="18_ulvie"]
 [ext_resource type="Shader" path="res://shaders/fog.gdshader" id="18_wpx82"]
-[ext_resource type="Texture2D" uid="uid://ddgdij8y108qu" path="res://sprites/ui/edge_background_sketch.png" id="19_taibv"]
 [ext_resource type="Texture2D" uid="uid://bh5tx8yo82agi" path="res://sprites/town/town_screen_image_1.png" id="19_uhtjj"]
 [ext_resource type="Texture2D" uid="uid://trsm7lvfhxb4" path="res://sprites/ui/circle.png" id="20_qdyg3"]
 [ext_resource type="FontFile" uid="uid://bt4836ueqhi58" path="res://fonts/WesternBangBang-Regular.ttf" id="22_w4hsh"]
@@ -622,7 +621,6 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="TownsUI" type="CanvasLayer" parent="."]
-visible = false
 script = ExtResource("18_ulvie")
 
 [node name="TownScreen" type="MarginContainer" parent="TownsUI"]
@@ -678,20 +676,7 @@ theme_override_font_sizes/font_size = 30
 text = "Jobs"
 icon = ExtResource("20_qdyg3")
 
-[node name="GunsmithButton" type="Button" parent="TownsUI/TownScreen/PanelContainer/TownButtons"]
-visible = false
-offset_left = 677.0
-offset_top = 339.234
-offset_right = 834.0
-offset_bottom = 388.234
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("17_7ntxb")
-theme_override_font_sizes/font_size = 30
-text = "Gunsmith"
-
 [node name="TrainyardButton" type="Button" parent="TownsUI/TownScreen/PanelContainer/TownButtons"]
-visible = false
 offset_left = 431.0
 offset_top = 205.234
 offset_right = 588.0
@@ -701,84 +686,6 @@ size_flags_vertical = 4
 theme = ExtResource("17_7ntxb")
 theme_override_font_sizes/font_size = 30
 text = "Trainyard"
-
-[node name="ShopContainers" type="MarginContainer" parent="TownsUI/TownScreen/PanelContainer"]
-layout_mode = 2
-mouse_filter = 0
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 80
-theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 30
-
-[node name="Gunsmith" type="MarginContainer" parent="TownsUI/TownScreen/PanelContainer/ShopContainers"]
-visible = false
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_bottom = 0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/TownScreen/PanelContainer/ShopContainers/Gunsmith"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="BG" type="TextureRect" parent="TownsUI/TownScreen/PanelContainer/ShopContainers/Gunsmith/HBoxContainer"]
-custom_minimum_size = Vector2(500, 500)
-layout_mode = 2
-size_flags_horizontal = 6
-texture = ExtResource("19_taibv")
-expand_mode = 5
-stretch_mode = 5
-
-[node name="MarginContainer" type="MarginContainer" parent="TownsUI/TownScreen/PanelContainer/ShopContainers/Gunsmith/HBoxContainer/BG"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 50
-
-[node name="GunsmithItemsList" type="VBoxContainer" parent="TownsUI/TownScreen/PanelContainer/ShopContainers/Gunsmith/HBoxContainer/BG/MarginContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_constants/separation = 30
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/TownScreen/PanelContainer/ShopContainers/Gunsmith/HBoxContainer/BG/MarginContainer/GunsmithItemsList"]
-layout_mode = 2
-alignment = 1
-
-[node name="ButtonSpacer" type="TextureButton" parent="TownsUI/TownScreen/PanelContainer/ShopContainers/Gunsmith/HBoxContainer/BG/MarginContainer/GunsmithItemsList/HBoxContainer"]
-modulate = Color(1, 1, 1, 0)
-layout_direction = 3
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-texture_normal = ExtResource("25_c7tds")
-stretch_mode = 3
-
-[node name="GunsmithLabel" type="RichTextLabel" parent="TownsUI/TownScreen/PanelContainer/ShopContainers/Gunsmith/HBoxContainer/BG/MarginContainer/GunsmithItemsList/HBoxContainer"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-theme = ExtResource("17_7ntxb")
-theme_override_fonts/normal_font = ExtResource("22_w4hsh")
-theme_override_font_sizes/normal_font_size = 50
-bbcode_enabled = true
-text = "[center]Gunsmith[/center]"
-fit_content = true
-scroll_active = false
-
-[node name="GunsmithCloseButton" type="TextureButton" parent="TownsUI/TownScreen/PanelContainer/ShopContainers/Gunsmith/HBoxContainer/BG/MarginContainer/GunsmithItemsList/HBoxContainer"]
-layout_direction = 3
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-texture_normal = ExtResource("25_c7tds")
-stretch_mode = 3
 
 [node name="CloseButton" type="TextureButton" parent="TownsUI"]
 layout_direction = 3
@@ -792,6 +699,7 @@ texture_normal = ExtResource("25_c7tds")
 stretch_mode = 3
 
 [node name="Trainyard" type="MarginContainer" parent="TownsUI"]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -1368,6 +1276,7 @@ offset_bottom = 667.0
 fixed_icon_size = Vector2i(10, 10)
 
 [node name="EndScreenUI" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("27_la4rl")
 
 [node name="ColorRect" type="ColorRect" parent="EndScreenUI"]
@@ -1486,9 +1395,7 @@ theme_override_constants/separation = 500
 alignment = 1
 
 [connection signal="pressed" from="TownsUI/TownScreen/PanelContainer/TownButtons/JobsButton" to="TownsUI" method="_on_jobs_button_pressed"]
-[connection signal="pressed" from="TownsUI/TownScreen/PanelContainer/TownButtons/GunsmithButton" to="TownsUI" method="_on_gunsmith_button_pressed"]
 [connection signal="pressed" from="TownsUI/TownScreen/PanelContainer/TownButtons/TrainyardButton" to="TownsUI" method="_on_trainyard_button_pressed"]
-[connection signal="pressed" from="TownsUI/TownScreen/PanelContainer/ShopContainers/Gunsmith/HBoxContainer/BG/MarginContainer/GunsmithItemsList/HBoxContainer/GunsmithCloseButton" to="TownsUI" method="close_all_windows"]
 [connection signal="pressed" from="TownsUI/CloseButton" to="TownsUI" method="_on_close_button_pressed"]
 [connection signal="pressed" from="TownsUI/Trainyard/PanelContainer/MarginContainer/TrainyardItemsList/Header/TrainyardCloseButton" to="TownsUI/Trainyard" method="close_button_pressed"]
 [connection signal="pressed" from="TownsUI/Jobs/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/JobsCloseButton" to="TownsUI" method="close_all_windows"]

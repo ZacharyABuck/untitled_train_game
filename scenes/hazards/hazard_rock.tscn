@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbbhpq4ex4mdt"]
+
+[ext_resource type="Script" path="res://scenes/hazards/hazard_rock.gd" id="1_6jtdu"]
+[ext_resource type="Texture2D" uid="uid://c5w327qrq6lc7" path="res://sprites/hazards/rock.png" id="2_o8lc2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qrf2w"]
+radius = 18.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1f8dv"]
+radius = 24.0
+
+[node name="HazardRock" type="RigidBody2D"]
+collision_layer = 4096
+collision_mask = 4
+script = ExtResource("1_6jtdu")
+grabbable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qrf2w")
+
+[node name="EnemyDetector" type="Area2D" parent="."]
+collision_layer = 4096
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector"]
+shape = SubResource("CircleShape2D_1f8dv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_o8lc2")
+
+[connection signal="area_entered" from="EnemyDetector" to="." method="enemy_detector_area_entered"]

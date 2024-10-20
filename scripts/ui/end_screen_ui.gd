@@ -59,6 +59,7 @@ func spawn_reward_panel(mission_success, sprite, reward):
 
 func _on_return_button_pressed():
 	CurrentRun.world.world_map.process_mode = PROCESS_MODE_INHERIT
+	CurrentRun.world.camera.jump_to_player()
 	AudioSystem.play_audio("basic_button_click", -10)
 	hide()
 	return_button.hide()

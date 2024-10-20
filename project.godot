@@ -113,6 +113,7 @@ pointing/emulate_touch_from_mouse=true
 2d_physics/layer_10="Characters"
 2d_physics/layer_11="Buffs"
 2d_physics/layer_12="Items"
+2d_physics/layer_13="Hazards"
 
 [physics]
 

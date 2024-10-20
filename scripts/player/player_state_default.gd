@@ -26,15 +26,9 @@ func animate_movement():
 
 func _unhandled_input(event):
 	if event.is_action_pressed("strike"):
-		owner.check_charge()
-	if event.is_action_released("strike"):
-		if owner.charging:
-			owner.current_charge_attack.release_charge()
+		if owner.lasso != null and owner.lasso.active_projectile == null:
+			CurrentRun.world.current_player_info.state = "lassoing"
+			owner.lasso.windup()
 	if event.is_action_pressed("shoot"):
 		owner._shoot()
-	#elif event.is_action_pressed("repair"):
-		#Input.action_release("shoot")
-		#Input.action_release("strike")
-		#CurrentRun.world.current_level_info.active_level.close_all_ui()
-		#CurrentRun.world.current_player_info.state = "repairing"
 

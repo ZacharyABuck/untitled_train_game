@@ -9,6 +9,7 @@ var selected: bool = false
 var open: bool = false
 
 var menu_item = preload("res://scenes/ui/menu_item.tscn")
+var sell_icon = preload("res://sprites/ui/sell_icon.png")
 
 @onready var top_text = $TopText
 @onready var bottom_text = $BottomText
@@ -53,29 +54,41 @@ func _process(_delta):
 	global_rotation = 0
 	
 func _input(event):
-	if event.is_action_pressed("interact") and selected and !open:
+	if event.is_action_pressed("interact") and selected and !open and CurrentRun.world.current_player_info.state == "default":
 		CurrentRun.world.current_player_info.state = "ui_default"
 		open_menu()
 
 func spawn_menu(type):
 	if type == null:
+		#spawn base gadgets
 		for i in GadgetInfo.gadget_roster:
 			if GadgetInfo.gadget_roster[i].has("unlocked") and GadgetInfo.gadget_roster[i]["unlocked"] == true:
 				add_item(i)
 	else:
+		add_item("sell")
+		#spawn upgrade menu
 		for i in GadgetInfo.gadget_roster:
 			if GadgetInfo.gadget_roster[i]["last_gadget"] == type:
 				add_item(i)
+		
 
 func add_item(item):
-	var item_info = GadgetInfo.gadget_roster[item]
 	var new_item = menu_item.instantiate()
 	new_item.position = position
 	items.add_child(new_item)
-	new_item.sprite.texture = item_info["sprite"]
-	new_item.gadget = item
-	if get_parent().has_method("add_gadget"):
-		new_item.clicked.connect(get_parent().add_gadget)
+	
+	if item == "sell":
+		new_item.sprite.texture = sell_icon
+		if get_parent().has_method("sell_gadget"):
+			new_item.clicked.connect(get_parent().sell_gadget)
+		new_item.gadget = current_type
+	else:
+		var item_info = GadgetInfo.gadget_roster[item]
+		new_item.sprite.texture = item_info["sprite"]
+		if get_parent().has_method("add_gadget"):
+			new_item.clicked.connect(get_parent().add_gadget)
+		new_item.gadget = item
+		
 	new_item.hovered.connect(show_gadget_info)
 	new_item.hide()
 
@@ -83,6 +96,12 @@ func show_gadget_info(gadget):
 	if gadget == null:
 		top_text.hide()
 		bottom_text.hide()
+	elif gadget == current_type:
+		var gadget_name = GadgetInfo.gadget_roster[current_type]["name"]
+		top_text.text = "Sell " + gadget_name
+		bottom_text.text = "+ $" + str(GadgetInfo.gadget_roster[current_type]["cost"]*0.5)
+		top_text.show()
+		bottom_text.show()
 	else:
 		var gadget_name = GadgetInfo.gadget_roster[gadget]["name"]
 		top_text.text = gadget_name

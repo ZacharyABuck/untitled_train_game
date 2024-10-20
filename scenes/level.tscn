@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://02oiy550pacp"]
+[gd_scene load_steps=37 format=3 uid="uid://02oiy550pacp"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_2a3mn"]
 [ext_resource type="PackedScene" uid="uid://cb1r5v4vqyrx8" path="res://scenes/train/TrainManager.tscn" id="3_3t5p5"]
@@ -6,22 +6,12 @@
 [ext_resource type="Script" path="res://scripts/maps/map.gd" id="3_nn34h"]
 [ext_resource type="Shader" path="res://shaders/tilt_shift.gdshader" id="5_qayv6"]
 [ext_resource type="FontFile" uid="uid://lxcj83h6gsu7" path="res://fonts/JMH Typewriter-Black.otf" id="5_uxjuw"]
-[ext_resource type="Script" path="res://scripts/player/charge_attack_bar.gd" id="6_y62cp"]
 [ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="7_v8euj"]
 [ext_resource type="AudioStream" uid="uid://c8nvxqfmljdop" path="res://sounds/ui/book_skimming_short.wav" id="8_g00h4"]
-[ext_resource type="AudioStream" uid="uid://bt0eo54at8rls" path="res://sounds/ui/charge_ready_sfx.mp3" id="8_kek5m"]
 [ext_resource type="AudioStream" uid="uid://d3wi2punv8qyu" path="res://sounds/ui/bell.wav" id="11_5nccy"]
 [ext_resource type="Shader" path="res://shaders/fog.gdshader" id="12_hxkjx"]
-[ext_resource type="FontFile" uid="uid://tpmg7wha0yio" path="res://fonts/JMH Typewriter-Bold.ttf" id="15_jo5ee"]
-[ext_resource type="Script" path="res://scripts/ui/current_weapon_panel.gd" id="16_hmgxt"]
-[ext_resource type="FontFile" uid="uid://dxx340jybsylj" path="res://fonts/JMH Typewriter-Black.ttf" id="16_x3efs"]
-[ext_resource type="FontFile" uid="uid://cxj8dbbf37o0y" path="res://fonts/JMH Typewriter.ttf" id="17_cqrln"]
-[ext_resource type="Texture2D" uid="uid://ddopatgy035og" path="res://sprites/weapons/revolver.png" id="17_gs4h8"]
 [ext_resource type="PackedScene" uid="uid://vlu5a68ciqp0" path="res://scenes/weapons/weapon_spawner.tscn" id="17_lhsmc"]
-[ext_resource type="Script" path="res://scripts/ui/new_weapon_panel.gd" id="19_fnsj8"]
-[ext_resource type="AudioStream" uid="uid://d2nwj7vu6t12t" path="res://sounds/ui/menu-select-tick.wav" id="20_71clk"]
 [ext_resource type="Shader" path="res://shaders/rain.gdshader" id="22_kbqtr"]
-[ext_resource type="AudioStream" uid="uid://b6nhfkp7qtu2x" path="res://sounds/combat/reloading.mp3" id="22_ookke"]
 [ext_resource type="AudioStream" uid="uid://dqjq17gkaquqx" path="res://sounds/world/rain.wav" id="23_dws0p"]
 [ext_resource type="PackedScene" uid="uid://0trmx7iuisj2" path="res://scenes/enemies/enemy_spawn_system.tscn" id="27_yh7dx"]
 
@@ -942,63 +932,6 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_61f3p"]
-bg_color = Color(0.00288176, 0, 0.423345, 0.4)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g3wox"]
-bg_color = Color(0.271266, 0.402484, 1, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vuv3c"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0r5bq"]
-bg_color = Color(0.956863, 0.937255, 0.858824, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.482353, 0.27451, 0.2, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-expand_margin_left = 30.0
-expand_margin_top = 30.0
-expand_margin_right = 30.0
-expand_margin_bottom = 30.0
-shadow_size = 2
-shadow_offset = Vector2(2, 2)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_osnes"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k7nj4"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 20
-border_width_top = 20
-border_width_right = 20
-border_width_bottom = 20
-border_blend = true
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nbjsr"]
-bg_color = Color(0.4, 0.4, 0.4, 0.588235)
-
 [sub_resource type="Gradient" id="Gradient_678u3"]
 offsets = PackedFloat32Array(0.0933735, 0.629518)
 
@@ -1177,35 +1110,6 @@ max_value = 50.0
 value = 25.0
 show_percentage = false
 
-[node name="PlayerChargeBar" type="ProgressBar" parent="UI"]
-offset_left = 60.0
-offset_top = 51.0
-offset_right = 238.0
-offset_bottom = 90.0
-theme_override_styles/background = SubResource("StyleBoxFlat_61f3p")
-theme_override_styles/fill = SubResource("StyleBoxFlat_g3wox")
-max_value = 50.0
-show_percentage = false
-script = ExtResource("6_y62cp")
-
-[node name="ChargeReadyLabel" type="Label" parent="UI/PlayerChargeBar"]
-visible = false
-layout_mode = 0
-offset_left = 14.0
-offset_top = 7.0
-offset_right = 165.0
-offset_bottom = 38.0
-theme = ExtResource("7_v8euj")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = SubResource("StyleBoxEmpty_vuv3c")
-text = "Special Ready!"
-
-[node name="ChargeReadySFX" type="AudioStreamPlayer" parent="UI/PlayerChargeBar"]
-stream = ExtResource("8_kek5m")
-volume_db = -15.0
-bus = &"SFX"
-
 [node name="MoneyLabel" type="Label" parent="UI"]
 offset_left = 1690.0
 offset_top = 44.0
@@ -1229,200 +1133,6 @@ mouse_filter = 2
 mouse_force_pass_scroll_events = false
 theme_override_constants/separation = 500
 alignment = 1
-
-[node name="WeaponMarginContainer" type="MarginContainer" parent="UI"]
-process_mode = 3
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 500
-theme_override_constants/margin_top = 300
-theme_override_constants/margin_right = 500
-theme_override_constants/margin_bottom = 300
-
-[node name="BG" type="Panel" parent="UI/WeaponMarginContainer"]
-layout_mode = 2
-theme = ExtResource("7_v8euj")
-theme_override_styles/panel = SubResource("StyleBoxFlat_0r5bq")
-
-[node name="GridContainer" type="GridContainer" parent="UI/WeaponMarginContainer/BG"]
-layout_mode = 2
-offset_right = 920.0
-offset_bottom = 480.0
-theme_override_constants/h_separation = 30
-columns = 2
-
-[node name="CurrentWeapon" type="RichTextLabel" parent="UI/WeaponMarginContainer/BG/GridContainer"]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/default_color = Color(0.940069, 0.878659, 3.85046e-07, 1)
-theme_override_fonts/normal_font = ExtResource("15_jo5ee")
-theme_override_font_sizes/normal_font_size = 50
-bbcode_enabled = true
-text = "[center]Current Weapon[/center]"
-
-[node name="NewWeapon" type="RichTextLabel" parent="UI/WeaponMarginContainer/BG/GridContainer"]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/default_color = Color(0.940069, 0.878659, 3.85046e-07, 1)
-theme_override_fonts/normal_font = ExtResource("15_jo5ee")
-theme_override_font_sizes/normal_font_size = 50
-bbcode_enabled = true
-text = "[center]New Weapon[/center]"
-
-[node name="CurrentWeaponPanel" type="PanelContainer" parent="UI/WeaponMarginContainer/BG/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-script = ExtResource("16_hmgxt")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel"]
-layout_mode = 2
-
-[node name="NameLabel" type="RichTextLabel" parent="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel/VBoxContainer"]
-layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("16_x3efs")
-theme_override_font_sizes/normal_font_size = 40
-bbcode_enabled = true
-text = "[center]Revolver[/center]"
-fit_content = true
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 20
-alignment = 1
-
-[node name="Damage" type="RichTextLabel" parent="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
-clip_contents = false
-layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("17_cqrln")
-theme_override_font_sizes/normal_font_size = 25
-bbcode_enabled = true
-text = "[center]Damage: 0[/center]"
-fit_content = true
-
-[node name="Cooldown" type="RichTextLabel" parent="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
-clip_contents = false
-layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("17_cqrln")
-theme_override_font_sizes/normal_font_size = 25
-bbcode_enabled = true
-text = "[center]Cooldown: 0[/center]"
-fit_content = true
-
-[node name="BulletSpeed" type="RichTextLabel" parent="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
-clip_contents = false
-layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("17_cqrln")
-theme_override_font_sizes/normal_font_size = 25
-bbcode_enabled = true
-text = "[center]Bullet Speed: 0[/center]"
-fit_content = true
-
-[node name="TextureRect" type="TextureRect" parent="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("17_gs4h8")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="Button" type="Button" parent="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_osnes")
-theme_override_styles/hover = SubResource("StyleBoxFlat_k7nj4")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_nbjsr")
-
-[node name="HoverSFX" type="AudioStreamPlayer" parent="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel"]
-stream = ExtResource("20_71clk")
-volume_db = -10.0
-bus = &"SFX"
-
-[node name="NewWeaponPanel" type="PanelContainer" parent="UI/WeaponMarginContainer/BG/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-script = ExtResource("19_fnsj8")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel"]
-layout_mode = 2
-
-[node name="NameLabel" type="RichTextLabel" parent="UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel/VBoxContainer"]
-layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("16_x3efs")
-theme_override_font_sizes/normal_font_size = 40
-bbcode_enabled = true
-text = "[center]Revolver[/center]"
-fit_content = true
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 20
-alignment = 1
-
-[node name="Damage" type="RichTextLabel" parent="UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
-clip_contents = false
-layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("17_cqrln")
-theme_override_font_sizes/normal_font_size = 25
-bbcode_enabled = true
-text = "[center]Damage: 0[/center]"
-fit_content = true
-
-[node name="Cooldown" type="RichTextLabel" parent="UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
-clip_contents = false
-layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("17_cqrln")
-theme_override_font_sizes/normal_font_size = 25
-bbcode_enabled = true
-text = "[center]Cooldown: 0[/center]"
-fit_content = true
-
-[node name="BulletSpeed" type="RichTextLabel" parent="UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
-clip_contents = false
-layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("17_cqrln")
-theme_override_font_sizes/normal_font_size = 25
-bbcode_enabled = true
-text = "[center]Bullet Speed: 0[/center]"
-fit_content = true
-
-[node name="TextureRect" type="TextureRect" parent="UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("17_gs4h8")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="Button" type="Button" parent="UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_osnes")
-theme_override_styles/hover = SubResource("StyleBoxFlat_k7nj4")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_nbjsr")
-
-[node name="HoverSFX" type="AudioStreamPlayer" parent="UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel"]
-stream = ExtResource("20_71clk")
-volume_db = -10.0
-bus = &"SFX"
-
-[node name="WeaponSelectSFX" type="AudioStreamPlayer" parent="UI/WeaponMarginContainer"]
-stream = ExtResource("22_ookke")
-volume_db = -10.0
-bus = &"SFX"
 
 [node name="Weather" type="Control" parent="UI"]
 layout_mode = 3
@@ -1468,6 +1178,17 @@ color = Color(0, 0, 0, 1)
 wait_time = 60.0
 autostart = true
 
+[node name="WeaponLabel" type="Label" parent="UI"]
+offset_left = 60.0
+offset_top = 37.0
+offset_right = 196.0
+offset_bottom = 84.0
+theme = ExtResource("7_v8euj")
+text = "Revolver
+Ammo: inf"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="EdgeSFX" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("8_g00h4")
@@ -1483,8 +1204,9 @@ process_mode = 4
 
 [node name="EnemySpawnSystem" parent="." instance=ExtResource("27_yh7dx")]
 
-[connection signal="mouse_entered" from="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel/Button" to="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel" method="_on_button_mouse_entered"]
-[connection signal="pressed" from="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel/Button" to="UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel" method="_on_button_pressed"]
-[connection signal="mouse_entered" from="UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel/Button" to="UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel" method="_on_button_mouse_entered"]
-[connection signal="pressed" from="UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel/Button" to="UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel" method="_on_button_pressed"]
+[node name="HazardSpawnTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
 [connection signal="timeout" from="UI/Weather/WeatherTimer" to="." method="calculate_weather"]
+[connection signal="timeout" from="HazardSpawnTimer" to="." method="hazard_spawn_timer_timeout"]

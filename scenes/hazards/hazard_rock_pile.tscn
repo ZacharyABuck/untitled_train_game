@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://dv4avmja0oaxk"]
+
+[ext_resource type="Script" path="res://scenes/hazards/hazard_rock_pile.gd" id="1_dr548"]
+[ext_resource type="PackedScene" uid="uid://dbbhpq4ex4mdt" path="res://scenes/hazards/hazard_rock.tscn" id="2_g55q7"]
+
+[node name="HazardRockPile" type="RigidBody2D"]
+script = ExtResource("1_dr548")
+
+[node name="HazardRock" parent="." instance=ExtResource("2_g55q7")]
+position = Vector2(8, -4)
+
+[node name="HazardRock2" parent="." instance=ExtResource("2_g55q7")]
+position = Vector2(-16, -28)
+
+[node name="HazardRock3" parent="." instance=ExtResource("2_g55q7")]
+position = Vector2(23, -33)
+
+[node name="HazardRock4" parent="." instance=ExtResource("2_g55q7")]
+position = Vector2(-11, 20)
+
+[node name="HazardRock5" parent="." instance=ExtResource("2_g55q7")]
+position = Vector2(-31, 5)
+
+[node name="HazardRock6" parent="." instance=ExtResource("2_g55q7")]
+position = Vector2(38, -4)
+
+[node name="HazardRock7" parent="." instance=ExtResource("2_g55q7")]
+position = Vector2(25, 22)

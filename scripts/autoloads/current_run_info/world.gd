@@ -38,6 +38,7 @@ func _ready():
 	music_fade.play("world_start")
 	update_money_label()
 
+
 func map_spawned():
 	#fade in animations
 	for t in CurrentRun.world.current_world_info.towns_inventory.keys():
@@ -50,7 +51,10 @@ func map_spawned():
 	CurrentRun.root.fade_in()
 	await get_tree().create_timer(3).timeout
 	camera.jump_to_pos(current_world_info.towns_inventory[current_world_info.active_town]["scene"].global_position)
-
+	await get_tree().create_timer(1).timeout
+	for t in CurrentRun.world.current_world_info.towns_inventory.keys():
+			var scene = CurrentRun.world.current_world_info.towns_inventory[t]["scene"]
+			scene.collision_shape.disabled = false
 
 func show_travel_line(destination):
 	AudioSystem.play_audio("quick_woosh", -10)
@@ -125,9 +129,6 @@ func town_clicked(town):
 		if missions_spawned == false:
 			missions_spawned = true
 			towns_ui.spawn_missions(3)
-			if current_world_info.towns_inventory[town.town_name].has("gunsmith"):
-				towns_ui.spawn_gunsmith_items()
-				towns_ui.gunsmith_button.show()
 			if current_world_info.towns_inventory[town.town_name].has("trainyard"):
 				towns_ui.trainyard.spawn_trainyard_items()
 				towns_ui.trainyard_button.show()
@@ -193,6 +194,9 @@ func update_world_player_pos():
 
 func check_missions():
 	var index = 0
+	for i in end_screen_ui.mission_complete_container.get_children():
+		i.queue_free()
+
 	for i in current_mission_info.mission_inventory.keys():
 		if current_mission_info.mission_inventory[i]["destination"] == current_world_info.active_town:
 			#Mission Complete
@@ -211,7 +215,7 @@ func check_missions():
 			i.queue_free()
 		else:
 			i.time_limit_label.text = str(current_mission_info.mission_inventory[i.mission_id]["time_limit"])
-	
+
 	if index == 0:
 		end_screen_ui.show_no_missions_label()
 

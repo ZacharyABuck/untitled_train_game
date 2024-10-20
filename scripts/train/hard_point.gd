@@ -38,16 +38,31 @@ func add_gadget(requested_gadget):
 			print("New Gadget: " + requested_gadget_info["name"])
 			
 			#delete old gadget if upgrading
-			if gadget != null:
-				for i in get_children():
-					if i.is_in_group("gadget"):
-						i.queue_free()
-						break
+			delete_gadget()
 			
 			#create gadget
 			spawn_gadget(requested_gadget)
 			gadget = requested_gadget
 			CurrentRun.world.current_player_info.state = "default"
+
+func sell_gadget(gadget):
+	var sell_value = GadgetInfo.gadget_roster[gadget]["cost"]*.5
+	CurrentRun.world.current_player_info.current_money += sell_value
+	CurrentRun.world.update_money_label()
+	CurrentRun.world.current_train_info.cars_inventory[car.index]["gadgets"][get_parent().name].clear()
+	CurrentRun.world.current_level_info.active_level.close_all_ui()
+	CurrentRun.world.current_player_info.state = "default"
+	radial_menu.close_menu()
+	radial_menu.update_menu(null)
+	AudioSystem.play_audio("metal_dropping", -15)
+	delete_gadget()
+
+func delete_gadget():
+	if gadget != null:
+		for i in get_children():
+			if i.is_in_group("gadget"):
+				i.queue_free()
+				break
 
 func spawn_gadget(requested_gadget):
 	var new_gadget = GadgetInfo.gadget_roster[requested_gadget]["scene"].instantiate()

@@ -7,13 +7,13 @@ var player = preload("res://scenes/player/player.tscn")
 const edge_panel = preload("res://scenes/edges/edge_panel.tscn")
 @onready var alert_label = $UI/AlertLabel
 
+@onready var weapon_label = $UI/WeaponLabel
+
 @onready var enemies = $Enemies
 @onready var enemy_spawn_system = $EnemySpawnSystem
 
 @onready var train_manager = $TrainManager
 @onready var map = $Map
-
-@onready var player_charge_bar = $UI/PlayerChargeBar
 
 var spawning: bool = false
 
@@ -108,38 +108,19 @@ func spawn_player():
 func enemy_killed():
 	enemy_spawn_system.check_for_enemies()
 
-func weapon_picked_up(weapon, type):
-	var container = $UI/WeaponMarginContainer
-	var current_weapon_panel = $UI/WeaponMarginContainer/BG/GridContainer/CurrentWeaponPanel
-	var new_weapon_panel = $UI/WeaponMarginContainer/BG/GridContainer/NewWeaponPanel
-	container.position.y = -1080
-	
-	match type:
-		"weapon":
-			current_weapon_panel.populate()
-			new_weapon_panel.populate(weapon)
-		"charge_attack":
-			current_weapon_panel.populate_charge_attack()
-			new_weapon_panel.populate_charge_attack(weapon)
-	
-	container.show()
-	var tween = create_tween()
-	tween.tween_property(container, "position", Vector2.ZERO, .5).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_IN)
-	$EdgeSFX.play()
-	await tween.finished
-	pause_game()
+func weapon_picked_up(weapon):
+	var random_stats = CurrentRun.world.current_player_info.find_random_weapon_stats()
+	var random_damage = random_stats[0]
+	var random_attack_delay = random_stats[1]
+	var random_projectile_speed = random_stats[2]
+	var ammo_count = round(10/WeaponInfo.weapons_roster[weapon]["base_attack_delay"])
+	CurrentRun.world.current_player_info.equip_new_weapon(weapon, ammo_count, random_damage, random_attack_delay, random_projectile_speed)
 
-func keep_current_weapon():
-	close_weapon_menu()
-
-func close_weapon_menu():
-	unpause_game()
-	var container = $UI/WeaponMarginContainer
-	$UI/WeaponMarginContainer/WeaponSelectSFX.play()
-	var tween = create_tween()
-	tween.tween_property(container, "position", Vector2(0,-1080), .5).set_ease(Tween.EASE_OUT)
-	await tween.finished
-	container.hide()
+func set_weapon_label(weapon, ammo):
+	if weapon == "revolver":
+		weapon_label.text = WeaponInfo.weapons_roster[weapon]["name"] + "\n Ammo: inf"
+	else:
+		weapon_label.text = WeaponInfo.weapons_roster[weapon]["name"] + "\n Ammo: " + str(ammo)
 
 func close_all_ui():
 	Engine.time_scale = 1
@@ -154,3 +135,17 @@ func unpause_game():
 	if CurrentRun.world.current_level_info.active_level.get_tree().paused == true:
 		CurrentRun.world.current_level_info.active_level.get_tree().paused = false
 
+func hazard_spawn_timer_timeout():
+	var train_engine = CurrentRun.world.current_train_info.train_engine
+	if train_engine.velocity >= 10:
+		var engine_car = CurrentRun.world.current_train_info.cars_inventory[0]["node"]
+		var random_spawn_point = engine_car.hazard_spawn_points.get_children().pick_random().global_position
+		var pos = Vector2(random_spawn_point.x + randf_range(-50,50), random_spawn_point.y + randf_range(-50,50))
+		var new_hazard = find_random_hazard().instantiate()
+		new_hazard.global_position = pos
+		add_child(new_hazard)
+
+func find_random_hazard():
+	var random_key = LevelInfo.hazards_roster.keys().pick_random()
+	var scene = LevelInfo.hazards_roster[random_key]["scene"]
+	return scene

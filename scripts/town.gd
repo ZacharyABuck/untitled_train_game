@@ -5,6 +5,7 @@ signal clicked
 @onready var name_label = $NameLabel
 @onready var town_sprite = $Sprite2D
 @onready var shadow = $Shadow
+@onready var collision_shape = $CollisionShape2D
 @onready var arrow_sprite = $ArrowSprite
 @onready var you_label = $YouLabel
 @onready var travel_info = $TravelInfo
@@ -30,12 +31,10 @@ func _ready():
 	town_sprite.texture = random_sprite
 	shadow.texture = random_sprite
 	
-
 func _on_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed:
 		clicked.emit()
 		
-
 func set_town_info(town):
 	town_name = town
 	name_label.text = town_name

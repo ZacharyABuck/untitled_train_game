@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bauu0fl50lkr5"]
+[gd_scene load_steps=17 format=3 uid="uid://bauu0fl50lkr5"]
 
 [ext_resource type="Script" path="res://scripts/train/car.gd" id="1_oecw2"]
 [ext_resource type="Texture2D" uid="uid://bxcwcbx0e8vso" path="res://sprites/train/lumber_car_sketch.png" id="2_w8dsn"]
@@ -31,6 +31,9 @@ size = Vector2(109, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5umrc"]
 size = Vector2(7, 359)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6pomm"]
+radius = 24.0832
 
 [node name="Car" type="Node2D" groups=["car"]]
 script = ExtResource("1_oecw2")
@@ -250,3 +253,19 @@ position = Vector2(-200, 348)
 
 [node name="1" type="Node2D" parent="EnemyNavPoints"]
 position = Vector2(200, 348)
+
+[node name="HazardSpawnPoints" type="Node2D" parent="."]
+
+[node name="0" type="Node2D" parent="HazardSpawnPoints"]
+position = Vector2(-400, -250)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HazardSpawnPoints/0"]
+shape = SubResource("CircleShape2D_6pomm")
+debug_color = Color(1, 0.517647, 0.211765, 0.419608)
+
+[node name="1" type="Node2D" parent="HazardSpawnPoints"]
+position = Vector2(400, -250)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HazardSpawnPoints/1"]
+shape = SubResource("CircleShape2D_6pomm")
+debug_color = Color(1, 0.517647, 0.211765, 0.419608)

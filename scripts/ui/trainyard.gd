@@ -69,6 +69,7 @@ func merc_released(merc_panel):
 		if hovered_car_panel != null:
 			merc_panel.place(hovered_car_panel)
 			held_merc = null
+			clear_tech_tree()
 		else:
 			populate_tech_tree(merc_panel)
 
@@ -91,7 +92,7 @@ func preview_merc_placement(panel):
 		held_merc.held = false
 		held_merc.preview(panel)
 
-func dismiss_merc_placement(panel):
+func dismiss_merc_placement(_panel):
 	if held_merc != null:
 		hovered_car_panel = null
 		held_merc.held = true
@@ -173,6 +174,12 @@ func pay_upkeep(button):
 			CurrentRun.world.current_train_info.cars_inventory[selected_car]["gadgets"][selected_slot.name]["upkeep_paid"] = true
 			pay_upkeep_button.hide()
 			check_all_upkeep()
+
+func clear_tech_tree():
+	for column in tech_tree.get_children():
+		column.queue_free()
+	
+	tech_tree_label.text = ""
 
 func populate_tech_tree(merc_panel):
 	for column in tech_tree.get_children():

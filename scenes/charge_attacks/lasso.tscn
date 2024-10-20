@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://cjir58bbe7n3s"]
+
+[ext_resource type="Script" path="res://scenes/charge_attacks/lasso.gd" id="1_j6krw"]
+[ext_resource type="PackedScene" uid="uid://dj6m1gyh3dk4k" path="res://scenes/projectiles/lasso_projectile.tscn" id="2_m5p2e"]
+[ext_resource type="AudioStream" uid="uid://do30mgxl5w4we" path="res://sounds/combat/lasso_spinning.wav" id="3_acx8i"]
+[ext_resource type="AudioStream" uid="uid://byw3byfkygb6p" path="res://sounds/combat/lasso_release.wav" id="4_kxbns"]
+
+[sub_resource type="Curve2D" id="Curve2D_0evuv"]
+bake_interval = 25.0
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 2
+
+[node name="Lasso" type="Node2D"]
+script = ExtResource("1_j6krw")
+projectile = ExtResource("2_m5p2e")
+
+[node name="Rope" type="Line2D" parent="."]
+visible = false
+points = PackedVector2Array(0, 0, 0, 0)
+width = 4.0
+default_color = Color(0.382632, 0.246457, 0.12787, 1)
+
+[node name="RopePath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_0evuv")
+
+[node name="RopeSprites" type="Node2D" parent="."]
+
+[node name="LassoSpinningSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_acx8i")
+volume_db = -15.0
+bus = &"SFX"
+
+[node name="LassoReleaseSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_kxbns")
+volume_db = -10.0
+bus = &"SFX"

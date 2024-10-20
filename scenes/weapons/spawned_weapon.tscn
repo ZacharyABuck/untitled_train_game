@@ -1,7 +1,9 @@
 [gd_scene load_steps=11 format=3 uid="uid://ctbmeggm8tf6k"]
 
 [ext_resource type="Script" path="res://scenes/weapons/spawned_weapon.gd" id="1_cgooe"]
-[ext_resource type="AudioStream" uid="uid://ofqqvt4v00tl" path="res://sounds/rewards/glockenspiel.mp3" id="2_52njo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m4s2s"]
+size = Vector2(40, 49)
 
 [sub_resource type="Curve" id="Curve_m5mqf"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.990385, 0.0274936), 0.0, 0.0, 0, 0]
@@ -25,20 +27,29 @@ scale_curve = SubResource("CurveTexture_eofi7")
 alpha_curve = SubResource("CurveTexture_p3o28")
 
 [sub_resource type="Gradient" id="Gradient_2toqf"]
-offsets = PackedFloat32Array(0.462025, 0.522152, 0.575949)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0)
+offsets = PackedFloat32Array(0.228022, 0.343407, 0.522152, 0.557692)
+colors = PackedColorArray(1, 1, 1, 0, 0.0634701, 0.0634701, 1, 0.93653, 0, 0, 1, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ssxwa"]
 gradient = SubResource("Gradient_2toqf")
+width = 128
+height = 128
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_555bl"]
 radius = 32.1403
 
-[node name="SpawnedWeapon" type="Node2D" groups=["item"]]
+[node name="SpawnedWeapon" type="RigidBody2D"]
 z_index = 10
+collision_layer = 4096
 script = ExtResource("1_cgooe")
+grabbable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_m4s2s")
 
 [node name="ShineParticle" type="GPUParticles2D" parent="."]
 amount = 1
@@ -50,16 +61,10 @@ local_coords = true
 scale = Vector2(0.1, 0.1)
 
 [node name="PlayerDetector" type="Area2D" parent="."]
-collision_layer = 2048
-collision_mask = 2049
+collision_layer = 4096
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+visible = false
 shape = SubResource("CircleShape2D_555bl")
-
-[node name="SpawnSFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_52njo")
-volume_db = -10.0
-autoplay = true
-bus = &"SFX"
 
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]

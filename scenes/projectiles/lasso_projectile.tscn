@@ -1,0 +1,67 @@
+[gd_scene load_steps=9 format=3 uid="uid://dj6m1gyh3dk4k"]
+
+[ext_resource type="Script" path="res://scenes/projectiles/lasso_projectile.gd" id="1_fqkn5"]
+[ext_resource type="Texture2D" uid="uid://cobkxjqt8myii" path="res://sprites/projectiles/lasso_projectile_sprite_sheet.png" id="2_4w2bb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vptsx"]
+atlas = ExtResource("2_4w2bb")
+region = Rect2(0, 0, 123, 123)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oxekd"]
+atlas = ExtResource("2_4w2bb")
+region = Rect2(123, 0, 123, 123)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wu17f"]
+atlas = ExtResource("2_4w2bb")
+region = Rect2(246, 0, 123, 123)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lgrs7"]
+atlas = ExtResource("2_4w2bb")
+region = Rect2(369, 0, 123, 123)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fb88e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vptsx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oxekd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wu17f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lgrs7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_udfc7"]
+radius = 33.0
+
+[node name="LassoProjectile" type="CharacterBody2D"]
+script = ExtResource("1_fqkn5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.542683, 0.542683)
+sprite_frames = SubResource("SpriteFrames_fb88e")
+autoplay = "default"
+frame = 3
+frame_progress = 0.436504
+offset = Vector2(-15.12, -42.625)
+
+[node name="GrabArea" type="Area2D" parent="."]
+collision_mask = 4096
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrabArea"]
+visible = false
+position = Vector2(-8, -27)
+shape = SubResource("CircleShape2D_udfc7")
+
+[node name="GrabPosition" type="Node2D" parent="."]
+position = Vector2(-6, -26)
+
+[connection signal="body_entered" from="GrabArea" to="." method="_on_grab_area_body_entered"]

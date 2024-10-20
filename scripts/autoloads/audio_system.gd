@@ -9,6 +9,10 @@ var sounds = {
 	gunshot = preload("res://sounds/combat/gunshot_01.wav"),
 	quick_woosh = preload("res://sounds/ui/quick_woosh.wav"),
 	drill = preload("res://sounds/train/drill_01.wav"),
+	metal_dropping = preload("res://sounds/ui/metal_dropping.wav"),
+	explode = preload("res://sounds/combat/explosion_01.wav"),
+	reload = preload("res://sounds/combat/reloading.mp3"),
+	rock_smash = preload("res://sounds/combat/rock_smash.wav"),
 }
 
 var sounds_inventory = {}

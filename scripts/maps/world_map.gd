@@ -11,7 +11,7 @@ var starting_coords = Vector2i.ZERO
 var road_cells = []
 var vertical_road_count: int = 10
 var horizontal_road_count: int = 2
-var town_count: int = 20
+var town_count: int = 15
 
 var town_cells = []
 
@@ -192,9 +192,9 @@ func spawn_town():
 func spawn_player():
 	if CurrentRun.world.current_level_info.destination == null:
 		var random_town = CurrentRun.world.current_world_info.towns_inventory.keys().pick_random()
-		for town in CurrentRun.world.current_world_info.towns_inventory.keys():
-			if CurrentRun.world.current_world_info.towns_inventory[town]["scene"].global_position.x < CurrentRun.world.current_world_info.towns_inventory[random_town]["scene"].global_position.x:
-				random_town = town
+		for t in CurrentRun.world.current_world_info.towns_inventory.keys():
+			if CurrentRun.world.current_world_info.towns_inventory[t]["scene"].global_position.x < CurrentRun.world.current_world_info.towns_inventory[random_town]["scene"].global_position.x:
+				random_town = t
 		CurrentRun.world.current_world_info.active_town = random_town
 	else:
 		CurrentRun.world.current_world_info.active_town = CurrentRun.world.current_level_info.destination

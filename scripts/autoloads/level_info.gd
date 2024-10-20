@@ -24,3 +24,21 @@ var events_roster = {
 		"scene" = preload("res://scenes/events/event_level_complete.tscn"),
 	},
 }
+
+var hazards_roster = {
+	"red_barrel" = {
+		"scene" = preload("res://scenes/hazards/hazard_red_barrel.tscn"),
+	},
+	"green_barrel" = {
+		"scene" = preload("res://scenes/hazards/hazard_green_barrel.tscn"),
+	},
+	"blue_barrel" = {
+		"scene" = preload("res://scenes/hazards/hazard_blue_barrel.tscn"),
+	},
+	"spawned_weapon" = {
+		"scene" = preload("res://scenes/weapons/spawned_weapon.tscn"),
+	},
+	"rock_pile" = {
+		"scene" = preload("res://scenes/hazards/hazard_rock_pile.tscn"),
+	},
+}

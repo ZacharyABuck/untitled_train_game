@@ -8,6 +8,8 @@ class_name Player
 @onready var repair_sfx = $RepairSFX
 @onready var camera = $Camera2D
 @onready var buff_area = $BuffArea
+@onready var lasso = $Lasso
+
 
 var active_buffs: Dictionary
 
@@ -26,8 +28,6 @@ func _ready():
 	CurrentRun.world.current_player_info.targets.append(self)
 	camera.make_current()
 	
-	charge_attack_bar = CurrentRun.world.current_level_info.active_level.player_charge_bar
-	
 	#pick random weapon
 	var weapon
 	if CurrentRun.world.current_player_info.current_ranged_weapon_reference.is_empty():
@@ -40,16 +40,6 @@ func _ready():
 			CurrentRun.world.current_player_info.current_ranged_weapon_damage_mod, \
 			CurrentRun.world.current_player_info.current_ranged_weapon_attack_delay_mod, \
 			CurrentRun.world.current_player_info.current_ranged_weapon_speed_mod)
-	
-	#charge attack
-	var charge_attack
-	if CurrentRun.world.current_player_info.current_charge_attack_reference.is_empty():
-		charge_attack = WeaponInfo.charge_attacks_roster.keys().pick_random()
-		CurrentRun.world.current_player_info.current_charge_attack_reference = charge_attack
-		_instantiate_charge_attack(WeaponInfo.charge_attacks_roster[charge_attack]["scene"])
-	else:
-		charge_attack = CurrentRun.world.current_player_info.current_charge_attack_reference
-		_instantiate_charge_attack(WeaponInfo.charge_attacks_roster[charge_attack]["scene"])
 
 	ExperienceSystem.level_up.connect(self.handle_level_up)
 	
@@ -96,15 +86,6 @@ func refresh_current_ranged_weapon_stats():
 	damage += CurrentRun.world.current_player_info.current_ranged_damage_bonus + CurrentRun.world.current_player_info.current_ranged_weapon_damage_mod
 	current_ranged_weapon.current_damage = damage
 	current_ranged_weapon.current_attack_delay = current_ranged_weapon.base_attack_delay * CurrentRun.world.current_player_info.current_attack_delay_modifier
-
-func _instantiate_charge_attack(charge_attack_scene):
-	if is_instance_valid(current_charge_attack):
-		current_charge_attack.queue_free()
-		
-	current_charge_attack = charge_attack_scene.instantiate()
-	add_child(current_charge_attack)
-	
-	CurrentRun.world.current_player_info.current_charge_attack_reference = current_charge_attack.reference
 
 # -- MOVEMENT FUNCTIONS -- #
 func _on_car_detector_area_entered(area):
