@@ -76,7 +76,7 @@ visible = false
 shape = SubResource("RectangleShape2D_dwjki")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("HEALTHBAR") instance=ExtResource("3_46fpg")]
-MAX_HEALTH = 30.0
+MAX_HEALTH = 50.0
 HEALTHBAR = NodePath("../HealthBarControl/FurnaceHealthBar")
 
 [node name="HealthBarControl" type="Node2D" parent="."]
@@ -93,3 +93,5 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_a50ys")
 max_value = 50.0
 value = 25.0
 show_percentage = false
+
+[node name="OffscreenDetector" type="VisibleOnScreenNotifier2D" parent="."]

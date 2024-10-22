@@ -38,7 +38,6 @@ func _ready():
 	music_fade.play("world_start")
 	update_money_label()
 
-
 func map_spawned():
 	#fade in animations
 	for t in CurrentRun.world.current_world_info.towns_inventory.keys():
@@ -46,15 +45,12 @@ func map_spawned():
 		var scale_tween = create_tween()
 		scale_tween.tween_property(scene, "scale", Vector2(1,1), 2).set_trans(Tween.TRANS_ELASTIC)
 		await get_tree().create_timer(.1).timeout
+		
 	camera.jump_to_pos(current_world_info.towns_inventory[current_world_info.farthest_town]["scene"].global_position)
-	#await get_tree().create_timer(1).timeout
 	CurrentRun.root.fade_in()
+	
 	await get_tree().create_timer(3).timeout
 	camera.jump_to_pos(current_world_info.towns_inventory[current_world_info.active_town]["scene"].global_position)
-	await get_tree().create_timer(1).timeout
-	for t in CurrentRun.world.current_world_info.towns_inventory.keys():
-			var scene = CurrentRun.world.current_world_info.towns_inventory[t]["scene"]
-			scene.collision_shape.disabled = false
 
 func show_travel_line(destination):
 	AudioSystem.play_audio("quick_woosh", -10)
@@ -69,6 +65,8 @@ func start_game(direction, distance, terrain):
 	towns_ui.hide()
 	world_map.hide()
 	world_ui.hide()
+	
+	current_world_info.towns_inventory[current_world_info.active_town]["scene"].hide_warnings()
 	
 	current_player_info.targets.clear()
 	current_level_info.clear_variables()
@@ -129,9 +127,8 @@ func town_clicked(town):
 		if missions_spawned == false:
 			missions_spawned = true
 			towns_ui.spawn_missions(3)
-			if current_world_info.towns_inventory[town.town_name].has("trainyard"):
-				towns_ui.trainyard.spawn_trainyard_items()
-				towns_ui.trainyard_button.show()
+			towns_ui.trainyard.spawn_trainyard_items()
+			towns_ui.trainyard_button.show()
 	
 	else:
 		towns_ui.close_all_windows()
@@ -154,12 +151,13 @@ func find_direction():
 
 func find_distance():
 	var distance = current_world_info.towns_inventory[current_world_info.active_town]["scene"].global_position.distance_to(current_world_info.selected_town.global_position)
-	var adjusted_distance = round(clamp(distance*.005,3,8))
+	var adjusted_distance = round(distance*.005)
 	return adjusted_distance
 
 func find_fuel_cost() -> int:
 	var distance = find_distance()
-	return distance*current_train_info.train_stats["car_count"]
+	print(distance)
+	return distance
 
 func level_complete():
 	music_fade.play("level_to_world")
@@ -167,13 +165,13 @@ func level_complete():
 	
 	Input.set_custom_mouse_cursor(null,0,Vector2.ZERO)
 	world_ui.refresh_edges()
+	current_train_info.set_all_gadget_upkeep(false)
 	camera.enabled = true
 	world_ui.show()
 	despawn_level()
 	update_world_player_pos()
 	check_missions()
 	update_money_label()
-	current_train_info.set_all_gadget_upkeep(false)
 	world_map.show()
 	missions_spawned = false
 	CurrentRun.root.fade_in()
@@ -218,6 +216,8 @@ func check_missions():
 
 	if index == 0:
 		end_screen_ui.show_no_missions_label()
+
+	current_world_info.towns_inventory[current_world_info.active_town]["scene"].check_warnings()
 
 func complete_mission(mission):
 	if current_mission_info.mission_inventory[mission]["reward"].has("money"):

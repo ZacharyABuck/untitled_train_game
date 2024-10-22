@@ -621,6 +621,7 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="TownsUI" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("18_ulvie")
 
 [node name="TownScreen" type="MarginContainer" parent="TownsUI"]

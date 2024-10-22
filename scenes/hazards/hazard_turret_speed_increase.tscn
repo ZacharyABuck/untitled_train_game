@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://cwlh2mi1pggvd"]
+
+[ext_resource type="Script" path="res://scenes/hazards/hazard_turret_speed_increase.gd" id="1_1g8ji"]
+[ext_resource type="Texture2D" uid="uid://b22j2l4e7jqs4" path="res://sprites/misc_objects/balloon_with_present.png" id="2_w0sfg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dvk8f"]
+radius = 34.2345
+
+[node name="HazardTurretSpeedIncrease" type="RigidBody2D"]
+collision_layer = 4096
+collision_mask = 0
+script = ExtResource("1_1g8ji")
+grabbable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dvk8f")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_w0sfg")
+
+[node name="GadgetDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GadgetDetector"]
+shape = SubResource("CircleShape2D_dvk8f")
+
+[connection signal="area_entered" from="GadgetDetector" to="." method="_on_gadget_detector_area_entered"]

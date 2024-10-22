@@ -11,6 +11,8 @@ var cars_inventory = {}
 
 var train_stats = {}
 
+signal train_boarded
+
 func _ready():
 	train_stats = TrainInfo.train_stats
 	spawn_cars_inventory()

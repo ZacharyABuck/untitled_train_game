@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://fso22ob1f57p"]
+[gd_scene load_steps=12 format=3 uid="uid://fso22ob1f57p"]
 
 [ext_resource type="Script" path="res://scripts/gadgets/gadget_explosive_turret.gd" id="1_5ohyi"]
 [ext_resource type="Texture2D" uid="uid://8rcl46gf5h4f" path="res://sprites/gadgets/gadget_explosive_turret.png" id="2_ckciq"]
@@ -22,9 +22,11 @@ fill = 1
 fill_from = Vector2(0.492788, 0.606838)
 fill_to = Vector2(0.61899, 0.192308)
 
-[node name="GadgetExplosiveTurretLongRange" type="Node2D" node_paths=PackedStringArray("BUFF_RECEIVER", "moving_target_component") groups=["gadget"]]
+[sub_resource type="CircleShape2D" id="CircleShape2D_qsp2m"]
+radius = 36.2215
+
+[node name="GadgetExplosiveTurretLongRange" type="Node2D" node_paths=PackedStringArray("moving_target_component") groups=["gadget"]]
 script = ExtResource("1_5ohyi")
-BUFF_RECEIVER = NodePath("BuffReceiver")
 moving_target_component = NodePath("MovingTargetComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -32,7 +34,7 @@ texture_filter = 1
 rotation = 3.14159
 texture = ExtResource("2_ckciq")
 
-[node name="ProjectileAttackComponent" parent="." node_paths=PackedStringArray("ATTACK_TIMER", "TARGET_AREA", "SHOOT_SOUND", "BUFF_RECEIVER") instance=ExtResource("3_iv1jo")]
+[node name="ProjectileAttackComponent" parent="." node_paths=PackedStringArray("ATTACK_TIMER", "TARGET_AREA", "SHOOT_SOUND") instance=ExtResource("3_iv1jo")]
 TARGET_TYPES = {
 "car": false,
 "cover": false,
@@ -47,7 +49,6 @@ PROJECTILE = ExtResource("4_wp82g")
 TARGET_AREA = NodePath("CollisionShape2D")
 LIFETIME = 1
 SHOOT_SOUND = NodePath("../CanonSFX")
-BUFF_RECEIVER = NodePath("../BuffReceiver")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ProjectileAttackComponent"]
 shape = SubResource("CircleShape2D_3blwe")
@@ -73,3 +74,10 @@ collision_layer = 8
 collision_mask = 0
 
 [node name="BuffReceiver" parent="." instance=ExtResource("7_20fem")]
+
+[node name="HazardReceiver" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HazardReceiver"]
+shape = SubResource("CircleShape2D_qsp2m")

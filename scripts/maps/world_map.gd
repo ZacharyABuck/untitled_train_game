@@ -2,8 +2,8 @@ extends TileMap
 
 var altitude = FastNoiseLite.new()
 @onready var astar = AStar2D.new()
-var chunk_width: int = 200 #60
-var chunk_height: int = 30 #60
+var chunk_width: int = 200
+var chunk_height: int = 30
 var loaded_chunks: Array = []
 
 var starting_coords = Vector2i.ZERO
@@ -73,14 +73,6 @@ func handle_towns():
 				else: 
 					CurrentRun.world.current_world_info.towns_inventory[town_info] = WorldInfo.towns_roster[town_info]
 					CurrentRun.world.current_world_info.towns_inventory[town_info]["scene"] = new_town
-					CurrentRun.world.current_world_info.towns_inventory[town_info]["size"] = 2
-					var town_size = CurrentRun.world.current_world_info.towns_inventory[town_info]["size"]
-					var possible_shops = ["gunsmith", "trainyard"]
-					var random_shop
-					for t in town_size:
-						random_shop  = possible_shops.pick_random()
-						CurrentRun.world.current_world_info.towns_inventory[town_info][random_shop] = true
-						possible_shops.erase(random_shop)
 					new_town.set_town_info(town_info)
 					valid_town = true
 		
@@ -202,6 +194,7 @@ func spawn_player():
 	
 	print("Active Town: " + CurrentRun.world.current_world_info.active_town)
 	var active_town_scene = CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"]
+	active_town_scene.check_warnings()
 	
 	for t in CurrentRun.world.current_world_info.towns_inventory:
 		CurrentRun.world.current_world_info.towns_inventory[t]["scene"].hide_you_are_here()

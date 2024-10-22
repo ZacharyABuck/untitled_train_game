@@ -13,10 +13,15 @@ var level
 
 func _ready():
 	CurrentRun.world.current_level_info.enemy_spawn_system = self
-	wave_count = CurrentRun.world.current_level_info.wave_count
 	level = get_parent()
+	
+	#set wave count to stored valie
+	wave_count = CurrentRun.world.current_level_info.wave_count
+	
+	#spawn first enemies in level
 	await get_tree().create_timer(5).timeout
 	spawn_level_enemies()
+	spawn_interval_timer.start()
 
 func _process(_delta):
 	#set enemy spawn positions to follow train
@@ -33,42 +38,55 @@ func check_for_enemies():
 			spawning = true
 			print("All Enemies Dead")
 			
-			await get_tree().create_timer(5).timeout
+			await get_tree().create_timer(3).timeout
 
 			wave_timer_timeout()
-			enemy_wave_timer.start()
 
 func wave_timer_timeout():
 	var label = CurrentRun.world.current_level_info.active_level.alert_label
 	label.text = "Wave Spawning!!!"
 	label.get_child(0).play("alert_flash")
 	label.show()
-	
-	spawn_interval_timer.start()
 	spawn_level_enemies()
-	CurrentRun.world.current_level_info.difficulty += .03
-	wave_count += 1
+	spawn_interval_timer.start()
 	CurrentRun.world.current_level_info.wave_count = wave_count
 
 func _on_spawn_interval_timer_timeout():
 	spawn_index += 1
+	
+	#finished spawning
 	if spawn_index >= wave_count:
 		spawn_interval_timer.stop()
+		
+		CurrentRun.world.current_level_info.difficulty += .03
+		wave_count += 1
+		enemy_wave_timer.start()
+		
 		spawn_index = 0
 		spawning = false
+	#still spawning
 	else:
-		spawn_interval_timer.start()
+
 		spawn_level_enemies()
+		
+		#rng for second enemy to spawn
+		var rng = randf_range(1, 2)
+		if CurrentRun.world.current_level_info.difficulty >= rng:
+			spawn_level_enemies()
+			print("second enemy spawned")
+		
+		spawn_interval_timer.start()
 
 func spawn_level_enemies():
-	var spawn_count = CurrentRun.world.current_level_info.difficulty
 	var new_spawner = EnemySpawner.new()
 	add_child(new_spawner)
 	new_spawner.wave = true
 	
-	#spawn enemies by maximum allowed in EnemyInfo
 	var random_enemy = new_spawner.find_random_enemy()
-	var max_spawn = EnemyInfo.enemy_roster[random_enemy]["max_spawn"]
-	new_spawner.spawn_enemy(clamp(spawn_count, 1, max_spawn), random_enemy, null)
+	new_spawner.spawn_enemy(1, random_enemy, null)
+	
+	
 	print("Enemies Spawned, Wave: " + str(wave_count) + " Difficulty: " + str(CurrentRun.world.current_level_info.difficulty))
+	
+
 

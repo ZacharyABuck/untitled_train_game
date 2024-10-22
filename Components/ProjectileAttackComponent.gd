@@ -144,7 +144,7 @@ func _set_layers(obj):
 	if target_types["car"]:
 		obj.set_collision_mask_value(3, true)
 	if target_types["cover"]:
-		obj.set_collision_mask_value(5, true)
+		pass
 	if target_types["terrain"]:
 		obj.set_collision_mask_value(9, true)
 		pass

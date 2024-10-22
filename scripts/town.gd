@@ -10,9 +10,6 @@ signal clicked
 @onready var you_label = $YouLabel
 @onready var travel_info = $TravelInfo
 @onready var travel_button = $TravelInfo/MarginContainer/VBoxContainer/TravelButton
-@onready var gunsmith_icon = $TravelInfo/MarginContainer/VBoxContainer/HBoxContainer/GunsmithIcon
-@onready var trainyard_icon = $TravelInfo/MarginContainer/VBoxContainer/HBoxContainer/TrainyardIcon
-@onready var tinkerer_icon = $TravelInfo/MarginContainer/VBoxContainer/HBoxContainer/TinkererIcon
 @onready var on_screen_notifier = $TravelInfo/MarginContainer/CloseButton/OnScreenNotifier
 @onready var farthest_town_fx = $FarthestTownFX
 
@@ -34,7 +31,7 @@ func _ready():
 func _on_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed:
 		clicked.emit()
-		
+
 func set_town_info(town):
 	town_name = town
 	name_label.text = town_name
@@ -48,18 +45,6 @@ func show_travel_info():
 	else:
 		travel_button.text = "All Aboard!"
 	
-	if CurrentRun.world.current_world_info.towns_inventory[town_name].has("gunsmith"):
-		gunsmith_icon.show()
-	else:
-		gunsmith_icon.hide()
-	if CurrentRun.world.current_world_info.towns_inventory[town_name].has("tinkerer"):
-		tinkerer_icon.show()
-	else:
-		tinkerer_icon.hide()
-	if CurrentRun.world.current_world_info.towns_inventory[town_name].has("trainyard"):
-		trainyard_icon.show()
-	else:
-		trainyard_icon.hide()
 	CurrentRun.world.show_travel_line(town_name)
 	travel_info.show()
 	
@@ -70,7 +55,6 @@ func show_travel_info():
 	else:
 		travel_info.position.y = bottom_pos
 	
-
 func hide_travel_info():
 	travel_info.hide()
 	CurrentRun.world.travel_line.hide()
@@ -92,3 +76,36 @@ func _on_mouse_exited():
 
 func _on_close_button_pressed():
 	hide_travel_info()
+
+func check_warnings():
+	check_mercs()
+	check_maintenance()
+
+func hide_warnings():
+	$WarningInfo.hide()
+
+func check_mercs():
+	for merc in CurrentRun.world.current_character_info.mercs_inventory.keys():
+		var car_index = 0
+		for car in CurrentRun.world.current_train_info.cars_inventory.keys():
+			if CurrentRun.world.current_train_info.cars_inventory[car]["merc"] == merc:
+				break
+			else:
+				car_index += 1
+				if car_index == CurrentRun.world.current_train_info.cars_inventory.keys().size():
+					$WarningInfo.show()
+					$WarningInfo/MarginContainer/VBoxContainer/MercAvailable.show()
+				else:
+					$WarningInfo.hide()
+					$WarningInfo/MarginContainer/VBoxContainer/MercAvailable.hide()
+
+func check_maintenance():
+	for car in CurrentRun.world.current_train_info.cars_inventory.keys():
+		for gadget in CurrentRun.world.current_train_info.cars_inventory[car]["gadgets"].keys():
+			if CurrentRun.world.current_train_info.cars_inventory[car]["gadgets"][gadget]["upkeep_paid"] == false:
+				$WarningInfo.show()
+				$WarningInfo/MarginContainer/VBoxContainer/MaintenanceNeeded.show()
+				return
+			else:
+				$WarningInfo.hide()
+				$WarningInfo/MarginContainer/VBoxContainer/MaintenanceNeeded.hide()

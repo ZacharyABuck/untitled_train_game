@@ -70,6 +70,7 @@ func merc_released(merc_panel):
 			merc_panel.place(hovered_car_panel)
 			held_merc = null
 			clear_tech_tree()
+			CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"].check_warnings()
 		else:
 			populate_tech_tree(merc_panel)
 
@@ -85,6 +86,7 @@ func reset_merc(merc_panel):
 	merc_panel.get_parent().remove_child(merc_panel)
 	mercs.add_child(merc_panel)
 	mercs.move_child(merc_panel,index)
+	CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"].check_warnings()
 
 func preview_merc_placement(panel):
 	if held_merc != null and panel.equipped_merc_panel == null:
@@ -144,6 +146,7 @@ func check_upkeep():
 			pay_upkeep_button.show()
 			check_all_upkeep()
 
+
 func check_all_upkeep():
 	var amount: float = 0.0
 	for car in CurrentRun.world.current_train_info.cars_inventory:
@@ -174,6 +177,8 @@ func pay_upkeep(button):
 			CurrentRun.world.current_train_info.cars_inventory[selected_car]["gadgets"][selected_slot.name]["upkeep_paid"] = true
 			pay_upkeep_button.hide()
 			check_all_upkeep()
+	
+		CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"].check_warnings()
 
 func clear_tech_tree():
 	for column in tech_tree.get_children():

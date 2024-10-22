@@ -3,6 +3,8 @@ extends StaticBody2D
 @onready var health_component = $HealthComponent
 @onready var furnace_health_bar = $HealthBarControl/FurnaceHealthBar
 @onready var health_bar_control = $HealthBarControl
+@onready var offscreen_detector = $OffscreenDetector
+@onready var hurtbox_component = $HurtboxComponent
 
 signal dead
 

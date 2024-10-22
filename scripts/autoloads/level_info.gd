@@ -41,4 +41,7 @@ var hazards_roster = {
 	"rock_pile" = {
 		"scene" = preload("res://scenes/hazards/hazard_rock_pile.tscn"),
 	},
+	"turret_speec_increase" = {
+		"scene" = preload("res://scenes/hazards/hazard_turret_speed_increase.tscn"),
+	},
 }

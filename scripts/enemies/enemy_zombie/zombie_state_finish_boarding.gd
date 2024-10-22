@@ -8,6 +8,8 @@ func _process(_delta):
 		finish_boarding()
 
 func finish_boarding():
+	CurrentRun.world.current_train_info.train_boarded.emit(CurrentRun.world.current_train_info.furnace)
+	
 	var car = CurrentRun.world.current_train_info.cars_inventory[owner.active_car]["node"]
 	car.boarding_sfx.play()
 	var point = car.boarding_points.get_child(0)

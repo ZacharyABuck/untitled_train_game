@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://jh47mmiljojd"]
+[gd_scene load_steps=12 format=3 uid="uid://jh47mmiljojd"]
 
 [ext_resource type="Script" path="res://scripts/gadgets/gadget_shock_turret.gd" id="1_gawx1"]
 [ext_resource type="Texture2D" uid="uid://c1esbr41s7mmf" path="res://sprites/gadgets/gadget_pistol_turret.png" id="2_roqua"]
@@ -22,9 +22,11 @@ fill = 1
 fill_from = Vector2(0.492788, 0.606838)
 fill_to = Vector2(0.61899, 0.192308)
 
-[node name="ShockTurretQuickReload" type="Node2D" node_paths=PackedStringArray("BUFF_RECEIVER", "moving_target_component") groups=["gadget"]]
+[sub_resource type="CircleShape2D" id="CircleShape2D_3sjo6"]
+radius = 36.2215
+
+[node name="ShockTurretQuickReload" type="Node2D" node_paths=PackedStringArray("moving_target_component") groups=["gadget"]]
 script = ExtResource("1_gawx1")
-BUFF_RECEIVER = NodePath("BuffReceiver")
 moving_target_component = NodePath("MovingTargetComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -35,7 +37,7 @@ texture = ExtResource("2_roqua")
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 0.8
 
-[node name="ProjectileAttackComponent" parent="." node_paths=PackedStringArray("ATTACK_TIMER", "TARGET_AREA", "BUFF_RECEIVER", "SHOOT_SOUND") instance=ExtResource("3_f8hx2")]
+[node name="ProjectileAttackComponent" parent="." node_paths=PackedStringArray("ATTACK_TIMER", "TARGET_AREA", "SHOOT_SOUND") instance=ExtResource("3_f8hx2")]
 TARGET_TYPES = {
 "car": false,
 "cover": false,
@@ -48,7 +50,6 @@ BULLET_SPEED = 1500
 DAMAGE_PER_BULLET = 1.5
 PROJECTILE = ExtResource("4_fuif1")
 TARGET_AREA = NodePath("ProjectileTargetArea")
-BUFF_RECEIVER = NodePath("../BuffReceiver")
 SHOOT_SOUND = NodePath("AudioStreamPlayer2D")
 
 [node name="ProjectileTargetArea" type="CollisionShape2D" parent="ProjectileAttackComponent"]
@@ -72,5 +73,12 @@ collision_layer = 8
 collision_mask = 0
 
 [node name="BuffReceiver" parent="." instance=ExtResource("7_dmsho")]
+
+[node name="HazardReceiver" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HazardReceiver"]
+shape = SubResource("CircleShape2D_3sjo6")
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
