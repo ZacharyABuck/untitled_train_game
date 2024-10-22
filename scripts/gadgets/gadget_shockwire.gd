@@ -11,13 +11,6 @@ func _ready():
 	super()
 	
 	car.active_buffs.append("shock")
-	apply_shock_buff()
-
-func apply_shock_buff():
-	await get_tree().create_timer(.5).timeout
-	for gadget in car.gadgets:
-		if "BUFF_RECEIVER" in gadget:
-			gadget.BUFF_RECEIVER.toggle_shock_fx(true)
 
 func _on_damage_timer_timeout():
 	animations.play("shock_visible")

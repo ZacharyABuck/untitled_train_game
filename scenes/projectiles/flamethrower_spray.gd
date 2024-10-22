@@ -2,14 +2,13 @@ extends Projectile
 
 func _ready():
 	super()
-	active_buffs["fire"] = true
+	active_buffs["fire"] = 2
 	await get_tree().create_timer(.5).timeout
 	$Hitbox/CollisionShape2D.disabled = false
 
 func _physics_process(_delta):
 	if shooter != null:
 		global_position = shooter.global_position
-
 
 func _on_lifetimer_timeout():
 	$GPUParticles2D.emitting = false

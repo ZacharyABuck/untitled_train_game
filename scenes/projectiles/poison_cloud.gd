@@ -1,6 +1,6 @@
 extends Node2D
 
-var buffs = {"poison" = true}
+var buffs = {"poison" = 1}
 
 func _ready():
 	var fade_tween = create_tween()

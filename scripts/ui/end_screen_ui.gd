@@ -22,7 +22,9 @@ func _ready():
 	hide()
 	return_button.hide()
 	no_missions_label.hide()
-
+	level_up_bar.hide()
+	level_max_label.hide()
+	level_min_label.hide()
 
 func fade_in():
 	margin_container.position.y = -1000
@@ -38,7 +40,7 @@ func fade_in():
 	pos_tween.tween_property(margin_container, "position", Vector2(0,0), 1).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
 	await pos_tween.finished
 	
-	xp_sequence_begin()
+	level_up_sequence()
 
 func show_no_missions_label():
 	no_missions_label.show()
@@ -65,35 +67,35 @@ func _on_return_button_pressed():
 	return_button.hide()
 	no_missions_label.hide()
 
-func xp_sequence_begin():
-	var player_info = CurrentRun.world.current_player_info
-
-	level_up_bar.show()
-
-	player_info.end_of_route_xp()
-	await get_tree().create_timer(.5).timeout
-	
-	check_for_level()
-
-func check_for_level():
-	var player_info = CurrentRun.world.current_player_info
-	if player_info.has_leveled_up():
-		await fill_xp_bar(level_up_bar.max_value)
-		level_up_bar.max_value = player_info.next_level_experience
-		level_up_bar.min_value = 0
-		level_up_bar.value = 0
-		set_level_labels()
-		level_up_sequence()
-		
-	else:
-		await fill_xp_bar(player_info.current_experience)
-		return_button.show()
-	
-func fill_xp_bar(value):
-	var fill_tween = create_tween()
-	fill_tween.tween_property(level_up_bar, "value", value, 3).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	await fill_tween.finished
-	return true
+#func xp_sequence_begin():
+	#var player_info = CurrentRun.world.current_player_info
+#
+	#level_up_bar.show()
+#
+	#player_info.end_of_route_xp()
+	#await get_tree().create_timer(.5).timeout
+	#
+	#check_for_level()
+#
+#func check_for_level():
+	#var player_info = CurrentRun.world.current_player_info
+	#if player_info.has_leveled_up():
+		#await fill_xp_bar(level_up_bar.max_value)
+		#level_up_bar.max_value = player_info.next_level_experience
+		#level_up_bar.min_value = 0
+		#level_up_bar.value = 0
+		#set_level_labels()
+		#level_up_sequence()
+		#
+	#else:
+		#await fill_xp_bar(player_info.current_experience)
+		#return_button.show()
+	#
+#func fill_xp_bar(value):
+	#var fill_tween = create_tween()
+	#fill_tween.tween_property(level_up_bar, "value", value, 3).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	#await fill_tween.finished
+	#return true
 
 func level_up_sequence():
 	populate_edge_menu()
@@ -140,8 +142,8 @@ func edge_selected(edge):
 		i.queue_free()
 	edge_menu.modulate = Color.WHITE
 
-	
-	check_for_level()
+	return_button.show()
+	#check_for_level()
 
 func add_edge(edge_reference):
 	var existing_edge_found = false

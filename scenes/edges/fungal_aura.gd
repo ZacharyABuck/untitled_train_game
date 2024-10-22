@@ -3,17 +3,15 @@ extends Edge
 var damage = 1
 @onready var damage_timer = $DamageTimer
 @onready var hitbox = $HitBox
-var buffs = {"poison": true}
-
-func _ready():
-	super()
-	WeaponInfo.attach_buffs(buffs, CurrentRun.world.current_player_info.active_player.active_buffs)
+var buffs = {"poison": 1}
 
 func handle_level_up():
 	if edge_level % 2 == 1:
-		CurrentRun.world.current_player_info.poison_damage += 1
+		damage += 1
+		print("Fungal Aura Damage Increase: " + str(damage))
 	if edge_level % 2 == 0:
 		damage_timer.wait_time *= .8
+		print("Fungal Aura Rate Increase: " + str(damage_timer.wait_time))
 
 func _on_damage_timer_timeout():
 	damage_enemies()

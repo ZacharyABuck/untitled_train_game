@@ -8,11 +8,10 @@ func _ready():
 func check_for_edges():
 	for edge in CurrentRun.world.current_edge_info.edge_inventory.keys():
 		respawn_edge(edge)
-		if EdgeInfo.edge_roster[edge]["update"] == true:
-			for level in range(1, CurrentRun.world.current_edge_info.edge_inventory[edge]["level"], 1):
-				var new_level = _increase_edge_level(CurrentRun.world.current_edge_info.edge_inventory[edge]["scene"])
-				if new_level == CurrentRun.world.current_edge_info.edge_inventory[edge]["level"]:
-					break
+		for level in range(1, CurrentRun.world.current_edge_info.edge_inventory[edge]["level"], 1):
+			var new_level = _increase_edge_level(CurrentRun.world.current_edge_info.edge_inventory[edge]["scene"])
+			if new_level == CurrentRun.world.current_edge_info.edge_inventory[edge]["level"]:
+				break
 
 func respawn_edge(edge):
 	var edge_scene = EdgeInfo.edge_roster[edge]["scene"].instantiate()

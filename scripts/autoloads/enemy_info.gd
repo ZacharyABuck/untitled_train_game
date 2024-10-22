@@ -1,17 +1,6 @@
 extends Node
 
 var enemy_roster = {
-	#"bandit" = {
-		#"scene" = load("res://scenes/enemies/enemy_bandit.tscn"),
-		#"level" = 1.3,
-		#"type" = "ranged",
-		#"health" = 8,
-		#"damage" = 2.0,
-		#"money" = 0.0,
-		#"speed" = 9000,
-		#"experience" = 3,
-		#"max_spawn" = 5,
-	#},
 	"zombie" = {
 		"scene" = load("res://scenes/enemies/enemy_zombie.tscn"),
 		"level" = 1.0,
@@ -30,7 +19,7 @@ var enemy_roster = {
 		"health" = 15,
 		"damage" = 8.0,
 		"money" = .75,
-		"speed" = 6000,
+		"speed" = 5500,
 		"experience" = 10,
 		"max_spawn" = 1,
 	},

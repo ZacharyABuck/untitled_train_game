@@ -82,7 +82,7 @@ var charge_attacks_roster = {
 	},
 }
 
-var numerical_buffs = ["damage", "attack_delay", "scatter_shot", "ricochet"]
+var numerical_buffs = ["damage", "attack_delay", "scatter_shot", "ricochet", "poison", "fire",]
 func attach_buffs(buffs, receiver_buffs):
 	for buff in buffs:
 		#if value is a float or int

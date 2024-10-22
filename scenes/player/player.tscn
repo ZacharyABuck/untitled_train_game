@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bp38lfu2xg7sc"]
+[gd_scene load_steps=31 format=3 uid="uid://bp38lfu2xg7sc"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_c8j4p"]
 [ext_resource type="Script" path="res://scripts/player/player_state_machine.gd" id="2_i83vv"]
@@ -14,8 +14,10 @@
 [ext_resource type="Script" path="res://scripts/edges/EdgeHandler.gd" id="11_6ds4a"]
 [ext_resource type="AudioStream" uid="uid://bm8ntouv5ol6l" path="res://sounds/player/running_wood.wav" id="12_5foum"]
 [ext_resource type="AudioStream" uid="uid://cpnffnc4clg7y" path="res://sounds/player/repair.mp3" id="13_5ua86"]
-[ext_resource type="PackedScene" uid="uid://uh2tbc2jgtpo" path="res://scenes/buff.tscn" id="14_q74rt"]
 [ext_resource type="PackedScene" uid="uid://cjir58bbe7n3s" path="res://scenes/charge_attacks/lasso.tscn" id="16_ua6ww"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ff0f4"]
+size = Vector2(41, 36)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ewtje"]
 shader = ExtResource("7_x7w1q")
@@ -115,9 +117,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ff0f4"]
-size = Vector2(41, 36)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qgewi"]
 size = Vector2(8, 8)
 
@@ -130,6 +129,11 @@ z_as_relative = false
 collision_layer = 9
 collision_mask = 32
 script = ExtResource("1_c8j4p")
+
+[node name="BodyCollider" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(2.5, -2)
+shape = SubResource("RectangleShape2D_ff0f4")
 
 [node name="StateMachine" type="Node2D" parent="."]
 script = ExtResource("2_i83vv")
@@ -166,11 +170,6 @@ scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_r2lml")
 animation = &"shooting"
 autoplay = "standing"
-
-[node name="BodyCollider" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(2.5, -2)
-shape = SubResource("RectangleShape2D_ff0f4")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("9_iwblo")
@@ -210,12 +209,7 @@ stream = ExtResource("13_5ua86")
 volume_db = -15.0
 bus = &"Train"
 
-[node name="BuffArea" parent="." instance=ExtResource("14_q74rt")]
-visible = false
-
 [node name="Lasso" parent="." instance=ExtResource("16_ua6ww")]
 
 [connection signal="area_entered" from="CarDetector" to="." method="_on_car_detector_area_entered"]
 [connection signal="area_exited" from="CarDetector" to="." method="_on_car_detector_area_exited"]
-[connection signal="area_entered" from="BuffArea" to="." method="buff_area_entered"]
-[connection signal="area_exited" from="BuffArea" to="." method="buff_area_exited"]

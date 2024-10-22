@@ -1,12 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dfv8ob2vq1mhp"]
-
-[sub_resource type="Curve" id="Curve_m105d"]
-_data = [Vector2(0.0192308, 0.0856777), 0.0, 0.0, 0, 0, Vector2(0.554487, 0.0773658), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_cn3vv"]
-width = 128
-curve_y = SubResource("Curve_m105d")
+[gd_scene load_steps=6 format=3 uid="uid://dfv8ob2vq1mhp"]
 
 [sub_resource type="Curve" id="Curve_0ipob"]
 _data = [Vector2(0.497093, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0079726), 0.0, 0.0, 0, 0]
@@ -15,14 +7,11 @@ point_count = 2
 [sub_resource type="CurveTexture" id="CurveTexture_shey6"]
 curve = SubResource("Curve_0ipob")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_atymf"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_opye4"]
 particle_flag_disable_z = true
-spread = 0.0
-initial_velocity_max = 50.0
-directional_velocity_min = -100.0
-directional_velocity_max = 100.0
-directional_velocity_curve = SubResource("CurveXYZTexture_cn3vv")
-gravity = Vector3(0, -200, 0)
+spread = 175.361
+initial_velocity_max = 211.34
+gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_shey6")
 
 [sub_resource type="Gradient" id="Gradient_imeao"]
@@ -37,13 +26,11 @@ fill_to = Vector2(0.602564, 0.380342)
 
 [node name="ShockFX" type="GPUParticles2D"]
 emitting = false
-amount = 3
-amount_ratio = 0.6075
-process_material = SubResource("ParticleProcessMaterial_atymf")
+process_material = SubResource("ParticleProcessMaterial_opye4")
 texture = SubResource("GradientTexture2D_b2jg0")
-lifetime = 3.0
+lifetime = 0.5
 one_shot = true
-explosiveness = 0.16
-randomness = 0.19
+explosiveness = 1.0
+randomness = 0.92
 
 [connection signal="finished" from="." to="." method="_on_finished"]

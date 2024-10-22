@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://2egu44g1ddtv"]
+[gd_scene load_steps=11 format=3 uid="uid://2egu44g1ddtv"]
 
 [ext_resource type="Script" path="res://scripts/gadgets/gadget_flame_turret.gd" id="1_ejd0h"]
 [ext_resource type="Texture2D" uid="uid://c1esbr41s7mmf" path="res://sprites/gadgets/gadget_pistol_turret.png" id="2_j4go8"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://bspjjlgkl0jut" path="res://scenes/projectiles/flamethrower_spray.tscn" id="4_d8ych"]
 [ext_resource type="AudioStream" uid="uid://hgoi6017bbtd" path="res://sounds/combat/flamethrower.mp3" id="5_er0e2"]
 [ext_resource type="PackedScene" uid="uid://cpe7uj0omv03o" path="res://components/moving_target_component.tscn" id="6_ee6yo"]
-[ext_resource type="PackedScene" uid="uid://blo8u73t6turn" path="res://scenes/buff_receiver.tscn" id="7_0y73d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h5xqt"]
 radius = 440.018
@@ -72,8 +71,6 @@ texture = SubResource("GradientTexture2D_y8sjb")
 [node name="MovingTargetComponent" parent="." instance=ExtResource("6_ee6yo")]
 collision_layer = 8
 collision_mask = 0
-
-[node name="BuffReceiver" parent="." instance=ExtResource("7_0y73d")]
 
 [node name="HazardReceiver" type="Area2D" parent="."]
 collision_layer = 16

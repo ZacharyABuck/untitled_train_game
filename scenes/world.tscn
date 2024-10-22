@@ -621,7 +621,6 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="TownsUI" type="CanvasLayer" parent="."]
-visible = false
 script = ExtResource("18_ulvie")
 
 [node name="TownScreen" type="MarginContainer" parent="TownsUI"]
@@ -700,7 +699,6 @@ texture_normal = ExtResource("25_c7tds")
 stretch_mode = 3
 
 [node name="Trainyard" type="MarginContainer" parent="TownsUI"]
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

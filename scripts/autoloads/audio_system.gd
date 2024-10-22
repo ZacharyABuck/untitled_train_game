@@ -13,6 +13,7 @@ var sounds = {
 	explode = preload("res://sounds/combat/explosion_01.wav"),
 	reload = preload("res://sounds/combat/reloading.mp3"),
 	rock_smash = preload("res://sounds/combat/rock_smash.wav"),
+	big_ding = preload("res://sounds/ui/big_ding.mp3"),
 }
 
 var sounds_inventory = {}

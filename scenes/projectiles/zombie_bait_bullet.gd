@@ -2,7 +2,7 @@ extends Projectile
 
 @onready var zombie_detector = $ZombieDetector
 @onready var area_sprite = $AreaSprite
-var buffs = {"poison": true}
+var buffs = {"poison": 1}
 
 func _on_zombie_detector_area_entered(area):
 	if area is HurtboxComponent and area.get_parent().type == "melee":

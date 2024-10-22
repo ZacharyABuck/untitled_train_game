@@ -1,10 +1,14 @@
 extends Edge
 
-var charge_amount: int = 5
+var poison_damage: float = 1
+
+func _ready():
+	CurrentRun.world.current_player_info.global_poison_damage = 0
+	super()
 
 func handle_level_up():
-	charge_amount += 5
+	update_player_info()
 
-func fill_meter():
-	player.charge_attack_bar.value += charge_amount
-	print("Charge fill: " + str(player.charge_attack_bar.value))
+func update_player_info():
+	CurrentRun.world.current_player_info.global_poison_damage += poison_damage
+	print("Increased Global Poison Damage: ", CurrentRun.world.current_player_info.global_poison_damage)

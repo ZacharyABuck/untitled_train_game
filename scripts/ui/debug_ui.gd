@@ -39,7 +39,7 @@ func level_up_edge(edge_reference):
 		var player = world.current_player_info.active_player
 		player.edge_handler.add_edge(edge_reference)
 	else:
-		print("no player")
+		$"../EndScreenUI".add_edge(edge_reference)
 
 func refresh_labels():
 	await get_tree().create_timer(.5).timeout

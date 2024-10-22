@@ -1,3 +1,4 @@
 extends Node2D
 
-var mercs_inventory = {}
+var mercs_inventory = {
+}

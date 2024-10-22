@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://dxc4v2llao2td"]
 
-[ext_resource type="Texture2D" uid="uid://cnqeewi6lnq8f" path="res://sprites/characters/mercs/merc_01.png" id="1_04hrn"]
 [ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="1_ti6mp"]
 [ext_resource type="Script" path="res://scripts/ui/merc_container.gd" id="2_uf5xt"]
+[ext_resource type="Texture2D" uid="uid://0uwb285b3p0v" path="res://sprites/characters/bourdalain.png" id="3_6fyc2"]
 [ext_resource type="Texture2D" uid="uid://ccydwnn5siydn" path="res://sprites/ui/x.png" id="4_gonc2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d4bkq"]
@@ -38,7 +38,6 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
-custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 mouse_filter = 2
 alignment = 1
@@ -52,7 +51,6 @@ alignment = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 texture_filter = 1
-custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 mouse_filter = 2
 theme = ExtResource("1_ti6mp")
@@ -61,10 +59,10 @@ bbcode_enabled = true
 text = "[center]Bob[/center]"
 fit_content = true
 scroll_active = false
+autowrap_mode = 0
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 texture_filter = 1
-custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 mouse_filter = 2
 theme = ExtResource("1_ti6mp")
@@ -73,14 +71,16 @@ bbcode_enabled = true
 text = "[center]Bulletsmith[/center]"
 fit_content = true
 scroll_active = false
+autowrap_mode = 0
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
 texture_filter = 1
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 mouse_filter = 2
 theme = ExtResource("1_ti6mp")
-texture = ExtResource("1_04hrn")
-expand_mode = 3
+texture = ExtResource("3_6fyc2")
+expand_mode = 1
 stretch_mode = 5
 
 [node name="CloseSprite" type="TextureRect" parent="."]

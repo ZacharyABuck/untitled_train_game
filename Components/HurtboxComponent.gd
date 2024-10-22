@@ -11,8 +11,9 @@ func damage(attack: Attack, shooter):
 	if health_component:
 		health_component.damage(attack, shooter)
 		health_component.spawn_particles(health_component.blood_fx)
-		for buff in attack.active_buffs:
-			health_component.process_buffs(buff)
+		if health_component.status_effect_component != null:
+			health_component.status_effect_component.check_status(attack.active_buffs)
+
 		if get_parent() is Player:
 			AudioSystem.play_audio("player_hit", -10)
 		else:

@@ -15,6 +15,8 @@ func _ready():
 	gun.area_exited.connect(gun_area_exited)
 
 	initialize_raycast()
+	
+	initialize_buff_receiver()
 
 func _physics_process(_delta):
 	if target == null:
@@ -28,6 +30,16 @@ func _physics_process(_delta):
 				shoot_if_raycast_ok()
 			else:
 				check_for_targets()
+
+func initialize_buff_receiver():
+	var area = Area2D.new()
+	add_child(area)
+	area.set_collision_layer_value(1, false)
+	area.set_collision_mask_value(1, false)
+	area.set_collision_layer_value(11, true)
+	var collision_shape = CollisionShape2D.new()
+	area.add_child(collision_shape)
+	collision_shape.shape = CircleShape2D.new()
 
 func set_moving_target():
 	moving_target_component.move_target(target, global_position, target.velocity, gun.BULLET_SPEED)

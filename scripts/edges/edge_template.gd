@@ -11,8 +11,7 @@ var edge_name: String
 
 func _ready():
 	edge_name = EdgeInfo.edge_roster[edge_reference]["name"]
-	if EdgeInfo.edge_roster[edge_reference]["update"] == true:
-		update_player_info()
+	update_player_info()
 
 func handle_level_up():
 	pass

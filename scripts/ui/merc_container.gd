@@ -22,20 +22,21 @@ func populate(new_merc):
 	sprite.texture = CharacterInfo.mercs_roster[merc_type]["sprite"]
 
 func _physics_process(_delta):
+	pivot_offset = size*.5
 	if held:
 		global_position = Vector2(get_global_mouse_position().x - (size.x*.5), get_global_mouse_position().y - 50)
 
 func preview(panel):
+	AudioSystem.play_audio("quick_woosh", -15)
 	var pos_tween = create_tween()
-	pos_tween.tween_property(self, "global_position", panel.car_sprite.global_position, .1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	pos_tween.tween_property(self, "global_position", (panel.mouse_detector.global_position + panel.mouse_detector.size*.5) - size*.5, .1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 
 func place(panel):
 	CurrentRun.world.current_train_info.cars_inventory[panel.car_number]["merc"] = merc_name
-	
+	AudioSystem.play_audio("big_ding", -15)
 	panel.equipped_merc_panel = self
 	held = false
 	reparent(panel.mouse_detector)
-	print("Merc Assigned")
 
 func _on_button_mouse_entered():
 	if get_parent() is Panel and close_sprite.visible == false:

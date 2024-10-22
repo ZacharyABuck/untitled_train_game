@@ -17,7 +17,6 @@ class_name ProjectileAttackComponent
 @export var MOBILE_ATTACK := false
 @export var TARGET_AREA : CollisionShape2D
 @export var LIFETIME := 3
-#@export var BUFF_RECEIVER : Area2D
 @export var SHOOT_SOUND: AudioStreamPlayer2D
 
 var attack_timer

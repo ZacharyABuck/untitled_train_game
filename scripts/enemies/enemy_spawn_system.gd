@@ -58,7 +58,7 @@ func _on_spawn_interval_timer_timeout():
 	if spawn_index >= wave_count:
 		spawn_interval_timer.stop()
 		
-		CurrentRun.world.current_level_info.difficulty += .05
+		CurrentRun.world.current_level_info.difficulty += .03
 		wave_count += 1
 		enemy_wave_timer.start()
 		

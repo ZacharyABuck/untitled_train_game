@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cfg2v7swdbas4"]
+[gd_scene load_steps=9 format=3 uid="uid://cfg2v7swdbas4"]
 
 [ext_resource type="Script" path="res://scenes/edges/spare_bullets.gd" id="1_ajkxp"]
 [ext_resource type="Shader" path="res://shaders/fog.gdshader" id="2_vu1pg"]
@@ -25,6 +25,9 @@ height = 512
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_jtbuw"]
+radius = 104.0
+
 [node name="SpareBullets" type="Node2D"]
 script = ExtResource("1_ajkxp")
 edge_reference = "spare_bullets"
@@ -32,3 +35,14 @@ edge_reference = "spare_bullets"
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_bbv2k")
 texture = SubResource("GradientTexture2D_f4mfs")
+
+[node name="BuffArea" type="Area2D" parent="."]
+collision_layer = 1024
+collision_mask = 1024
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BuffArea"]
+shape = SubResource("CircleShape2D_jtbuw")
+debug_color = Color(0, 0.646897, 0.225541, 0.42)
+
+[connection signal="area_entered" from="BuffArea" to="." method="area_entered"]
+[connection signal="area_exited" from="BuffArea" to="." method="area_exited"]

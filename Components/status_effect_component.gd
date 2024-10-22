@@ -16,11 +16,27 @@ var poison_fx = preload("res://scenes/fx/poison_fx.tscn")
 var shock_fx = preload("res://scenes/fx/shock_fx.tscn")
 var fire_fx = preload("res://scenes/fx/fire_fx.tscn")
 
+var default_poison_damage: float = 1.0
+var default_fire_damage: float = 2.0
+
 var character
 
 #make sure enemy is parent of this
 func _ready():
 	character = get_parent()
+	health_component = character.health_component
+
+func check_status(buffs):
+	if buffs.has("poison") and buffs["poison"] > 0:
+		poison_tick_timer.disconnect("timeout", _on_poison_tick_timer_timeout)
+		poison_tick_timer.timeout.connect(_on_poison_tick_timer_timeout.bind(buffs["poison"]))
+		apply_poison()
+	if buffs.has("fire") and buffs["fire"] > 0:
+		fire_tick_timer.disconnect("timeout", _on_fire_tick_timer_timeout)
+		fire_tick_timer.timeout.connect(_on_fire_tick_timer_timeout.bind(buffs["fire"]))
+		apply_fire()
+	if buffs.has("shock") and buffs["shock"] == true:
+		apply_shock()
 
 func apply_poison():
 	is_poisoned = true
@@ -29,18 +45,28 @@ func apply_poison():
 	if poison_timer:
 		poison_timer.start()
 
+func _on_poison_tick_timer_timeout(damage):
+	var poison_tick = Attack.new()
+	
+	if damage > 0:
+		poison_tick.attack_damage = damage + CurrentRun.world.current_player_info.global_poison_damage
+	else:
+		poison_tick.attack_damage = default_poison_damage + CurrentRun.world.current_player_info.global_poison_damage
+	health_component.damage(poison_tick, null)
+	spawn_particles(poison_fx)
+	
+	if !is_poisoned:
+		poison_tick_timer.stop()
+
+func _on_poison_timer_timeout():
+	is_poisoned = false
+
 func apply_shock():
 	is_shocked = true
 	if shock_timer:
 		shock_timer.start()
 	spawn_particles(shock_fx)
 	shock()
-
-func apply_fire():
-	is_burning = true
-	if fire_tick_timer.is_stopped():
-		fire_tick_timer.start()
-	fire_timer.start()
 
 func shock():
 	if is_shocked:
@@ -58,26 +84,24 @@ func spawn_particles(fx):
 	new_fx.global_position = character.global_position
 	new_fx.emitting = true
 
-func _on_poison_tick_timer_timeout():
-	var poison_damage = CurrentRun.world.current_player_info.poison_damage
-	var poison_tick = Attack.new()
-	poison_tick.attack_damage = poison_damage
-	health_component.damage(poison_tick, null)
-	spawn_particles(poison_fx)
-	
-	if !is_poisoned:
-		poison_tick_timer.stop()
-
-func _on_poison_timer_timeout():
-	is_poisoned = false
+func apply_fire():
+	is_burning = true
+	if fire_tick_timer.is_stopped():
+		fire_tick_timer.start()
+	fire_timer.start()
 
 func _on_fire_timer_timeout():
 	is_burning = false
 
-func _on_fire_tick_timer_timeout():
-	var fire_damage = CurrentRun.world.current_player_info.fire_damage
+func _on_fire_tick_timer_timeout(damage):
 	var fire_tick = Attack.new()
-	fire_tick.attack_damage = fire_damage
+	print(damage)
+	print("global: " + str(CurrentRun.world.current_player_info.global_fire_damage))
+	if damage > 0:
+		fire_tick.attack_damage = damage + CurrentRun.world.current_player_info.global_fire_damage
+	else:
+		fire_tick.attack_damage = default_fire_damage + CurrentRun.world.current_player_info.global_fire_damage
+	print("fire damage: " + str(fire_tick.attack_damage))
 	health_component.damage(fire_tick, null)
 	spawn_particles(fire_fx)
 	

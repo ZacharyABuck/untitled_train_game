@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://jh47mmiljojd"]
+[gd_scene load_steps=11 format=3 uid="uid://jh47mmiljojd"]
 
 [ext_resource type="Script" path="res://scripts/gadgets/gadget_shock_turret.gd" id="1_gawx1"]
 [ext_resource type="Texture2D" uid="uid://c1esbr41s7mmf" path="res://sprites/gadgets/gadget_pistol_turret.png" id="2_roqua"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://7oojou0r8v4u" path="res://scenes/projectiles/green_bullet.tscn" id="4_fuif1"]
 [ext_resource type="AudioStream" uid="uid://cktjuxs4l5ah2" path="res://sounds/combat/short_gunshot.wav" id="5_122jg"]
 [ext_resource type="PackedScene" uid="uid://cpe7uj0omv03o" path="res://components/moving_target_component.tscn" id="6_0lh4g"]
-[ext_resource type="PackedScene" uid="uid://blo8u73t6turn" path="res://scenes/buff_receiver.tscn" id="7_dmsho"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h5xqt"]
 radius = 440.018
@@ -71,8 +70,6 @@ texture = SubResource("GradientTexture2D_y8sjb")
 [node name="MovingTargetComponent" parent="." instance=ExtResource("6_0lh4g")]
 collision_layer = 8
 collision_mask = 0
-
-[node name="BuffReceiver" parent="." instance=ExtResource("7_dmsho")]
 
 [node name="HazardReceiver" type="Area2D" parent="."]
 collision_layer = 16

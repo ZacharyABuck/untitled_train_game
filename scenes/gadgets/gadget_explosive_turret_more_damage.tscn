@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cd2dqmrmlaslv"]
+[gd_scene load_steps=11 format=3 uid="uid://cd2dqmrmlaslv"]
 
 [ext_resource type="Script" path="res://scripts/gadgets/gadget_explosive_turret.gd" id="1_mddub"]
 [ext_resource type="Texture2D" uid="uid://8rcl46gf5h4f" path="res://sprites/gadgets/gadget_explosive_turret.png" id="2_6f2eo"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://ikqkup712f5b" path="res://scenes/projectiles/explosive_bullet.tscn" id="4_sr8oy"]
 [ext_resource type="AudioStream" uid="uid://24x7wkoobr7a" path="res://sounds/combat/canon_01.wav" id="5_v05p8"]
 [ext_resource type="PackedScene" uid="uid://cpe7uj0omv03o" path="res://components/moving_target_component.tscn" id="6_hukst"]
-[ext_resource type="PackedScene" uid="uid://blo8u73t6turn" path="res://scenes/buff_receiver.tscn" id="7_05bnr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3blwe"]
 radius = 355.114
@@ -72,8 +71,6 @@ bus = &"SFX"
 [node name="MovingTargetComponent" parent="." instance=ExtResource("6_hukst")]
 collision_layer = 8
 collision_mask = 0
-
-[node name="BuffReceiver" parent="." instance=ExtResource("7_05bnr")]
 
 [node name="HazardReceiver" type="Area2D" parent="."]
 collision_layer = 16

@@ -5,4 +5,4 @@ func _ready():
 	super()
 
 func poison_bullets():
-	active_buffs["poison"] = true
+	active_buffs["poison"] = 1

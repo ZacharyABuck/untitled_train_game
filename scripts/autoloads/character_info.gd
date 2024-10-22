@@ -102,14 +102,39 @@ var mercs_roster = {
 			"0" = {
 				"poison" = {
 					"name" = "Poison Bullets",
-					"value" = true,
+					"value" = 1,
 				},
 			},
 			"1" = {
+				"poison" = {
+					"name" = "Poison Damage Increase",
+					"value" = 1,
+					"cost" = 15.00,
+				},
+			},
+			"2" = {
 				"poison_cloud" = {
 					"name" = "Poison Cloud",
 					"value" = true,
 					"cost" = 30.00,
+				},
+			},
+		},
+	},
+	"pyrotech" = {
+		"sprite" = preload("res://sprites/characters/bourdalain.png"),
+		"ranks" = {
+			"0" = {
+				"fire" = {
+					"name" = "Fire Bullets",
+					"value" = 1,
+				},
+			},
+			"1" = {
+				"fire" = {
+					"name" = "Fire Damage Increase",
+					"value" = 1,
+					"cost" = 15.00,
 				},
 			},
 		},

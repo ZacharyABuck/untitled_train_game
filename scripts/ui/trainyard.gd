@@ -27,8 +27,8 @@ func spawn_trainyard_items():
 			var new_panel = spawn_train_car_panel(car)
 			new_panel.check_upkeep()
 			new_panel.clicked.connect(panel_clicked)
-			new_panel.mouse_detector.mouse_entered.connect(preview_merc_placement.bind(new_panel))
-			new_panel.mouse_detector.mouse_exited.connect(dismiss_merc_placement.bind(new_panel))
+			new_panel.car_sprite.mouse_entered.connect(preview_merc_placement.bind(new_panel))
+			new_panel.car_sprite.mouse_exited.connect(dismiss_merc_placement.bind(new_panel))
 	
 	var merc_container = preload("res://scenes/ui/merc_container.tscn")
 	for merc_panel in mercs.get_children():
@@ -66,14 +66,14 @@ func merc_held(merc_panel):
 func merc_released(merc_panel):
 	if merc_panel.held:
 		reset_merc(merc_panel)
+	elif hovered_car_panel != null:
+		merc_panel.place(hovered_car_panel)
+		hovered_car_panel = null
+		held_merc = null
+		clear_tech_tree()
+		CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"].check_warnings()
 	else:
-		if hovered_car_panel != null:
-			merc_panel.place(hovered_car_panel)
-			held_merc = null
-			clear_tech_tree()
-			CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"].check_warnings()
-		else:
-			populate_tech_tree(merc_panel)
+		populate_tech_tree(merc_panel)
 
 func reset_merc(merc_panel):
 	for i in CurrentRun.world.current_train_info.cars_inventory.keys():

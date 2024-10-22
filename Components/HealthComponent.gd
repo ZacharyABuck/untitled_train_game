@@ -58,17 +58,6 @@ func damage(attack : Attack, shooter):
 	if health <= 0:
 		_handle_death(shooter)
 
-func process_buffs(buff):
-	if status_effect_component:
-		status_effect_component.health_component = self
-		match buff:
-			"poison":
-				status_effect_component.apply_poison()
-			"shock":
-				status_effect_component.apply_shock()
-			"fire":
-				status_effect_component.apply_fire()
-
 func spawn_particles(fx):
 	var new_fx = fx.instantiate()
 	CurrentRun.world.current_level_info.active_level.add_child(new_fx)

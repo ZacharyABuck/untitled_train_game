@@ -70,13 +70,10 @@ func shoot():
 		attack_delay_timer.wait_time = current_attack_delay
 		attack_delay_timer.start()
 		
-		new_bullet.hit_target.connect(bullet_hit_target)
-		
 		for shot in scatter_shot_amount:
 			var scatter_shot = _build_bullet(current_bullet.instantiate())
 			scatter_shot.target += Vector2(randi_range(-100,100), randi_range(-100,100))
 			CurrentRun.world.current_level_info.active_level.bullets.add_child(scatter_shot)
-			scatter_shot.hit_target.connect(bullet_hit_target)
 			
 		if weapon_id != "revolver":
 			CurrentRun.world.current_player_info.current_ranged_weapon_ammo_count -= 1
@@ -108,24 +105,5 @@ func _build_bullet(b):
 	b.lifetime = current_lifetime
 	b.shooter = player
 	b.target = get_global_mouse_position()
-	
-	return b
-
-func bullet_hit_target(area):
-	#check for ricochet
-	if CurrentRun.world.current_player_info.ricochet_amount > 0 and \
-	CurrentRun.world.current_player_info.current_ranged_weapon_reference != "flamethrower":
-		for bullet in CurrentRun.world.current_player_info.ricochet_amount:
-			var new_bullet = _build_ricochet(current_bullet.instantiate(), area)
-			CurrentRun.world.current_level_info.active_level.bullets.call_deferred("add_child", new_bullet)
-
-func _build_ricochet(b, area):
-	b.global_position = area.global_position
-	b.last_enemy_hit = area
-	b.speed = current_projectile_speed
-	b.damage = current_damage
-	b.target = Vector2(area.global_position.x + randi_range(-100,100), area.global_position.y + randi_range(-100,100))
-	b.valid_hitbox_types = {"enemy":true, "player":false, "car":false, "cover":false, "terrain":true}
-	b.lifetime = .5
 	
 	return b

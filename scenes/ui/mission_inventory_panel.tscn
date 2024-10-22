@@ -16,9 +16,10 @@ script = ExtResource("1_bp06l")
 layout_mode = 2
 
 [node name="CharacterIcon" type="TextureRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture = ExtResource("3_xfboe")
-expand_mode = 3
+expand_mode = 1
 stretch_mode = 5
 
 [node name="TimeLimitLabel" type="RichTextLabel" parent="HBoxContainer/CharacterIcon"]
