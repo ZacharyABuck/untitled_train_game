@@ -9,6 +9,8 @@ var active_projectile
 @onready var lasso_spinning_sound = $LassoSpinningSound
 @onready var lasso_release_sound = $LassoReleaseSound
 
+var max_distance: float = 400.0
+
 var rope_texture = preload("res://sprites/projectiles/rope_segment.png")
 
 func windup():
@@ -21,8 +23,15 @@ func release():
 	if active_projectile != null:
 		lasso_spinning_sound.stop()
 		lasso_release_sound.play()
-		active_projectile.target = get_global_mouse_position()
+		
+		active_projectile.target = calculate_target()
 		active_projectile.state = "release"
+
+func calculate_target():
+	var mouse_pos = get_global_mouse_position()
+	var player_pos = CurrentRun.world.current_player_info.active_player.global_position
+	var mouse_dir = (mouse_pos - player_pos).normalized()
+	return player_pos + (mouse_dir * max_distance)
 
 func _physics_process(_delta):
 	if active_projectile != null:

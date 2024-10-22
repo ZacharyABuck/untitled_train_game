@@ -5,7 +5,7 @@ extends CharacterBody2D
 
 var spin_speed: float = 1000
 var initial_speed: float = 60000
-var deceleration: float = 100
+var deceleration: float = 50
 var speed: float
 var final_speed: float = 40000
 var target
@@ -24,7 +24,7 @@ func _physics_process(delta):
 		sprite.rotation_degrees = 0
 		velocity = global_position.direction_to(target)*(speed*delta)
 		move_and_slide()
-		if global_position.distance_to(target) <= 10:
+		if global_position.distance_to(target) <= 10 or grabbed_hazard != null:
 			state = "return"
 		speed = clamp(speed - deceleration, final_speed, initial_speed)
 	elif state == "return":

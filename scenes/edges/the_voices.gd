@@ -1,6 +1,13 @@
 extends Edge
 
-var charge_increase_amount: int = 2
+var distance_increase_amount: float = .2
+
+func _ready():
+	super()
+	
+	handle_level_up()
 
 func handle_level_up():
-	CurrentRun.world.current_player_info.current_charge_recovery_rate += charge_increase_amount
+	var lasso = CurrentRun.world.current_player_info.active_player.lasso
+	lasso.max_distance += (lasso.max_distance * distance_increase_amount)
+	print("Max Lasso Distance: " + str(lasso.max_distance))

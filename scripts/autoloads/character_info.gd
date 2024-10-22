@@ -44,24 +44,24 @@ var mercs_roster = {
 				"damage" = {
 					"name" = "Turret Damage Increase 20%",
 					"value" = 0.2,
-					"cost" = 15.00,
+					"cost" = 30.00,
 				},
 				"attack_delay" = {
 					"name" = "Turrets Shoot Faster 10%",
 					"value" = 0.1,
-					"cost" = 15.00,
+					"cost" = 30.00,
 				},
 			},
 			"2" = {
 				"damage" = {
 					"name" = "Turret Damage Increase 30%",
 					"value" = 0.3,
-					"cost" = 20.00,
+					"cost" = 50.00,
 				},
 				"ricochet" = {
 					"name" = "Turret Bullets Bounce",
 					"value" = 1,
-					"cost" = 20.00,
+					"cost" = 50.00,
 				},
 			},
 		},
@@ -73,26 +73,25 @@ var mercs_roster = {
 				"scatter_shot" = {
 					"name" = "Turret Scatter Shot Increase +1",
 					"value" = 1,
-					"cost" = 15.00,
 				},
 			},
 			"1" = {
 				"damage" = {
 					"name" = "Turret Damage Increase 30%",
 					"value" = 0.3,
-					"cost" = 15.00,
+					"cost" = 30.00,
 				},
 				"ricochet" = {
 					"name" = "Turret Bullets Bounce",
 					"value" = 1,
-					"cost" = 20.00,
+					"cost" = 40.00,
 				},
 			},
 			"2" = {
 				"scatter_shot" = {
 					"name" = "Turret Scatter Shot Increase +1",
 					"value" = 1,
-					"cost" = 20.00,
+					"cost" = 50.00,
 				},
 			},
 		},
@@ -110,7 +109,7 @@ var mercs_roster = {
 				"poison_cloud" = {
 					"name" = "Poison Cloud",
 					"value" = true,
-					"cost" = 15.00,
+					"cost" = 30.00,
 				},
 			},
 		},

@@ -156,7 +156,6 @@ func find_distance():
 
 func find_fuel_cost() -> int:
 	var distance = find_distance()
-	print(distance)
 	return distance
 
 func level_complete():

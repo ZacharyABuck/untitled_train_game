@@ -58,7 +58,7 @@ func _on_spawn_interval_timer_timeout():
 	if spawn_index >= wave_count:
 		spawn_interval_timer.stop()
 		
-		CurrentRun.world.current_level_info.difficulty += .03
+		CurrentRun.world.current_level_info.difficulty += .05
 		wave_count += 1
 		enemy_wave_timer.start()
 		
@@ -70,10 +70,11 @@ func _on_spawn_interval_timer_timeout():
 		spawn_level_enemies()
 		
 		#rng for second enemy to spawn
-		var rng = randf_range(1, 2)
-		if CurrentRun.world.current_level_info.difficulty >= rng:
-			spawn_level_enemies()
-			print("second enemy spawned")
+		var rng = randf_range(1, 5)
+		for i in roundf(rng):
+			if CurrentRun.world.current_level_info.difficulty >= i:
+				spawn_level_enemies()
+				print("another enemy spawned")
 		
 		spawn_interval_timer.start()
 
@@ -84,7 +85,6 @@ func spawn_level_enemies():
 	
 	var random_enemy = new_spawner.find_random_enemy()
 	new_spawner.spawn_enemy(1, random_enemy, null)
-	
 	
 	print("Enemies Spawned, Wave: " + str(wave_count) + " Difficulty: " + str(CurrentRun.world.current_level_info.difficulty))
 	

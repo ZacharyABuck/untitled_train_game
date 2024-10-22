@@ -23,7 +23,16 @@ func _ready():
 	if car_number == 0:
 		car_sprite.texture = TrainInfo.cars_roster["engine"]["sprite"]
 
-func _process(_delta):
+#func _process(_delta):
+	#if car_number != null and CurrentRun.world.current_train_info.cars_inventory.has(car_number):
+		#for slot in slots:
+			#if CurrentRun.world.current_train_info.cars_inventory[car_number]["gadgets"].has(slot) and\
+			#CurrentRun.world.current_train_info.cars_inventory[car_number]["gadgets"][slot]["upkeep_paid"] == false:
+				#slots[slot].get_child(2).play("flash")
+			#else:
+				#slots[slot].get_child(2).play("still")
+
+func check_upkeep():
 	if car_number != null and CurrentRun.world.current_train_info.cars_inventory.has(car_number):
 		for slot in slots:
 			if CurrentRun.world.current_train_info.cars_inventory[car_number]["gadgets"].has(slot) and\

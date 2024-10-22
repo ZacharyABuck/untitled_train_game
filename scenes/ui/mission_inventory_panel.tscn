@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/ui/mission_inventory_panel.gd" id="1_bp06l"]
 [ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="1_i4516"]
-[ext_resource type="Texture2D" uid="uid://dutu0olvdwa37" path="res://sprites/characters/Franch Token.png" id="1_pja34"]
+[ext_resource type="Texture2D" uid="uid://dodrdiwvs1bmg" path="res://sprites/train/crate_icon.png" id="3_xfboe"]
 [ext_resource type="FontFile" uid="uid://210c7eraosq1" path="res://fonts/JMH Typewriter.otf" id="4_ara7j"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mh25m"]
@@ -17,8 +17,8 @@ layout_mode = 2
 
 [node name="CharacterIcon" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("1_pja34")
-expand_mode = 2
+texture = ExtResource("3_xfboe")
+expand_mode = 3
 stretch_mode = 5
 
 [node name="TimeLimitLabel" type="RichTextLabel" parent="HBoxContainer/CharacterIcon"]

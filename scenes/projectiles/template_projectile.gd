@@ -68,7 +68,6 @@ func _on_area_2d_area_entered(area):
 				var scene = PackedScene.new()
 				scene.pack(self)
 				var new_ricochet = _build_ricochet(scene.instantiate(), area)
-				print(new_ricochet)
 				CurrentRun.world.current_level_info.active_level.bullets.call_deferred("add_child", new_ricochet)
 
 func _build_ricochet(b, area):

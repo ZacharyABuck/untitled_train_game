@@ -45,6 +45,7 @@ func find_stats(enemy_type):
 	money = enemy_stats["money"]
 	experience = enemy_stats["experience"] * CurrentRun.world.current_level_info.difficulty
 	damage = enemy_stats["damage"]
+	health_component.MAX_HEALTH = enemy_stats["health"] * CurrentRun.world.current_level_info.difficulty
 	health_component.health = enemy_stats["health"] * CurrentRun.world.current_level_info.difficulty
 
 func find_target():

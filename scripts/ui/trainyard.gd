@@ -25,6 +25,7 @@ func spawn_trainyard_items():
 	if !cars_inventory.keys().is_empty():
 		for car in cars_inventory.keys():
 			var new_panel = spawn_train_car_panel(car)
+			new_panel.check_upkeep()
 			new_panel.clicked.connect(panel_clicked)
 			new_panel.mouse_detector.mouse_entered.connect(preview_merc_placement.bind(new_panel))
 			new_panel.mouse_detector.mouse_exited.connect(dismiss_merc_placement.bind(new_panel))
@@ -177,7 +178,9 @@ func pay_upkeep(button):
 			CurrentRun.world.current_train_info.cars_inventory[selected_car]["gadgets"][selected_slot.name]["upkeep_paid"] = true
 			pay_upkeep_button.hide()
 			check_all_upkeep()
-	
+		
+		for panel in train_car_container.get_children():
+			panel.check_upkeep()
 		CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"].check_warnings()
 
 func clear_tech_tree():
