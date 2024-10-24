@@ -8,7 +8,6 @@ var gadget_roster = {
 		"scene" = load("res://scenes/gadgets/gadget_pistol_turret.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_pistol_turret.png"),
 		"cost" = 5.00,
-		"unlocked" = true,
 	},
 	"scatter_shot_turret" = {
 		"name" = "Scatter Shot Turret",
@@ -17,7 +16,6 @@ var gadget_roster = {
 		"scene" = load("res://scenes/gadgets/gadget_scatter_shot_turret.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_pistol_turret.png"),
 		"cost" = 10.00,
-		"unlocked" = false,
 	},
 	"scatter_shot_turret_more_scatter" = {
 		"name" = "More Scatter",
@@ -42,7 +40,6 @@ var gadget_roster = {
 		"scene" = load("res://scenes/gadgets/gadget_shock_turret.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_pistol_turret.png"),
 		"cost" = 7.00,
-		"unlocked" = false,
 	},
 	"shock_turret_quick_loading" = {
 		"name" = "Quick Loading",
@@ -83,7 +80,6 @@ var gadget_roster = {
 		"scene" = load("res://scenes/gadgets/gadget_explosive_turret.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_explosive_turret.png"),
 		"cost" = 10.00,
-		"unlocked" = false,
 	},
 	"explosive_turret_long_range" = {
 		"name" = "Longer Range",
@@ -108,7 +104,6 @@ var gadget_roster = {
 		"scene" = load("res://scenes/gadgets/gadget_flame_turret.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_pistol_turret.png"),
 		"cost" = 10.00,
-		"unlocked" = false,
 	},
 	"flame_turret_wide_area" = {
 		"name" = "Wide Area",
@@ -125,7 +120,6 @@ var gadget_roster = {
 		"scene" = load("res://scenes/gadgets/gadget_gattling_turret.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_pistol_turret.png"),
 		"cost" = 12.00,
-		"unlocked" = false,
 	},
 	"gattling_turret_more_damage" = {
 		"name" = "More Damage",
@@ -140,7 +134,7 @@ var gadget_roster = {
 func find_random_locked_gadget():
 	var locked_gadgets = []
 	for i in gadget_roster:
-		if gadget_roster[i].has("unlocked") and gadget_roster[i]["unlocked"] == false:
+		if !CurrentRun.world.current_gadget_info.unlocked_gadgets.has(i) and gadget_roster[i]["last_gadget"] == null:
 			locked_gadgets.append(i)
 	var random_gadget = locked_gadgets.pick_random()
 	

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cx68viq65gp8f"]
+
+[ext_resource type="Script" path="res://scenes/edges/tomahawk.gd" id="1_ok0r6"]
+[ext_resource type="PackedScene" uid="uid://cgyhdedd2plqr" path="res://scenes/weapons/hatchet.tscn" id="2_f2nlo"]
+
+[node name="Tomahawk" type="Node2D"]
+script = ExtResource("1_ok0r6")
+edge_reference = "tomahawk"
+
+[node name="Hatchet" parent="." instance=ExtResource("2_f2nlo")]

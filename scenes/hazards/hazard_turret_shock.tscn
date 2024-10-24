@@ -1,0 +1,83 @@
+[gd_scene load_steps=7 format=3 uid="uid://beeikppdlus0y"]
+
+[ext_resource type="Script" path="res://scenes/hazards/hazard_turret_shock.gd" id="1_hbdno"]
+[ext_resource type="Texture2D" uid="uid://dq2n1ulkvg4m0" path="res://sprites/ui/shock_buff.png" id="2_6axwq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a2doi"]
+radius = 23.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x4hru"]
+bg_color = Color(0.956863, 0.937255, 0.858824, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.482353, 0.27451, 0.2, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_size = 2
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mqkny"]
+radius = 34.2345
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kmnmu"]
+radius = 34.2345
+
+[node name="HazardTurretShock" type="RigidBody2D" node_paths=PackedStringArray("gadget_detector", "player_detector", "collision", "sprite")]
+collision_layer = 4096
+collision_mask = 0
+script = ExtResource("1_hbdno")
+gadget_detector = NodePath("GadgetDetector")
+player_detector = NodePath("PlayerDetector")
+collision = NodePath("CollisionShape2D")
+sprite = NodePath("Sprite2D")
+grabbable = true
+target_types = {
+"enemy": false,
+"furnace": false,
+"gadget": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_a2doi")
+
+[node name="Panel" type="PanelContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_x4hru")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_6axwq")
+
+[node name="GadgetDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GadgetDetector"]
+visible = false
+shape = SubResource("CircleShape2D_mqkny")
+debug_color = Color(0.927835, 0.236988, 0.329381, 0.42)
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+visible = false
+shape = SubResource("CircleShape2D_kmnmu")
+debug_color = Color(0.927835, 0.236988, 0.329381, 0.42)
+
+[connection signal="area_entered" from="GadgetDetector" to="." method="_on_gadget_detector_area_entered"]

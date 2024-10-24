@@ -12,7 +12,7 @@ var enemy_spawn_system
 var destination
 
 var difficulty = 1.0
-var wave_count: int = 2
+var wave_count: int = 1
 
 var level_parameters = {
 	"distance" = 4,

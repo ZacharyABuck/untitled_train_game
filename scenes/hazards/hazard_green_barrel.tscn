@@ -121,6 +121,11 @@ explosion_area = NodePath("ExplosionArea")
 sprite = NodePath("Sprite2D")
 explosion_sprite = NodePath("AnimatedSprite2D")
 grabbable = true
+target_types = {
+"enemy": true,
+"furnace": false,
+"gadget": false
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

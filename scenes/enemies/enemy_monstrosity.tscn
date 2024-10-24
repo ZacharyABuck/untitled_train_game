@@ -18,8 +18,8 @@
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/zombie_state_dead.gd" id="14_47xnd"]
 [ext_resource type="PackedScene" uid="uid://fhwaeth7nhpr" path="res://components/status_effect_component.tscn" id="17_71mqj"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_jwejo"]
-radius = 10.5
+[sub_resource type="CircleShape2D" id="CircleShape2D_2kgqp"]
+radius = 12.659
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4v00t"]
 size = Vector2(26, 40)
@@ -925,7 +925,7 @@ enemy_reference = "monstrosity"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.5, 9)
-shape = SubResource("CircleShape2D_jwejo")
+shape = SubResource("CircleShape2D_2kgqp")
 
 [node name="AttackTimer" type="Timer" parent="."]
 

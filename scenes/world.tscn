@@ -624,6 +624,7 @@ mouse_filter = 2
 script = ExtResource("18_ulvie")
 
 [node name="TownScreen" type="MarginContainer" parent="TownsUI"]
+visible = false
 texture_filter = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -699,6 +700,7 @@ texture_normal = ExtResource("25_c7tds")
 stretch_mode = 3
 
 [node name="Trainyard" type="MarginContainer" parent="TownsUI"]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -870,11 +872,10 @@ texture = ExtResource("27_gfuge")
 offset = Vector2(0, -25)
 
 [node name="Jobs" type="MarginContainer" parent="TownsUI"]
-visible = false
-offset_left = 3.0
-offset_top = 735.0
-offset_right = 1920.0
-offset_bottom = 935.0
+offset_left = 1367.0
+offset_top = 149.0
+offset_right = 1877.0
+offset_bottom = 336.0
 size_flags_vertical = 8
 mouse_filter = 2
 theme_override_constants/margin_left = 0
@@ -885,7 +886,7 @@ theme_override_constants/margin_bottom = 0
 [node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/Jobs"]
 layout_mode = 2
 theme_override_constants/separation = 20
-alignment = 1
+alignment = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="TownsUI/Jobs/HBoxContainer"]
 layout_mode = 2
@@ -905,48 +906,28 @@ theme_override_constants/separation = 30
 [node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/Jobs/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
-alignment = 2
-
-[node name="ButtonSpacer" type="TextureButton" parent="TownsUI/Jobs/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
-modulate = Color(1, 1, 1, 0)
-layout_direction = 3
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-texture_normal = ExtResource("25_c7tds")
-stretch_mode = 3
+alignment = 1
 
 [node name="JobsLabel" type="RichTextLabel" parent="TownsUI/Jobs/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(1000, 0)
-layout_mode = 2
-theme = ExtResource("17_7ntxb")
-theme_override_fonts/normal_font = ExtResource("22_w4hsh")
-theme_override_font_sizes/normal_font_size = 50
-bbcode_enabled = true
-text = "[center]Jobs[/center]"
-fit_content = true
-scroll_active = false
-
-[node name="BackLabel" type="RichTextLabel" parent="TownsUI/Jobs/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("17_7ntxb")
 theme_override_fonts/normal_font = ExtResource("22_w4hsh")
 theme_override_font_sizes/normal_font_size = 50
 bbcode_enabled = true
-text = "[center]Back[/center]"
+text = "Jobs"
 fit_content = true
 scroll_active = false
 
 [node name="JobsCloseButton" type="TextureButton" parent="TownsUI/Jobs/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_direction = 3
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 10
 size_flags_vertical = 0
 texture_normal = ExtResource("25_c7tds")
 stretch_mode = 3
 
-[node name="JobsContainer" type="HBoxContainer" parent="TownsUI/Jobs/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="JobsContainer" type="VBoxContainer" parent="TownsUI/Jobs/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 30

@@ -9,7 +9,7 @@ var active_projectile
 @onready var lasso_spinning_sound = $LassoSpinningSound
 @onready var lasso_release_sound = $LassoReleaseSound
 
-var max_distance: float = 400.0
+var max_distance: float = 500.0
 
 var rope_texture = preload("res://sprites/projectiles/rope_segment.png")
 

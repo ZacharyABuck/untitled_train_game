@@ -30,10 +30,12 @@ var current_damage: float
 var current_lifetime: float
 var current_bullet
 
+#these buffs go to player, who is the master of the buffs
+var active_buffs: Dictionary
+
 func _ready():
 	if muzzle_flash:
 		muzzle_flash.hide()
-	
 	base_attack_delay = WeaponInfo.weapons_roster[weapon_id]["base_attack_delay"]
 	base_projectile_speed = WeaponInfo.weapons_roster[weapon_id]["base_projectile_speed"]
 	base_damage = WeaponInfo.weapons_roster[weapon_id]["base_damage"]
@@ -60,13 +62,15 @@ func shoot():
 			if weapon_id == "flamethrower":
 				if !gunshot_sound.playing: gunshot_sound.play()
 			else: gunshot_sound.play()
-		player.camera.apply_shake(3.0)
+		player.camera.apply_shake(5.0)
 		if muzzle_flash:
 			show_muzzle_flash()
 		
 		var new_bullet = _build_bullet(current_bullet.instantiate())
 		CurrentRun.world.current_level_info.active_level.bullets.add_child(new_bullet)
-
+		
+		WeaponInfo.attach_buffs(player.active_buffs, new_bullet.active_buffs)
+		
 		attack_delay_timer.wait_time = current_attack_delay
 		attack_delay_timer.start()
 		
@@ -74,13 +78,13 @@ func shoot():
 			var scatter_shot = _build_bullet(current_bullet.instantiate())
 			scatter_shot.target += Vector2(randi_range(-100,100), randi_range(-100,100))
 			CurrentRun.world.current_level_info.active_level.bullets.add_child(scatter_shot)
-			
-		if weapon_id != "revolver":
+		
+		#handle running out of ammo
+		if weapon_id != "melee" and weapon_id != "hatchet":
 			CurrentRun.world.current_player_info.current_ranged_weapon_ammo_count -= 1
 			CurrentRun.world.current_level_info.active_level.set_weapon_label(weapon_id, CurrentRun.world.current_player_info.current_ranged_weapon_ammo_count)
 			if CurrentRun.world.current_player_info.current_ranged_weapon_ammo_count <= 0:
-				var default_weapon = WeaponInfo.weapons_roster["revolver"]
-				CurrentRun.world.current_player_info.equip_new_weapon("revolver", 0, 0, 0, 0)
+				CurrentRun.world.current_player_info.equip_new_weapon("melee", 0, 0, 0, 0)
 
 func show_muzzle_flash():
 	muzzle_flash.show()

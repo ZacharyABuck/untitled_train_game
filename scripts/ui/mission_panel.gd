@@ -27,23 +27,18 @@ func find_random_mission():
 	
 	var distance = CurrentRun.world.current_world_info.towns_inventory[destination]["scene"].global_position.distance_to\
 	(CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"].global_position)
-	
-	var random_money = random_mission["reward"] + round(distance*.002)
-	rewards["money"] = random_money
-	$HBoxContainer/VBoxContainer/HBoxContainer/Reward.text = "Reward: $" + str(random_money)
-	
 
-	var rng = randi_range(1,4)
-	if rng == 1:
+	if random_mission["reward"] == "gadget":
 		var random_gadget = GadgetInfo.find_random_locked_gadget()
 		if random_gadget != null:
 			rewards["gadget"] = random_gadget
-			$HBoxContainer/VBoxContainer/HBoxContainer/Reward.text = $HBoxContainer/VBoxContainer/HBoxContainer/Reward.text + "\n + Gadget Unlock"
-	if rng == 2:
+			$HBoxContainer/VBoxContainer/HBoxContainer/Reward.text = "Gadget Unlock"
+
+	if random_mission["reward"] == "merc":
 		var random_merc_type = CharacterInfo.mercs_roster.keys().pick_random()
 		if random_merc_type != null:
 			rewards["merc"] = random_merc_type
-			$HBoxContainer/VBoxContainer/HBoxContainer/Reward.text = $HBoxContainer/VBoxContainer/HBoxContainer/Reward.text + "\n + Merc Joins Your Crew"
+			$HBoxContainer/VBoxContainer/HBoxContainer/Reward.text = "Merc Joins Your Crew"
 	
 	var random_time_limit = randi_range(1,3)
 	if random_time_limit > 1:

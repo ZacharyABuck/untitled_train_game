@@ -1,5 +1,6 @@
 extends Turret
 
 func _ready():
-	active_buffs["shock"] = true
+	var buffs = {"shock": 1}
+	WeaponInfo.attach_buffs(buffs, active_buffs)
 	super()

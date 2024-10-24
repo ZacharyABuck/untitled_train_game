@@ -43,7 +43,7 @@ TARGET_TYPES = {
 }
 ATTACK_TIMER = NodePath("../AttackTimer")
 BULLET_SPEED = 500
-DAMAGE_PER_BULLET = 5.0
+DAMAGE_PER_BULLET = 4.0
 PROJECTILE = ExtResource("4_sr8oy")
 TARGET_AREA = NodePath("CollisionShape2D")
 LIFETIME = 1

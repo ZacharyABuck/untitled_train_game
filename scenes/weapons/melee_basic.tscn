@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://brm1vub4fpb6r"]
+
+[ext_resource type="Script" path="res://scenes/weapons/melee_basic.gd" id="1_6qn04"]
+[ext_resource type="PackedScene" uid="uid://chxhfoeq0h4xr" path="res://scenes/projectiles/melee_projectile.tscn" id="2_2ml5g"]
+[ext_resource type="AudioStream" uid="uid://cew8tlg5tnb7o" path="res://sounds/combat/woosh.wav" id="2_jk63i"]
+
+[node name="MeleeBasic" type="Node2D" node_paths=PackedStringArray("attack_delay_timer", "gunshot_sound")]
+script = ExtResource("1_6qn04")
+attack_delay_timer = NodePath("AttackTimer")
+gunshot_sound = NodePath("Gunshot")
+weapon_id = "melee"
+base_bullet = ExtResource("2_2ml5g")
+
+[node name="Gunshot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_jk63i")
+volume_db = -15.0
+bus = &"SFX"
+
+[node name="AttackTimer" type="Timer" parent="."]

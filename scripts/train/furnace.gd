@@ -1,4 +1,5 @@
 extends StaticBody2D
+class_name Furnace
 
 @onready var health_component = $HealthComponent
 @onready var furnace_health_bar = $HealthBarControl/FurnaceHealthBar
@@ -10,6 +11,7 @@ signal dead
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	CurrentRun.world.current_player_info.targets.append(self)
 	CurrentRun.world.current_train_info.furnace = self
 	dead.connect(CurrentRun.root.show_restart_button)
 

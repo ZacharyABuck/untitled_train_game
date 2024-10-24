@@ -126,7 +126,8 @@ func town_clicked(town):
 		towns_ui.populate_town_info(town)
 		if missions_spawned == false:
 			missions_spawned = true
-			towns_ui.spawn_missions(3)
+			var rng = randi_range(1,2)
+			towns_ui.spawn_missions(rng)
 			towns_ui.trainyard.spawn_trainyard_items()
 			towns_ui.trainyard_button.show()
 	
@@ -204,7 +205,7 @@ func check_missions():
 			current_mission_info.mission_inventory[i]["time_limit"] -= 1
 			#Mission Failed
 			if current_mission_info.mission_inventory[i]["time_limit"] <= 0:
-				end_screen_ui.spawn_reward_panel(false, CharacterInfo.characters_roster[current_mission_info.mission_inventory[i]["character"]]["icon"], current_mission_info.mission_inventory[i]["reward"])
+				end_screen_ui.spawn_reward_panel(false, current_mission_info.mission_inventory[i])
 				current_mission_info.mission_inventory.erase(i)
 				index += 1
 	for i in mission_inventory_container.get_children():
@@ -219,20 +220,16 @@ func check_missions():
 	current_world_info.towns_inventory[current_world_info.active_town]["scene"].check_warnings()
 
 func complete_mission(mission):
-	if current_mission_info.mission_inventory[mission]["reward"].has("money"):
-		current_player_info.current_money += current_mission_info.mission_inventory[mission]["reward"]["money"]
-		update_money_label()
 	if current_mission_info.mission_inventory[mission]["reward"].has("gadget"):
-		GadgetInfo.gadget_roster[current_mission_info.mission_inventory[mission]["reward"]["gadget"]]["unlocked"] = true
+		current_gadget_info.unlocked_gadgets.append(current_mission_info.mission_inventory[mission]["reward"]["gadget"])
 	if current_mission_info.mission_inventory[mission]["reward"].has("merc"):
-		var new_merc_name = find_random_merc()
+		var new_merc_name = current_mission_info.mission_inventory[mission]["character"]
 		var new_merc_type = current_mission_info.mission_inventory[mission]["reward"]["merc"]
 		current_character_info.mercs_inventory[new_merc_name] = {"type": new_merc_type, "ranks": {"0": CharacterInfo.mercs_roster[new_merc_type]["ranks"]["0"]}}
 	if current_mission_info.mission_inventory[mission].keys().has("icon"):
-		end_screen_ui.spawn_reward_panel(true, current_mission_info.mission_inventory[mission]["icon"], current_mission_info.mission_inventory[mission]["reward"])
+		end_screen_ui.spawn_reward_panel(true, current_mission_info.mission_inventory[mission])
 	else: 
-		var character_icon = CharacterInfo.characters_roster[current_mission_info.mission_inventory[mission]["character"]]["icon"]
-		end_screen_ui.spawn_reward_panel(true, character_icon, current_mission_info.mission_inventory[mission]["reward"])
+		end_screen_ui.spawn_reward_panel(true, current_mission_info.mission_inventory[mission])
 	for i in mission_inventory_container.get_children():
 		if i.mission_id == mission:
 			i.queue_free()

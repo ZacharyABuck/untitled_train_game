@@ -17,6 +17,8 @@ func _ready():
 	initialize_raycast()
 	
 	initialize_buff_receiver()
+	
+	initialize_buff_icons()
 
 func _physics_process(_delta):
 	if target == null:
@@ -40,6 +42,10 @@ func initialize_buff_receiver():
 	var collision_shape = CollisionShape2D.new()
 	area.add_child(collision_shape)
 	collision_shape.shape = CircleShape2D.new()
+
+func initialize_buff_icons():
+	var gadget_buff_icons = load("res://scenes/ui/gadget_buff_icons.tscn").instantiate()
+	add_child(gadget_buff_icons)
 
 func set_moving_target():
 	moving_target_component.move_target(target, global_position, target.velocity, gun.BULLET_SPEED)

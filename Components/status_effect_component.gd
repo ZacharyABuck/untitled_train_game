@@ -35,8 +35,8 @@ func check_status(buffs):
 		fire_tick_timer.disconnect("timeout", _on_fire_tick_timer_timeout)
 		fire_tick_timer.timeout.connect(_on_fire_tick_timer_timeout.bind(buffs["fire"]))
 		apply_fire()
-	if buffs.has("shock") and buffs["shock"] == true:
-		apply_shock()
+	if buffs.has("shock") and buffs["shock"] > 0:
+		apply_shock(buffs["shock"])
 
 func apply_poison():
 	is_poisoned = true
@@ -61,22 +61,16 @@ func _on_poison_tick_timer_timeout(damage):
 func _on_poison_timer_timeout():
 	is_poisoned = false
 
-func apply_shock():
+func apply_shock(value):
 	is_shocked = true
 	if shock_timer:
 		shock_timer.start()
 	spawn_particles(shock_fx)
-	shock()
-
-func shock():
-	if is_shocked:
-		character.shock_speed_multiplier = .75
-	else:
-		character.shock_speed_multiplier = 1
+	character.shock_speed_multiplier = value
 
 func _on_shock_timer_timeout():
 	is_shocked = false
-	shock()
+	character.shock_speed_multiplier = 0
 
 func spawn_particles(fx):
 	var new_fx = fx.instantiate()
@@ -95,13 +89,10 @@ func _on_fire_timer_timeout():
 
 func _on_fire_tick_timer_timeout(damage):
 	var fire_tick = Attack.new()
-	print(damage)
-	print("global: " + str(CurrentRun.world.current_player_info.global_fire_damage))
 	if damage > 0:
 		fire_tick.attack_damage = damage + CurrentRun.world.current_player_info.global_fire_damage
 	else:
 		fire_tick.attack_damage = default_fire_damage + CurrentRun.world.current_player_info.global_fire_damage
-	print("fire damage: " + str(fire_tick.attack_damage))
 	health_component.damage(fire_tick, null)
 	spawn_particles(fire_fx)
 	

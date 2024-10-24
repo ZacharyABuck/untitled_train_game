@@ -30,11 +30,8 @@ func _on_body_entered(body):
 		if CurrentRun.world.current_player_info.active_player:
 			if CurrentRun.world.current_player_info.state == "default":
 				if current_type == null:
-					for i in GadgetInfo.gadget_roster:
-						if GadgetInfo.gadget_roster[i].has("unlocked") and GadgetInfo.gadget_roster[i]["unlocked"] == true:
-							$AnimationPlayer.play("flash")
-							selected = true
-							break
+					$AnimationPlayer.play("flash")
+					selected = true
 				else:
 					for i in GadgetInfo.gadget_roster:
 						if GadgetInfo.gadget_roster[i]["last_gadget"] == current_type:
@@ -62,7 +59,7 @@ func spawn_menu(type):
 	if type == null:
 		#spawn base gadgets
 		for i in GadgetInfo.gadget_roster:
-			if GadgetInfo.gadget_roster[i].has("unlocked") and GadgetInfo.gadget_roster[i]["unlocked"] == true:
+			if CurrentRun.world.current_gadget_info.unlocked_gadgets.has(i):
 				add_item(i)
 	else:
 		add_item("sell")

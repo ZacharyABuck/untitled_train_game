@@ -10,7 +10,7 @@ func _ready():
 	picked_up.connect(CurrentRun.world.current_level_info.active_level.weapon_picked_up)
 
 	weapon = WeaponInfo.weapons_roster.keys().pick_random()
-	while weapon == "revolver":
+	while weapon == "melee" or weapon == "hatchet":
 		weapon = WeaponInfo.weapons_roster.keys().pick_random()
 	
 	sprite.texture = WeaponInfo.weapons_roster[weapon]["sprite"]

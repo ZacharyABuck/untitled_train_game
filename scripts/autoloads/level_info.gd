@@ -41,7 +41,19 @@ var hazards_roster = {
 	"rock_pile" = {
 		"scene" = preload("res://scenes/hazards/hazard_rock_pile.tscn"),
 	},
-	"turret_speec_increase" = {
+	"turret_speed_increase" = {
 		"scene" = preload("res://scenes/hazards/hazard_turret_speed_increase.tscn"),
+	},
+	"turret_poison" = {
+		"scene" = preload("res://scenes/hazards/hazard_turret_poison.tscn"),
+	},
+	"turret_fire" = {
+		"scene" = preload("res://scenes/hazards/hazard_turret_fire.tscn"),
+	},
+	"turret_shock" = {
+		"scene" = preload("res://scenes/hazards/hazard_turret_shock.tscn"),
+	},
+	"furnace_health" = {
+		"scene" = preload("res://scenes/hazards/hazard_furnace_health.tscn"),
 	},
 }

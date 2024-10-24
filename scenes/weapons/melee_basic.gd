@@ -1,0 +1,1 @@
+extends Ranged_Weapon

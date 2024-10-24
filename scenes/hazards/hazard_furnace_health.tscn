@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://hic1vf4rn6x2"]
+
+[ext_resource type="Script" path="res://scenes/hazards/hazard_furnace_health.gd" id="1_jj8rn"]
+[ext_resource type="Shader" path="res://shaders/fire.gdshader" id="2_7aosr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v7vw7"]
+radius = 23.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_02poe"]
+radius = 34.2345
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d66se"]
+radius = 34.2345
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3lj2m"]
+shader = ExtResource("2_7aosr")
+shader_parameter/transparent = Color(0, 0, 0, 0)
+shader_parameter/inner = Color(0, 0, 0.882353, 1)
+shader_parameter/outer = Color(1, 1, 1, 1)
+shader_parameter/inner_threshold = 0.08
+shader_parameter/outer_threshold = 0.03
+shader_parameter/soft_edge = -4.35
+shader_parameter/center = Vector2(0.5, 0.695)
+shader_parameter/OCTAVES = 2
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_bfeon"]
+
+[node name="HazardFurnaceHealth" type="RigidBody2D"]
+collision_layer = 4096
+collision_mask = 0
+script = ExtResource("1_jj8rn")
+grabbable = true
+target_types = {
+"enemy": false,
+"furnace": true,
+"gadget": false
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_v7vw7")
+
+[node name="FurnaceDetector" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FurnaceDetector"]
+shape = SubResource("CircleShape2D_02poe")
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+shape = SubResource("CircleShape2D_d66se")
+debug_color = Color(0.927835, 0.236988, 0.329381, 0.42)
+
+[node name="Fire" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_3lj2m")
+position = Vector2(0, 2.38419e-07)
+scale = Vector2(40, 42)
+texture = SubResource("CanvasTexture_bfeon")
+
+[connection signal="body_entered" from="FurnaceDetector" to="." method="furnace_detector_body_entered"]
+[connection signal="body_entered" from="PlayerDetector" to="." method="player_detector_body_entered"]

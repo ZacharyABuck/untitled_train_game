@@ -46,7 +46,7 @@ TARGET_TYPES = {
 }
 ATTACK_TIMER = NodePath("../AttackTimer")
 BULLET_SPEED = 1500
-DAMAGE_PER_BULLET = 1.5
+DAMAGE_PER_BULLET = 1.0
 PROJECTILE = ExtResource("4_fuif1")
 TARGET_AREA = NodePath("ProjectileTargetArea")
 SHOOT_SOUND = NodePath("AudioStreamPlayer2D")

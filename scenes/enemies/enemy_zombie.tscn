@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://components/health_component.tscn" id="4_52reb"]
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/zombie_state_boarding.gd" id="4_hu3u8"]
 [ext_resource type="Texture2D" uid="uid://cduo5m6k4p2ln" path="res://sprites/enemies/zombie.png" id="4_jampl"]
-[ext_resource type="Shader" path="res://shaders/solid_color.gdshader" id="5_0c5ko"]
 [ext_resource type="Script" path="res://components/MeleeAttackComponent.gd" id="5_vxl1g"]
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/zombie_state_finish_boarding.gd" id="6_go37q"]
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/zombie_state_attacking.gd" id="7_e0hqb"]
@@ -16,8 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://fhwaeth7nhpr" path="res://components/status_effect_component.tscn" id="15_dkrpb"]
 [ext_resource type="PackedScene" uid="uid://cpe7uj0omv03o" path="res://components/moving_target_component.tscn" id="15_ghxgt"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_jwejo"]
-radius = 10.5
+[sub_resource type="CircleShape2D" id="CircleShape2D_lnmlo"]
+radius = 4.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4v00t"]
 size = Vector2(26, 40)
@@ -26,8 +25,28 @@ size = Vector2(26, 40)
 radius = 19.5
 height = 39.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gcm2g"]
-shader = ExtResource("5_0c5ko")
+[sub_resource type="Shader" id="Shader_3o4oj"]
+code = "shader_type canvas_item;
+
+uniform vec4 color_override: source_color;
+uniform float blend_delta: hint_range(0., 1.0, 0.02) = 0.;
+
+vec4 override_blend_alpha(vec4 base, vec4 blend)
+{
+	blend.a = base.a;
+	return blend;
+}
+
+void fragment()
+{
+	vec4 texture_color = texture(TEXTURE, UV);
+	vec4 blend_override = override_blend_alpha(texture_color, color_override);
+	vec4 target_color = mix(texture_color, blend_override, blend_delta);
+	COLOR = target_color;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lc73j"]
+shader = SubResource("Shader_3o4oj")
 shader_parameter/color_override = Color(0.645551, 2.56296e-06, 4.81307e-07, 1)
 shader_parameter/blend_delta = 1.0
 
@@ -460,7 +479,7 @@ enemy_reference = "zombie"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-13, 0)
-shape = SubResource("CircleShape2D_jwejo")
+shape = SubResource("CircleShape2D_lnmlo")
 
 [node name="AttackTimer" type="Timer" parent="."]
 
@@ -489,7 +508,7 @@ shape = SubResource("CapsuleShape2D_1tdci")
 
 [node name="ZombieSpriteSheet" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-material = SubResource("ShaderMaterial_gcm2g")
+material = SubResource("ShaderMaterial_lc73j")
 position = Vector2(-13.5, -0.999999)
 scale = Vector2(0.617188, 0.6875)
 sprite_frames = SubResource("SpriteFrames_8jdkj")

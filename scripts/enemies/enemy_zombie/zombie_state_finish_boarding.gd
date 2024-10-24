@@ -22,4 +22,5 @@ func finish_boarding():
 
 func animation_finished():
 	if owner.animations.animation == "finish_boarding":
+		owner.target = owner.find_random_target()
 		owner.state = "moving"

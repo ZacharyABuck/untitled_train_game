@@ -74,7 +74,6 @@ func _on_spawn_interval_timer_timeout():
 		for i in roundf(rng):
 			if CurrentRun.world.current_level_info.difficulty >= i:
 				spawn_level_enemies()
-				print("another enemy spawned")
 		
 		spawn_interval_timer.start()
 

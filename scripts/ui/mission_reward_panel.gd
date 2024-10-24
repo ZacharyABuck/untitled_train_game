@@ -4,15 +4,14 @@ extends PanelContainer
 @onready var icon = $HBoxContainer/Icon
 @onready var reward_label = $HBoxContainer/MarginContainer/VBoxContainer/RewardLabel
 
-func populate(mission_success, sprite, reward_value):
-	icon.texture = sprite
+func populate(mission_success, mission):
+	icon.texture = CharacterInfo.characters_roster[mission["character"]]["icon"]
+	var reward = mission["reward"]
 	if mission_success:
-		if reward_value.has("money"):
-			reward_label.text = "Reward: $" + str(reward_value["money"])
-		if reward_value.has("gadget"):
-			reward_label.text = reward_label.text + "\n" + str(GadgetInfo.gadget_roster[reward_value["gadget"]]["name"]) + " Unlocked!"
-		if reward_value.has("merc"):
-			reward_label.text = reward_label.text + "\n" + "New Merc Joined!"
+		if reward.has("gadget"):
+			reward_label.text = str(GadgetInfo.gadget_roster[reward["gadget"]]["name"]) + " unlocked!"
+		if reward.has("merc"):
+			reward_label.text = mission["character"] + " joined your crew!"
 	else:
 		mission_label.text = "[center]Mission Failed[/center]"
 		mission_label.modulate = Color.RED

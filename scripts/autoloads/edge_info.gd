@@ -20,14 +20,14 @@ var edge_roster = {
 		"category" = "Survivalist",
 		"scene" = load("res://scenes/edges/spare_bullets.tscn"),
 		"sprite" = load("res://sprites/edges/spare_bullets.png"),
-		"description" = "Nearby turrets shoots faster",
+		"description" = "Nearby turrets shoot faster",
 	},
 	"fungal_aura" = {
 		"name" = "Fungal Aura",
 		"category" = "Elsewhere",
 		"scene" = load("res://scenes/edges/fungal_aura.tscn"),
 		"sprite" = load("res://sprites/edges/fungal_aura.png"),
-		"description" = "Damage surrounding enemies",
+		"description" = "Nearby turrets shoot poison bullets",
 	},
 	"thick_hide" = {
 		"name" = "Thick Hide",
@@ -77,6 +77,13 @@ var edge_roster = {
 		"scene" = load("res://scenes/edges/the_voices.tscn"),
 		"sprite" = load("res://sprites/edges/the_voices.png"),
 		"description" = "Lasso Distance Up 20%",
+	},
+	"tomahawk" = {
+		"name" = "Tomahawk",
+		"category" = "Survival",
+		"scene" = load("res://scenes/edges/tomahawk.tscn"),
+		"sprite" = load("res://sprites/ui/edge_background.png"),
+		"description" = "Melee attack throws an extra hatchet",
 	},
 }
 

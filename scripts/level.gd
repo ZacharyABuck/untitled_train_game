@@ -61,12 +61,11 @@ func generate_track():
 	train_manager.track.curve.set_point_position(0, -point_increment*CurrentRun.world.current_level_info.level_parameters["direction"])
 	
 	#set each track point per distance
-	var clamped_distance = clamp(CurrentRun.world.current_level_info.level_parameters["distance"], 4, 5)
+	var clamped_distance = clamp(CurrentRun.world.current_level_info.level_parameters["distance"], 5, 6)
 	for i in clamped_distance + 1:
 		var increment = CurrentRun.world.current_level_info.level_parameters["direction"]*point_increment
-		var turn_radius = .8
-		var random_mod = Vector2(randf_range(-point_increment*turn_radius, point_increment*turn_radius), \
-							randf_range(-point_increment*turn_radius, point_increment*turn_radius))
+
+		var random_mod = Vector2(randf_range(-1000, 1000), randf_range(-1000, 1000))
 		var random_pos = increment+random_mod
 		add_track_point(last_pos, index, random_pos)
 		index += 1
@@ -83,20 +82,20 @@ func generate_track():
 					area = generate_event_area(CurrentRun.world.current_level_info.events[event]["type"], last_pos)
 					CurrentRun.world.current_level_info.events[event]["area"] = area
 
+func add_track_point(last_pos, index, random_pos):
+	train_manager.track.curve.add_point(last_pos + random_pos*.3)
+	train_manager.track.curve.set_point_out(index, random_pos*.3)
+	train_manager.track.curve.set_point_in(index, -random_pos*.3)
+	if index == 2:
+		train_manager.track.curve.set_point_out(index-1, random_pos*.3)
+		train_manager.track.curve.set_point_in(index-1, -random_pos*.3)
+
 func generate_event_area(type, pos):
 	var area = EventArea.new()
 	area.global_position = train_manager.track.curve.get_closest_point(to_local(pos))
 	area.type = type
 	add_child(area)
 	return area
-	
-func add_track_point(last_pos, index, random_pos):
-	train_manager.track.curve.add_point(last_pos + random_pos*.5)
-	train_manager.track.curve.set_point_out(index, random_pos*.3)
-	train_manager.track.curve.set_point_in(index, -random_pos*.5)
-	if index == 2:
-		train_manager.track.curve.set_point_out(index-1, random_pos*.3)
-		train_manager.track.curve.set_point_in(index-1, -random_pos*.5)
 
 func spawn_player():
 	await get_tree().create_timer(.5).timeout
@@ -118,7 +117,7 @@ func weapon_picked_up(weapon):
 	CurrentRun.world.current_player_info.equip_new_weapon(weapon, ammo_count, random_damage, random_attack_delay, random_projectile_speed)
 
 func set_weapon_label(weapon, ammo):
-	if weapon == "revolver":
+	if weapon == "melee":
 		weapon_label.text = WeaponInfo.weapons_roster[weapon]["name"] + "\n Ammo: inf"
 	else:
 		weapon_label.text = WeaponInfo.weapons_roster[weapon]["name"] + "\n Ammo: " + str(ammo)

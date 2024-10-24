@@ -15,8 +15,8 @@
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/zombie_state_dead.gd" id="13_0wnty"]
 [ext_resource type="PackedScene" uid="uid://fhwaeth7nhpr" path="res://components/status_effect_component.tscn" id="15_6xt5u"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_jwejo"]
-radius = 26.6693
+[sub_resource type="CircleShape2D" id="CircleShape2D_hj0ig"]
+radius = 8.55862
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4v00t"]
 size = Vector2(46, 58)
@@ -460,7 +460,7 @@ enemy_reference = "big_zombie"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.5, 9)
-shape = SubResource("CircleShape2D_jwejo")
+shape = SubResource("CircleShape2D_hj0ig")
 
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 1.5

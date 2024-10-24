@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://chxhfoeq0h4xr"]
+
+[ext_resource type="Script" path="res://scenes/projectiles/melee_projectile.gd" id="1_m1hb2"]
+[ext_resource type="Texture2D" uid="uid://dj7cgo278hpcy" path="res://sprites/projectiles/hatchet_sprite_sheet.png" id="2_msh0p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q1sd5"]
+atlas = ExtResource("2_msh0p")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4ymxd"]
+animations = [{
+"frames": [],
+"loop": false,
+"name": &"hit",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q1sd5")
+}],
+"loop": true,
+"name": &"travel",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3f3kf"]
+radius = 1.93518
+height = 12.854
+
+[node name="MeleeProjectile" type="RigidBody2D" node_paths=PackedStringArray("HITBOX", "ANIMATIONS")]
+collision_layer = 0
+collision_mask = 256
+script = ExtResource("1_m1hb2")
+HITBOX = NodePath("AnimatedSprite2D/Hitbox")
+ANIMATIONS = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = 0.179769
+scale = Vector2(0.3, -0.3)
+sprite_frames = SubResource("SpriteFrames_4ymxd")
+animation = &"travel"
+offset = Vector2(58.885, -79.965)
+
+[node name="Hitbox" type="Area2D" parent="AnimatedSprite2D"]
+position = Vector2(-9.53674e-06, 5.72205e-06)
+scale = Vector2(10, -10)
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Hitbox"]
+position = Vector2(5, 7)
+rotation = 2.58658
+scale = Vector2(2.036, 2)
+shape = SubResource("CapsuleShape2D_3f3kf")

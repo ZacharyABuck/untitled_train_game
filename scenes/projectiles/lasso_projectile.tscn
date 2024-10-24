@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dj6m1gyh3dk4k"]
+[gd_scene load_steps=10 format=3 uid="uid://dj6m1gyh3dk4k"]
 
 [ext_resource type="Script" path="res://scenes/projectiles/lasso_projectile.gd" id="1_fqkn5"]
 [ext_resource type="Texture2D" uid="uid://cobkxjqt8myii" path="res://sprites/projectiles/lasso_projectile_sprite_sheet.png" id="2_4w2bb"]
@@ -42,6 +42,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_udfc7"]
 radius = 33.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_rqtcr"]
+radius = 74.0068
+
 [node name="LassoProjectile" type="CharacterBody2D"]
 script = ExtResource("1_fqkn5")
 
@@ -64,4 +67,13 @@ shape = SubResource("CircleShape2D_udfc7")
 [node name="GrabPosition" type="Node2D" parent="."]
 position = Vector2(-6, -26)
 
+[node name="TargetDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 25
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TargetDetector"]
+position = Vector2(-7, -24)
+shape = SubResource("CircleShape2D_rqtcr")
+
 [connection signal="body_entered" from="GrabArea" to="." method="_on_grab_area_body_entered"]
+[connection signal="body_entered" from="TargetDetector" to="." method="target_body_entered"]

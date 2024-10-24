@@ -1,9 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://b8cyhwgp2p27m"]
+[gd_scene load_steps=11 format=3 uid="uid://b8cyhwgp2p27m"]
 
 [ext_resource type="Shader" path="res://shaders/fire.gdshader" id="1_uaq3l"]
 [ext_resource type="PackedScene" uid="uid://cyv57gynwtrmu" path="res://components/hurtbox_component.tscn" id="1_vc4y4"]
 [ext_resource type="Script" path="res://scripts/train/furnace.gd" id="1_wbm24"]
-[ext_resource type="Texture2D" uid="uid://ck0ax7wr75kox" path="res://sprites/train/furnace.png" id="2_i8srq"]
 [ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://components/health_component.tscn" id="3_46fpg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2o0d1"]
@@ -52,11 +51,6 @@ corner_radius_bottom_left = 5
 [node name="Furnace" type="StaticBody2D" groups=["furnace"]]
 collision_mask = 521
 script = ExtResource("1_wbm24")
-
-[node name="FurnaceSprite" type="Sprite2D" parent="."]
-position = Vector2(0, 2.38419e-07)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("2_i8srq")
 
 [node name="Fire" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_2o0d1")

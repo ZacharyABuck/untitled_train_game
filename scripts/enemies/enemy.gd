@@ -15,7 +15,7 @@ var experience: float
 var damage: float
 var type: String
 
-var shock_speed_multiplier: float = 1.0
+var shock_speed_multiplier: float = 0.0
 var train_speed_mod: float = 0.0
 
 var target
@@ -31,12 +31,7 @@ func _ready():
 func _process(_delta):
 	if enemy_stats.has("speed") and CurrentRun.world.current_train_info.train_engine:
 		train_speed_mod = max(CurrentRun.world.current_train_info.train_engine.velocity, 0)
-		speed = (enemy_stats["speed"] + (train_speed_mod*45)) * shock_speed_multiplier
-	
-	if wave_enemy:
-		if CurrentRun.world.current_train_info.train_stats["car_count"] != cars_reached:
-			if target != null and global_position.distance_to(target.global_position) < 50:
-				target = find_target()
+		speed = (enemy_stats["speed"] + (train_speed_mod*45)) - (shock_speed_multiplier*1000)
 
 func find_stats(enemy_type):
 	enemy_stats = EnemyInfo.enemy_roster[enemy_type]
@@ -47,20 +42,6 @@ func find_stats(enemy_type):
 	damage = enemy_stats["damage"]
 	health_component.MAX_HEALTH = enemy_stats["health"] * CurrentRun.world.current_level_info.difficulty
 	health_component.health = enemy_stats["health"] * CurrentRun.world.current_level_info.difficulty
-
-func find_target():
-	var new_target
-	if wave_enemy:
-		if last_car == cars_reached:
-			new_target = find_random_target()
-		else:
-			cars_reached += 1
-			new_target = find_next_nav_point()
-	else:
-		new_target = find_random_target()
-	
-	return new_target
-		
 
 func find_next_nav_point():
 	if CurrentRun.world.current_train_info.cars_inventory.has(last_car - cars_reached):
@@ -74,10 +55,5 @@ func find_next_nav_point():
 		return nav_point
 
 func find_random_target():
-	#if CurrentRun.world.current_train_info.furnace != null:
-	return CurrentRun.world.current_train_info.furnace
-	#else:
-		#var rng = CurrentRun.world.current_player_info.targets.pick_random()
-		#while rng.is_in_group("cargo"):
-			#rng = CurrentRun.world.current_player_info.targets.pick_random()
-		#return rng
+	var rng = CurrentRun.world.current_player_info.targets.pick_random()
+	return rng

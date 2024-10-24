@@ -54,10 +54,10 @@ func set_level_labels():
 	level_min_label.text = "Level " + str(CurrentRun.world.current_player_info.current_level)
 	level_max_label.text = "Level " + str(CurrentRun.world.current_player_info.current_level + 1)
 
-func spawn_reward_panel(mission_success, sprite, reward):
+func spawn_reward_panel(mission_success, mission):
 	var new_panel = mission_reward_panel.instantiate()
 	mission_complete_container.add_child(new_panel)
-	new_panel.populate(mission_success, sprite, reward)
+	new_panel.populate(mission_success, mission)
 
 func _on_return_button_pressed():
 	CurrentRun.world.world_map.process_mode = PROCESS_MODE_INHERIT

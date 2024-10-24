@@ -1,6 +1,6 @@
 extends Edge
 
-var armor_amount: int = 3
+var armor_amount: int = 1
 
 func _ready():
 	super()

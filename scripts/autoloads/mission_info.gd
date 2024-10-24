@@ -4,17 +4,17 @@ var mission_type_roster = {
 	"escort" = {
 		"name" = "Escort Mission",
 		"character" = null,
-		"description" = "Train engineer for hire. I need transport to ",
+		"description" = "Refugee looking for transport. I need transport to ",
 		"destination" = null,
-		"reward" = 4,
+		"reward" = "merc",
 	},
 	"delivery" = {
 		"name" = "Delivery Mission",
 		"character" = null,
-		"description" = "I have cargo that needs to go to ",
+		"description" = "Do this delivery for me and maybe you can keep some of the goods. It needs to go to ",
 		"destination" = null,
 		"icon" = preload("res://sprites/train/crate_icon.png"),
-		"reward" = 4,
+		"reward" = "gadget",
 	},
 }
 

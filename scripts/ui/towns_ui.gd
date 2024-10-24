@@ -40,7 +40,7 @@ func spawn_missions(count):
 	for i in jobs_container.get_children():
 		i.queue_free()
 	
-	var max_destination_distance: int = 2500
+	var max_destination_distance: int = 1800
 	for i in count:
 		var new_mission = mission_panel.instantiate()
 		jobs_container.add_child(new_mission)

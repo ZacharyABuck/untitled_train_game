@@ -33,14 +33,9 @@ var healthbar = false
 signal fill_charge_meter
 
 func _ready():
-	#set armor?
 	is_killable = IS_KILLABLE
 	animation = ANIMATION
 	character = get_parent()
-	#if character is Player:
-		#health = CurrentRun.world.current_player_info.current_health
-		#HEALTHBAR = CurrentRun.world.current_level_info.active_level.player_health_bar
-	#else:
 	health = MAX_HEALTH
 	if HEALTHBAR != null:
 		_initialize_healthbar()
@@ -49,14 +44,16 @@ func damage(attack : Attack, shooter):
 	_calculate_final_damage(attack.attack_damage, ARMOR_VALUE)
 	
 	health -= clamp(final_damage, 1, MAX_HEALTH)
-	
-	if character is Player:
-		character.player_hurt(final_damage)
-	
+
 	if has_healthbar:
 		healthbar.value = health
 	if health <= 0:
 		_handle_death(shooter)
+
+func heal(amount):
+	health = clamp(health + amount, 1, MAX_HEALTH)
+	if has_healthbar:
+		healthbar.value = health
 
 func spawn_particles(fx):
 	var new_fx = fx.instantiate()
@@ -75,7 +72,6 @@ func _handle_death(shooter):
 			if character is RigidBody2D:
 				character.set_collision_layer_value(4, false)
 				character.set_collision_mask_value(4, false)
-			check_edges(shooter)
 		
 		if character.is_in_group("furnace"):
 			character.dead.emit()
@@ -83,6 +79,7 @@ func _handle_death(shooter):
 		if character.is_in_group("event"):
 			character.queue_free()
 			character.event_finished()
+		
 		if character.is_in_group("hazard"):
 			character.hazard_cleared.emit()
 			character.queue_free()
@@ -117,18 +114,7 @@ func _handle_death(shooter):
 					if destroyed >= count:
 						remove_mission(i)
 						print("Mission Failed: Delivery")
-					else:
-						CurrentRun.world.current_mission_info.mission_inventory[i]["reward"] *= .75
 					character.queue_free()
-
-#check for edges that trigger on kills
-func check_edges(shooter):
-	for edge in CurrentRun.world.current_edge_info.edge_inventory:
-		var edge_scene = CurrentRun.world.current_edge_info.edge_inventory[edge]["scene"]
-		if edge == "turret_kills_fill_charge" and shooter is Turret:
-			edge_scene.fill_meter()
-		if edge == "player_kills_fill_charge" and shooter is Player:
-			edge_scene.fill_meter()
 
 func remove_mission(mission_id):
 	CurrentRun.world.current_mission_info.mission_inventory.erase(mission_id)
@@ -147,5 +133,3 @@ func _initialize_healthbar():
 	healthbar = HEALTHBAR
 	healthbar.max_value = MAX_HEALTH
 	healthbar.value = health
-
-

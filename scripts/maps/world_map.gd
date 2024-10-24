@@ -2,7 +2,7 @@ extends TileMap
 
 var altitude = FastNoiseLite.new()
 @onready var astar = AStar2D.new()
-var chunk_width: int = 200
+var chunk_width: int = 120
 var chunk_height: int = 30
 var loaded_chunks: Array = []
 
@@ -11,7 +11,7 @@ var starting_coords = Vector2i.ZERO
 var road_cells = []
 var vertical_road_count: int = 10
 var horizontal_road_count: int = 2
-var town_count: int = 15
+var town_count: int = 10
 
 var town_cells = []
 
@@ -26,9 +26,9 @@ func _ready():
 	altitude.seed = randi()
 	var new_cells = spawn_map(starting_coords)
 	BetterTerrain.update_terrain_cells(self, 0, new_cells)
-	
+	print("map done")
 	spawn_astar()
-	
+	print("astar done")
 	handle_roads()
 
 	await handle_towns()
@@ -37,7 +37,7 @@ func _ready():
 	get_parent().camera.camera_limits.append(tile_set.tile_size.y*chunk_height) 
 
 	await spawn_player()
-	
+
 	finished_spawning_map.emit()
 	
 func handle_roads():
@@ -51,8 +51,10 @@ func handle_roads():
 	return true
 
 func handle_towns():
+	var distance_from_left: float = 10
 	for i in town_count:
-		var new_town_pos = spawn_town()
+		var new_town_pos = spawn_town(distance_from_left)
+		distance_from_left += 10
 		if new_town_pos:
 			town_cells.append(new_town_pos)
 			BetterTerrain.set_cell(self, 0, new_town_pos, 0)
@@ -161,25 +163,20 @@ func spawn_road(start, end) -> PackedVector2Array:
 		BetterTerrain.set_cell(self, 0, i, 2)
 	return new_road_cells
 
-func spawn_town():
+func spawn_town(distance_from_left):
+	var distance_from_left_cells = []
+	#check for cells on the given x value
 	for road in road_cells:
-		var random_road = road_cells.pick_random()
-		if random_road.x < float(chunk_width) - 2 and random_road.y < float(chunk_height) - 2 \
-		and random_road.x > 2 and random_road.y > 2:
-			for neighbor in get_surrounding_cells(random_road):
-				var terrain = BetterTerrain.get_cell(self, 0, neighbor)
-				if terrain != 2 and terrain != 3:
-					if town_cells.is_empty():
-						return neighbor
-					else:
-						var index = 0
-						for town_cell in town_cells:
-							var this_pos = map_to_local(neighbor)
-							var that_pos = map_to_local(town_cell)
-							if this_pos.distance_to(that_pos) >= 600: #max distance to nearest town
-								index += 1
-						if index >= town_cells.size():
-							return neighbor
+		if road.x == distance_from_left:
+			distance_from_left_cells.append(road)
+	#pick a random cell from the given x values
+	for road in distance_from_left_cells:
+		var random_road = distance_from_left_cells.pick_random()
+		#pick a neighbor so that the town is next to a road, check if the neighbor is also a road
+		for neighbor in get_surrounding_cells(random_road):
+			var terrain = BetterTerrain.get_cell(self, 0, neighbor)
+			if terrain != 2 and terrain != 3:
+				return neighbor
 
 func spawn_player():
 	if CurrentRun.world.current_level_info.destination == null:

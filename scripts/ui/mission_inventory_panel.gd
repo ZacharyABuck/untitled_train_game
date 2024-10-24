@@ -4,7 +4,6 @@ var mission_id
 
 @onready var time_limit_label = $HBoxContainer/CharacterIcon/TimeLimitLabel
 
-
 func populate(mission):
 	var mission_details = CurrentRun.world.current_mission_info.mission_inventory[mission]
 	mission_id = mission
@@ -15,12 +14,10 @@ func populate(mission):
 	
 	var description_text
 	var reward_text
-	if mission_details["reward"].has("money"):
-		reward_text = " $" + str(mission_details["reward"]["money"])
 	if mission_details["reward"].has("gadget"):
-		reward_text = reward_text + "\n + Gadget Unlock"
+		reward_text = "\nGadget Unlock"
 	if mission_details["reward"].has("merc"):
-		reward_text = reward_text + "\n + New Merc"
+		reward_text = "\nNew Merc"
 	match mission_details["type"]:
 		"escort":
 			description_text = "Take " + str(mission_details["character"]) + " to \n" + str(mission_details["destination"] + reward_text)
@@ -28,5 +25,5 @@ func populate(mission):
 			description_text = "Deliver cargo to \n" + str(mission_details["destination"] + reward_text)
 	
 	$HBoxContainer/VBoxContainer/MissionDescriptionLabel.text = description_text
-	
+	mouse_entered.connect(CurrentRun.world.show_travel_line.bind(mission_details["destination"]))
 	time_limit_label.text = str(mission_details["time_limit"])

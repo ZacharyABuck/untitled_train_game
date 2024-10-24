@@ -24,7 +24,7 @@ func animate_movement():
 			owner.running_sfx.play()
 
 func _unhandled_input(event):
-	if event.is_action_released("strike"):
+	if event.is_action_released("lasso"):
 		if owner.lasso != null:
 			owner.lasso.release()
 			CurrentRun.world.current_player_info.state = "default"

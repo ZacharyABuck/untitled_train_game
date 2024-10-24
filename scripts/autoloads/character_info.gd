@@ -2,31 +2,31 @@ extends Node
 
 var characters_roster = {
 	"Timbo" = {
-		"icon" = preload("res://sprites/characters/Franch Token.png"),
+		"icon" = preload("res://sprites/characters/bourdalain.png"),
 	},
 	"Doniel" = {
-		"icon" = preload("res://sprites/characters/Franch Token.png"),
+		"icon" = preload("res://sprites/characters/bourdalain.png"),
 	},
 	"Piotr" = {
-		"icon" = preload("res://sprites/characters/Franch Token.png"),
+		"icon" = preload("res://sprites/characters/bourdalain.png"),
 	},
 	"Brawndo" = {
-		"icon" = preload("res://sprites/characters/Franch Token.png"),
+		"icon" = preload("res://sprites/characters/bourdalain.png"),
 	},
 	"Zick" = {
-		"icon" = preload("res://sprites/characters/Franch Token.png"),
+		"icon" = preload("res://sprites/characters/bourdalain.png"),
 	},
 	"Pattleson" = {
-		"icon" = preload("res://sprites/characters/Franch Token.png"),
+		"icon" = preload("res://sprites/characters/bourdalain.png"),
 	},
 	"Abe" = {
-		"icon" = preload("res://sprites/characters/Franch Token.png"),
+		"icon" = preload("res://sprites/characters/bourdalain.png"),
 	},
 	"B'ourdalain" = {
-		"icon" = preload("res://sprites/characters/Franch Token.png"),
+		"icon" = preload("res://sprites/characters/bourdalain.png"),
 	},
 	"Franch" = {
-		"icon" = preload("res://sprites/characters/Franch Token.png"),
+		"icon" = preload("res://sprites/characters/bourdalain.png"),
 	},
 }
 
