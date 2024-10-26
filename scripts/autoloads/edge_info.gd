@@ -85,5 +85,19 @@ var edge_roster = {
 		"sprite" = load("res://sprites/ui/edge_background.png"),
 		"description" = "Melee attack throws an extra hatchet",
 	},
+	"haggler" = {
+		"name" = "Haggler",
+		"category" = "Survival",
+		"scene" = load("res://scenes/edges/haggler.tscn"),
+		"sprite" = load("res://sprites/ui/edge_background.png"),
+		"description" = "Selling turrets gains $1.00",
+	},
+	"elbow_grease" = {
+		"name" = "Elbow Grease",
+		"category" = "Survival",
+		"scene" = load("res://scenes/edges/elbow_grease.tscn"),
+		"sprite" = load("res://sprites/ui/edge_background.png"),
+		"description" = "New turrets are superpowered for 5 seconds",
+	},
 }
 

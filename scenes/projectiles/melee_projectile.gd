@@ -9,7 +9,7 @@ func _physics_process(delta):
 
 func _on_area_2d_area_entered(area):
 	if area is HurtboxComponent and area != last_enemy_hit:
-		hit_target.emit(area)
+		hit_target.emit(area, shooter)
 		
 		var new_hitbox : HurtboxComponent = area
 		var attack = Attack.new()

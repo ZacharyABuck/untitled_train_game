@@ -96,7 +96,7 @@ func show_gadget_info(gadget):
 	elif gadget == current_type:
 		var gadget_name = GadgetInfo.gadget_roster[current_type]["name"]
 		top_text.text = "Sell " + gadget_name
-		bottom_text.text = "+ $" + str(GadgetInfo.gadget_roster[current_type]["cost"]*0.5)
+		bottom_text.text = "+ $" + str((GadgetInfo.gadget_roster[current_type]["cost"]*0.5) + CurrentRun.world.current_player_info.global_sell_modifier)
 		top_text.show()
 		bottom_text.show()
 	else:

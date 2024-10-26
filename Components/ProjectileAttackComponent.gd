@@ -36,8 +36,6 @@ var shoot_sound
 
 signal gun_shot
 
-var poison_cloud = preload("res://scenes/projectiles/poison_cloud.tscn")
-
 func _ready():
 	attack_timer = ATTACK_TIMER
 	default_attack_time = attack_timer.wait_time
@@ -107,7 +105,7 @@ func _instantiate_bullet():
 	# speed, damage, global_position, valid_hitbox_types
 	var new_projectile = projectile.instantiate()
 	new_projectile.global_position = shooter.global_position
-	new_projectile.hit_target.connect(bullet_hit_target)
+	new_projectile.hit_target.connect(CurrentRun.world.current_level_info.bullet_hit_target)
 	new_projectile.speed = speed
 	new_projectile.damage = damage
 	if lifetime > 0: # the default lifetime is 3 seconds.
@@ -147,9 +145,9 @@ func _set_layers(obj):
 	if target_types["terrain"]:
 		obj.set_collision_mask_value(9, true)
 		pass
-
-func bullet_hit_target(area):
-	if shooter.active_buffs.has("poison_cloud"):
-		var new_cloud = poison_cloud.instantiate()
-		new_cloud.global_position = area.global_position
-		CurrentRun.world.current_level_info.active_level.bullets.call_deferred("add_child", new_cloud)
+#
+#func bullet_hit_target(area, _shooter):
+	#if shooter.active_buffs.has("poison_cloud"):
+		#var new_cloud = poison_cloud.instantiate()
+		#new_cloud.global_position = area.global_position
+		#CurrentRun.world.current_level_info.active_level.bullets.call_deferred("add_child", new_cloud)

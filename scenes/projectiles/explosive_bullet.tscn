@@ -139,7 +139,7 @@ radius = 92.0489
 script = ExtResource("1_5nkwu")
 explode_sfx = NodePath("ExplodeSFX")
 explosion_hitbox = NodePath("ExplosionArea")
-splash_damage = 3
+splash_damage = 1
 HITBOX = NodePath("Area2D")
 ANIMATIONS = NodePath("AnimatedSprite2D")
 

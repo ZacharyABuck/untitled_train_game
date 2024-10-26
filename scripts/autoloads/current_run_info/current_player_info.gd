@@ -36,10 +36,10 @@ var current_ranged_weapon_ammo_count: int
 # Edge Related
 var global_poison_damage: float = 0
 var global_fire_damage: float = 0
-var ricochet_amount: int = 0
+var global_sell_modifier: float = 0
 
 # Current state in player state machine node
-@export_enum("default", "lassoing", "ui_default", "ui_edge_selection") var state: String = "default"
+@export_enum("default", "lassoing", "ui_default") var state: String = "default"
 
 var targets = []
 

@@ -8,6 +8,7 @@ var gadget
 var location
 var car
 
+signal gadget_built
 
 func respawn_gadget(requested_gadget):
 	gadget = requested_gadget
@@ -41,12 +42,13 @@ func add_gadget(requested_gadget):
 			delete_gadget()
 			
 			#create gadget
-			spawn_gadget(requested_gadget)
+			var new_gadget = spawn_gadget(requested_gadget)
+			gadget_built.emit(new_gadget)
 			gadget = requested_gadget
 			CurrentRun.world.current_player_info.state = "default"
 
 func sell_gadget(gadget):
-	var sell_value = GadgetInfo.gadget_roster[gadget]["cost"]*.5
+	var sell_value = (GadgetInfo.gadget_roster[gadget]["cost"]*.5) + CurrentRun.world.current_player_info.global_sell_modifier
 	CurrentRun.world.current_player_info.current_money += sell_value
 	CurrentRun.world.update_money_label()
 	CurrentRun.world.current_train_info.cars_inventory[car.index]["gadgets"][get_parent().name].clear()
@@ -78,6 +80,8 @@ func spawn_gadget(requested_gadget):
 			new_gadget.icon_sprite.global_position = global_position
 	radial_menu.close_menu()
 	radial_menu.update_menu(requested_gadget)
+	
+	return new_gadget
 
 
 func has_car_gadget() -> bool:

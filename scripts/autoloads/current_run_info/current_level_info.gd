@@ -58,6 +58,7 @@ func clear_variables():
 	map_positions.clear()
 	active_map = null
 
+
 var money = preload("res://scenes/drops/money.tscn")
 
 func calculate_random_drop(character):
@@ -68,3 +69,14 @@ func spawn_drop(drop, pos, value):
 	new_drop.value = value
 	new_drop.global_position = pos
 	active_level.call_deferred("add_child", new_drop)
+
+
+var poison_cloud = preload("res://scenes/projectiles/poison_cloud.tscn")
+signal bullet_hit
+func bullet_hit_target(hurtbox, shooter):
+	if shooter.active_buffs.has("poison_cloud"):
+		var new_cloud = poison_cloud.instantiate()
+		new_cloud.global_position = hurtbox.global_position
+		CurrentRun.world.current_level_info.active_level.bullets.call_deferred("add_child", new_cloud)
+	
+	bullet_hit.emit(hurtbox, shooter)

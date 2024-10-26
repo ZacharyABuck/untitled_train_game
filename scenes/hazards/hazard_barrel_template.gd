@@ -1,7 +1,7 @@
 extends Hazard
 class_name Barrel
 
-@export var damage = 10
+@export var damage = 7
 @export var enemy_detector: Area2D
 @export var explosion_area: Area2D
 @export var sprite: Sprite2D
