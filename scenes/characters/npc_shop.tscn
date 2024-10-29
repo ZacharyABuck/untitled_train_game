@@ -1,0 +1,234 @@
+[gd_scene load_steps=21 format=3 uid="uid://b1shcmmi4xqnr"]
+
+[ext_resource type="Script" path="res://scripts/characters/npc_shop.gd" id="1_m5475"]
+[ext_resource type="Texture2D" uid="uid://4x8a5b3tydex" path="res://sprites/characters/sprite_sheets/timbo.png" id="3_3c6rs"]
+[ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="3_sqrlq"]
+[ext_resource type="Texture2D" uid="uid://0uwb285b3p0v" path="res://sprites/characters/bourdalain.png" id="4_ggm2a"]
+[ext_resource type="Texture2D" uid="uid://ccydwnn5siydn" path="res://sprites/ui/x.png" id="5_5ui8i"]
+
+[sub_resource type="Shader" id="Shader_hkvbc"]
+code = "shader_type canvas_item;
+
+uniform vec4 color_override: source_color;
+uniform float blend_delta: hint_range(0., 1.0, 0.02) = 0.;
+
+vec4 override_blend_alpha(vec4 base, vec4 blend)
+{
+	blend.a = base.a;
+	return blend;
+}
+
+void fragment()
+{
+	vec4 texture_color = texture(TEXTURE, UV);
+	vec4 blend_override = override_blend_alpha(texture_color, color_override);
+	vec4 target_color = mix(texture_color, blend_override, blend_delta);
+	COLOR = target_color;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bnycj"]
+shader = SubResource("Shader_hkvbc")
+shader_parameter/color_override = Color(1, 0, 0, 1)
+shader_parameter/blend_delta = 0.78
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g37au"]
+atlas = ExtResource("3_3c6rs")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_noxk2"]
+atlas = ExtResource("3_3c6rs")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_df04j"]
+atlas = ExtResource("3_3c6rs")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v07in"]
+atlas = ExtResource("3_3c6rs")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7urx1"]
+atlas = ExtResource("3_3c6rs")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_udh5c"]
+atlas = ExtResource("3_3c6rs")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ssntt"]
+atlas = ExtResource("3_3c6rs")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvno1"]
+atlas = ExtResource("3_3c6rs")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7hayp"]
+atlas = ExtResource("3_3c6rs")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lnn3w"]
+atlas = ExtResource("3_3c6rs")
+region = Rect2(128, 128, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d8qdu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g37au")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_noxk2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_df04j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v07in")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7urx1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_udh5c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ssntt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rvno1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7hayp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lnn3w")
+}],
+"loop": true,
+"name": &"running",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fxylc"]
+radius = 62.0725
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6jax6"]
+radius = 20.0998
+
+[node name="NpcShop" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
+collision_layer = 512
+collision_mask = 512
+script = ExtResource("1_m5475")
+sprite = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_bnycj")
+scale = Vector2(0.6, 0.6)
+sprite_frames = SubResource("SpriteFrames_d8qdu")
+animation = &"running"
+autoplay = "idle"
+frame_progress = 0.769034
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+visible = false
+shape = SubResource("CircleShape2D_fxylc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_6jax6")
+
+[node name="ShopButton" type="Button" parent="."]
+visible = false
+offset_left = -48.0
+offset_top = -83.0
+offset_right = 48.0
+offset_bottom = -52.0
+theme = ExtResource("3_sqrlq")
+text = "Shop"
+
+[node name="ShopUI" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="PanelContainer" type="PanelContainer" parent="ShopUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 252.0
+offset_top = 174.0
+offset_right = -280.0
+offset_bottom = -157.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_sqrlq")
+
+[node name="MarginContainer" type="MarginContainer" parent="ShopUI/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ShopUI/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 60
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ShopUI/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "[center]Spooky Shop[/center]"
+fit_content = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ShopUI/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 50
+
+[node name="TextureRect" type="TextureRect" parent="ShopUI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("4_ggm2a")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ShopUI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 50
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ShopUI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[center]Choose one:[/center]"
+fit_content = true
+
+[node name="ItemsContainer" type="VBoxContainer" parent="ShopUI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 30
+
+[node name="TextureButton" type="TextureButton" parent="ShopUI/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = ExtResource("5_5ui8i")
+texture_pressed = ExtResource("5_5ui8i")
+texture_hover = ExtResource("5_5ui8i")
+texture_disabled = ExtResource("5_5ui8i")
+texture_focused = ExtResource("5_5ui8i")
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
+[connection signal="body_exited" from="PlayerDetector" to="." method="_on_player_detector_body_exited"]
+[connection signal="pressed" from="ShopButton" to="." method="_on_shop_button_pressed"]
+[connection signal="pressed" from="ShopUI/PanelContainer/MarginContainer/TextureButton" to="." method="_on_texture_button_pressed"]

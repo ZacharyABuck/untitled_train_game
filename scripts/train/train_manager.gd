@@ -53,7 +53,7 @@ func _setup_train():
 			elif need_passenger_car:
 				last_vehicle.car.type = "passenger"
 				need_passenger_car = false
-				last_vehicle.car.spawn_characters()
+				last_vehicle.car.spawn_passengers()
 			#if route has cargo
 			elif need_cargo_car:
 				last_vehicle.car.type = "cargo"

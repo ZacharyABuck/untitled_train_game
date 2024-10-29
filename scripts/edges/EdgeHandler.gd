@@ -1,9 +1,11 @@
 extends Node2D
 
 signal update_debug
+signal edge_added_or_changed
 
 func _ready():
 	update_debug.connect(CurrentRun.world.debug_ui.refresh_labels)
+	edge_added_or_changed.connect(CurrentRun.world.world_ui.refresh_edges)
 
 func check_for_edges():
 	for edge in CurrentRun.world.current_edge_info.edge_inventory.keys():
@@ -30,15 +32,18 @@ func add_edge(edge_reference):
 	if existing_edge_found:
 		var level = _increase_edge_level(existing_edge)
 		CurrentRun.world.current_edge_info.edge_inventory[edge_reference]["level"] = level
+		print(CurrentRun.world.current_edge_info.edge_inventory[edge_reference]["level"])
 	else:
 		var edge_scene = EdgeInfo.edge_roster[edge_reference]["scene"].instantiate()
 		add_child(edge_scene)
 		edge_scene.update_player_info()
 		CurrentRun.world.current_edge_info.edge_inventory[edge_reference] = {"scene" = edge_scene, "level" = 1}
 	
+	edge_added_or_changed.emit()
 	update_debug.emit()
 
 func _increase_edge_level(edge : Edge):
 	edge.edge_level += 1
 	edge.handle_level_up()
+	edge_added_or_changed.emit()
 	return edge.edge_level

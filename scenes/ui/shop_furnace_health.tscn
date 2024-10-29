@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://v2n32wqx3f4h"]
+
+[ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="1_ilnds"]
+[ext_resource type="Script" path="res://scripts/ui/shop_furnace_health.gd" id="1_wl8mq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pif7q"]
+
+[node name="ShopFurnaceHealth" type="PanelContainer"]
+custom_minimum_size = Vector2(500, 100)
+offset_right = 300.0
+offset_bottom = 88.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_pif7q")
+script = ExtResource("1_wl8mq")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+theme = ExtResource("1_ilnds")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("1_ilnds")
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[center]Furnace fully healed[/center]"
+fit_content = true

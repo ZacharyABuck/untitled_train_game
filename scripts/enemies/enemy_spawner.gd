@@ -3,6 +3,7 @@ class_name EnemySpawner
 
 var lifespan: int = 2
 var wave: bool = false
+var extra: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,12 +24,19 @@ func find_random_position():
 	var random_position = Vector2(randf_range(-200,200)+random_spawn_point_pos.x, randf_range(-200,200)+random_spawn_point_pos.y)
 	return random_position
 
+func find_random_extra_position():
+	var random_spawn_point_pos = CurrentRun.world.current_level_info.enemy_spawn_system.extra_spawns.get_children().pick_random().global_position
+	var random_position = Vector2(randf_range(-200,200)+random_spawn_point_pos.x, randf_range(-200,200)+random_spawn_point_pos.y)
+	return random_position
+
 func spawn_enemy(amount, type, pos):
 	for i in amount:
 		var new_enemy = EnemyInfo.enemy_roster[type]["scene"].instantiate()
-		if wave or pos == null:
+		if wave:
 			new_enemy.wave_enemy = true
 			new_enemy.global_position = find_random_position()
+		elif extra:
+			new_enemy.global_position = find_random_extra_position()
 		else:
 			new_enemy.global_position = pos + Vector2(randf_range(-300,300), randf_range(-300,300))
 		

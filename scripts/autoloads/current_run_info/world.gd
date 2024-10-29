@@ -12,66 +12,29 @@ extends Node2D
 
 var level = preload("res://scenes/level.tscn")
 
-var mission_reward_panel = preload("res://scenes/ui/mission_reward_panel.tscn")
-
-@onready var towns_ui = $TownsUI
-@onready var money_label = $WorldUI/MarginContainer/GridContainer/HBoxContainer/VBoxContainer/MoneyLabel
-@onready var mission_inventory_container = $WorldUI/MarginContainer/GridContainer/HBoxContainer/PanelContainer/MissionInventoryContainer
-
-
 @onready var music_fade = $Music/MusicFade
-
-@onready var storm_sprite = $StormSprite
-
-@onready var world_map = $WorldMap
 @onready var world_ui = $WorldUI
 @onready var end_screen_ui = $EndScreenUI
-@onready var camera = $Camera
-@onready var travel_line = $TravelLine
+
 
 @onready var debug_ui = $DebugUI
 
 var in_game = false
-var missions_spawned: bool = false
 
 func _ready():
-	music_fade.play("world_start")
-	update_money_label()
-
-func map_spawned():
-	#fade in animations
-	for t in CurrentRun.world.current_world_info.towns_inventory.keys():
-		var scene = CurrentRun.world.current_world_info.towns_inventory[t]["scene"]
-		var scale_tween = create_tween()
-		scale_tween.tween_property(scene, "scale", Vector2(1,1), 2).set_trans(Tween.TRANS_ELASTIC)
-		await get_tree().create_timer(.1).timeout
-		
-	camera.jump_to_pos(current_world_info.towns_inventory[current_world_info.farthest_town]["scene"].global_position)
-	CurrentRun.root.fade_in()
-	
-	await get_tree().create_timer(3).timeout
-	camera.jump_to_pos(current_world_info.towns_inventory[current_world_info.active_town]["scene"].global_position)
-
-func show_travel_line(destination):
-	AudioSystem.play_audio("quick_woosh", -10)
-	travel_line.points[0] = current_world_info.towns_inventory[current_world_info.active_town]["scene"].global_position
-	travel_line.points[1] = current_world_info.towns_inventory[destination]["scene"].global_position
-	travel_line.show()
-	camera.jump_to_pos(current_world_info.towns_inventory[destination]["scene"].global_position)
+	current_level_info.destination = WorldInfo.towns_roster.keys().pick_random()
 
 func start_game(direction, distance, terrain):
 	await CurrentRun.root.fade_to_black(1.5)
-	
-	towns_ui.hide()
-	world_map.hide()
+
 	world_ui.hide()
-	
-	current_world_info.towns_inventory[current_world_info.active_town]["scene"].hide_warnings()
 	
 	current_player_info.targets.clear()
 	current_level_info.clear_variables()
 	current_train_info.clear_variables()
 	
+	current_level_info.destination = find_random_destination()
+
 	current_world_info.last_route.clear()
 	current_world_info.last_route.append(current_world_info.active_town)
 	current_world_info.last_route.append(current_level_info.destination)
@@ -79,11 +42,10 @@ func start_game(direction, distance, terrain):
 	current_level_info.level_parameters["direction"] = direction
 	current_level_info.level_parameters["terrain"] = terrain
 	current_level_info.level_parameters["distance"] = distance
+	
 	print("Terrain Type: " + LevelInfo.terrain_roster[terrain])
 	print("Destination: " + current_level_info.destination)
 	print("Distance: " + str(current_level_info.level_parameters["distance"]))
-	
-	camera.enabled = false
 
 	#find random events
 	for i in current_level_info.events.keys():
@@ -99,9 +61,7 @@ func start_game(direction, distance, terrain):
 	current_level_info.active_level = new_level
 	unpause_game()
 	in_game = true
-	
-	Input.set_custom_mouse_cursor(load("res://sprites/ui/crosshair.png"), 0, Vector2(32,32))
-	
+
 	CurrentRun.root.fade_in()
 	
 	await get_tree().create_timer(5).timeout
@@ -115,71 +75,35 @@ func unpause_game():
 	if current_level_info.active_level:
 		current_level_info.active_level.get_tree().paused = false
 
-func town_clicked(town):
-	camera.jump_to_pos(current_world_info.towns_inventory[town.town_name]["scene"].global_position)
+func find_random_destination():
+	var random_town = WorldInfo.towns_roster.keys().pick_random()
+	while current_world_info.towns_inventory.has(random_town):
+		random_town = WorldInfo.towns_roster.keys().pick_random()
 	
-	for i in current_world_info.towns_inventory:
-		current_world_info.towns_inventory[i]["scene"].hide_travel_info()
+	return random_town
+
+func level_complete(level_complete_event):
+	current_level_info.active_level.at_destination = true
 	
-	if current_world_info.active_town == town.town_name:
-		AudioSystem.play_audio("big_select", -10)
-		towns_ui.populate_town_info(town)
-		if missions_spawned == false:
-			missions_spawned = true
-			var rng = randi_range(1,2)
-			towns_ui.spawn_missions(rng)
-			towns_ui.trainyard.spawn_trainyard_items()
-			towns_ui.trainyard_button.show()
+	current_level_info.active_level.enemy_spawn_system.enemy_wave_timer.stop()
+	current_level_info.active_level.enemy_spawn_system.spawn_interval_timer.stop()
+	current_level_info.active_level.hazard_spawn_timer.stop()
+	for enemy in current_level_info.active_level.enemies.get_children():
+		enemy.queue_free()
 	
-	else:
-		towns_ui.close_all_windows()
-		towns_ui.hide()
-		current_world_info.towns_inventory[town.town_name]["scene"].show_travel_info()
-
-func _on_travel_button_pressed():
-	if current_train_info.train_stats["fuel_tank"] >= find_fuel_cost():
-		music_fade.play("world_to_level")
-		current_world_info.selected_town.hide_travel_info()
-		var direction = find_direction()
-		var terrain = LevelInfo.terrain_roster.keys().pick_random()
-		var distance = find_distance()
-		current_level_info.destination = current_world_info.selected_town.town_name
-		start_game(direction, distance, terrain)
-
-func find_direction():
-	var direction = current_world_info.towns_inventory[current_world_info.active_town]["scene"].global_position.direction_to(current_world_info.selected_town.global_position)
-	return direction
-
-func find_distance():
-	var distance = current_world_info.towns_inventory[current_world_info.active_town]["scene"].global_position.distance_to(current_world_info.selected_town.global_position)
-	var adjusted_distance = round(distance*.005)
-	return adjusted_distance
-
-func find_fuel_cost() -> int:
-	var distance = find_distance()
-	return distance
-
-func level_complete():
-	music_fade.play("level_to_world")
-	await CurrentRun.root.fade_to_black(2)
+	current_train_info.train_engine.target_force_percent += 3
 	
-	Input.set_custom_mouse_cursor(null,0,Vector2.ZERO)
-	world_ui.refresh_edges()
-	current_train_info.set_all_gadget_upkeep(false)
-	camera.enabled = true
-	world_ui.show()
-	despawn_level()
-	update_world_player_pos()
+	await level_complete_event.last_car_entered
+	await get_tree().create_timer(3).timeout
+	
+	level_complete_event.player_boundary.get_child(0).set_deferred("disabled", false)
+	current_train_info.train_manager.mesh_vis.set_deferred("disabled", true)
+	current_player_info.active_player.call_deferred("reparent", current_level_info.active_level)
+	current_train_info.train_engine.target_force_percent = 0
+	current_train_info.train_engine.brake_force = 3.0
+	
 	check_missions()
-	update_money_label()
-	world_map.show()
-	missions_spawned = false
-	CurrentRun.root.fade_in()
-	
 	end_screen_ui.fade_in()
-
-func update_money_label():
-	money_label.text = "Money = $" + str("%.2f" % current_player_info.current_money)
 
 func despawn_level():
 	current_level_info.active_level.queue_free()
@@ -187,37 +111,19 @@ func despawn_level():
 	current_level_info.active_level = null
 	current_player_info.active_player = null
 
-func update_world_player_pos():
-	world_map.spawn_player()
-
 func check_missions():
-	var index = 0
+	#clear end screen ui
 	for i in end_screen_ui.mission_complete_container.get_children():
 		i.queue_free()
 
 	for i in current_mission_info.mission_inventory.keys():
-		if current_mission_info.mission_inventory[i]["destination"] == current_world_info.active_town:
-			#Mission Complete
-			print("Mission Complete: " + str(current_mission_info.mission_inventory[i]["type"]) + " " + str(current_mission_info.mission_inventory[i]["character"]))
-			complete_mission(i)
-			index += 1
-		else:
-			current_mission_info.mission_inventory[i]["time_limit"] -= 1
-			#Mission Failed
-			if current_mission_info.mission_inventory[i]["time_limit"] <= 0:
-				end_screen_ui.spawn_reward_panel(false, current_mission_info.mission_inventory[i])
-				current_mission_info.mission_inventory.erase(i)
-				index += 1
-	for i in mission_inventory_container.get_children():
+		#Mission Complete
+		complete_mission(i)
+
+	#refresh tab inventory of missions
+	for i in world_ui.mission_inventory_container.get_children():
 		if !current_mission_info.mission_inventory.keys().has(i.mission_id):
 			i.queue_free()
-		else:
-			i.time_limit_label.text = str(current_mission_info.mission_inventory[i.mission_id]["time_limit"])
-
-	if index == 0:
-		end_screen_ui.show_no_missions_label()
-
-	current_world_info.towns_inventory[current_world_info.active_town]["scene"].check_warnings()
 
 func complete_mission(mission):
 	if current_mission_info.mission_inventory[mission]["reward"].has("gadget"):
@@ -230,34 +136,10 @@ func complete_mission(mission):
 		end_screen_ui.spawn_reward_panel(true, current_mission_info.mission_inventory[mission])
 	else: 
 		end_screen_ui.spawn_reward_panel(true, current_mission_info.mission_inventory[mission])
-	for i in mission_inventory_container.get_children():
+	for i in world_ui.mission_inventory_container.get_children():
 		if i.mission_id == mission:
 			i.queue_free()
 			break
 	if current_mission_info.mission_inventory.keys().has(mission):
 		current_mission_info.mission_inventory.erase(mission)
 
-func upgrade_train(upgrade):
-	update_money_label()
-	if current_train_info.train_stats.keys().has(upgrade):
-		current_train_info.train_stats[upgrade] += TrainInfo.train_upgrade_roster[upgrade]["value"]
-		if upgrade == "car_count":
-			if current_train_info.cars_inventory.keys().size() > 1:
-				var caboose_index = current_train_info.cars_inventory.keys().size() - 1
-				current_train_info.cars_inventory[caboose_index + 1] = current_train_info.cars_inventory[caboose_index]
-				current_train_info.cars_inventory[caboose_index] = {"node" = null, "type" = null, "hard_points" = {}, "gadgets" = {},}
-
-func find_random_merc():
-	var merc_name = CharacterInfo.characters_roster.keys().pick_random()
-	var valid = false
-	while valid == false:
-		var index = 0
-		for merc in current_character_info.mercs_inventory.keys():
-			if merc != merc_name:
-				index += 1
-		if index >= current_character_info.mercs_inventory.keys().size() - 1:
-			valid = true
-		else:
-			merc_name = CharacterInfo.characters_roster.keys().pick_random()
-	
-	return merc_name

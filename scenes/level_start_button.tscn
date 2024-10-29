@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://cyx8j31aesl2b"]
+
+[ext_resource type="Script" path="res://scripts/level_start_button.gd" id="1_qgirn"]
+[ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="1_x2hcl"]
+[ext_resource type="Texture2D" uid="uid://trsm7lvfhxb4" path="res://sprites/ui/circle.png" id="3_i8xfg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7ovva"]
+radius = 48.0937
+
+[node name="LevelStartButton" type="Area2D"]
+script = ExtResource("1_qgirn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7ovva")
+
+[node name="AllAboardButton" type="Button" parent="."]
+visible = false
+offset_left = -59.0
+offset_top = -101.0
+offset_right = 58.0
+offset_bottom = -56.0
+theme = ExtResource("1_x2hcl")
+text = "All Aboard!"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("3_i8xfg")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="pressed" from="AllAboardButton" to="." method="_on_all_aboard_button_pressed"]

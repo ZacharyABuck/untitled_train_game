@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://csdhvsxyenywf"]
+[gd_scene load_steps=29 format=3 uid="uid://csdhvsxyenywf"]
 
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/world.gd" id="1_u1dsg"]
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/current_player_info.gd" id="2_kodbe"]
@@ -10,25 +10,12 @@
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/current_gadget_info.gd" id="8_u6yb2"]
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/current_enemy_info.gd" id="9_ibroa"]
 [ext_resource type="AudioStream" uid="uid://bshtqlqkt4twy" path="res://music/world_music.mp3" id="10_3k0cp"]
-[ext_resource type="Script" path="res://scripts/ui/world_map_camera.gd" id="10_j2pst"]
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/current_character_info.gd" id="10_yxbpk"]
 [ext_resource type="AudioStream" uid="uid://dasb0ya67twdd" path="res://music/level_music_no_intro.mp3" id="11_ar4r5"]
-[ext_resource type="Texture2D" uid="uid://c75pwpkt2lydf" path="res://sprites/tiles/world_map_tileset.png" id="12_digcs"]
-[ext_resource type="Script" path="res://scripts/maps/world_map.gd" id="13_6j7ga"]
-[ext_resource type="Shader" path="res://shaders/line.gdshader" id="15_7lf57"]
 [ext_resource type="Script" path="res://scripts/ui/world_ui.gd" id="16_s8cdk"]
-[ext_resource type="Texture2D" uid="uid://da572rofd7f81" path="res://sprites/ui/dotted_line.png" id="16_y14fm"]
 [ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="17_7ntxb"]
-[ext_resource type="FontFile" uid="uid://dxx340jybsylj" path="res://fonts/JMH Typewriter-Black.ttf" id="17_rwwbi"]
-[ext_resource type="Script" path="res://scripts/ui/towns_ui.gd" id="18_ulvie"]
-[ext_resource type="Shader" path="res://shaders/fog.gdshader" id="18_wpx82"]
-[ext_resource type="Texture2D" uid="uid://bh5tx8yo82agi" path="res://sprites/town/town_screen_image_1.png" id="19_uhtjj"]
-[ext_resource type="Texture2D" uid="uid://trsm7lvfhxb4" path="res://sprites/ui/circle.png" id="20_qdyg3"]
-[ext_resource type="FontFile" uid="uid://bt4836ueqhi58" path="res://fonts/WesternBangBang-Regular.ttf" id="22_w4hsh"]
-[ext_resource type="Texture2D" uid="uid://ccydwnn5siydn" path="res://sprites/ui/x.png" id="25_c7tds"]
-[ext_resource type="Script" path="res://scripts/ui/trainyard.gd" id="26_kunaq"]
+[ext_resource type="Script" path="res://components/ui_animation_component.gd" id="17_tivx6"]
 [ext_resource type="Script" path="res://scripts/ui/debug_ui.gd" id="26_ugrr2"]
-[ext_resource type="Texture2D" uid="uid://cofci5enhbedj" path="res://sprites/ui/arrow.png" id="27_gfuge"]
 [ext_resource type="Script" path="res://scripts/ui/end_screen_ui.gd" id="27_la4rl"]
 
 [sub_resource type="Animation" id="Animation_4oonn"]
@@ -194,209 +181,6 @@ _data = {
 "world_to_level": SubResource("Animation_uqyuv")
 }
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_w5n7g"]
-vertices = PackedVector2Array(32, 11, -32, 10, -32, -11, 32, -12)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-32, -11, 32, -11.5, 32, 11, -32, 9.5)])
-source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 0.0
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_bi16b"]
-vertices = PackedVector2Array(-32, 9, -32, -4, -12, -2, -21, 10, -3, 20, 6, 7, 24, 10, 20, -5, 32, -6, 32, 9)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 3, 2, 5), PackedInt32Array(6, 4, 5, 7, 8), PackedInt32Array(8, 9, 6)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(32, -5.5, 19.5, -4.5, 5.5, 6.5, -12, -1.5, -32, -3.5, -32, 8.5, -20.5, 10, -2.5, 19.5, 23.5, 9.5, 32, 9)])
-source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 0.0
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_aaq0t"]
-vertices = PackedVector2Array(-9, 5, -32, 8, -32, -5, -7, -11, 7, -5, -9, -32, 4, -32, 5, -21, 32, -5, 32, 9, 6, 9, -9, 32, 6, 32)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(3, 5, 6, 7), PackedInt32Array(3, 7, 4), PackedInt32Array(4, 8, 9, 10, 0), PackedInt32Array(11, 0, 10, 12)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-9, -32, -6.5, -10.5, -32, -4.5, -32, 8, -8.5, 4.5, -9, 32, 5.5, 32, 5.5, 9, 32, 9, 32, -5, 7, -5, 4.5, -20.5, 3.5, -32)])
-source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 0.0
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_ghwbf"]
-vertices = PackedVector2Array(5, 4, 8, 32, -8, 32, -11, 9, -4, -9, -32, -9, -32, 7)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 4, 3, 6)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-32, -9, -4, -9, 5, 4, 7.5, 32, -8, 32, -10.5, 8.5, -32, 6.5)])
-source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 0.0
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_3saok"]
-vertices = PackedVector2Array(-5, -18, -7, -32, 6, -32, 6, -24, 4, -7, 18, -12, 15, 4, 2, 14, -6, 1, -18, 13, -22, -5, -32, 8, -32, -5)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(4, 3, 5, 6, 7), PackedInt32Array(8, 4, 7, 9), PackedInt32Array(10, 8, 9, 11, 12)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-7, -32, -5, -18, 3.5, -7, -6, 1, -21.5, -4.5, -32, -5, -32, 8, -18, 13, 2, 13.5, 14.5, 3.5, 17.5, -12, 6, -24, 6, -32)])
-source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 0.0
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_pbwlm"]
-vertices = PackedVector2Array(-5, -10, -10, -32, 5, -32, 8, -5, -9, 5, -32, 9, -32, -5, 32, 9, 32, -4)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 0), PackedInt32Array(7, 4, 0, 3), PackedInt32Array(7, 3, 8)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-10, -32, -5, -9.5, -32, -4.5, -32, 9, -9, 4.5, 32, 8.5, 32, -4, 8, -4.5, 4.5, -32)])
-source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 0.0
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jo74o"]
-texture = ExtResource("12_digcs")
-texture_region_size = Vector2i(64, 64)
-0:1/0 = 0
-0:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_w5n7g")
-0:1/0/metadata/_better_terrain = {
-0: [2],
-8: [2],
-"symmetry": 7,
-"type": 2
-}
-1:1/0 = 0
-1:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_ghwbf")
-1:1/0/metadata/_better_terrain = {
-4: [2],
-8: [2],
-"symmetry": 7,
-"type": 2
-}
-2:2/0 = 0
-2:2/0/metadata/_better_terrain = {
-"type": 1
-}
-1:2/0 = 0
-1:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_3saok")
-1:2/0/metadata/_better_terrain = {
-8: [2],
-12: [2],
-"symmetry": 7,
-"type": 2
-}
-0:2/0 = 0
-0:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_bi16b")
-0:2/0/metadata/_better_terrain = {
-0: [2],
-8: [2],
-"symmetry": 7,
-"type": 2
-}
-0:0/0 = 0
-0:0/0/metadata/_better_terrain = {
-"type": 0
-}
-2:1/0 = 0
-2:1/0/probability = 0.05
-2:1/0/metadata/_better_terrain = {
-"type": 0
-}
-3:1/0 = 0
-3:1/0/probability = 0.05
-3:1/0/metadata/_better_terrain = {
-"type": 0
-}
-4:1/0 = 0
-4:1/0/probability = 0.05
-4:1/0/metadata/_better_terrain = {
-"type": 0
-}
-5:1/0 = 0
-5:1/0/probability = 0.01
-5:1/0/metadata/_better_terrain = {
-"type": 0
-}
-6:1/0 = 0
-6:1/0/probability = 0.01
-6:1/0/metadata/_better_terrain = {
-"type": 0
-}
-3:2/0 = 0
-3:2/0/probability = 0.2
-3:2/0/metadata/_better_terrain = {
-"type": 1
-}
-4:2/0 = 0
-4:2/0/probability = 0.2
-4:2/0/metadata/_better_terrain = {
-"type": 1
-}
-5:2/0 = 0
-5:2/0/probability = 0.2
-5:2/0/metadata/_better_terrain = {
-"type": 1
-}
-0:3/0 = 0
-0:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_aaq0t")
-0:3/0/metadata/_better_terrain = {
-0: [2],
-4: [2],
-8: [2],
-12: [2],
-"symmetry": 7,
-"type": 2
-}
-1:3/0 = 0
-1:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_pbwlm")
-1:3/0/metadata/_better_terrain = {
-0: [2],
-8: [2],
-12: [2],
-"symmetry": 7,
-"type": 2
-}
-2:3/0 = 0
-2:3/0/metadata/_better_terrain = {
-"type": 3
-}
-
-[sub_resource type="TileSet" id="TileSet_efl2w"]
-tile_size = Vector2i(64, 64)
-navigation_layer_0/layers = 1
-sources/0 = SubResource("TileSetAtlasSource_jo74o")
-metadata/_better_terrain = {
-"decoration": ["Decoration", Color(0.411765, 0.411765, 0.411765, 1), 3, [], {
-"path": "res://addons/better-terrain/icons/Decoration.svg"
-}],
-"terrains": [["Dirt", Color(0.11987, 0.986998, 0.545363, 1), 0, [], {
-"path": ""
-}], ["Mountains", Color(0.141479, 0.363414, 0.953125, 1), 0, [], {
-"path": ""
-}], ["Road", Color(0.35759, 0.681827, 0.703518, 1), 0, [], {
-"path": ""
-}], ["Town", Color(0.761643, 0.454397, 0.565979, 1), 0, [], {
-"path": ""
-}]],
-"version": "0.2"
-}
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_58td6"]
-shader = ExtResource("15_7lf57")
-shader_parameter/amplitutde = Vector2(1, 0)
-shader_parameter/speed = Vector2(0, 0)
-
-[sub_resource type="Gradient" id="Gradient_sd53r"]
-offsets = PackedFloat32Array(0, 0.328313)
-colors = PackedColorArray(0.596078, 0.878431, 0.878431, 1, 1, 1, 1, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_wnxk2"]
-noise_type = 0
-frequency = 0.0173
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_e4lqg"]
-width = 256
-seamless = true
-color_ramp = SubResource("Gradient_sd53r")
-noise = SubResource("FastNoiseLite_wnxk2")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7dxwb"]
-shader = ExtResource("18_wpx82")
-shader_parameter/density = 1.0
-shader_parameter/speed = Vector2(0.1, 0.05)
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_e4lqg")
-
-[sub_resource type="Gradient" id="Gradient_77n0r"]
-offsets = PackedFloat32Array(0, 0.196809, 1)
-colors = PackedColorArray(0, 0, 0, 0, 0.397322, 0.202637, 0.109703, 1, 0.00712825, 0.00712825, 0.00712825, 0.992872)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_m2cl1"]
-gradient = SubResource("Gradient_77n0r")
-fill_from = Vector2(0.512821, 0)
-fill_to = Vector2(0.521368, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xbybr"]
 bg_color = Color(0.956863, 0.937255, 0.858824, 1)
 border_width_left = 5
@@ -415,38 +199,64 @@ expand_margin_bottom = 10.0
 shadow_size = 2
 shadow_offset = Vector2(2, 2)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kndii"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_78h24"]
 bg_color = Color(0.956863, 0.937255, 0.858824, 1)
 border_width_left = 5
+border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
 border_color = Color(0.482353, 0.27451, 0.2, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 expand_margin_left = 20.0
+expand_margin_top = 10.0
 expand_margin_right = 20.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rihce"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oej0w"]
-bg_color = Color(0.956863, 0.937255, 0.858824, 0)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.517647, 0.32549, 0.25098, 0.52549)
-expand_margin_top = 20.0
-expand_margin_bottom = 20.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1b6qb"]
-bg_color = Color(0.956863, 0.937255, 0.858824, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.517647, 0.32549, 0.25098, 0.52549)
+expand_margin_bottom = 10.0
+shadow_size = 2
+shadow_offset = Vector2(2, 2)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_my1xl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ssevu"]
+
+[sub_resource type="Animation" id="Animation_2r8ut"]
+resource_name = "slide_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PanelContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(0.297302, 1),
+"update": 0,
+"values": [Vector2(194, -1000), Vector2(194, 109)]
+}
+
+[sub_resource type="Animation" id="Animation_mcgfo"]
+resource_name = "standby"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PanelContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.297302),
+"update": 0,
+"values": [Vector2(194, -1000)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gtat0"]
+_data = {
+"slide_in": SubResource("Animation_2r8ut"),
+"standby": SubResource("Animation_mcgfo")
+}
 
 [node name="World" type="Node2D"]
 process_mode = 3
@@ -481,13 +291,6 @@ script = ExtResource("9_ibroa")
 [node name="CurrentCharacterInfo" type="Node2D" parent="Info"]
 script = ExtResource("10_yxbpk")
 
-[node name="Camera" type="Camera2D" parent="."]
-anchor_mode = 0
-zoom = Vector2(0.6, 0.6)
-limit_left = -1000000
-position_smoothing_enabled = true
-script = ExtResource("10_j2pst")
-
 [node name="Music" type="Node2D" parent="."]
 process_mode = 3
 
@@ -506,443 +309,85 @@ libraries = {
 "": SubResource("AnimationLibrary_d88dm")
 }
 
-[node name="WorldMap" type="TileMap" parent="."]
-tile_set = SubResource("TileSet_efl2w")
-format = 2
-layer_1/name = "Towns"
-layer_1/tile_data = PackedInt32Array()
-script = ExtResource("13_6j7ga")
-
-[node name="TravelLine" type="Line2D" parent="."]
-visible = false
-material = SubResource("ShaderMaterial_58td6")
-points = PackedVector2Array(500, 0, 0, 0)
-width = 15.0
-default_color = Color(1, 0, 0, 1)
-texture = ExtResource("16_y14fm")
-texture_mode = 1
-round_precision = 1
-
-[node name="StormSprite" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_7dxwb")
-position = Vector2(-1031, 466)
-rotation = 1.5708
-scale = Vector2(54.0625, 45.1715)
-texture = SubResource("GradientTexture2D_m2cl1")
-
 [node name="WorldUI" type="CanvasLayer" parent="."]
 process_mode = 3
+visible = false
 script = ExtResource("16_s8cdk")
 
-[node name="MarginContainer" type="MarginContainer" parent="WorldUI"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 875
-
-[node name="GridContainer" type="GridContainer" parent="WorldUI/MarginContainer"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="WorldUI/MarginContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-mouse_filter = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="WorldUI/MarginContainer/GridContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="MoneyLabel" type="RichTextLabel" parent="WorldUI/MarginContainer/GridContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-mouse_filter = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.290196)
-theme_override_colors/font_outline_color = Color(0.926498, 0.980853, 1.54018e-06, 1)
-theme_override_constants/shadow_offset_x = 5
-theme_override_constants/shadow_offset_y = 5
-theme_override_constants/shadow_outline_size = 5
-theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("17_rwwbi")
-theme_override_font_sizes/normal_font_size = 30
-text = "Money = $0"
-fit_content = true
-scroll_active = false
-
-[node name="HSeparator" type="HSeparator" parent="WorldUI/MarginContainer/GridContainer/HBoxContainer"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="WorldUI/MarginContainer/GridContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xbybr")
-
-[node name="MissionInventoryContainer" type="GridContainer" parent="WorldUI/MarginContainer/GridContainer/HBoxContainer/PanelContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/h_separation = 30
-theme_override_constants/v_separation = 30
-columns = 4
-
-[node name="EdgeLabelContainer" type="HBoxContainer" parent="WorldUI/MarginContainer/GridContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-mouse_filter = 2
-
-[node name="MarginContainer2" type="MarginContainer" parent="WorldUI"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 400
-theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 50
-
-[node name="RewardsContainer" type="VBoxContainer" parent="WorldUI/MarginContainer2"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="TownsUI" type="CanvasLayer" parent="."]
-visible = false
-script = ExtResource("18_ulvie")
-
-[node name="TownScreen" type="MarginContainer" parent="TownsUI"]
-visible = false
-texture_filter = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -55.0
-offset_bottom = 55.4688
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 0
-theme_override_constants/margin_left = 400
-theme_override_constants/margin_top = 200
-theme_override_constants/margin_right = 400
-theme_override_constants/margin_bottom = 200
-
-[node name="PanelContainer" type="PanelContainer" parent="TownsUI/TownScreen"]
-layout_mode = 2
-theme = ExtResource("17_7ntxb")
-
-[node name="Image" type="TextureRect" parent="TownsUI/TownScreen/PanelContainer"]
-layout_mode = 2
-texture = ExtResource("19_uhtjj")
-expand_mode = 5
-
-[node name="TownNameLabel" type="RichTextLabel" parent="TownsUI/TownScreen/PanelContainer"]
-unique_name_in_owner = true
-clip_contents = false
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-theme = ExtResource("17_7ntxb")
-theme_override_font_sizes/normal_font_size = 50
-theme_override_styles/normal = SubResource("StyleBoxFlat_kndii")
-bbcode_enabled = true
-text = "[center]Townsville[/center]"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-
-[node name="TownButtons" type="Node2D" parent="TownsUI/TownScreen/PanelContainer"]
-
-[node name="JobsButton" type="Button" parent="TownsUI/TownScreen/PanelContainer/TownButtons"]
-offset_left = 254.0
-offset_top = 459.234
-offset_right = 350.0
-offset_bottom = 509.234
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("17_7ntxb")
-theme_override_font_sizes/font_size = 30
-text = "Jobs"
-icon = ExtResource("20_qdyg3")
-
-[node name="TrainyardButton" type="Button" parent="TownsUI/TownScreen/PanelContainer/TownButtons"]
-offset_left = 431.0
-offset_top = 205.234
-offset_right = 588.0
-offset_bottom = 254.234
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("17_7ntxb")
-theme_override_font_sizes/font_size = 30
-text = "Trainyard"
-
-[node name="CloseButton" type="TextureButton" parent="TownsUI"]
-layout_direction = 3
-offset_left = 400.0
-offset_top = 162.0
-offset_right = 432.0
-offset_bottom = 194.0
-size_flags_horizontal = 8
-size_flags_vertical = 0
-texture_normal = ExtResource("25_c7tds")
-stretch_mode = 3
-
-[node name="Trainyard" type="MarginContainer" parent="TownsUI"]
-visible = false
+[node name="PanelContainer" type="PanelContainer" parent="WorldUI"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -590.0
-offset_top = -398.0
-offset_right = 590.0
-offset_bottom = 404.0
+offset_left = -778.0
+offset_top = -125.0
+offset_right = 778.0
+offset_bottom = 109.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 0
-script = ExtResource("26_kunaq")
-
-[node name="PanelContainer" type="PanelContainer" parent="TownsUI/Trainyard"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
 theme = ExtResource("17_7ntxb")
 
-[node name="MarginContainer" type="MarginContainer" parent="TownsUI/Trainyard/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="WorldUI/PanelContainer"]
 layout_mode = 2
+size_flags_vertical = 4
 mouse_filter = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
-[node name="TrainyardItemsList" type="VBoxContainer" parent="TownsUI/Trainyard/PanelContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="WorldUI/PanelContainer/MarginContainer"]
 layout_mode = 2
+size_flags_vertical = 4
 mouse_filter = 2
-theme_override_constants/separation = 30
-
-[node name="Header" type="HBoxContainer" parent="TownsUI/Trainyard/PanelContainer/MarginContainer/TrainyardItemsList"]
-layout_mode = 2
-mouse_filter = 2
-alignment = 1
-
-[node name="ButtonSpacer" type="TextureButton" parent="TownsUI/Trainyard/PanelContainer/MarginContainer/TrainyardItemsList/Header"]
-modulate = Color(1, 1, 1, 0)
-layout_direction = 3
-layout_mode = 2
-size_flags_horizontal = 10
-size_flags_vertical = 0
-mouse_filter = 2
-texture_normal = ExtResource("25_c7tds")
-stretch_mode = 3
-
-[node name="TrainyardLabel" type="RichTextLabel" parent="TownsUI/Trainyard/PanelContainer/MarginContainer/TrainyardItemsList/Header"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-mouse_filter = 2
-theme = ExtResource("17_7ntxb")
-theme_override_fonts/normal_font = ExtResource("22_w4hsh")
-theme_override_font_sizes/normal_font_size = 50
-bbcode_enabled = true
-text = "[center]Trainyard[/center]"
-fit_content = true
-scroll_active = false
-
-[node name="TrainyardCloseButton" type="TextureButton" parent="TownsUI/Trainyard/PanelContainer/MarginContainer/TrainyardItemsList/Header"]
-layout_direction = 3
-layout_mode = 2
-size_flags_horizontal = 10
-size_flags_vertical = 0
-texture_normal = ExtResource("25_c7tds")
-stretch_mode = 3
-
-[node name="HSeparator" type="HSeparator" parent="TownsUI/Trainyard/PanelContainer/MarginContainer/TrainyardItemsList"]
-layout_mode = 2
-theme_override_constants/separation = 30
-theme_override_styles/separator = SubResource("StyleBoxEmpty_rihce")
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="TownsUI/Trainyard/PanelContainer/MarginContainer/TrainyardItemsList"]
-layout_mode = 2
-size_flags_vertical = 3
 theme_override_constants/separation = 50
 alignment = 1
 
-[node name="MercsContainer" type="VBoxContainer" parent="TownsUI/Trainyard/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2"]
-layout_mode = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="TownsUI/Trainyard/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/MercsContainer"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-theme_override_font_sizes/normal_font_size = 30
-bbcode_enabled = true
-text = "[center]Mercs[/center]"
-fit_content = true
-
-[node name="RichTextLabel2" type="RichTextLabel" parent="TownsUI/Trainyard/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/MercsContainer"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-theme_override_font_sizes/normal_font_size = 20
-bbcode_enabled = true
-text = "[center]Click to upgrade
-Drag to equip to train[/center]"
-fit_content = true
-
-[node name="Mercs" type="VBoxContainer" parent="TownsUI/Trainyard/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/MercsContainer"]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="TownsUI/Trainyard/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2"]
+[node name="PanelContainer" type="PanelContainer" parent="WorldUI/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 30
-
-[node name="PanelContainer" type="PanelContainer" parent="TownsUI/Trainyard/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/VBoxContainer"]
-layout_mode = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_oej0w")
+theme_override_styles/panel = SubResource("StyleBoxFlat_xbybr")
 
-[node name="TrainCarContainer" type="HBoxContainer" parent="TownsUI/Trainyard/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/VBoxContainer/PanelContainer"]
-layout_direction = 3
+[node name="VBoxContainer" type="VBoxContainer" parent="WorldUI/PanelContainer/MarginContainer/HBoxContainer/PanelContainer"]
 layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 20
-alignment = 1
+theme_override_constants/separation = 50
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/Trainyard/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/VBoxContainer"]
-layout_mode = 2
-
-[node name="TechTreeLabel" type="RichTextLabel" parent="TownsUI/Trainyard/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/VBoxContainer/HBoxContainer"]
-texture_filter = 1
-clip_contents = false
-custom_minimum_size = Vector2(450, 0)
-layout_direction = 2
-layout_mode = 2
-size_flags_horizontal = 4
-mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 30
-bbcode_enabled = true
-fit_content = true
-scroll_active = false
-
-[node name="PayUpkeepButton" type="Button" parent="TownsUI/Trainyard/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/VBoxContainer/HBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 10
-text = "Pay Upkeep $4"
-
-[node name="PayAllUpkeepButton" type="Button" parent="TownsUI/Trainyard/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/VBoxContainer/HBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 10
-text = "Pay All Upkeep $30"
-
-[node name="TechTreeContainer" type="PanelContainer" parent="TownsUI/Trainyard/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/VBoxContainer"]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-size_flags_vertical = 3
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_1b6qb")
-
-[node name="MarginContainer" type="MarginContainer" parent="TownsUI/Trainyard/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/VBoxContainer/TechTreeContainer"]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/Trainyard/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/VBoxContainer/TechTreeContainer/MarginContainer"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="TechTree" type="HBoxContainer" parent="TownsUI/Trainyard/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/VBoxContainer/TechTreeContainer/MarginContainer/HBoxContainer"]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 20
-
-[node name="SlotArrow" type="Sprite2D" parent="TownsUI/Trainyard"]
-visible = false
-texture_filter = 1
-texture = ExtResource("27_gfuge")
-offset = Vector2(0, -25)
-
-[node name="Jobs" type="MarginContainer" parent="TownsUI"]
-visible = false
-offset_left = 1367.0
-offset_top = 149.0
-offset_right = 1877.0
-offset_bottom = 336.0
-size_flags_vertical = 8
-mouse_filter = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_bottom = 0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/Jobs"]
-layout_mode = 2
-theme_override_constants/separation = 20
-alignment = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="TownsUI/Jobs/HBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="WorldUI/PanelContainer/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("17_7ntxb")
-
-[node name="MarginContainer" type="MarginContainer" parent="TownsUI/Jobs/HBoxContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 50
-
-[node name="VBoxContainer" type="VBoxContainer" parent="TownsUI/Jobs/HBoxContainer/PanelContainer/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 30
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TownsUI/Jobs/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 0
-alignment = 1
-
-[node name="JobsLabel" type="RichTextLabel" parent="TownsUI/Jobs/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme = ExtResource("17_7ntxb")
-theme_override_fonts/normal_font = ExtResource("22_w4hsh")
 theme_override_font_sizes/normal_font_size = 50
 bbcode_enabled = true
-text = "Jobs"
+text = "[center]Missions[/center]"
 fit_content = true
-scroll_active = false
 
-[node name="JobsCloseButton" type="TextureButton" parent="TownsUI/Jobs/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_direction = 3
-layout_mode = 2
-size_flags_horizontal = 10
-size_flags_vertical = 0
-texture_normal = ExtResource("25_c7tds")
-stretch_mode = 3
-
-[node name="JobsContainer" type="VBoxContainer" parent="TownsUI/Jobs/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
+[node name="MissionInventoryContainer" type="VBoxContainer" parent="WorldUI/PanelContainer/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="WorldUI/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_78h24")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="WorldUI/PanelContainer/MarginContainer/HBoxContainer/PanelContainer2"]
+layout_mode = 2
+
+[node name="Edges" type="RichTextLabel" parent="WorldUI/PanelContainer/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("17_7ntxb")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[center]Edges[/center]"
+fit_content = true
+
+[node name="EdgeLabelContainer" type="GridContainer" parent="WorldUI/PanelContainer/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 50
+theme_override_constants/v_separation = 50
+columns = 4
 
 [node name="DebugUI" type="CanvasLayer" parent="."]
 visible = false
@@ -1427,60 +872,51 @@ offset_bottom = 667.0
 fixed_icon_size = Vector2i(10, 10)
 
 [node name="EndScreenUI" type="CanvasLayer" parent="."]
-visible = false
 script = ExtResource("27_la4rl")
 
-[node name="ColorRect" type="ColorRect" parent="EndScreenUI"]
+[node name="PanelContainer" type="PanelContainer" parent="EndScreenUI"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 194.0
+offset_top = -1000.0
+offset_right = -194.0
+offset_bottom = -1234.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.956863, 0.937255, 0.858824, 1)
+theme = ExtResource("17_7ntxb")
 
-[node name="MarginContainer" type="MarginContainer" parent="EndScreenUI"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="MarginContainer" type="MarginContainer" parent="EndScreenUI/PanelContainer"]
+layout_mode = 2
 mouse_filter = 0
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
-[node name="VBoxContainer" type="VBoxContainer" parent="EndScreenUI/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="EndScreenUI/PanelContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="RouteCompleteLabel" type="Label" parent="EndScreenUI/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme = ExtResource("17_7ntxb")
-theme_override_font_sizes/font_size = 80
-text = "Route Complete!"
-horizontal_alignment = 1
-
-[node name="PathLabel" type="Label" parent="EndScreenUI/MarginContainer/VBoxContainer"]
+[node name="PathLabel" type="Label" parent="EndScreenUI/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("17_7ntxb")
 theme_override_font_sizes/font_size = 40
-text = "Franchtown to Loversville"
+text = "Welcome to Loversville"
 horizontal_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="EndScreenUI/MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="EndScreenUI/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 100
+theme_override_constants/separation = 50
 theme_override_styles/separator = SubResource("StyleBoxEmpty_ssevu")
 
-[node name="MissionCompleteContainer" type="HBoxContainer" parent="EndScreenUI/MarginContainer/VBoxContainer"]
+[node name="MissionCompleteContainer" type="HBoxContainer" parent="EndScreenUI/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 50
 alignment = 1
 
-[node name="NoMissionsLabel" type="Label" parent="EndScreenUI/MarginContainer/VBoxContainer"]
+[node name="NoMissionsLabel" type="Label" parent="EndScreenUI/PanelContainer/MarginContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 4
@@ -1488,16 +924,12 @@ theme = ExtResource("17_7ntxb")
 text = "No Missions Completed"
 horizontal_alignment = 1
 
-[node name="HSeparator2" type="HSeparator" parent="EndScreenUI/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 300
-theme_override_styles/separator = SubResource("StyleBoxEmpty_ssevu")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="EndScreenUI/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="EndScreenUI/PanelContainer/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 alignment = 1
 
-[node name="LevelMinLabel" type="Label" parent="EndScreenUI/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="LevelMinLabel" type="Label" parent="EndScreenUI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 z_index = 1
 layout_mode = 2
 size_flags_horizontal = 10
@@ -1505,7 +937,7 @@ theme = ExtResource("17_7ntxb")
 text = "Level 1"
 horizontal_alignment = 1
 
-[node name="LevelUpBar" type="ProgressBar" parent="EndScreenUI/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="LevelUpBar" type="ProgressBar" parent="EndScreenUI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(800, 50)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -1513,7 +945,7 @@ theme = ExtResource("17_7ntxb")
 max_value = 75.0
 show_percentage = false
 
-[node name="LevelMaxLabel" type="Label" parent="EndScreenUI/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="LevelMaxLabel" type="Label" parent="EndScreenUI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 z_index = 1
 layout_mode = 2
 size_flags_horizontal = 2
@@ -1521,37 +953,40 @@ theme = ExtResource("17_7ntxb")
 text = "Level 2"
 horizontal_alignment = 1
 
-[node name="HSeparator3" type="HSeparator" parent="EndScreenUI/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 100
-theme_override_styles/separator = SubResource("StyleBoxEmpty_ssevu")
-
-[node name="ReturnButton" type="Button" parent="EndScreenUI/MarginContainer/VBoxContainer"]
+[node name="ReturnButton" type="Button" parent="EndScreenUI/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 10
 theme = ExtResource("17_7ntxb")
 theme_override_font_sizes/font_size = 40
-text = "Return to World Map"
+text = "Finish"
+
+[node name="UIAnimationComponent" type="Node" parent="EndScreenUI/PanelContainer/MarginContainer/VBoxContainer/ReturnButton"]
+script = ExtResource("17_tivx6")
+hover_scale = Vector2(1.1, 1.1)
+hover_trans = 7
+hover_time = 0.2
 
 [node name="EdgeMenu" type="HBoxContainer" parent="EndScreenUI"]
 process_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(0, 400)
+offset_left = 249.0
+offset_top = 439.0
+offset_right = 1671.0
+offset_bottom = 839.0
+size_flags_vertical = 3
 mouse_filter = 2
 mouse_force_pass_scroll_events = false
 theme_override_constants/separation = 500
 alignment = 1
 
-[connection signal="pressed" from="TownsUI/TownScreen/PanelContainer/TownButtons/JobsButton" to="TownsUI" method="_on_jobs_button_pressed"]
-[connection signal="pressed" from="TownsUI/TownScreen/PanelContainer/TownButtons/TrainyardButton" to="TownsUI" method="_on_trainyard_button_pressed"]
-[connection signal="pressed" from="TownsUI/CloseButton" to="TownsUI" method="_on_close_button_pressed"]
-[connection signal="pressed" from="TownsUI/Trainyard/PanelContainer/MarginContainer/TrainyardItemsList/Header/TrainyardCloseButton" to="TownsUI/Trainyard" method="close_button_pressed"]
-[connection signal="pressed" from="TownsUI/Jobs/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/JobsCloseButton" to="TownsUI" method="close_all_windows"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="EndScreenUI"]
+libraries = {
+"": SubResource("AnimationLibrary_gtat0")
+}
+
 [connection signal="pressed" from="DebugUI/LevelAutoCompleteButton" to="DebugUI" method="_on_level_auto_complete_button_pressed"]
 [connection signal="pressed" from="DebugUI/TakeDamageButton" to="DebugUI" method="_on_take_damage_button_pressed"]
 [connection signal="pressed" from="DebugUI/GainXPButton" to="DebugUI" method="_on_gain_xp_button_pressed"]
 [connection signal="item_clicked" from="DebugUI/WeaponList" to="DebugUI" method="_on_weapon_list_item_clicked"]
-[connection signal="pressed" from="EndScreenUI/MarginContainer/VBoxContainer/ReturnButton" to="EndScreenUI" method="_on_return_button_pressed"]
+[connection signal="pressed" from="EndScreenUI/PanelContainer/MarginContainer/VBoxContainer/ReturnButton" to="EndScreenUI" method="_on_return_button_pressed"]

@@ -55,7 +55,8 @@ func _on_area_2d_area_entered(area):
 		WeaponInfo.attach_buffs(active_buffs, attack.active_buffs)
 
 		if active_buffs.has("damage"):
-			attack.attack_damage = damage * active_buffs["damage"]
+			attack.attack_damage = damage + (damage * active_buffs["damage"])
+			print(attack.attack_damage)
 		else:
 			attack.attack_damage = damage
 		

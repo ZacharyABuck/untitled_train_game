@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://duco1bg3oxcdq"]
+
+[ext_resource type="Script" path="res://scenes/edges/channeler.gd" id="1_hdwft"]
+
+[node name="Channeler" type="Node2D"]
+script = ExtResource("1_hdwft")
+edge_reference = "channeler"

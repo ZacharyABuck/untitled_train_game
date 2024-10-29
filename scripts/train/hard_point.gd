@@ -28,7 +28,6 @@ func add_gadget(requested_gadget):
 		if CurrentRun.world.current_player_info.current_money >= requested_gadget_info["cost"]:
 			
 			CurrentRun.world.current_player_info.current_money -= requested_gadget_info["cost"]
-			CurrentRun.world.update_money_label()
 			
 			CurrentRun.world.current_gadget_info.selected_gadget = null
 			
@@ -43,15 +42,14 @@ func add_gadget(requested_gadget):
 			
 			#create gadget
 			var new_gadget = spawn_gadget(requested_gadget)
-			gadget_built.emit(new_gadget)
 			gadget = requested_gadget
+			gadget_built.emit(new_gadget)
 			CurrentRun.world.current_player_info.state = "default"
 
-func sell_gadget(gadget):
-	var sell_value = (GadgetInfo.gadget_roster[gadget]["cost"]*.5) + CurrentRun.world.current_player_info.global_sell_modifier
+func sell_gadget(old_gadget):
+	var sell_value = (GadgetInfo.gadget_roster[old_gadget]["cost"]*.5) + CurrentRun.world.current_player_info.global_sell_modifier
 	CurrentRun.world.current_player_info.current_money += sell_value
-	CurrentRun.world.update_money_label()
-	CurrentRun.world.current_train_info.cars_inventory[car.index]["gadgets"][get_parent().name].clear()
+	CurrentRun.world.current_train_info.cars_inventory[car.index]["gadgets"].erase(get_parent().name)
 	CurrentRun.world.current_level_info.active_level.close_all_ui()
 	CurrentRun.world.current_player_info.state = "default"
 	radial_menu.close_menu()
@@ -61,6 +59,7 @@ func sell_gadget(gadget):
 
 func delete_gadget():
 	if gadget != null:
+		gadget = null
 		for i in get_children():
 			if i.is_in_group("gadget"):
 				i.queue_free()

@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bjelo13dmytyc" path="res://sprites/decor/fort_walls.png" id="2_yyaf5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b5fgu"]
-size = Vector2(500, 500)
+size = Vector2(48, 500)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a4m14"]
 radius = 3526.0
@@ -15,13 +15,25 @@ collision_mask = 4
 script = ExtResource("1_oebb1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 0)
 shape = SubResource("RectangleShape2D_b5fgu")
 debug_color = Color(1, 1, 1, 0.329412)
 
 [node name="Walls" type="Sprite2D" parent="."]
-rotation = 1.5708
+rotation = -1.5708
 scale = Vector2(1.5, 1)
 texture = ExtResource("2_yyaf5")
+
+[node name="PlayerBoundary" type="StaticBody2D" parent="Walls"]
+rotation = -1.5708
+scale = Vector2(1, 0.666667)
+collision_layer = 32
+collision_mask = 9
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Walls/PlayerBoundary"]
+build_mode = 1
+polygon = PackedVector2Array(-21.9996, 341, -40.9981, 1554, -2241, 1570.99, -2241, -505.012, -29.0006, -510)
+disabled = true
 
 [node name="OuterArea" type="Area2D" parent="."]
 collision_layer = 0
@@ -29,6 +41,11 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OuterArea"]
 shape = SubResource("CircleShape2D_a4m14")
+
+[node name="TownSpawnPoint" type="Node2D" parent="."]
+position = Vector2(58, -190)
+rotation = -1.5708
+scale = Vector2(1.5, 1)
 
 [connection signal="area_entered" from="." to="." method="level_complete"]
 [connection signal="area_entered" from="OuterArea" to="." method="_on_outer_area_area_entered"]

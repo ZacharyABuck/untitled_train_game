@@ -3,7 +3,7 @@
 [ext_resource type="Shader" path="res://shaders/fire.gdshader" id="1_uaq3l"]
 [ext_resource type="PackedScene" uid="uid://cyv57gynwtrmu" path="res://components/hurtbox_component.tscn" id="1_vc4y4"]
 [ext_resource type="Script" path="res://scripts/train/furnace.gd" id="1_wbm24"]
-[ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://components/health_component.tscn" id="3_46fpg"]
+[ext_resource type="PackedScene" uid="uid://cs5paaxxvxe6l" path="res://components/health_component_furnace.tscn" id="5_mvxgj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2o0d1"]
 shader = ExtResource("1_uaq3l")
@@ -63,14 +63,13 @@ visible = false
 shape = SubResource("RectangleShape2D_etc5s")
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("1_vc4y4")]
-health_component = NodePath("../HealthComponent")
+health_component = NodePath("../HealthComponentFurnace")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 visible = false
 shape = SubResource("RectangleShape2D_dwjki")
 
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("HEALTHBAR") instance=ExtResource("3_46fpg")]
-MAX_HEALTH = 50.0
+[node name="HealthComponentFurnace" parent="." node_paths=PackedStringArray("HEALTHBAR") instance=ExtResource("5_mvxgj")]
 HEALTHBAR = NodePath("../HealthBarControl/FurnaceHealthBar")
 
 [node name="HealthBarControl" type="Node2D" parent="."]

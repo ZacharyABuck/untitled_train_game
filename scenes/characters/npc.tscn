@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgk2awbsud44l"]
+
+[ext_resource type="Script" path="res://scripts/characters/npc.gd" id="1_jonbe"]
+
+[node name="Npc" type="CharacterBody2D"]
+script = ExtResource("1_jonbe")

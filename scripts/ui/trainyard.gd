@@ -25,7 +25,7 @@ func spawn_trainyard_items():
 	if !cars_inventory.keys().is_empty():
 		for car in cars_inventory.keys():
 			var new_panel = spawn_train_car_panel(car)
-			new_panel.check_upkeep()
+			#new_panel.check_upkeep()
 			new_panel.clicked.connect(panel_clicked)
 			new_panel.car_sprite.mouse_entered.connect(preview_merc_placement.bind(new_panel))
 			new_panel.car_sprite.mouse_exited.connect(dismiss_merc_placement.bind(new_panel))
@@ -71,7 +71,6 @@ func merc_released(merc_panel):
 		hovered_car_panel = null
 		held_merc = null
 		clear_tech_tree()
-		CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"].check_warnings()
 	else:
 		populate_tech_tree(merc_panel)
 
@@ -87,7 +86,6 @@ func reset_merc(merc_panel):
 	merc_panel.get_parent().remove_child(merc_panel)
 	mercs.add_child(merc_panel)
 	mercs.move_child(merc_panel,index)
-	CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"].check_warnings()
 
 func preview_merc_placement(panel):
 	if held_merc != null and panel.equipped_merc_panel == null:
@@ -107,7 +105,7 @@ func spawn_train_car_panel(index):
 	return new_panel
 
 func close_button_pressed():
-	get_parent().close_all_windows()
+	get_parent().hide()
 
 func reset():
 	selected_slot = null
@@ -123,65 +121,64 @@ func panel_clicked(gadget, car_number, slot):
 	tech_tree_label.text = "[center]" + GadgetInfo.gadget_roster[gadget]["name"] + "[/center]"
 	selected_car = car_number
 	selected_slot = slot
-	check_upkeep()
+	#check_upkeep()
 
 func move_slot_arrow():
 	var slot_arrow = $SlotArrow
 	slot_arrow.global_position = Vector2(selected_slot.global_position.x + selected_slot.size.x*.5, selected_slot.global_position.y)
 	slot_arrow.show()
-
-func check_upkeep():
-	if !pay_upkeep_button.pressed.is_connected(pay_upkeep):
-		pay_upkeep_button.pressed.connect(pay_upkeep.bind(pay_upkeep_button))
-	if !pay_all_upkeep_button.pressed.is_connected(pay_upkeep):
-		pay_all_upkeep_button.pressed.connect(pay_upkeep.bind(pay_all_upkeep_button))
-	
-	if CurrentRun.world.current_train_info.cars_inventory[selected_car]["gadgets"].has(selected_slot.name):
-		var gadget_dict = CurrentRun.world.current_train_info.cars_inventory[selected_car]["gadgets"][selected_slot.name]
-		if gadget_dict["upkeep_paid"]:
-			pay_upkeep_button.hide()
-			check_all_upkeep()
-		else:
-			pay_upkeep_button.text = "Pay Upkeep: $" +  str("%.2f" % (GadgetInfo.gadget_roster[gadget_dict["gadget"]]["cost"]*upkeep_cost_mod))
-			pay_upkeep_button.set_meta("cost", GadgetInfo.gadget_roster[gadget_dict["gadget"]]["cost"]*upkeep_cost_mod)
-			pay_upkeep_button.show()
-			check_all_upkeep()
-
-
-func check_all_upkeep():
-	var amount: float = 0.0
-	for car in CurrentRun.world.current_train_info.cars_inventory:
-		for gadget in CurrentRun.world.current_train_info.cars_inventory[car]["gadgets"]:
-			if CurrentRun.world.current_train_info.cars_inventory[car]["gadgets"][gadget]["upkeep_paid"] == false:
-				amount += GadgetInfo.gadget_roster[CurrentRun.world.current_train_info.cars_inventory[car]\
-							["gadgets"][gadget]["gadget"]]["cost"]*upkeep_cost_mod
-	if amount > 0:
-		pay_all_upkeep_button.text = "Pay All Upkeep: $" + str("%.2f" % amount)
-		pay_all_upkeep_button.set_meta("cost", amount)
-		pay_all_upkeep_button.show()
-	else:
-		pay_all_upkeep_button.hide()
-
-func pay_upkeep(button):
-	var cost = button.get_meta("cost")
-	if CurrentRun.world.current_player_info.current_money >= cost:
-		CurrentRun.world.current_player_info.current_money -= cost
-		CurrentRun.world.update_money_label()
-	
-		if button.name == "PayAllUpkeepButton":
-			for car in CurrentRun.world.current_train_info.cars_inventory:
-				for gadget in CurrentRun.world.current_train_info.cars_inventory[car]["gadgets"]:
-					CurrentRun.world.current_train_info.cars_inventory[car]["gadgets"][gadget]["upkeep_paid"] = true
-			pay_all_upkeep_button.hide()
-			pay_upkeep_button.hide()
-		else:
-			CurrentRun.world.current_train_info.cars_inventory[selected_car]["gadgets"][selected_slot.name]["upkeep_paid"] = true
-			pay_upkeep_button.hide()
-			check_all_upkeep()
-		
-		for panel in train_car_container.get_children():
-			panel.check_upkeep()
-		CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"].check_warnings()
+#
+#func check_upkeep():
+	#if !pay_upkeep_button.pressed.is_connected(pay_upkeep):
+		#pay_upkeep_button.pressed.connect(pay_upkeep.bind(pay_upkeep_button))
+	#if !pay_all_upkeep_button.pressed.is_connected(pay_upkeep):
+		#pay_all_upkeep_button.pressed.connect(pay_upkeep.bind(pay_all_upkeep_button))
+	#
+	#if CurrentRun.world.current_train_info.cars_inventory[selected_car]["gadgets"].has(selected_slot.name):
+		#var gadget_dict = CurrentRun.world.current_train_info.cars_inventory[selected_car]["gadgets"][selected_slot.name]
+		#if gadget_dict["upkeep_paid"]:
+			#pay_upkeep_button.hide()
+			#check_all_upkeep()
+		#else:
+			#pay_upkeep_button.text = "Pay Upkeep: $" +  str("%.2f" % (GadgetInfo.gadget_roster[gadget_dict["gadget"]]["cost"]*upkeep_cost_mod))
+			#pay_upkeep_button.set_meta("cost", GadgetInfo.gadget_roster[gadget_dict["gadget"]]["cost"]*upkeep_cost_mod)
+			#pay_upkeep_button.show()
+			#check_all_upkeep()
+#
+#
+#func check_all_upkeep():
+	#var amount: float = 0.0
+	#for car in CurrentRun.world.current_train_info.cars_inventory:
+		#for gadget in CurrentRun.world.current_train_info.cars_inventory[car]["gadgets"]:
+			#if CurrentRun.world.current_train_info.cars_inventory[car]["gadgets"][gadget]["upkeep_paid"] == false:
+				#amount += GadgetInfo.gadget_roster[CurrentRun.world.current_train_info.cars_inventory[car]\
+							#["gadgets"][gadget]["gadget"]]["cost"]*upkeep_cost_mod
+	#if amount > 0:
+		#pay_all_upkeep_button.text = "Pay All Upkeep: $" + str("%.2f" % amount)
+		#pay_all_upkeep_button.set_meta("cost", amount)
+		#pay_all_upkeep_button.show()
+	#else:
+		#pay_all_upkeep_button.hide()
+#
+#func pay_upkeep(button):
+	#var cost = button.get_meta("cost")
+	#if CurrentRun.world.current_player_info.current_money >= cost:
+		#CurrentRun.world.current_player_info.current_money -= cost
+	#
+		#if button.name == "PayAllUpkeepButton":
+			#for car in CurrentRun.world.current_train_info.cars_inventory:
+				#for gadget in CurrentRun.world.current_train_info.cars_inventory[car]["gadgets"]:
+					#CurrentRun.world.current_train_info.cars_inventory[car]["gadgets"][gadget]["upkeep_paid"] = true
+			#pay_all_upkeep_button.hide()
+			#pay_upkeep_button.hide()
+		#else:
+			#CurrentRun.world.current_train_info.cars_inventory[selected_car]["gadgets"][selected_slot.name]["upkeep_paid"] = true
+			#pay_upkeep_button.hide()
+			#check_all_upkeep()
+		#
+		#for panel in train_car_container.get_children():
+			#panel.check_upkeep()
+		#CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"].check_warnings()
 
 func clear_tech_tree():
 	for column in tech_tree.get_children():

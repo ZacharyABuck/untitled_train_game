@@ -14,5 +14,8 @@ func _process(delta):
 		shake_strength = lerpf(shake_strength, 0, shake_fade*delta)
 		offset = random_offset()
 
+	if CurrentRun.world.current_player_info.active_player != null:
+		global_position = CurrentRun.world.current_player_info.active_player.global_position
+
 func random_offset() -> Vector2:
 	return Vector2(rng.randf_range(-shake_strength, shake_strength), rng.randf_range(-shake_strength, shake_strength))

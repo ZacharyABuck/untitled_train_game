@@ -62,7 +62,7 @@ func shoot():
 			if weapon_id == "flamethrower":
 				if !gunshot_sound.playing: gunshot_sound.play()
 			else: gunshot_sound.play()
-		player.camera.apply_shake(5.0)
+		CurrentRun.world.current_level_info.active_level.camera.apply_shake(5.0)
 		if muzzle_flash:
 			show_muzzle_flash()
 		

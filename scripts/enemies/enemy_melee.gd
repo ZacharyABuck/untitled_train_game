@@ -25,7 +25,7 @@ func _process(delta):
 	elif target == null:
 		target = find_random_target()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if target != null and not target is PhysicsBody2D and global_position.distance_to(target.global_position) < 50:
 		target = null
 		cars_reached += 1

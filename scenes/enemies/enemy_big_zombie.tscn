@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/enemy_big_zombie.gd" id="1_e1btv"]
 [ext_resource type="PackedScene" uid="uid://cyv57gynwtrmu" path="res://components/hurtbox_component.tscn" id="2_tblxe"]
-[ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://components/health_component.tscn" id="4_7chkb"]
+[ext_resource type="PackedScene" uid="uid://ctlqs0gduepgy" path="res://components/health_component_enemy.tscn" id="3_twelo"]
 [ext_resource type="Texture2D" uid="uid://cduo5m6k4p2ln" path="res://sprites/enemies/zombie.png" id="5_1454g"]
 [ext_resource type="Shader" path="res://shaders/solid_color.gdshader" id="5_dw70b"]
 [ext_resource type="Script" path="res://components/MeleeAttackComponent.gd" id="6_ld6kk"]
@@ -454,7 +454,7 @@ hurtbox = NodePath("HurtboxComponent/Hurtbox")
 attack_component = NodePath("MeleeAttackComponent")
 state = "moving"
 animations = NodePath("ZombieSpriteSheet")
-health_component = NodePath("HealthComponent")
+health_component = NodePath("HealthComponentEnemy")
 attack_timer = NodePath("AttackTimer")
 enemy_reference = "big_zombie"
 
@@ -468,15 +468,14 @@ wait_time = 1.5
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("2_tblxe")]
 collision_layer = 8
 collision_mask = 4
-health_component = NodePath("../HealthComponent")
+health_component = NodePath("../HealthComponentEnemy")
 
 [node name="Hurtbox" type="CollisionShape2D" parent="HurtboxComponent"]
 visible = false
 position = Vector2(-1, 7)
 shape = SubResource("RectangleShape2D_4v00t")
 
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("ANIMATION", "status_effect_component") instance=ExtResource("4_7chkb")]
-MAX_HEALTH = 10.0
+[node name="HealthComponentEnemy" parent="." node_paths=PackedStringArray("ANIMATION", "status_effect_component") instance=ExtResource("3_twelo")]
 ANIMATION = NodePath("../ZombieSpriteSheet")
 status_effect_component = NodePath("../StatusEffectComponent")
 

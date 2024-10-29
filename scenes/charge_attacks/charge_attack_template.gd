@@ -47,7 +47,7 @@ func release_charge():
 	elif shoot_sound != null:
 		shoot_sound.play()
 	
-	player.camera.apply_shake(15.0)
+	CurrentRun.world.current_level_info.active_level.camera.apply_shake(15.0)
 	_shoot()
 
 func _shoot():

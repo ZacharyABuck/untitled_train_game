@@ -32,7 +32,7 @@ func _process(_delta):
 			global_rotation = node.global_rotation
 
 func check_for_enemies():
-	if !spawning:
+	if !spawning and CurrentRun.world.current_level_info.active_level.at_destination == false:
 		await get_tree().create_timer(2).timeout
 		if level.enemies.get_child_count() == 0:
 			spawning = true
@@ -43,39 +43,41 @@ func check_for_enemies():
 			wave_timer_timeout()
 
 func wave_timer_timeout():
-	var label = CurrentRun.world.current_level_info.active_level.alert_label
-	label.text = "Wave Spawning!!!"
-	label.get_child(0).play("alert_flash")
-	label.show()
-	spawn_level_enemies()
-	spawn_interval_timer.start()
-	CurrentRun.world.current_level_info.wave_count = wave_count
+	if CurrentRun.world.current_level_info.active_level.at_destination == false:
+		var label = CurrentRun.world.current_level_info.active_level.alert_label
+		label.text = "Wave Spawning!!!"
+		label.get_child(0).play("alert_flash")
+		label.show()
+		spawn_level_enemies()
+		spawn_interval_timer.start()
+		CurrentRun.world.current_level_info.wave_count = wave_count
 
 func _on_spawn_interval_timer_timeout():
-	spawn_index += 1
-	
-	#finished spawning
-	if spawn_index >= wave_count:
-		spawn_interval_timer.stop()
+	if CurrentRun.world.current_level_info.active_level.at_destination == false:
+		spawn_index += 1
 		
-		CurrentRun.world.current_level_info.difficulty += .03
-		wave_count += 1
-		enemy_wave_timer.start()
-		
-		spawn_index = 0
-		spawning = false
-	#still spawning
-	else:
+		#finished spawning
+		if spawn_index >= wave_count:
+			spawn_interval_timer.stop()
+			
+			CurrentRun.world.current_level_info.difficulty += .03
+			wave_count += 1
+			enemy_wave_timer.start()
+			
+			spawn_index = 0
+			spawning = false
+		#still spawning
+		else:
 
-		spawn_level_enemies()
-		
-		#rng for second enemy to spawn
-		var rng = randf_range(1, 5)
-		for i in roundf(rng):
-			if CurrentRun.world.current_level_info.difficulty >= i:
-				spawn_level_enemies()
-		
-		spawn_interval_timer.start()
+			spawn_level_enemies()
+			
+			#rng for second enemy to spawn
+			var rng = randf_range(1, 5)
+			for i in roundf(rng):
+				if CurrentRun.world.current_level_info.difficulty >= i:
+					spawn_level_enemies()
+			
+			spawn_interval_timer.start()
 
 func spawn_level_enemies():
 	var new_spawner = EnemySpawner.new()

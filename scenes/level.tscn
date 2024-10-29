@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://02oiy550pacp"]
+[gd_scene load_steps=44 format=3 uid="uid://02oiy550pacp"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_2a3mn"]
 [ext_resource type="PackedScene" uid="uid://cb1r5v4vqyrx8" path="res://scenes/train/TrainManager.tscn" id="3_3t5p5"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://0f7m488f6icb" path="res://sprites/ui/arrow_right.png" id="11_vtdu7"]
 [ext_resource type="Shader" path="res://shaders/fog.gdshader" id="12_hxkjx"]
 [ext_resource type="Script" path="res://scripts/ui/off_screen_indicator.gd" id="12_ka5l0"]
+[ext_resource type="Script" path="res://scripts/player/player_camera.gd" id="17_ctldh"]
 [ext_resource type="PackedScene" uid="uid://vlu5a68ciqp0" path="res://scenes/weapons/weapon_spawner.tscn" id="17_lhsmc"]
 [ext_resource type="Shader" path="res://shaders/rain.gdshader" id="22_kbqtr"]
 [ext_resource type="AudioStream" uid="uid://dqjq17gkaquqx" path="res://sounds/world/rain.wav" id="23_dws0p"]
@@ -1167,18 +1168,6 @@ theme_override_fonts/font = ExtResource("5_uxjuw")
 theme_override_font_sizes/font_size = 30
 text = "Money = 0"
 
-[node name="EdgeMenu" type="HBoxContainer" parent="UI"]
-process_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-mouse_force_pass_scroll_events = false
-theme_override_constants/separation = 500
-alignment = 1
-
 [node name="Weather" type="Control" parent="UI"]
 layout_mode = 3
 anchors_preset = 0
@@ -1229,7 +1218,7 @@ offset_top = 37.0
 offset_right = 196.0
 offset_bottom = 84.0
 theme = ExtResource("7_v8euj")
-text = "Revolver
+text = "Melee
 Ammo: inf"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -1296,6 +1285,11 @@ autoplay = "flash"
 
 [node name="Path" type="Path2D" parent="OffscreenUI"]
 curve = SubResource("Curve2D_suyvb")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+process_callback = 0
+position_smoothing_enabled = true
+script = ExtResource("17_ctldh")
 
 [connection signal="timeout" from="UI/Weather/WeatherTimer" to="." method="calculate_weather"]
 [connection signal="timeout" from="HazardSpawnTimer" to="." method="hazard_spawn_timer_timeout"]

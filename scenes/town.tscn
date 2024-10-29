@@ -1,341 +1,71 @@
-[gd_scene load_steps=20 format=3 uid="uid://cwgn51i4160nt"]
+[gd_scene load_steps=6 format=3 uid="uid://ci8t7y6g2wpi"]
 
-[ext_resource type="Script" path="res://scripts/town.gd" id="1_mviet"]
-[ext_resource type="Texture2D" uid="uid://degtajbagy7wq" path="res://sprites/town/world_map_town_1.png" id="2_fjydp"]
-[ext_resource type="FontFile" uid="uid://lxcj83h6gsu7" path="res://fonts/JMH Typewriter-Black.otf" id="2_hdird"]
-[ext_resource type="Texture2D" uid="uid://cofci5enhbedj" path="res://sprites/ui/arrow.png" id="5_u7tm2"]
-[ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="6_jtu27"]
-[ext_resource type="Texture2D" uid="uid://ccydwnn5siydn" path="res://sprites/ui/x.png" id="8_m8501"]
+[ext_resource type="Texture2D" uid="uid://b1rpiw7e0bgxu" path="res://sprites/town/town_map.png" id="1_5fga5"]
+[ext_resource type="PackedScene" uid="uid://cyx8j31aesl2b" path="res://scenes/level_start_button.tscn" id="1_ivqmh"]
+[ext_resource type="PackedScene" uid="uid://bda8wf32nyj0t" path="res://scenes/characters/npc_trainyard.tscn" id="2_mu6xn"]
+[ext_resource type="PackedScene" uid="uid://02d8rt8jrqlu" path="res://scenes/characters/npc_missions.tscn" id="3_mlpoj"]
+[ext_resource type="PackedScene" uid="uid://b1shcmmi4xqnr" path="res://scenes/characters/npc_shop.tscn" id="5_uah86"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_q0ns8"]
-size = Vector2(405, 253)
-
-[sub_resource type="Animation" id="Animation_41biy"]
-resource_name = "name_bounce"
-loop_mode = 1
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("NameLabel:scale:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1.1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5, 1)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("NameLabel:scale:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1.1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5, 1)
-}
-
-[sub_resource type="Animation" id="Animation_0hl2m"]
-resource_name = "name_reset"
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("NameLabel:scale:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(1)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("NameLabel:scale:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(1)
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_kefwq"]
-_data = {
-"name_bounce": SubResource("Animation_41biy"),
-"name_reset": SubResource("Animation_0hl2m")
-}
-
-[sub_resource type="Animation" id="Animation_j0vhq"]
-resource_name = "arrow_bounce"
-length = 2.0
-loop_mode = 1
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ArrowSprite:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(),
-"points": PackedFloat32Array(),
-"times": PackedFloat32Array()
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ArrowSprite:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(-150, -0.25, 0, 0.25, 0, -100, -0.25, 0, 0.25, 0, -150, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1, 2)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("YouLabel:position:x")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(-48, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("YouLabel:position:y")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(-271, -0.25, 0, 0.4, 0, -210, -0.25, 0, 0.4, 0, -271, -0.25, 0, 0.4, 0),
-"times": PackedFloat32Array(0, 1, 2)
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_q2t07"]
-_data = {
-"arrow_bounce": SubResource("Animation_j0vhq")
-}
-
-[sub_resource type="Curve" id="Curve_0xxbi"]
-_data = [Vector2(0.0166667, 0.0313175), 0.0, 0.0, 0, 0, Vector2(0.0916667, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_83r30"]
-curve = SubResource("Curve_0xxbi")
-
-[sub_resource type="Curve" id="Curve_3ns8y"]
-_data = [Vector2(0.0166667, 0.410367), 0.0, 8.42333, 0, 0, Vector2(0.316667, 1), -0.520264, -0.520264, 0, 0, Vector2(0.997222, 0.894708), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_t7vtx"]
-curve = SubResource("Curve_3ns8y")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ac2mv"]
-particle_flag_disable_z = true
-gravity = Vector3(0, 0, 0)
-scale_curve = SubResource("CurveTexture_t7vtx")
-color = Color(1, 1, 0, 1)
-alpha_curve = SubResource("CurveTexture_83r30")
-
-[sub_resource type="Gradient" id="Gradient_dmro1"]
-offsets = PackedFloat32Array(0.604396, 0.618132, 0.68956, 0.711538)
-colors = PackedColorArray(0, 0, 0, 0, 1, 1, 0, 1, 1, 0.376471, 0, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_pv0uo"]
-gradient = SubResource("Gradient_dmro1")
-width = 512
-height = 512
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-
-[node name="Town" type="Area2D"]
-script = ExtResource("1_mviet")
-
-[node name="Shadow" type="Sprite2D" parent="."]
-modulate = Color(0, 0, 0, 0.278431)
-position = Vector2(60, 17)
-scale = Vector2(0.734375, 0.367188)
-texture = ExtResource("2_fjydp")
+[node name="Town" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_fjydp")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-3.5, 23.5)
-shape = SubResource("RectangleShape2D_q0ns8")
-debug_color = Color(0.993255, 0, 0.240295, 0.42)
-
-[node name="HoverAnimation" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_kefwq")
-}
-
-[node name="ArrowSprite" type="Sprite2D" parent="."]
-visible = false
 texture_filter = 1
-position = Vector2(1, -138)
-scale = Vector2(4, 4)
-texture = ExtResource("5_u7tm2")
+position = Vector2(519, -390)
+texture = ExtResource("1_5fga5")
 
-[node name="YouLabel" type="Label" parent="."]
-visible = false
-texture_filter = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -53.0
-offset_top = -245.0
-offset_right = 53.0
-offset_bottom = -171.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("6_jtu27")
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 50
-text = "YOU"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="BuildingCollision" type="StaticBody2D" parent="Sprite2D"]
+position = Vector2(-519, 390)
+collision_layer = 545
+collision_mask = 513
 
-[node name="ArrowAnimation" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_q2t07")
-}
-autoplay = "arrow_bounce"
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite2D/BuildingCollision"]
+polygon = PackedVector2Array(27, -303, 158, -302, 184, -315, 305, -314, 307, -194, 724, -191, 721, -55, 259, -53, 229, -86, 183, -85, 140, -30, 81, -16, 44, -37, 26, -102)
 
-[node name="NameLabel" type="Label" parent="."]
-z_index = 1
-z_as_relative = false
-offset_left = -179.0
-offset_top = 66.0
-offset_right = 182.0
-offset_bottom = 140.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(180, 40)
-theme = ExtResource("6_jtu27")
-theme_override_fonts/font = ExtResource("2_hdird")
-theme_override_font_sizes/font_size = 50
-text = "townsville"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="BuildingCollision2" type="StaticBody2D" parent="Sprite2D"]
+position = Vector2(-519, 390)
+collision_layer = 545
+collision_mask = 513
 
-[node name="TravelInfo" type="MarginContainer" parent="."]
-visible = false
-z_index = 2
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -331.0
-offset_right = 250.0
-offset_bottom = -100.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite2D/BuildingCollision2"]
+polygon = PackedVector2Array(24, -762, 96, -761, 95, -703, 150, -701, 153, -589, 94, -588, 93, -548, 41, -548, 25, -590)
 
-[node name="PanelContainer" type="PanelContainer" parent="TravelInfo"]
-layout_mode = 2
-theme = ExtResource("6_jtu27")
+[node name="BuildingCollision3" type="StaticBody2D" parent="Sprite2D"]
+position = Vector2(-519, 390)
+collision_layer = 545
+collision_mask = 513
 
-[node name="MarginContainer" type="MarginContainer" parent="TravelInfo"]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 30
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 30
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite2D/BuildingCollision3"]
+polygon = PackedVector2Array(318, -703, 450, -699, 457, -744, 532, -740, 544, -556, 456, -559, 327, -582)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TravelInfo/MarginContainer"]
-layout_mode = 2
-alignment = 1
+[node name="BuildingCollision4" type="StaticBody2D" parent="Sprite2D"]
+position = Vector2(-519, 390)
+collision_layer = 545
+collision_mask = 513
 
-[node name="TravelButton" type="Button" parent="TravelInfo/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("6_jtu27")
-theme_override_font_sizes/font_size = 40
-text = "All aboard!"
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite2D/BuildingCollision4"]
+position = Vector2(376, 6)
+polygon = PackedVector2Array(239, -719, 624, -723, 630, -572, 402, -559, 257, -560, 223, -590)
 
-[node name="CloseButton" type="TextureButton" parent="TravelInfo/MarginContainer"]
-layout_direction = 3
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-texture_normal = ExtResource("8_m8501")
-texture_pressed = ExtResource("8_m8501")
-texture_hover = ExtResource("8_m8501")
+[node name="BuildingCollision5" type="StaticBody2D" parent="Sprite2D"]
+position = Vector2(-519, 390)
+collision_layer = 545
+collision_mask = 513
 
-[node name="OnScreenNotifier" type="VisibleOnScreenNotifier2D" parent="TravelInfo/MarginContainer/CloseButton"]
-position = Vector2(15.5, 15)
-scale = Vector2(2.25, 2.3)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite2D/BuildingCollision5"]
+position = Vector2(613, 430)
+polygon = PackedVector2Array(235, -739, 375, -737, 383, -522, 354, -467, 277, -463, 231, -517)
 
-[node name="WarningInfo" type="MarginContainer" parent="."]
-visible = false
-z_index = 2
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 215.0
-offset_top = -63.0
-offset_right = 620.0
-offset_bottom = 113.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 4
+[node name="LevelStartButton" parent="." instance=ExtResource("1_ivqmh")]
+position = Vector2(253, -374)
 
-[node name="PanelContainer" type="PanelContainer" parent="WarningInfo"]
-layout_mode = 2
-theme = ExtResource("6_jtu27")
+[node name="NpcTrainyard" parent="." instance=ExtResource("2_mu6xn")]
+position = Vector2(264, -537)
 
-[node name="MarginContainer" type="MarginContainer" parent="WarningInfo"]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 30
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 30
+[node name="NpcMissions" parent="." instance=ExtResource("3_mlpoj")]
+position = Vector2(521, -424)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="WarningInfo/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 30
-alignment = 1
+[node name="NpcMissions2" parent="." instance=ExtResource("3_mlpoj")]
+position = Vector2(810, -442)
 
-[node name="MaintenanceNeeded" type="Label" parent="WarningInfo/MarginContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 4
-theme = ExtResource("6_jtu27")
-theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_font_sizes/font_size = 25
-text = "Turrets Need Maintenance!"
-horizontal_alignment = 1
-
-[node name="MercAvailable" type="Label" parent="WarningInfo/MarginContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 4
-theme = ExtResource("6_jtu27")
-theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_font_sizes/font_size = 25
-text = "Merc Available!"
-horizontal_alignment = 1
-
-[node name="FarthestTownFX" type="GPUParticles2D" parent="."]
-visible = false
-amount = 1
-process_material = SubResource("ParticleProcessMaterial_ac2mv")
-texture = SubResource("GradientTexture2D_pv0uo")
-lifetime = 2.0
-
-[connection signal="input_event" from="." to="." method="_on_input_event"]
-[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
-[connection signal="pressed" from="TravelInfo/MarginContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[node name="NpcShop" parent="." instance=ExtResource("5_uah86")]
+position = Vector2(1105, -379)

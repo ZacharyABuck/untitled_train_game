@@ -19,6 +19,8 @@ var fire_fx = preload("res://scenes/fx/fire_fx.tscn")
 var default_poison_damage: float = 1.0
 var default_fire_damage: float = 2.0
 
+var default_shock_time: float = 3.0
+
 var character
 
 #make sure enemy is parent of this
@@ -64,6 +66,7 @@ func _on_poison_timer_timeout():
 func apply_shock(value):
 	is_shocked = true
 	if shock_timer:
+		shock_timer.wait_time = default_shock_time + CurrentRun.world.current_player_info.global_shock_time
 		shock_timer.start()
 	spawn_particles(shock_fx)
 	character.shock_speed_multiplier = value

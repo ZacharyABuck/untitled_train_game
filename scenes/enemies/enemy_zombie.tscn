@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/enemy_zombie.gd" id="1_kv2s3"]
 [ext_resource type="PackedScene" uid="uid://cyv57gynwtrmu" path="res://components/hurtbox_component.tscn" id="3_aknae"]
+[ext_resource type="PackedScene" uid="uid://ctlqs0gduepgy" path="res://components/health_component_enemy.tscn" id="3_s6o3h"]
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/zombie_state_moving.gd" id="4_2i8mr"]
-[ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://components/health_component.tscn" id="4_52reb"]
 [ext_resource type="Script" path="res://scripts/enemies/enemy_zombie/zombie_state_boarding.gd" id="4_hu3u8"]
 [ext_resource type="Texture2D" uid="uid://cduo5m6k4p2ln" path="res://sprites/enemies/zombie.png" id="4_jampl"]
 [ext_resource type="Script" path="res://components/MeleeAttackComponent.gd" id="5_vxl1g"]
@@ -473,7 +473,7 @@ hurtbox = NodePath("HurtboxComponent/Hurtbox")
 attack_component = NodePath("MeleeAttackComponent")
 state = "moving"
 animations = NodePath("ZombieSpriteSheet")
-health_component = NodePath("HealthComponent")
+health_component = NodePath("HealthComponentEnemy")
 attack_timer = NodePath("AttackTimer")
 enemy_reference = "zombie"
 
@@ -486,15 +486,14 @@ shape = SubResource("CircleShape2D_lnmlo")
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_aknae")]
 collision_layer = 8
 collision_mask = 4
-health_component = NodePath("../HealthComponent")
+health_component = NodePath("../HealthComponentEnemy")
 
 [node name="Hurtbox" type="CollisionShape2D" parent="HurtboxComponent"]
 visible = false
 position = Vector2(2, 7)
 shape = SubResource("RectangleShape2D_4v00t")
 
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("ANIMATION", "status_effect_component") instance=ExtResource("4_52reb")]
-MAX_HEALTH = 10.0
+[node name="HealthComponentEnemy" parent="." node_paths=PackedStringArray("ANIMATION", "status_effect_component") instance=ExtResource("3_s6o3h")]
 ANIMATION = NodePath("../ZombieSpriteSheet")
 status_effect_component = NodePath("../StatusEffectComponent")
 

@@ -22,10 +22,10 @@ func check_buffs():
 				if active_buffs[buff] == true:
 					buff_is_active = true
 		
-		if buff_is_active:
-			icon.show()
-		else:
-			icon.hide()
+			if buff_is_active:
+				icon.show()
+			else:
+				icon.hide()
 
 func find_matching_icon(buff):
 	for icon in $HBoxContainer.get_children():

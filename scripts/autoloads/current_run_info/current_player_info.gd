@@ -36,6 +36,7 @@ var current_ranged_weapon_ammo_count: int
 # Edge Related
 var global_poison_damage: float = 0
 var global_fire_damage: float = 0
+var global_shock_time: float = 0
 var global_sell_modifier: float = 0
 
 # Current state in player state machine node

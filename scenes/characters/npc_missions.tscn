@@ -1,0 +1,220 @@
+[gd_scene load_steps=27 format=3 uid="uid://02d8rt8jrqlu"]
+
+[ext_resource type="Script" path="res://scripts/characters/npc_missions.gd" id="1_8geu2"]
+[ext_resource type="Shader" path="res://shaders/solid_color.gdshader" id="2_h6mmk"]
+[ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="2_mc5cj"]
+[ext_resource type="Texture2D" uid="uid://ccydwnn5siydn" path="res://sprites/ui/x.png" id="4_t15hq"]
+[ext_resource type="Texture2D" uid="uid://4x8a5b3tydex" path="res://sprites/characters/sprite_sheets/timbo.png" id="5_42koq"]
+[ext_resource type="Script" path="res://scripts/ui/missions_ui.gd" id="5_lthf4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n5t1b"]
+shader = ExtResource("2_h6mmk")
+shader_parameter/color_override = Color(1, 0.776471, 0, 1)
+shader_parameter/blend_delta = 0.66
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g37au"]
+atlas = ExtResource("5_42koq")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3kp6u"]
+atlas = ExtResource("5_42koq")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gp8u8"]
+atlas = ExtResource("5_42koq")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6phj"]
+atlas = ExtResource("5_42koq")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8q6j3"]
+atlas = ExtResource("5_42koq")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0wxp8"]
+atlas = ExtResource("5_42koq")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_na4qy"]
+atlas = ExtResource("5_42koq")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_25qg8"]
+atlas = ExtResource("5_42koq")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ihii"]
+atlas = ExtResource("5_42koq")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ggvbm"]
+atlas = ExtResource("5_42koq")
+region = Rect2(128, 128, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1y8oc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g37au")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3kp6u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gp8u8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y6phj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8q6j3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0wxp8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_na4qy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_25qg8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ihii")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ggvbm")
+}],
+"loop": true,
+"name": &"running",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fhhlk"]
+radius = 62.0725
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xvxya"]
+bg_color = Color(0.956863, 0.937255, 0.858824, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.482353, 0.27451, 0.2, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+shadow_size = 2
+shadow_offset = Vector2(5, 5)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q865r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oomlg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wx8pw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a1k1x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_npncq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f4pp1"]
+radius = 20.0998
+
+[node name="NpcMissions" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
+collision_layer = 512
+collision_mask = 512
+script = ExtResource("1_8geu2")
+sprite = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_n5t1b")
+scale = Vector2(0.6, 0.6)
+sprite_frames = SubResource("SpriteFrames_1y8oc")
+animation = &"running"
+autoplay = "idle"
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+visible = false
+shape = SubResource("CircleShape2D_fhhlk")
+
+[node name="MissionsButton" type="Button" parent="."]
+visible = false
+offset_left = -48.0
+offset_top = -83.0
+offset_right = 48.0
+offset_bottom = -52.0
+theme = ExtResource("2_mc5cj")
+text = "Mission"
+
+[node name="MissionsUI" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -111.0
+offset_top = -195.0
+offset_right = 109.0
+offset_bottom = -55.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xvxya")
+script = ExtResource("5_lthf4")
+
+[node name="MarginContainer" type="MarginContainer" parent="MissionsUI"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MissionsUI/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MissionsUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_mc5cj")
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[center]Mission[/center]"
+fit_content = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MissionsUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="CloseButton" type="Button" parent="MissionsUI"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_q865r")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_oomlg")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_wx8pw")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_a1k1x")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_npncq")
+icon = ExtResource("4_t15hq")
+icon_alignment = 1
+expand_icon = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_f4pp1")
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
+[connection signal="body_exited" from="PlayerDetector" to="." method="_on_player_detector_body_exited"]
+[connection signal="pressed" from="MissionsButton" to="." method="_on_missions_button_pressed"]
+[connection signal="pressed" from="MissionsUI/CloseButton" to="." method="_on_close_button_pressed"]

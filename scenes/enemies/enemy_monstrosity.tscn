@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/enemies/enemy_monstrosity.gd" id="1_14tuh"]
 [ext_resource type="PackedScene" uid="uid://cyv57gynwtrmu" path="res://components/hurtbox_component.tscn" id="2_rr2gh"]
 [ext_resource type="AudioStream" uid="uid://qdyuud18a2c4" path="res://sounds/combat/hit_01.wav" id="3_s8har"]
-[ext_resource type="PackedScene" uid="uid://bnhgqxmsn3vu1" path="res://components/health_component.tscn" id="4_fotae"]
+[ext_resource type="PackedScene" uid="uid://ctlqs0gduepgy" path="res://components/health_component_enemy.tscn" id="4_0llrf"]
 [ext_resource type="Shader" path="res://shaders/solid_color.gdshader" id="5_nhly4"]
 [ext_resource type="Texture2D" uid="uid://cduo5m6k4p2ln" path="res://sprites/enemies/zombie.png" id="6_73yg5"]
 [ext_resource type="Texture2D" uid="uid://ck1qapwaf3374" path="res://sprites/enemies/monstrosity_moving_sprite_sheet.png" id="6_e6oal"]
@@ -919,7 +919,7 @@ hurtbox = NodePath("HurtboxComponent/Hurtbox")
 attack_component = NodePath("MeleeAttackComponent")
 state = "moving"
 animations = NodePath("MonstrositySpriteSheet")
-health_component = NodePath("HealthComponent")
+health_component = NodePath("HealthComponentEnemy")
 attack_timer = NodePath("AttackTimer")
 enemy_reference = "monstrosity"
 
@@ -932,7 +932,7 @@ shape = SubResource("CircleShape2D_2kgqp")
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("2_rr2gh")]
 collision_layer = 8
 collision_mask = 4
-health_component = NodePath("../HealthComponent")
+health_component = NodePath("../HealthComponentEnemy")
 
 [node name="Hurtbox" type="CollisionShape2D" parent="HurtboxComponent"]
 visible = false
@@ -944,8 +944,7 @@ stream = ExtResource("3_s8har")
 volume_db = -15.0
 bus = &"SFX"
 
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("ANIMATION", "status_effect_component") instance=ExtResource("4_fotae")]
-MAX_HEALTH = 10.0
+[node name="HealthComponentEnemy" parent="." node_paths=PackedStringArray("ANIMATION", "status_effect_component") instance=ExtResource("4_0llrf")]
 ANIMATION = NodePath("../MonstrositySpriteSheet")
 status_effect_component = NodePath("../StatusEffectComponent")
 

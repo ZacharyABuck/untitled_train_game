@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/ui/mission_panel.gd" id="1_pgc7n"]
 [ext_resource type="Texture2D" uid="uid://dutu0olvdwa37" path="res://sprites/characters/Franch Token.png" id="2_du86k"]
+[ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="3_0m8hy"]
 [ext_resource type="FontFile" uid="uid://dxx340jybsylj" path="res://fonts/JMH Typewriter-Black.ttf" id="3_3emmr"]
-[ext_resource type="FontFile" uid="uid://tpmg7wha0yio" path="res://fonts/JMH Typewriter-Bold.ttf" id="3_phhcq"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hl22i"]
 
@@ -62,10 +62,10 @@ shadow_size = 2
 shadow_offset = Vector2(2, 2)
 
 [node name="MissionPanel" type="PanelContainer"]
-custom_minimum_size = Vector2(400, 0)
-offset_right = 412.0
+custom_minimum_size = Vector2(200, 0)
+offset_right = 200.0
 offset_bottom = 93.0
-size_flags_vertical = 3
+size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBoxEmpty_hl22i")
 script = ExtResource("1_pgc7n")
 
@@ -94,23 +94,15 @@ mouse_filter = 2
 theme_override_constants/separation = 10
 
 [node name="MissionName" type="RichTextLabel" parent="HBoxContainer/VBoxContainer"]
+texture_filter = 1
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
+theme = ExtResource("3_0m8hy")
 theme_override_fonts/normal_font = ExtResource("3_3emmr")
 theme_override_font_sizes/normal_font_size = 15
 bbcode_enabled = true
 text = "Escort Mission"
-fit_content = true
-scroll_active = false
-
-[node name="MissionDescription" type="RichTextLabel" parent="HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-mouse_filter = 2
-theme_override_fonts/normal_font = ExtResource("3_phhcq")
-theme_override_font_sizes/normal_font_size = 12
-text = "Mission Description Mission Description Mission Description Mission Description Mission Description "
 fit_content = true
 scroll_active = false
 
@@ -126,19 +118,6 @@ mouse_filter = 2
 theme_override_colors/default_color = Color(0.787569, 0.787569, 0, 1)
 theme_override_fonts/normal_font = ExtResource("3_3emmr")
 text = "Reward: 200"
-fit_content = true
-scroll_active = false
-
-[node name="TimeLimit" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-size_flags_horizontal = 10
-size_flags_vertical = 4
-mouse_filter = 2
-theme_override_colors/default_color = Color(0.787569, 0.787569, 0, 1)
-theme_override_fonts/normal_font = ExtResource("3_3emmr")
-bbcode_enabled = true
-text = "[right]Reward: 200[/right]"
 fit_content = true
 scroll_active = false
 

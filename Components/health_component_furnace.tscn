@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cs5paaxxvxe6l"]
+
+[ext_resource type="Script" path="res://components/health_component_furnace.gd" id="1_mv2x6"]
+
+[node name="HealthComponentFurnace" type="Node2D"]
+script = ExtResource("1_mv2x6")
+MAX_HEALTH = 20.0

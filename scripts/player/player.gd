@@ -24,7 +24,7 @@ signal dead
 # -- BASE FUNCTIONS -- #
 func _ready():
 	CurrentRun.world.current_player_info.active_player = self
-	camera.make_current()
+	#camera.make_current()
 	
 	#pick random weapon
 	var weapon

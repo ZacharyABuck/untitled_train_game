@@ -12,7 +12,7 @@ func _ready():
 	label.hide()
 	CurrentRun.world.current_train_info.train_boarded.connect(set_target)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if target != null:
 		
 		var player_pos = get_viewport_rect().get_center()

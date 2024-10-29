@@ -4,8 +4,16 @@ var edge = null
 signal clicked
 var edge_chosen: bool = false
 
+func _ready():
+	scale = Vector2.ZERO
+	var tween = create_tween()
+	tween.tween_property(self, "scale", Vector2(1,1), .5).set_trans(Tween.TRANS_CUBIC)
+	show()
+
+
 # -- FILL IN EDGE INFORMATION -- #
 func populate(new_edge):
+	scale = Vector2.ZERO
 	edge = new_edge
 	var style_box_texture = StyleBoxTexture.new()
 	style_box_texture.texture = EdgeInfo.edge_roster[new_edge]["sprite"]
@@ -17,6 +25,8 @@ func populate(new_edge):
 										" -> Level " + str(CurrentRun.world.current_edge_info.edge_inventory[new_edge]["level"] + 1)
 	else:
 		$NextLevelInfo/LevelLabel.text = ""
+	
+	$AnimationPlayer.play("pop in")
 
 # -- REACT TO MOUSE HOVER -- #
 func _on_mouse_entered():
@@ -39,7 +49,8 @@ func _on_mouse_exited():
 func _on_gui_input(event):
 	if event.is_action_pressed("shoot") and edge_chosen == false:
 		for i in get_parent().get_children():
-			i.edge_chosen = true
+			if "edge_chosen" in i:
+				i.edge_chosen = true
 		$CloseSFX.play()
 		var tween = get_tree().create_tween()
 		tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)

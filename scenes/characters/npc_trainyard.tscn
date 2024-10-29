@@ -1,0 +1,269 @@
+[gd_scene load_steps=15 format=3 uid="uid://bda8wf32nyj0t"]
+
+[ext_resource type="Script" path="res://scripts/characters/npc_trainyard.gd" id="1_0i6iy"]
+[ext_resource type="Texture2D" uid="uid://4x8a5b3tydex" path="res://sprites/characters/sprite_sheets/timbo.png" id="2_xuubx"]
+[ext_resource type="Script" path="res://scripts/ui/trainyard.gd" id="3_asbou"]
+[ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="4_4nnt1"]
+[ext_resource type="Texture2D" uid="uid://ccydwnn5siydn" path="res://sprites/ui/x.png" id="5_p0jh4"]
+[ext_resource type="FontFile" uid="uid://bt4836ueqhi58" path="res://fonts/WesternBangBang-Regular.ttf" id="6_ugawd"]
+[ext_resource type="Texture2D" uid="uid://cofci5enhbedj" path="res://sprites/ui/arrow.png" id="7_poe6y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g37au"]
+atlas = ExtResource("2_xuubx")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1mevc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g37au")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_07fm5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8g2tu"]
+bg_color = Color(0.956863, 0.937255, 0.858824, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.517647, 0.32549, 0.25098, 0.52549)
+expand_margin_top = 20.0
+expand_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i2fy4"]
+bg_color = Color(0.956863, 0.937255, 0.858824, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.517647, 0.32549, 0.25098, 0.52549)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vpkyo"]
+radius = 62.0725
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3dqha"]
+radius = 19.0263
+
+[node name="NpcTrainyard" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
+collision_layer = 512
+collision_mask = 512
+script = ExtResource("1_0i6iy")
+wandering = false
+sprite = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = 0.897099
+scale = Vector2(0.6, 0.6)
+sprite_frames = SubResource("SpriteFrames_1mevc")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="TrainyardCanvas" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="TrainyardUI" type="MarginContainer" parent="TrainyardCanvas"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -590.0
+offset_top = -398.0
+offset_right = 590.0
+offset_bottom = 404.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+script = ExtResource("3_asbou")
+
+[node name="PanelContainer" type="PanelContainer" parent="TrainyardCanvas/TrainyardUI"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme = ExtResource("4_4nnt1")
+
+[node name="MarginContainer" type="MarginContainer" parent="TrainyardCanvas/TrainyardUI/PanelContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="TrainyardItemsList" type="VBoxContainer" parent="TrainyardCanvas/TrainyardUI/PanelContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 30
+
+[node name="Header" type="HBoxContainer" parent="TrainyardCanvas/TrainyardUI/PanelContainer/MarginContainer/TrainyardItemsList"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="ButtonSpacer" type="TextureButton" parent="TrainyardCanvas/TrainyardUI/PanelContainer/MarginContainer/TrainyardItemsList/Header"]
+modulate = Color(1, 1, 1, 0)
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 0
+mouse_filter = 2
+texture_normal = ExtResource("5_p0jh4")
+stretch_mode = 3
+
+[node name="TrainyardLabel" type="RichTextLabel" parent="TrainyardCanvas/TrainyardUI/PanelContainer/MarginContainer/TrainyardItemsList/Header"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("4_4nnt1")
+theme_override_fonts/normal_font = ExtResource("6_ugawd")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[center]Trainyard[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="TrainyardCloseButton" type="TextureButton" parent="TrainyardCanvas/TrainyardUI/PanelContainer/MarginContainer/TrainyardItemsList/Header"]
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 0
+texture_normal = ExtResource("5_p0jh4")
+stretch_mode = 3
+
+[node name="HSeparator" type="HSeparator" parent="TrainyardCanvas/TrainyardUI/PanelContainer/MarginContainer/TrainyardItemsList"]
+layout_mode = 2
+theme_override_constants/separation = 30
+theme_override_styles/separator = SubResource("StyleBoxEmpty_07fm5")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TrainyardCanvas/TrainyardUI/PanelContainer/MarginContainer/TrainyardItemsList"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="MercsContainer" type="VBoxContainer" parent="TrainyardCanvas/TrainyardUI/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TrainyardCanvas/TrainyardUI/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/MercsContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[center]Mercs[/center]"
+fit_content = true
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="TrainyardCanvas/TrainyardUI/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/MercsContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "[center]Click to upgrade
+Drag to equip to train[/center]"
+fit_content = true
+
+[node name="Mercs" type="VBoxContainer" parent="TrainyardCanvas/TrainyardUI/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/MercsContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TrainyardCanvas/TrainyardUI/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 30
+
+[node name="PanelContainer" type="PanelContainer" parent="TrainyardCanvas/TrainyardUI/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8g2tu")
+
+[node name="TrainCarContainer" type="HBoxContainer" parent="TrainyardCanvas/TrainyardUI/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/VBoxContainer/PanelContainer"]
+layout_direction = 3
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TrainyardCanvas/TrainyardUI/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="TechTreeLabel" type="RichTextLabel" parent="TrainyardCanvas/TrainyardUI/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/VBoxContainer/HBoxContainer"]
+texture_filter = 1
+clip_contents = false
+custom_minimum_size = Vector2(450, 0)
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[node name="PayUpkeepButton" type="Button" parent="TrainyardCanvas/TrainyardUI/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/VBoxContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Pay Upkeep $4"
+
+[node name="PayAllUpkeepButton" type="Button" parent="TrainyardCanvas/TrainyardUI/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/VBoxContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Pay All Upkeep $30"
+
+[node name="TechTreeContainer" type="PanelContainer" parent="TrainyardCanvas/TrainyardUI/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_i2fy4")
+
+[node name="MarginContainer" type="MarginContainer" parent="TrainyardCanvas/TrainyardUI/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/VBoxContainer/TechTreeContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TrainyardCanvas/TrainyardUI/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/VBoxContainer/TechTreeContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TechTree" type="HBoxContainer" parent="TrainyardCanvas/TrainyardUI/PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/VBoxContainer/TechTreeContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="SlotArrow" type="Sprite2D" parent="TrainyardCanvas/TrainyardUI"]
+visible = false
+texture_filter = 1
+texture = ExtResource("7_poe6y")
+offset = Vector2(0, -25)
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+shape = SubResource("CircleShape2D_vpkyo")
+
+[node name="TrainyardButton" type="Button" parent="."]
+visible = false
+offset_left = -48.0
+offset_top = -83.0
+offset_right = 48.0
+offset_bottom = -52.0
+theme = ExtResource("4_4nnt1")
+text = "Trainyard"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3dqha")
+
+[connection signal="pressed" from="TrainyardCanvas/TrainyardUI/PanelContainer/MarginContainer/TrainyardItemsList/Header/TrainyardCloseButton" to="TrainyardCanvas/TrainyardUI" method="close_button_pressed"]
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
+[connection signal="body_exited" from="PlayerDetector" to="." method="_on_player_detector_body_exited"]
+[connection signal="pressed" from="TrainyardButton" to="." method="_on_trainyard_button_pressed"]

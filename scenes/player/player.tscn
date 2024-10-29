@@ -161,6 +161,7 @@ animation = &"shooting"
 autoplay = "standing"
 
 [node name="Camera2D" type="Camera2D" parent="."]
+process_mode = 4
 script = ExtResource("9_iwblo")
 
 [node name="CarDetector" type="Area2D" parent="."]

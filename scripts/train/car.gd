@@ -26,7 +26,7 @@ extends Node2D
 @onready var character_spawn_point = $CharacterSpawnPoint
 
 var merc = preload("res://scenes/characters/merc.tscn")
-var character = preload("res://scenes/characters/character.tscn")
+var passenger = preload("res://scenes/characters/passenger.tscn")
 var cargo = preload("res://scenes/train/cargo.tscn")
 var hard_point = preload("res://scenes/train/hard_point.tscn")
 
@@ -102,14 +102,14 @@ func spawn_merc():
 	new_merc.merc_name = CurrentRun.world.current_train_info.cars_inventory[index]["merc"]
 	add_child(new_merc)
 
-func spawn_characters():
+func spawn_passengers():
 	for i in CurrentRun.world.current_mission_info.mission_inventory:
 		if CurrentRun.world.current_mission_info.mission_inventory[i]["type"] == "escort":
-			var new_character = character.instantiate()
-			new_character.character_name = CurrentRun.world.current_mission_info.mission_inventory[i]["character"]
-			new_character.position = character_spawn_point.position + Vector2(randi_range(-25,25),randi_range(-100,100))
-			add_child(new_character)
-			CurrentRun.world.current_player_info.targets.append(new_character)
+			var new_passenger = passenger.instantiate()
+			new_passenger.character_name = CurrentRun.world.current_mission_info.mission_inventory[i]["character"]
+			new_passenger.position = character_spawn_point.position + Vector2(randi_range(-25,25),randi_range(-100,100))
+			add_child(new_passenger)
+			CurrentRun.world.current_player_info.targets.append(new_passenger)
 
 func spawn_cargo():
 	for i in CurrentRun.world.current_mission_info.mission_inventory.keys():

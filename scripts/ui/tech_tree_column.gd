@@ -18,7 +18,6 @@ func button_pressed(button):
 		AudioSystem.play_audio("drill", -15)
 		
 		CurrentRun.world.current_player_info.current_money -= cost
-		CurrentRun.world.update_money_label()
 		
 		CurrentRun.world.current_character_info.mercs_inventory[merc]["ranks"][rank] = \
 			{upgrade : CharacterInfo.mercs_roster[CurrentRun.world.current_character_info.mercs_inventory[merc]["type"]]["ranks"][rank][upgrade]}

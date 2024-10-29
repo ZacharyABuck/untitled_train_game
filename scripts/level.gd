@@ -3,30 +3,27 @@ extends Node2D
 var player = preload("res://scenes/player/player.tscn")
 @onready var bullets = $Bullets
 
-@onready var edge_menu = $UI/EdgeMenu
-const edge_panel = preload("res://scenes/edges/edge_panel.tscn")
+#@onready var edge_menu = $UI/EdgeMenu
+#const edge_panel = preload("res://scenes/edges/edge_panel.tscn")
 @onready var alert_label = $UI/AlertLabel
-
+@onready var camera = $Camera2D
 @onready var weapon_label = $UI/WeaponLabel
-
 @onready var enemies = $Enemies
 @onready var enemy_spawn_system = $EnemySpawnSystem
-
 @onready var train_manager = $TrainManager
 @onready var map = $Map
 
 var spawning: bool = false
+@onready var hazard_spawn_timer = $HazardSpawnTimer
 
 var in_event: bool = false
-
 var new_player
-
 var ui_open: bool = false
+var at_destination: bool = false
 
 var weather_states: Array = ["clear", "rain"]
 var weather: String
 @onready var rain = $UI/Weather/Rain
-
 @onready var rain_animations = $UI/Weather/Rain/RainAnimations
 
 
@@ -61,12 +58,15 @@ func generate_track():
 	train_manager.track.curve.set_point_position(0, -point_increment*CurrentRun.world.current_level_info.level_parameters["direction"])
 	
 	#set each track point per distance
-	var clamped_distance = clamp(CurrentRun.world.current_level_info.level_parameters["distance"], 5, 6)
+	var clamped_distance = 2 #6
 	for i in clamped_distance + 1:
 		var increment = CurrentRun.world.current_level_info.level_parameters["direction"]*point_increment
 
 		var random_mod = Vector2(randf_range(-1000, 1000), randf_range(-1000, 1000))
 		var random_pos = increment+random_mod
+		if i == clamped_distance - 1:
+			random_pos = Vector2(point_increment, 0)
+			print(random_pos)
 		add_track_point(last_pos, index, random_pos)
 		index += 1
 		last_pos += random_pos

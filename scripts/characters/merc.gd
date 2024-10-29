@@ -1,4 +1,4 @@
-extends Character
+extends Passenger
 
 var merc_name
 var merc_type
@@ -7,6 +7,7 @@ var buffs = {}
 
 func _ready():
 	super()
+	
 	merc_type = CurrentRun.world.current_character_info.mercs_inventory[merc_name]["type"]
 	ranks = CurrentRun.world.current_character_info.mercs_inventory[merc_name]["ranks"]
 	for rank in ranks.keys():

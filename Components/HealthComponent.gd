@@ -61,21 +61,8 @@ func spawn_particles(fx):
 	new_fx.global_position = character.global_position
 	new_fx.emitting = true
 
-func _handle_death(shooter):
+func _handle_death(_shooter):
 	if is_killable:
-		if character.is_in_group("enemy"):
-			CurrentRun.world.current_level_info.calculate_random_drop(character)
-			ExperienceSystem.give_experience.emit(character.experience)
-			CurrentRun.world.current_level_info.active_level.enemy_killed()
-			character.state = "dead"
-			animation.play("death")
-			if character is RigidBody2D:
-				character.set_collision_layer_value(4, false)
-				character.set_collision_mask_value(4, false)
-		
-		if character.is_in_group("furnace"):
-			character.dead.emit()
-		
 		if character.is_in_group("event"):
 			character.queue_free()
 			character.event_finished()
@@ -118,7 +105,7 @@ func _handle_death(shooter):
 
 func remove_mission(mission_id):
 	CurrentRun.world.current_mission_info.mission_inventory.erase(mission_id)
-	for p in CurrentRun.world.mission_inventory_container.get_children():
+	for p in CurrentRun.world.world_ui.mission_inventory_container.get_children():
 		if p.mission_id == mission_id:
 			p.queue_free()
 

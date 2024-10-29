@@ -72,7 +72,6 @@ func shoot_at_target(target):
 
 func _shoot():
 	gun_shot.emit()
-	
 	WeaponInfo.detach_buffs(owner.car.active_buffs, shooter.active_buffs)
 	WeaponInfo.attach_buffs(owner.car.active_buffs, shooter.active_buffs)
 	if shooter.active_buffs.has("attack_delay"):
@@ -145,9 +144,3 @@ func _set_layers(obj):
 	if target_types["terrain"]:
 		obj.set_collision_mask_value(9, true)
 		pass
-#
-#func bullet_hit_target(area, _shooter):
-	#if shooter.active_buffs.has("poison_cloud"):
-		#var new_cloud = poison_cloud.instantiate()
-		#new_cloud.global_position = area.global_position
-		#CurrentRun.world.current_level_info.active_level.bullets.call_deferred("add_child", new_cloud)
