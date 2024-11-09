@@ -9,7 +9,7 @@ var shake_strength: float = 0.0
 func apply_shake(strength):
 	shake_strength = strength
 
-func _process(delta):
+func _physics_process(delta):
 	if shake_strength > 0:
 		shake_strength = lerpf(shake_strength, 0, shake_fade*delta)
 		offset = random_offset()

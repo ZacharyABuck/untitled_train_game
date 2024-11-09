@@ -7,6 +7,7 @@ class_name Hazard
 	"gadget": false,
 	"furnace": false,
 }
+
 var grabbed = false
 var lasso_projectile
 

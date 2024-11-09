@@ -1,7 +1,7 @@
 # YOU MUST CREATE AND ASSIGN A COLLISION SHAPE IN THE SCENE WHERE YOU PUT THIS
 extends Area2D
 
-var current_type
+var current_panel
 @export var radius: int
 @export var collision_shape: CollisionShape2D
 
@@ -9,7 +9,7 @@ var selected: bool = false
 var open: bool = false
 
 var menu_item = preload("res://scenes/ui/menu_item.tscn")
-var sell_icon = preload("res://sprites/ui/sell_icon.png")
+var pickup_icon = preload("res://sprites/ui/arrow_right.png")
 
 @onready var top_text = $TopText
 @onready var bottom_text = $BottomText
@@ -29,15 +29,8 @@ func _on_body_entered(body):
 	if body is Player:
 		if CurrentRun.world.current_player_info.active_player:
 			if CurrentRun.world.current_player_info.state == "default":
-				if current_type == null:
-					$AnimationPlayer.play("flash")
-					selected = true
-				else:
-					for i in GadgetInfo.gadget_roster:
-						if GadgetInfo.gadget_roster[i]["last_gadget"] == current_type:
-							$AnimationPlayer.play("flash")
-							selected = true
-							break
+				$AnimationPlayer.play("flash")
+				selected = true
 			else:
 				$AnimationPlayer.play("still")
 				selected = false
@@ -56,58 +49,50 @@ func _input(event):
 		open_menu()
 
 func spawn_menu(type):
-	if type == null:
-		#spawn base gadgets
-		for i in GadgetInfo.gadget_roster:
-			if CurrentRun.world.current_gadget_info.unlocked_gadgets.has(i):
-				add_item(i)
-	else:
-		add_item("sell")
-		#spawn upgrade menu
-		for i in GadgetInfo.gadget_roster:
-			if GadgetInfo.gadget_roster[i]["last_gadget"] == type:
-				add_item(i)
-		
+	if type != null:
+		add_item(null)
+	
+	for i in CurrentRun.world.current_gadget_info.gadget_inventory:
+		if i != current_panel:
+			add_item(i)
 
 func add_item(item):
 	var new_item = menu_item.instantiate()
 	new_item.position = position
 	items.add_child(new_item)
 	
-	if item == "sell":
-		new_item.sprite.texture = sell_icon
-		if get_parent().has_method("sell_gadget"):
-			new_item.clicked.connect(get_parent().sell_gadget)
-		new_item.gadget = current_type
+	if item == null:
+		new_item.sprite.texture = pickup_icon
+		if get_parent().has_method("pickup_gadget"):
+			new_item.clicked.connect(get_parent().pickup_gadget)
+		new_item.gadget_panel = current_panel
 	else:
-		var item_info = GadgetInfo.gadget_roster[item]
+		var item_info = GadgetInfo.gadget_roster[item.gadget]
 		new_item.sprite.texture = item_info["sprite"]
 		if get_parent().has_method("add_gadget"):
 			new_item.clicked.connect(get_parent().add_gadget)
-		new_item.gadget = item
+		new_item.gadget_panel = item
 		
 	new_item.hovered.connect(show_gadget_info)
 	new_item.hide()
 
-func show_gadget_info(gadget):
-	if gadget == null:
+func show_gadget_info(gadget_panel):
+	if gadget_panel == null:
 		top_text.hide()
 		bottom_text.hide()
-	elif gadget == current_type:
-		var gadget_name = GadgetInfo.gadget_roster[current_type]["name"]
-		top_text.text = "Sell " + gadget_name
-		bottom_text.text = "+ $" + str((GadgetInfo.gadget_roster[current_type]["cost"]*0.5) + CurrentRun.world.current_player_info.global_sell_modifier)
+	elif gadget_panel == current_panel:
+		var gadget_name = GadgetInfo.gadget_roster[gadget_panel.gadget]["name"]
+		top_text.text = "Pick up " + gadget_name
 		top_text.show()
 		bottom_text.show()
 	else:
-		var gadget_name = GadgetInfo.gadget_roster[gadget]["name"]
+		var gadget_name = GadgetInfo.gadget_roster[gadget_panel.gadget]["name"]
 		top_text.text = gadget_name
-		bottom_text.text = "Cost: $" + str("%.2f" % GadgetInfo.gadget_roster[gadget]["cost"])
 		top_text.show()
 		bottom_text.show()
 
 func open_menu():
-	spawn_menu(current_type)
+	spawn_menu(current_panel)
 	
 	open = true
 	$MenuOpenSound.play()
@@ -140,18 +125,10 @@ func close_menu():
 	for i in get_overlapping_bodies():
 		_on_body_entered(i)
 
-func update_menu(gadget):
+func update_menu(panel):
 	for item in items.get_children():
 		item.queue_free()
 	
-	current_type = gadget
-	
-	for i in GadgetInfo.gadget_roster:
-		if GadgetInfo.gadget_roster[i]["last_gadget"] == gadget:
-			$MouseIndicator.show()
-			break
-		else:
-			$MouseIndicator.hide()
-	
+	current_panel = panel
 
 

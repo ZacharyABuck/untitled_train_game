@@ -43,6 +43,5 @@ func explosion_damage(area):
 	if area is HurtboxComponent and area != last_enemy_hit:
 		var new_hitbox : HurtboxComponent = area
 		var attack = Attack.new()
-		WeaponInfo.attach_buffs(active_buffs, attack.active_buffs)
-		attack.attack_damage = splash_damage
-		new_hitbox.damage(attack, CurrentRun.world.current_player_info.active_player)
+		attack.stats["damage"] = splash_damage
+		new_hitbox.damage(attack)

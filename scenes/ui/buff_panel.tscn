@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://djifnjqjgiwvw"]
+
+[ext_resource type="Texture2D" uid="uid://cdmwbints426q" path="res://sprites/ui/poison_buff.png" id="1_0m8q5"]
+[ext_resource type="Script" path="res://scripts/ui/buff_panel.gd" id="1_m21g1"]
+
+[node name="BuffPanel" type="PanelContainer"]
+script = ExtResource("1_m21g1")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_0m8q5")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "[center]Poison: +2.0[/center]"
+fit_content = true

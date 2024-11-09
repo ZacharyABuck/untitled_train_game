@@ -6,7 +6,7 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pif7q"]
 
 [node name="ShopFurnaceHealth" type="PanelContainer"]
-custom_minimum_size = Vector2(500, 100)
+custom_minimum_size = Vector2(30, 100)
 offset_right = 300.0
 offset_bottom = 88.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_pif7q")

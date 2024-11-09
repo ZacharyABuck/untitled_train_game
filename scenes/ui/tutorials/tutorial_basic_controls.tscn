@@ -13,7 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 script = ExtResource("1_sv622")
-dialogue = ["Welcome to the frontier! This is where you'll defend your train from incoming enemies.", "Move around with WASD and shoot with Left Click.", "You can also build turrets and other gadgets on your train. Mouse over a build point and press E to build. Make sure you have enough money!", "All sorts of events can happen in the frontier. Be careful out there partner."]
+dialogue = ["Welcome to the frontier! This is where you'll defend your train from incoming enemies.", "The furnace is the heart of the train. Enemies will go straight for it. Stop them.", "Move around with WASD and swing your weapon with Left Click.", "You also have a lasso! Use it with Right Click. This can be used to pull in debris. All sorts of things can be found out in the frontier!", "Be careful out there partner."]
 sfx = NodePath("SFX")
 sprite = ExtResource("2_wfcxo")
 

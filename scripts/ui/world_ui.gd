@@ -3,8 +3,9 @@ extends CanvasLayer
 var mission_inventory_panel = preload("res://scenes/ui/mission_inventory_panel.tscn")
 var edge_inventory_label = preload("res://scenes/ui/edge_inventory_label.tscn")
 
-@onready var mission_inventory_container = $PanelContainer/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/MissionInventoryContainer
-@onready var edge_label_container = $PanelContainer/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/EdgeLabelContainer
+@onready var mission_inventory_container = %MissionInventoryContainer
+@onready var edge_label_container = %EdgeLabelContainer
+@onready var gadget_inventory_container = %GadgetInventoryContainer
 
 func _ready():
 	hide()
@@ -34,4 +35,3 @@ func _input(event):
 		else:
 			show()
 			get_parent().pause_game()
-	

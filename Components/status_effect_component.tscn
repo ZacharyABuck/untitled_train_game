@@ -9,18 +9,17 @@ script = ExtResource("1_i8fjp")
 wait_time = 3.0
 
 [node name="PoisonTickTimer" type="Timer" parent="."]
-wait_time = 2.0
 
 [node name="PoisonTimer" type="Timer" parent="."]
-wait_time = 10.0
-one_shot = true
-
-[node name="FireTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
 
-[node name="FireTickTimer" type="Timer" parent="."]
+[node name="FireTimer" type="Timer" parent="."]
 wait_time = 2.0
+one_shot = true
+
+[node name="FireTickTimer" type="Timer" parent="."]
+wait_time = 0.4
 
 [connection signal="timeout" from="ShockTimer" to="." method="_on_shock_timer_timeout"]
 [connection signal="timeout" from="PoisonTickTimer" to="." method="_on_poison_tick_timer_timeout"]

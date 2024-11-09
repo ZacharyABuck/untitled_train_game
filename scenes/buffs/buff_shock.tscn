@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cui5x64fts3yi"]
+
+[ext_resource type="Script" path="res://scenes/buffs/buff_shock.gd" id="1_amnng"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cuhj3"]
+
+[node name="BuffShock" type="Area2D"]
+collision_layer = 1024
+collision_mask = 1024
+script = ExtResource("1_amnng")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_cuhj3")

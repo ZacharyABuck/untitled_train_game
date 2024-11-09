@@ -1,6 +1,6 @@
 extends Event
 
-var alert_text: String = "Arrived at " + CurrentRun.world.current_level_info.destination
+var alert_text: String = "Kill Remaining Enemies!"
 @onready var player_boundary = $Walls/PlayerBoundary
 @onready var town_spawn_point = $TownSpawnPoint
 var town = preload("res://scenes/town.tscn")
@@ -15,7 +15,7 @@ func level_complete(_area):
 		triggered = true
 		event_triggered()
 		set_alert_text_and_play(alert_text)
-		CurrentRun.world.level_complete(self)
+		CurrentRun.world.arrived_at_destination(self)
 	else:
 		car_count += 1
 		if car_count >= CurrentRun.world.current_train_info.train_stats["car_count"]:

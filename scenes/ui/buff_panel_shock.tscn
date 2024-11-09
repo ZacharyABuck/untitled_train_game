@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://de8pkabg4sryl"]
+
+[ext_resource type="Script" path="res://scripts/ui/buff_panel_shock.gd" id="1_fdbkp"]
+[ext_resource type="Texture2D" uid="uid://dq2n1ulkvg4m0" path="res://sprites/ui/shock_buff.png" id="2_kyr6b"]
+
+[node name="BuffPanelShock" type="PanelContainer"]
+script = ExtResource("1_fdbkp")
+buff = "shock"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_kyr6b")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "Shock"
+fit_content = true

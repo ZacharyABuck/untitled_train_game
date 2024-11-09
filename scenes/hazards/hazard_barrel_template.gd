@@ -1,13 +1,12 @@
 extends Hazard
 class_name Barrel
 
-@export var damage = 7
+var stats = {"damage": 7.0}
 @export var enemy_detector: Area2D
 @export var explosion_area: Area2D
 @export var sprite: Sprite2D
 @export var explosion_sprite: AnimatedSprite2D
 
-var active_buffs: Dictionary
 var exploded: bool = false
 
 func _ready():
@@ -38,9 +37,8 @@ func explosion_area_entered(area):
 	if area is HurtboxComponent:
 		var new_hitbox : HurtboxComponent = area
 		var attack = Attack.new()
-		WeaponInfo.attach_buffs(active_buffs, attack.active_buffs)
-		attack.attack_damage = damage
-		new_hitbox.damage(attack, CurrentRun.world.current_player_info.active_player)
+		attack.stats = stats
+		new_hitbox.damage(attack)
 
 func animation_finished():
 	if explosion_sprite.animation == "hit":

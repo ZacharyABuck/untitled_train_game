@@ -2,17 +2,17 @@ extends Area2D
 
 @onready var sprite = $Sprite2D
 
-var gadget
+var gadget_panel
 signal clicked
 signal hovered
 
 func _on_input_event(_viewport, event, _shape_idx):
 	if event.is_action_pressed("shoot"):
-		clicked.emit(gadget)
+		clicked.emit(gadget_panel)
 
 func _on_mouse_entered():
-	CurrentRun.world.current_gadget_info.selected_gadget = gadget
-	hovered.emit(gadget)
+	CurrentRun.world.current_gadget_info.selected_gadget = gadget_panel
+	hovered.emit(gadget_panel)
 	$AudioStreamPlayer.play()
 	var tween = get_tree().create_tween()
 	tween.tween_property(sprite, "scale", Vector2(1.2,1.2), .05).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)

@@ -1,6 +1,8 @@
 extends Edge
 
-var buffs = {"attack_delay": 1, "poison": 1, "fire": 1}
+var buffs = [GadgetInfo.buffs["fire"], GadgetInfo.buffs["poison"], GadgetInfo.buffs["attack_delay"]]
+
+var lifetime = 5.0
 
 func _ready():
 	super()
@@ -9,12 +11,11 @@ func _ready():
 		for hard_point in CurrentRun.world.current_train_info.cars_inventory[car]["hard_points"]:
 			CurrentRun.world.current_train_info.cars_inventory[car]["hard_points"][hard_point].gadget_built.connect(add_buffs)
 
-
 func add_buffs(gadget):
-	WeaponInfo.attach_buffs(buffs, gadget.active_buffs)
-	await get_tree().create_timer(5).timeout
-	WeaponInfo.detach_buffs(buffs, gadget.active_buffs)
+	for buff in buffs:
+		var new_buff = buff["scene"].instantiate()
+		new_buff.lifetime = lifetime
+		gadget.gun.add_child(new_buff)
 
 func handle_level_up():
-	for buff in buffs:
-		buffs[buff] += 0.5
+	lifetime += 2.0

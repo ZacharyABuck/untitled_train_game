@@ -14,6 +14,14 @@ var sounds = {
 	reload = preload("res://sounds/combat/reloading.mp3"),
 	rock_smash = preload("res://sounds/combat/rock_smash.wav"),
 	big_ding = preload("res://sounds/ui/big_ding.mp3"),
+	book_open = preload("res://sounds/ui/book_skimming_short.wav"),
+	page_turn = preload("res://sounds/ui/page_turn.wav"),
+	bell_single = preload("res://sounds/ui/bell_single.wav"),
+	harmonica_sting_1 = preload("res://sounds/ui/harmonica_sting_1.wav"),
+	harmonica_sting_2 = preload("res://sounds/ui/harmonica_sting_2.wav"),
+	harmonica_sting_3 = preload("res://sounds/ui/harmonica_sting_3.wav"),
+	train_braking = preload("res://sounds/train/train_braking.wav"),
+	heavy_switch = preload("res://sounds/ui/heavy_switch.wav"),
 }
 
 var sounds_inventory = {}

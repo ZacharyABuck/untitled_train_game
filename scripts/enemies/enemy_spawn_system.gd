@@ -11,6 +11,8 @@ var spawning: bool = false
 var spawn_index: int = 0
 var level
 
+signal last_enemy_killed
+
 func _ready():
 	CurrentRun.world.current_level_info.enemy_spawn_system = self
 	level = get_parent()
@@ -32,15 +34,18 @@ func _process(_delta):
 			global_rotation = node.global_rotation
 
 func check_for_enemies():
-	if !spawning and CurrentRun.world.current_level_info.active_level.at_destination == false:
-		await get_tree().create_timer(2).timeout
+	if !spawning:
+		await get_tree().create_timer(4).timeout
+		print("checking....")
+		print(level.enemies.get_child_count())
 		if level.enemies.get_child_count() == 0:
-			spawning = true
 			print("All Enemies Dead")
-			
-			await get_tree().create_timer(3).timeout
-
-			wave_timer_timeout()
+			if CurrentRun.world.current_level_info.active_level.at_destination:
+				last_enemy_killed.emit()
+				print("Last Enemy Killed")
+			else:
+				spawning = true
+				wave_timer_timeout()
 
 func wave_timer_timeout():
 	if CurrentRun.world.current_level_info.active_level.at_destination == false:
@@ -60,7 +65,7 @@ func _on_spawn_interval_timer_timeout():
 		if spawn_index >= wave_count:
 			spawn_interval_timer.stop()
 			
-			CurrentRun.world.current_level_info.difficulty += .03
+			CurrentRun.world.current_level_info.difficulty += .02
 			wave_count += 1
 			enemy_wave_timer.start()
 			

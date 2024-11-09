@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://cwlh2mi1pggvd"]
+[gd_scene load_steps=8 format=3 uid="uid://cwlh2mi1pggvd"]
 
 [ext_resource type="Script" path="res://scenes/hazards/hazard_turret_speed_increase.gd" id="1_1g8ji"]
 [ext_resource type="Texture2D" uid="uid://syuk3v074i1m" path="res://sprites/ui/attack_delay_buff.png" id="2_4wbsn"]
+[ext_resource type="PackedScene" uid="uid://bai6mrx8pn61k" path="res://scenes/buffs/buff_attack_delay.tscn" id="2_qtyc5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a2doi"]
 radius = 23.0
@@ -34,6 +35,7 @@ gadget_detector = NodePath("GadgetDetector")
 player_detector = NodePath("PlayerDetector")
 collision = NodePath("CollisionShape2D")
 sprite = NodePath("Sprite2D")
+buff_scene = ExtResource("2_qtyc5")
 grabbable = true
 target_types = {
 "enemy": false,

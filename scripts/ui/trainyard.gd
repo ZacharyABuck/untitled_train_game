@@ -6,10 +6,6 @@ var tech_tree_column = preload("res://scenes/ui/tech_tree_column.tscn")
 @onready var tech_tree = $PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/VBoxContainer/TechTreeContainer/MarginContainer/HBoxContainer/TechTree
 @onready var tech_tree_label = $PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/VBoxContainer/HBoxContainer/TechTreeLabel
 
-@onready var pay_upkeep_button = $PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/VBoxContainer/HBoxContainer/PayUpkeepButton
-@onready var pay_all_upkeep_button = $PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/VBoxContainer/HBoxContainer/PayAllUpkeepButton
-var upkeep_cost_mod: float = 0.2
-
 @onready var mercs = $PanelContainer/MarginContainer/TrainyardItemsList/HBoxContainer2/MercsContainer/Mercs
 var held_merc
 
@@ -110,8 +106,6 @@ func close_button_pressed():
 func reset():
 	selected_slot = null
 	selected_car = null
-	pay_all_upkeep_button.hide()
-	pay_upkeep_button.hide()
 	for i in tech_tree.get_children():
 		i.queue_free()
 	tech_tree_label.clear()
@@ -121,64 +115,11 @@ func panel_clicked(gadget, car_number, slot):
 	tech_tree_label.text = "[center]" + GadgetInfo.gadget_roster[gadget]["name"] + "[/center]"
 	selected_car = car_number
 	selected_slot = slot
-	#check_upkeep()
 
 func move_slot_arrow():
 	var slot_arrow = $SlotArrow
 	slot_arrow.global_position = Vector2(selected_slot.global_position.x + selected_slot.size.x*.5, selected_slot.global_position.y)
 	slot_arrow.show()
-#
-#func check_upkeep():
-	#if !pay_upkeep_button.pressed.is_connected(pay_upkeep):
-		#pay_upkeep_button.pressed.connect(pay_upkeep.bind(pay_upkeep_button))
-	#if !pay_all_upkeep_button.pressed.is_connected(pay_upkeep):
-		#pay_all_upkeep_button.pressed.connect(pay_upkeep.bind(pay_all_upkeep_button))
-	#
-	#if CurrentRun.world.current_train_info.cars_inventory[selected_car]["gadgets"].has(selected_slot.name):
-		#var gadget_dict = CurrentRun.world.current_train_info.cars_inventory[selected_car]["gadgets"][selected_slot.name]
-		#if gadget_dict["upkeep_paid"]:
-			#pay_upkeep_button.hide()
-			#check_all_upkeep()
-		#else:
-			#pay_upkeep_button.text = "Pay Upkeep: $" +  str("%.2f" % (GadgetInfo.gadget_roster[gadget_dict["gadget"]]["cost"]*upkeep_cost_mod))
-			#pay_upkeep_button.set_meta("cost", GadgetInfo.gadget_roster[gadget_dict["gadget"]]["cost"]*upkeep_cost_mod)
-			#pay_upkeep_button.show()
-			#check_all_upkeep()
-#
-#
-#func check_all_upkeep():
-	#var amount: float = 0.0
-	#for car in CurrentRun.world.current_train_info.cars_inventory:
-		#for gadget in CurrentRun.world.current_train_info.cars_inventory[car]["gadgets"]:
-			#if CurrentRun.world.current_train_info.cars_inventory[car]["gadgets"][gadget]["upkeep_paid"] == false:
-				#amount += GadgetInfo.gadget_roster[CurrentRun.world.current_train_info.cars_inventory[car]\
-							#["gadgets"][gadget]["gadget"]]["cost"]*upkeep_cost_mod
-	#if amount > 0:
-		#pay_all_upkeep_button.text = "Pay All Upkeep: $" + str("%.2f" % amount)
-		#pay_all_upkeep_button.set_meta("cost", amount)
-		#pay_all_upkeep_button.show()
-	#else:
-		#pay_all_upkeep_button.hide()
-#
-#func pay_upkeep(button):
-	#var cost = button.get_meta("cost")
-	#if CurrentRun.world.current_player_info.current_money >= cost:
-		#CurrentRun.world.current_player_info.current_money -= cost
-	#
-		#if button.name == "PayAllUpkeepButton":
-			#for car in CurrentRun.world.current_train_info.cars_inventory:
-				#for gadget in CurrentRun.world.current_train_info.cars_inventory[car]["gadgets"]:
-					#CurrentRun.world.current_train_info.cars_inventory[car]["gadgets"][gadget]["upkeep_paid"] = true
-			#pay_all_upkeep_button.hide()
-			#pay_upkeep_button.hide()
-		#else:
-			#CurrentRun.world.current_train_info.cars_inventory[selected_car]["gadgets"][selected_slot.name]["upkeep_paid"] = true
-			#pay_upkeep_button.hide()
-			#check_all_upkeep()
-		#
-		#for panel in train_car_container.get_children():
-			#panel.check_upkeep()
-		#CurrentRun.world.current_world_info.towns_inventory[CurrentRun.world.current_world_info.active_town]["scene"].check_warnings()
 
 func clear_tech_tree():
 	for column in tech_tree.get_children():

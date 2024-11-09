@@ -35,14 +35,6 @@ func title_screen_start_button_pressed():
 
 	CurrentRun.world.start_game(direction, distance, terrain)
 
-	#var camera = CurrentRun.world.camera
-	#camera.zoom = Vector2(.8,.8)
-	#var camera_tween = create_tween()
-	#camera_tween.tween_property(camera, "zoom", Vector2(.6,.6), 2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	#
-	#await camera_tween.finished
-	#tutorial_ui.trigger_tutorial("world_map")
-	
 func _input(event):
 	if event.is_action_pressed("escape_menu"):
 		if escape_menu.visible:

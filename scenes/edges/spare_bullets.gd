@@ -1,16 +1,24 @@
 extends Edge
 
-var attack_delay_bonus: float = 0.1
-var buffs = {"attack_delay": attack_delay_bonus}
+var attack_delay_bonus: float = 0.75
+
+var buff_scene = preload("res://scenes/buffs/buff_attack_delay.tscn")
+
+var current_buffs = []
 
 func handle_level_up():
-	attack_delay_bonus += 0.1
-	buffs = {"attack_delay": attack_delay_bonus}
+	attack_delay_bonus *= 0.85
 
 func area_entered(area):
-	var receiver = area.get_parent()
-	WeaponInfo.attach_buffs(buffs, receiver.active_buffs)
+	if area.get_parent() is Turret:
+		var new_buff = buff_scene.instantiate()
+		new_buff.timed = false
+		area.get_parent().gun.call_deferred("add_child", new_buff)
+		current_buffs.append(new_buff)
 
 func area_exited(area):
-	var receiver = area.get_parent()
-	WeaponInfo.detach_buffs(buffs, receiver.active_buffs)
+	if area.get_parent() is Turret:
+		for child in area.get_parent().gun.get_children():
+			if current_buffs.has(child):
+				current_buffs.erase(child)
+				child.queue_free()

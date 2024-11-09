@@ -15,6 +15,7 @@ func spawn_missions(count):
 		new_mission.clicked.connect(mission_clicked)
 
 func mission_clicked(id):
+	AudioSystem.play_audio("basic_button_click", -10)
 	CurrentRun.world.world_ui.spawn_mission_inventory_panel(id)
 	hide()
 	get_parent().missions_button.hide()

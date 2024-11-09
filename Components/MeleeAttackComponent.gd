@@ -88,8 +88,8 @@ func _on_animated_sprite_2d_animation_finished():
 		for area in hurtboxes:
 			var hurtbox : HurtboxComponent = area
 			var new_attack = Attack.new()
-			new_attack.attack_damage = DAMAGE
-			hurtbox.damage(new_attack, attacker)
+			new_attack.stats["damage"] = DAMAGE
+			hurtbox.damage(new_attack)
 	elif animations.animation == "strike":
 		attack_timer.start()
 		animations.play("recovery")

@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://kdvhihiu5210"]
+[gd_scene load_steps=8 format=3 uid="uid://kdvhihiu5210"]
 
 [ext_resource type="Script" path="res://scenes/hazards/hazard_turret_poison.gd" id="1_s7b6n"]
+[ext_resource type="PackedScene" uid="uid://beawrp50s30me" path="res://scenes/buffs/buff_poison.tscn" id="2_5u6pb"]
 [ext_resource type="Texture2D" uid="uid://cdmwbints426q" path="res://sprites/ui/poison_buff.png" id="2_ocx3g"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a2doi"]
@@ -34,6 +35,7 @@ gadget_detector = NodePath("GadgetDetector")
 player_detector = NodePath("PlayerDetector")
 collision = NodePath("CollisionShape2D")
 sprite = NodePath("Sprite2D")
+buff_scene = ExtResource("2_5u6pb")
 grabbable = true
 target_types = {
 "enemy": false,

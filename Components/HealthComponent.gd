@@ -20,10 +20,11 @@ class_name HealthComponent
 @export var status_effect_component: Node2D
 
 var blood_fx = preload("res://scenes/fx/blood_fx.tscn")
+var damage_number = preload("res://scenes/fx/damage_number.tscn")
 
 var health : float
 #var armor : float
-var final_damage : float
+
 var is_killable : bool
 var has_healthbar : bool
 var character
@@ -40,20 +41,37 @@ func _ready():
 	if HEALTHBAR != null:
 		_initialize_healthbar()
 	
-func damage(attack : Attack, shooter):
-	_calculate_final_damage(attack.attack_damage, ARMOR_VALUE)
+func damage(attack : Attack):
+	var final_damage = _calculate_final_damage(attack.stats["damage"], ARMOR_VALUE)
 	
 	health -= clamp(final_damage, 1, MAX_HEALTH)
-
+	
+	spawn_particles(blood_fx)
+	spawn_damage_number(final_damage)
+	
 	if has_healthbar:
 		healthbar.value = health
 	if health <= 0:
-		_handle_death(shooter)
+		_handle_death()
+	
+	if status_effect_component != null:
+		if attack.stats.has("poison"):
+			status_effect_component.apply_poison(attack.stats["poison"])
+		if attack.stats.has("fire"):
+			status_effect_component.apply_fire(attack.stats["fire"])
+		if attack.stats.has("shock"):
+			status_effect_component.apply_shock(attack.stats["shock"])
 
 func heal(amount):
 	health = clamp(health + amount, 1, MAX_HEALTH)
 	if has_healthbar:
 		healthbar.value = health
+
+func spawn_damage_number(value):
+	var new_number = damage_number.instantiate()
+	CurrentRun.world.current_level_info.active_level.add_child(new_number)
+	new_number.text = "-" + str(value)
+	new_number.global_position = global_position
 
 func spawn_particles(fx):
 	var new_fx = fx.instantiate()
@@ -61,7 +79,7 @@ func spawn_particles(fx):
 	new_fx.global_position = character.global_position
 	new_fx.emitting = true
 
-func _handle_death(_shooter):
+func _handle_death():
 	if is_killable:
 		if character.is_in_group("event"):
 			character.queue_free()
@@ -71,13 +89,13 @@ func _handle_death(_shooter):
 			character.hazard_cleared.emit()
 			character.queue_free()
 		
-		if character.is_in_group("gadget"):
-			character.hard_point.gadget = null
-			character.hard_point.radial_menu.update_menu("default")
-			character.hard_point.radial_menu.show()
-			character.hard_point.car.armor -= clamp(2, 0, 10)
-			
-			character.queue_free()
+		#if character.is_in_group("gadget"):
+			#character.hard_point.gadget = null
+			#character.hard_point.radial_menu.update_menu("default")
+			#character.hard_point.radial_menu.show()
+			#character.hard_point.car.armor -= clamp(2, 0, 10)
+			#
+			#character.queue_free()
 		
 		if character.is_in_group("character"):
 			for i in CurrentRun.world.current_mission_info.mission_inventory:
@@ -110,7 +128,7 @@ func remove_mission(mission_id):
 			p.queue_free()
 
 func _calculate_final_damage(attacker_damage, armor):
-	final_damage = attacker_damage - armor
+	var final_damage = attacker_damage - armor
 	if final_damage < 0.0:
 		final_damage = 0.5
 	return final_damage

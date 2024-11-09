@@ -2,7 +2,6 @@ extends Gadget
 class_name Turret
 
 var target
-var active_buffs: Dictionary
 
 var raycast: RayCast2D
 

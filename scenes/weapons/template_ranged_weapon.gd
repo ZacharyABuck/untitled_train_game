@@ -30,9 +30,6 @@ var current_damage: float
 var current_lifetime: float
 var current_bullet
 
-#these buffs go to player, who is the master of the buffs
-var active_buffs: Dictionary
-
 func _ready():
 	if muzzle_flash:
 		muzzle_flash.hide()
@@ -68,9 +65,7 @@ func shoot():
 		
 		var new_bullet = _build_bullet(current_bullet.instantiate())
 		CurrentRun.world.current_level_info.active_level.bullets.add_child(new_bullet)
-		
-		WeaponInfo.attach_buffs(player.active_buffs, new_bullet.active_buffs)
-		
+
 		attack_delay_timer.wait_time = current_attack_delay
 		attack_delay_timer.start()
 		
@@ -85,6 +80,8 @@ func shoot():
 			CurrentRun.world.current_level_info.active_level.set_weapon_label(weapon_id, CurrentRun.world.current_player_info.current_ranged_weapon_ammo_count)
 			if CurrentRun.world.current_player_info.current_ranged_weapon_ammo_count <= 0:
 				CurrentRun.world.current_player_info.equip_new_weapon("melee", 0, 0, 0, 0)
+		
+		return new_bullet.id
 
 func show_muzzle_flash():
 	muzzle_flash.show()
@@ -96,18 +93,22 @@ func _on_attack_timer_timeout():
 	attack_delay_timer.stop()
 	can_shoot = true
 	if Input.is_action_pressed("shoot") and CurrentRun.world.current_player_info.state == "default":
-		shoot()
+		var id = shoot()
+		player.bullet_fired.emit(id)
 	else:
 		if gunshot_sound:
 			gunshot_sound.stop()
 
 func _build_bullet(b):
+	var stats = {"shooter": player, "damage": current_damage}
+	var id = CurrentRun.world.current_level_info.create_attack_stats(stats)
+	b.id = id
 	b.global_position = CurrentRun.world.current_player_info.active_player.global_position
 	b.speed = current_projectile_speed
-	b.damage = current_damage
+	#b.damage = current_damage
 	b.valid_hitbox_types = {"enemy":true, "player":false, "car":false, "cover":false, "terrain":true}
 	b.lifetime = current_lifetime
-	b.shooter = player
+	#b.shooter = player
 	b.target = get_global_mouse_position()
 	
 	return b

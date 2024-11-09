@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bji5fh0rtqn35"]
+
+[ext_resource type="Texture2D" uid="uid://c1esbr41s7mmf" path="res://sprites/gadgets/gadget_pistol_turret.png" id="1_3ruba"]
+[ext_resource type="Script" path="res://scripts/ui/gadget_item_button.gd" id="2_h30gy"]
+
+[node name="GadgetItemButton" type="Button"]
+icon = ExtResource("1_3ruba")
+icon_alignment = 1
+script = ExtResource("2_h30gy")

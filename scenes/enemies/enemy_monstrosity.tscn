@@ -962,7 +962,7 @@ material = SubResource("ShaderMaterial_gcm2g")
 position = Vector2(2, 8)
 scale = Vector2(0.617188, 0.6875)
 sprite_frames = SubResource("SpriteFrames_8jdkj")
-animation = &"boarding"
+animation = &"moving"
 
 [node name="MeleeAttackComponent" type="Area2D" parent="." node_paths=PackedStringArray("ATTACK_TIMER", "TARGET_AREA", "ANIMATIONS")]
 collision_layer = 0

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cikovsfegshbe"]
+
+[ext_resource type="Script" path="res://scenes/buffs/buff_fire.gd" id="1_focy4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cuhj3"]
+
+[node name="BuffFire" type="Area2D"]
+collision_layer = 1024
+collision_mask = 1024
+script = ExtResource("1_focy4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_cuhj3")

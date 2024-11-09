@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bp38lfu2xg7sc"]
+[gd_scene load_steps=26 format=3 uid="uid://bp38lfu2xg7sc"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_c8j4p"]
 [ext_resource type="Script" path="res://scripts/player/player_state_machine.gd" id="2_i83vv"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" path="res://scripts/player/player_state_ui.gd" id="5_d4k1u"]
 [ext_resource type="Texture2D" uid="uid://dae7mdy8yf1oy" path="res://sprites/player/player_spritesheet.png" id="7_kmlob"]
 [ext_resource type="Shader" path="res://shaders/drop_shadow.gdshader" id="7_x7w1q"]
-[ext_resource type="Script" path="res://scripts/player/player_camera.gd" id="9_iwblo"]
 [ext_resource type="Script" path="res://scripts/edges/EdgeHandler.gd" id="11_6ds4a"]
 [ext_resource type="AudioStream" uid="uid://bm8ntouv5ol6l" path="res://sounds/player/running_wood.wav" id="12_5foum"]
 [ext_resource type="AudioStream" uid="uid://cpnffnc4clg7y" path="res://sounds/player/repair.mp3" id="13_5ua86"]
@@ -159,10 +158,6 @@ scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_r2lml")
 animation = &"shooting"
 autoplay = "standing"
-
-[node name="Camera2D" type="Camera2D" parent="."]
-process_mode = 4
-script = ExtResource("9_iwblo")
 
 [node name="CarDetector" type="Area2D" parent="."]
 collision_layer = 0

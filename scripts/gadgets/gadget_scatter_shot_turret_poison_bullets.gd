@@ -1,7 +1,10 @@
 extends Turret
 
+var poison_buff_scene: PackedScene = preload("res://scenes/buffs/buff_poison.tscn")
+
 func _ready():
-	#gun.gun_shot.connect(poison_bullets)
 	super()
-	var buffs = {"poison": 1}
-	WeaponInfo.attach_buffs(buffs, active_buffs)
+
+	var new_buff = poison_buff_scene.instantiate()
+	new_buff.timed = false
+	gun.call_deferred("add_child", new_buff)

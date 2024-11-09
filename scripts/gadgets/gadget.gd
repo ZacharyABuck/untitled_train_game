@@ -7,4 +7,5 @@ var car
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	hard_point = get_parent()
-	car = hard_point.car
+	if "car" in hard_point:
+		car = hard_point.car

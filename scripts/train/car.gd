@@ -13,7 +13,6 @@ extends Node2D
 @onready var boarding_sfx = $BoardingSFX
 @onready var damage_sfx = $DamageSFX
 
-
 #CORNER POINTS FOR MESH
 @onready var top_left = $CornerPoints/TopLeft
 @onready var top_right = $CornerPoints/TopRight
@@ -29,9 +28,6 @@ var merc = preload("res://scenes/characters/merc.tscn")
 var passenger = preload("res://scenes/characters/passenger.tscn")
 var cargo = preload("res://scenes/train/cargo.tscn")
 var hard_point = preload("res://scenes/train/hard_point.tscn")
-
-var active_buffs: Dictionary
-var gadgets: Array = []
 
 var max_health: float
 var health: float
@@ -57,10 +53,7 @@ func check_for_gadgets():
 	for gadget in CurrentRun.world.current_train_info.cars_inventory[index]["gadgets"].keys():
 		for hardpoint in hard_points.get_children():
 			if hardpoint.name == gadget:
-				if CurrentRun.world.current_train_info.cars_inventory[index]["gadgets"][gadget]["upkeep_paid"]:
-					hardpoint.get_child(0).respawn_gadget(CurrentRun.world.current_train_info.cars_inventory[index]["gadgets"][gadget]["gadget"])
-				else:
-					CurrentRun.world.current_train_info.cars_inventory[index]["gadgets"].erase(gadget)
+				hardpoint.get_child(0).respawn_gadget(CurrentRun.world.current_train_info.cars_inventory[index]["gadgets"][gadget]["gadget"])
 
 func take_damage(amount):
 	if !damage_sfx.playing:

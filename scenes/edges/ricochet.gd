@@ -1,12 +1,13 @@
 extends Edge
 
-var buffs = {"ricochet": 1}
+var stats = {"ricochet": 1}
 
 func _ready():
-	WeaponInfo.attach_buffs(buffs, player.active_buffs)
-	print("Updated ricochet amount: ", str(player.active_buffs["ricochet"]))
+	player.bullet_fired.connect(add_buff_to_attack)
 	super()
 
 func handle_level_up():
-	WeaponInfo.attach_buffs(buffs, player.active_buffs)
-	print("Updated ricochet amount: ", str(player.active_buffs["ricochet"]))
+	stats["ricochet"] += 1
+
+func add_buff_to_attack(id):
+	CurrentRun.world.current_level_info.update_attack_stats(id, stats)

@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bx7i2uagyxovr"]
+
+[ext_resource type="Script" path="res://scenes/ui/tutorials/tutorial_first_gadget.gd" id="1_vlvar"]
+[ext_resource type="Texture2D" uid="uid://0uwb285b3p0v" path="res://sprites/characters/bourdalain.png" id="2_xe7n8"]
+[ext_resource type="AudioStream" uid="uid://d2nwj7vu6t12t" path="res://sounds/ui/menu-select-tick.wav" id="3_lo1pt"]
+
+[node name="TutorialFirstGadget" type="Control" node_paths=PackedStringArray("sfx")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_vlvar")
+dialogue = ["There you go, let the train do the shooting. Turrets will attack on their own and can be upgraded.", "However, they cannot shoot through the train, meaning you'll have to build them on both sides."]
+sfx = NodePath("SFX")
+sprite = ExtResource("2_xe7n8")
+
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_lo1pt")
+volume_db = -10.0
+bus = &"SFX"

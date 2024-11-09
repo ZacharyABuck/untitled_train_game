@@ -3,20 +3,16 @@ extends CanvasLayer
 var root
 
 var tutorials_roster = {
-	"world_map" = {
-		"scene" = preload("res://scenes/ui/tutorials/tutorial_world_map.tscn"),
-		"triggered" = false,
-	},
 	"basic_controls" = {
 		"scene" = preload("res://scenes/ui/tutorials/tutorial_basic_controls.tscn"),
 		"triggered" = false,
 	},
-	"train_damage" = {
-		"scene" = preload("res://scenes/ui/tutorials/tutorial_train_damage.tscn"),
+	"first_gadget" = {
+		"scene" = preload("res://scenes/ui/tutorials/tutorial_first_gadget.tscn"),
 		"triggered" = false,
 	},
-	"charge_attack" = {
-		"scene" = preload("res://scenes/ui/tutorials/tutorial_charge_attack.tscn"),
+	"train_damage" = {
+		"scene" = preload("res://scenes/ui/tutorials/tutorial_train_damage.tscn"),
 		"triggered" = false,
 	},
 }

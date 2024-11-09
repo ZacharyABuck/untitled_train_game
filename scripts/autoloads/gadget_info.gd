@@ -7,7 +7,7 @@ var gadget_roster = {
 		"location" = "hard_point",
 		"scene" = load("res://scenes/gadgets/gadget_pistol_turret.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_pistol_turret.png"),
-		"cost" = 5.00,
+		"value" = 5.00,
 	},
 	"scatter_shot_turret" = {
 		"name" = "Scatter Shot Turret",
@@ -15,7 +15,7 @@ var gadget_roster = {
 		"location" = "hard_point",
 		"scene" = load("res://scenes/gadgets/gadget_scatter_shot_turret.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_pistol_turret.png"),
-		"cost" = 10.00,
+		"value" = 5.00,
 	},
 	"scatter_shot_turret_more_scatter" = {
 		"name" = "More Scatter",
@@ -23,7 +23,7 @@ var gadget_roster = {
 		"location" = "hard_point",
 		"scene" = load("res://scenes/gadgets/gadget_scatter_shot_turret_more_scatter.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_pistol_turret.png"),
-		"cost" = 20.00,
+		"value" = 5.00,
 	},
 	"scatter_shot_turret_poison_bullets" = {
 		"name" = "Poison Bullets",
@@ -31,7 +31,7 @@ var gadget_roster = {
 		"location" = "hard_point",
 		"scene" = load("res://scenes/gadgets/gadget_scatter_shot_turret_poison_bullets.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_pistol_turret.png"),
-		"cost" = 20.00,
+		"value" = 5.00,
 	},
 	"shock_turret" = {
 		"name" = "Shock Turret",
@@ -39,7 +39,7 @@ var gadget_roster = {
 		"location" = "hard_point",
 		"scene" = load("res://scenes/gadgets/gadget_shock_turret.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_pistol_turret.png"),
-		"cost" = 7.00,
+		"value" = 5.00,
 	},
 	"shock_turret_quick_loading" = {
 		"name" = "Quick Loading",
@@ -47,7 +47,7 @@ var gadget_roster = {
 		"location" = "hard_point",
 		"scene" = load("res://scenes/gadgets/gadget_shock_turret_quick_reload.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_pistol_turret.png"),
-		"cost" = 20.00,
+		"value" = 5.00,
 	},
 	"rifle_turret" = {
 		"name" = "Rifle Turret",
@@ -55,7 +55,7 @@ var gadget_roster = {
 		"location" = "hard_point",
 		"scene" = load("res://scenes/gadgets/gadget_rifle_turret.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_rifle_turret.png"),
-		"cost" = 12.00,
+		"value" = 5.00,
 	},
 	"rifle_turret_quick_loading" = {
 		"name" = "Quick Reload",
@@ -63,7 +63,7 @@ var gadget_roster = {
 		"location" = "hard_point",
 		"scene" = load("res://scenes/gadgets/gadget_rifle_turret_quick_loading.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_rifle_turret.png"),
-		"cost" = 20.00,
+		"value" = 5.00,
 	},
 	"rifle_turret_more_damage" = {
 		"name" = "More Damage",
@@ -71,7 +71,7 @@ var gadget_roster = {
 		"location" = "hard_point",
 		"scene" = load("res://scenes/gadgets/gadget_rifle_turret_more_damage.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_rifle_turret.png"),
-		"cost" = 20.00,
+		"value" = 5.00,
 	},
 	"explosive_turret" = {
 		"name" = "Explosive Turret",
@@ -79,7 +79,7 @@ var gadget_roster = {
 		"location" = "hard_point",
 		"scene" = load("res://scenes/gadgets/gadget_explosive_turret.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_explosive_turret.png"),
-		"cost" = 10.00,
+		"value" = 5.00,
 	},
 	"explosive_turret_long_range" = {
 		"name" = "Longer Range",
@@ -87,7 +87,7 @@ var gadget_roster = {
 		"location" = "hard_point",
 		"scene" = load("res://scenes/gadgets/gadget_explosive_turret_long_range.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_explosive_turret.png"),
-		"cost" = 20.00,
+		"value" = 5.00,
 	},
 	"explosive_turret_more_damage" = {
 		"name" = "More Damage",
@@ -95,7 +95,7 @@ var gadget_roster = {
 		"location" = "hard_point",
 		"scene" = load("res://scenes/gadgets/gadget_explosive_turret_more_damage.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_explosive_turret.png"),
-		"cost" = 20.00,
+		"value" = 5.00,
 	},
 	"flame_turret" = {
 		"name" = "Flame Turret",
@@ -103,7 +103,7 @@ var gadget_roster = {
 		"location" = "hard_point",
 		"scene" = load("res://scenes/gadgets/gadget_flame_turret.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_pistol_turret.png"),
-		"cost" = 10.00,
+		"value" = 5.00,
 	},
 	"flame_turret_wide_area" = {
 		"name" = "Wide Area",
@@ -111,7 +111,7 @@ var gadget_roster = {
 		"location" = "hard_point",
 		"scene" = load("res://scenes/gadgets/gadget_flame_turret_wide_area.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_pistol_turret.png"),
-		"cost" = 20.00,
+		"value" = 5.00,
 	},
 	"gattling_turret" = {
 		"name" = "Gattling Turret",
@@ -119,7 +119,7 @@ var gadget_roster = {
 		"location" = "hard_point",
 		"scene" = load("res://scenes/gadgets/gadget_gattling_turret.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_pistol_turret.png"),
-		"cost" = 12.00,
+		"value" = 5.00,
 	},
 	"gattling_turret_more_damage" = {
 		"name" = "More Damage",
@@ -127,7 +127,30 @@ var gadget_roster = {
 		"location" = "hard_point",
 		"scene" = load("res://scenes/gadgets/gadget_gattling_turret_more_damage.tscn"),
 		"sprite" = load("res://sprites/gadgets/gadget_pistol_turret.png"),
-		"cost" = 20.00,
+		"value" = 5.00,
+	},
+}
+
+var buffs = {
+	"attack_delay": {
+		"scene" = preload("res://scenes/buffs/buff_attack_delay.tscn"),
+		"panel" = preload("res://scenes/ui/buff_panel_attack_delay.tscn"),
+	},
+	"poison": {
+		"scene" = preload("res://scenes/buffs/buff_poison.tscn"),
+		"panel" = preload("res://scenes/ui/buff_panel_poison.tscn"),
+	},
+	"fire": {
+		"scene" = preload("res://scenes/buffs/buff_fire.tscn"),
+		"panel" = preload("res://scenes/ui/buff_panel_fire.tscn"),
+	},
+	"shock": {
+		"scene" = preload("res://scenes/buffs/buff_shock.tscn"),
+		"panel" = preload("res://scenes/ui/buff_panel_shock.tscn"),
+	},
+	"damage": {
+		"scene" = preload("res://scenes/buffs/buff_damage.tscn"),
+		"panel" = preload("res://scenes/ui/buff_panel_damage.tscn"),
 	},
 }
 

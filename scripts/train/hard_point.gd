@@ -3,52 +3,46 @@ extends Node2D
 @onready var sprite = $Sprite2D
 @onready var radial_menu = $RadialMenu
 
-
-var gadget
+var gadget_panel
 var location
 var car
 
 signal gadget_built
 
-func respawn_gadget(requested_gadget):
-	gadget = requested_gadget
-	spawn_gadget(requested_gadget)
+func respawn_gadget(panel):
+	gadget_panel = panel
+	spawn_gadget(panel)
 
-func add_gadget(requested_gadget):
-	var requested_gadget_info = GadgetInfo.gadget_roster[requested_gadget]
-	var label = CurrentRun.world.current_level_info.active_level.alert_label
-	# CHECK IF CAR ALREADY HAS SURROUNDING GADGET
-	if requested_gadget_info["location"] == "car" and has_car_gadget():
-		label.text = "Space Occupied!"
-		label.get_child(0).play("alert_flash_short")
-		label.show()
+func add_gadget(new_panel):
+	#check if space is occupied
+	if gadget_panel != null:
+		pickup_gadget(gadget_panel)
+	#check if new panel is deployed elsewhere
+	for car in CurrentRun.world.current_train_info.cars_inventory:
+		for hard_point in CurrentRun.world.current_train_info.cars_inventory[car]["hard_points"]:
+			if CurrentRun.world.current_train_info.cars_inventory[car]["hard_points"][hard_point].gadget_panel == new_panel:
+				CurrentRun.world.current_train_info.cars_inventory[car]["hard_points"][hard_point].pickup_gadget(new_panel)
+
+	new_panel.deployed = true
+	CurrentRun.world.current_gadget_info.selected_gadget = null
 	
-	else:
-		#check if player has enough money
-		if CurrentRun.world.current_player_info.current_money >= requested_gadget_info["cost"]:
-			
-			CurrentRun.world.current_player_info.current_money -= requested_gadget_info["cost"]
-			
-			CurrentRun.world.current_gadget_info.selected_gadget = null
-			
-			CurrentRun.world.current_train_info.cars_inventory[car.index]["gadgets"][get_parent().name] = {"gadget" = requested_gadget, "upkeep_paid" = true}
-			CurrentRun.world.current_level_info.active_level.close_all_ui()
-			$BuildSound.play()
-			
-			print("New Gadget: " + requested_gadget_info["name"])
-			
-			#delete old gadget if upgrading
-			delete_gadget()
-			
-			#create gadget
-			var new_gadget = spawn_gadget(requested_gadget)
-			gadget = requested_gadget
-			gadget_built.emit(new_gadget)
-			CurrentRun.world.current_player_info.state = "default"
+	CurrentRun.world.current_train_info.cars_inventory[car.index]["gadgets"][get_parent().name] = {"gadget" = new_panel}
+	CurrentRun.world.current_level_info.active_level.close_all_ui()
+	$BuildSound.play()
+	
+	print("Placed Gadget: " + new_panel.gadget)
+	
+	#create gadget
+	var new_gadget = spawn_gadget(new_panel)
+	gadget_panel = new_panel
+	gadget_built.emit(new_gadget)
+	CurrentRun.world.current_player_info.state = "default"
+	
+	await get_tree().create_timer(1).timeout
+	CurrentRun.root.tutorial_ui.trigger_tutorial("first_gadget")
 
-func sell_gadget(old_gadget):
-	var sell_value = (GadgetInfo.gadget_roster[old_gadget]["cost"]*.5) + CurrentRun.world.current_player_info.global_sell_modifier
-	CurrentRun.world.current_player_info.current_money += sell_value
+func pickup_gadget(old_gadget):
+	old_gadget.deployed = false
 	CurrentRun.world.current_train_info.cars_inventory[car.index]["gadgets"].erase(get_parent().name)
 	CurrentRun.world.current_level_info.active_level.close_all_ui()
 	CurrentRun.world.current_player_info.state = "default"
@@ -58,35 +52,20 @@ func sell_gadget(old_gadget):
 	delete_gadget()
 
 func delete_gadget():
-	if gadget != null:
-		gadget = null
+	if gadget_panel != null:
+		gadget_panel = null
 		for i in get_children():
 			if i.is_in_group("gadget"):
 				i.queue_free()
 				break
 
-func spawn_gadget(requested_gadget):
-	var new_gadget = GadgetInfo.gadget_roster[requested_gadget]["scene"].instantiate()
+func spawn_gadget(panel):
+	var new_gadget = GadgetInfo.gadget_roster[panel.gadget]["scene"].instantiate()
 	add_child(new_gadget)
-	
-	car.gadgets.append(new_gadget)
 
-	match GadgetInfo.gadget_roster[requested_gadget]["location"]:
-		"hard_point":
-			new_gadget.global_position = global_position
-		"car":
-			new_gadget.global_position = car.global_position
-			new_gadget.icon_sprite.global_position = global_position
+	new_gadget.global_position = global_position
+
 	radial_menu.close_menu()
-	radial_menu.update_menu(requested_gadget)
+	radial_menu.update_menu(panel)
 	
 	return new_gadget
-
-
-func has_car_gadget() -> bool:
-	for i in car.hard_points.get_children():
-		if i.get_child(0).gadget != null:
-			var gadget_location = GadgetInfo.gadget_roster[i.get_child(0).gadget]["location"]
-			if gadget_location == "car":
-				return true
-	return false

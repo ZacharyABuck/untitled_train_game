@@ -1,0 +1,120 @@
+[gd_scene load_steps=10 format=3 uid="uid://df73xtu2xppi0"]
+
+[ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="1_llfwa"]
+[ext_resource type="Script" path="res://scripts/ui/gadget_panel.gd" id="2_60wxu"]
+[ext_resource type="Texture2D" uid="uid://c1esbr41s7mmf" path="res://sprites/gadgets/gadget_pistol_turret.png" id="2_vgmf3"]
+[ext_resource type="Script" path="res://components/ui_animation_component.gd" id="4_fxpne"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o0u8h"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_drx5k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wrxl1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5a1fa"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vqpi3"]
+
+[node name="GadgetPanel" type="PanelContainer"]
+custom_minimum_size = Vector2(300, 0)
+size_flags_vertical = 4
+theme = ExtResource("1_llfwa")
+script = ExtResource("2_60wxu")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="GadgetName" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 25
+bbcode_enabled = true
+text = "[center]Pistol Turret[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="GadgetDetails" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "Damage: 1.0
+Range: 35m
+Cooldown: 1.0"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="GadgetIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+texture = ExtResource("2_vgmf3")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_o0u8h")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_drx5k")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_wrxl1")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_5a1fa")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vqpi3")
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("4_fxpne")
+hover_scale = Vector2(1.03, 1.03)
+hover_trans = 1
+hover_time = 0.1
+animate_in = true
+animate_in_time = 1.0
+animate_in_trans = 6
+
+[node name="SellContainer" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ColorRect" type="ColorRect" parent="SellContainer"]
+layout_mode = 2
+color = Color(0.956863, 0.937255, 0.858824, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SellContainer"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="SellButton" type="Button" parent="SellContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Sell : +2"
+
+[node name="BackButton" type="Button" parent="SellContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+text = "Back"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="SellContainer/VBoxContainer/SellButton" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="SellContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

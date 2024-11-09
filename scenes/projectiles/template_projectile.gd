@@ -13,6 +13,7 @@ class_name Projectile
 
 var shooter
 var target
+var id
 var continuous_target
 var speed = 600
 var damage = 2
@@ -21,8 +22,6 @@ var hitbox
 var animations
 var valid_hitbox_types
 var lifetime = 3
-
-var active_buffs: Dictionary
 
 signal hit_target #emits with argument Area (Hurtbox Component)
 var last_enemy_hit: Area2D
@@ -43,39 +42,36 @@ func _physics_process(delta):
 
 func _on_area_2d_area_entered(area):
 	if area is HurtboxComponent and area != last_enemy_hit:
-		hit_target.emit(area, shooter)
+		#hit_target.emit(area, shooter)
 	
 		hitbox.set_deferred("monitoring", false)
 		hitbox.set_deferred("monitorable", false)
 		linear_velocity = Vector2.ZERO
 		animations.play("hit")
-		var new_hitbox : HurtboxComponent = area
+		var new_hurtbox : HurtboxComponent = area
 		var attack = Attack.new()
-		
-		WeaponInfo.attach_buffs(active_buffs, attack.active_buffs)
+		attack.stats = CurrentRun.world.current_level_info.attack_inventory[id]
 
-		if active_buffs.has("damage"):
-			attack.attack_damage = damage + (damage * active_buffs["damage"])
-			print(attack.attack_damage)
-		else:
-			attack.attack_damage = damage
+		new_hurtbox.damage(attack)
 		
-		new_hitbox.damage(attack, shooter)
 		if SFX:
 			SFX.play()
 			
-		if shooter != null and shooter.active_buffs.has("ricochet"):
-			for bullet in shooter.active_buffs["ricochet"]:
+		if CurrentRun.world.current_level_info.attack_inventory[id].has("ricochet"):
+			for bullet in CurrentRun.world.current_level_info.attack_inventory[id]["ricochet"]:
 				var scene = PackedScene.new()
 				scene.pack(self)
 				var new_ricochet = _build_ricochet(scene.instantiate(), area)
 				CurrentRun.world.current_level_info.active_level.bullets.call_deferred("add_child", new_ricochet)
 
 func _build_ricochet(b, area):
+	var stats = {"damage": damage}
+	var attack_id = CurrentRun.world.current_level_info.create_attack_stats(stats)
+	b.id = attack_id
+	
 	b.global_position = area.global_position
 	b.last_enemy_hit = area
 	b.speed = speed
-	b.damage = damage
 	b.target = Vector2(area.global_position.x + randi_range(-100,100), area.global_position.y + randi_range(-100,100))
 	b.valid_hitbox_types = {"enemy":true, "player":false, "car":false, "cover":false, "terrain":true}
 	b.lifetime = .5

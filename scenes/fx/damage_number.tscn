@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://drisbwu0v7pxq"]
+
+[ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="1_7taw1"]
+[ext_resource type="Script" path="res://scenes/fx/damage_number.gd" id="2_xqa0b"]
+
+[node name="DamageNumber" type="RichTextLabel"]
+texture_filter = 1
+offset_right = 24.0
+offset_bottom = 21.0
+theme = ExtResource("1_7taw1")
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/normal_font_size = 30
+text = "-10"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("2_xqa0b")

@@ -56,4 +56,7 @@ var hazards_roster = {
 	"furnace_health" = {
 		"scene" = preload("res://scenes/hazards/hazard_furnace_health.tscn"),
 	},
+	"zombie_bait" = {
+		"scene" = preload("res://scenes/hazards/hazard_zombie_bait.tscn"),
+	},
 }

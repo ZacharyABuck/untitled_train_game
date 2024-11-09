@@ -14,9 +14,8 @@ var level = preload("res://scenes/level.tscn")
 
 @onready var music_fade = $Music/MusicFade
 @onready var world_ui = $WorldUI
+@onready var gadget_select_ui = $GadgetSelectUI
 @onready var end_screen_ui = $EndScreenUI
-
-
 @onready var debug_ui = $DebugUI
 
 var in_game = false
@@ -63,9 +62,6 @@ func start_game(direction, distance, terrain):
 	in_game = true
 
 	CurrentRun.root.fade_in()
-	
-	await get_tree().create_timer(5).timeout
-	CurrentRun.root.tutorial_ui.trigger_tutorial("basic_controls")
 
 func pause_game():
 	if current_level_info.active_level:
@@ -75,6 +71,26 @@ func unpause_game():
 	if current_level_info.active_level:
 		current_level_info.active_level.get_tree().paused = false
 
+func add_gadget_panel(panel):
+	gadget_select_ui.hide()
+	unpause_game()
+	
+	current_gadget_info.gadget_inventory.append(panel)
+	panel.reparent(world_ui.gadget_inventory_container)
+
+func sell_gadget(panel):
+	current_gadget_info.gadget_inventory.erase(panel)
+	AudioSystem.play_audio("metal_dropping", -15)
+	
+	for car in current_train_info.cars_inventory:
+		for hard_point in current_train_info.cars_inventory[car]["hard_points"]:
+			if current_train_info.cars_inventory[car]["hard_points"][hard_point].gadget_panel == panel:
+				current_train_info.cars_inventory[car]["hard_points"][hard_point].pickup_gadget(panel)
+	
+	current_player_info.current_money += GadgetInfo.gadget_roster[panel.gadget]["value"]
+	
+	panel.queue_free()
+
 func find_random_destination():
 	var random_town = WorldInfo.towns_roster.keys().pick_random()
 	while current_world_info.towns_inventory.has(random_town):
@@ -82,25 +98,35 @@ func find_random_destination():
 	
 	return random_town
 
-func level_complete(level_complete_event):
+func arrived_at_destination(level_complete_event):
 	current_level_info.active_level.at_destination = true
-	
 	current_level_info.active_level.enemy_spawn_system.enemy_wave_timer.stop()
 	current_level_info.active_level.enemy_spawn_system.spawn_interval_timer.stop()
 	current_level_info.active_level.hazard_spawn_timer.stop()
+	current_train_info.train_engine.brake_force = 5.0
+	
+	current_level_info.active_level.enemy_spawn_system.last_enemy_killed.connect(level_complete.bind(level_complete_event))
+
+func level_complete(level_complete_event):
+	var sound = ["harmonica_sting_1", "harmonica_sting_2","harmonica_sting_3"].pick_random()
+	AudioSystem.play_audio(sound, -15)
+	
+	current_train_info.train_engine.brake_force = 0.0
 	for enemy in current_level_info.active_level.enemies.get_children():
 		enemy.queue_free()
 	
 	current_train_info.train_engine.target_force_percent += 3
 	
 	await level_complete_event.last_car_entered
-	await get_tree().create_timer(3).timeout
+	await get_tree().create_timer(2).timeout
 	
 	level_complete_event.player_boundary.get_child(0).set_deferred("disabled", false)
 	current_train_info.train_manager.mesh_vis.set_deferred("disabled", true)
 	current_player_info.active_player.call_deferred("reparent", current_level_info.active_level)
 	current_train_info.train_engine.target_force_percent = 0
-	current_train_info.train_engine.brake_force = 3.0
+	current_train_info.train_engine.brake_force = 5.0
+	current_train_info.train_manager.train_chugging_sfx.stop()
+	AudioSystem.play_audio("train_braking", -15)
 	
 	check_missions()
 	end_screen_ui.fade_in()

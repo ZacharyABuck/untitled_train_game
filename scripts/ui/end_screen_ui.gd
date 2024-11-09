@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-@onready var panel_container = $PanelContainer
+#@onready var panel_container = $PanelContainer
 @onready var path_label = $PanelContainer/MarginContainer/VBoxContainer/PathLabel
 @onready var mission_complete_container = $PanelContainer/MarginContainer/VBoxContainer/MissionCompleteContainer
 @onready var return_button = $PanelContainer/MarginContainer/VBoxContainer/ReturnButton
@@ -10,18 +10,17 @@ extends CanvasLayer
 @onready var level_min_label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/LevelMinLabel
 @onready var level_max_label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/LevelMaxLabel
 
-@onready var edge_menu = $EdgeMenu
+#@onready var edge_menu = $EdgeMenu
 
 @onready var animations = $AnimationPlayer
-
-var edge_panel = preload("res://scenes/edges/edge_panel.tscn")
+#
+#var edge_panel = preload("res://scenes/edges/edge_panel.tscn")
 
 var mission_reward_panel = preload("res://scenes/ui/mission_reward_panel.tscn")
 
 func _ready():
 	hide()
 	animations.play("standby")
-	return_button.hide()
 	no_missions_label.hide()
 	level_up_bar.hide()
 	level_max_label.hide()
@@ -32,8 +31,9 @@ func fade_in():
 	set_level_labels()
 	show()
 	animations.play("slide_in")
-	await animations.animation_finished
-	level_up_sequence()
+	AudioSystem.play_audio("book_open", -10)
+	#await animations.animation_finished
+	#level_up_sequence()
 	
 func show_no_missions_label():
 	no_missions_label.show()
@@ -55,7 +55,6 @@ func _on_return_button_pressed():
 	AudioSystem.play_audio("basic_button_click", -10)
 	hide()
 	animations.play("standby")
-	return_button.hide()
 	no_missions_label.hide()
 	get_parent().unpause_game()
 
@@ -88,43 +87,29 @@ func _on_return_button_pressed():
 	#fill_tween.tween_property(level_up_bar, "value", value, 3).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	#await fill_tween.finished
 	#return true
-
-func level_up_sequence():
-	populate_edge_menu()
-
-# Edge Menu
-func populate_edge_menu():
-	var chosen_edges: Array = []
-	for i in 3:
-		var new_panel = edge_panel.instantiate()
-		new_panel.hide()
-		edge_menu.add_child(new_panel)
-		
-		var random_edge = EdgeInfo.edge_roster.keys().pick_random()
-		while chosen_edges.has(random_edge):
-			random_edge = EdgeInfo.edge_roster.keys().pick_random()
-		
-		chosen_edges.append(random_edge)
-		new_panel.populate(random_edge)
-		new_panel.clicked.connect(edge_selected)
-
-func edge_selected(edge):
-	CurrentRun.world.current_player_info.active_player.edge_handler.add_edge(edge)
-	#add_edge(edge)
-	for i in edge_menu.get_children():
-		i.queue_free()
-
-	return_button.show()
 #
-#func add_edge(edge_reference):
-	#var existing_edge_found = false
-	#for edge in CurrentRun.world.current_edge_info.edge_inventory.keys():
-		#if edge == edge_reference:
-			#existing_edge_found = true
-	#if existing_edge_found:
-		#CurrentRun.world.current_edge_info.edge_inventory[edge_reference]["level"] += 1
-	#else:
-		#CurrentRun.world.current_edge_info.edge_inventory[edge_reference] = {"scene" = null, "level" = 1}
+#func level_up_sequence():
+	#populate_edge_menu()
+#
+## Edge Menu
+#func populate_edge_menu():
+	#var chosen_edges: Array = []
+	#for i in 3:
+		#var new_panel = edge_panel.instantiate()
+		#new_panel.hide()
+		#edge_menu.add_child(new_panel)
 		#
-	#CurrentRun.world.debug_ui.refresh_labels()
-	#CurrentRun.world.world_ui.refresh_edges()
+		#var random_edge = EdgeInfo.edge_roster.keys().pick_random()
+		#while chosen_edges.has(random_edge):
+			#random_edge = EdgeInfo.edge_roster.keys().pick_random()
+		#
+		#chosen_edges.append(random_edge)
+		#new_panel.populate(random_edge)
+		#new_panel.clicked.connect(edge_selected)
+#
+#func edge_selected(edge):
+	#CurrentRun.world.current_player_info.active_player.edge_handler.add_edge(edge)
+	#for i in edge_menu.get_children():
+		#i.queue_free()
+#
+	#return_button.show()

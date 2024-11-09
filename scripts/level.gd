@@ -3,8 +3,6 @@ extends Node2D
 var player = preload("res://scenes/player/player.tscn")
 @onready var bullets = $Bullets
 
-#@onready var edge_menu = $UI/EdgeMenu
-#const edge_panel = preload("res://scenes/edges/edge_panel.tscn")
 @onready var alert_label = $UI/AlertLabel
 @onready var camera = $Camera2D
 @onready var weapon_label = $UI/WeaponLabel
@@ -17,7 +15,7 @@ var spawning: bool = false
 @onready var hazard_spawn_timer = $HazardSpawnTimer
 
 var in_event: bool = false
-var new_player
+
 var ui_open: bool = false
 var at_destination: bool = false
 
@@ -33,11 +31,9 @@ func _ready():
 	spawn_player()
 	CurrentRun.world.current_player_info.route_experience = 0
 	calculate_weather()
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	$UI/MoneyLabel.text = "Money: $" + str("%.2f" % CurrentRun.world.current_player_info.current_money)
-
+	
+	await get_tree().create_timer(5).timeout
+	CurrentRun.root.tutorial_ui.trigger_tutorial("basic_controls")
 
 func calculate_weather():
 	var random_weather = weather_states.pick_random()
@@ -45,9 +41,15 @@ func calculate_weather():
 	print(random_weather)
 	match weather:
 		"clear":
-			rain_animations.play("fade_out")
+			if rain_animations.current_animation == "hold_rain":
+				rain_animations.play("fade_out")
+				await rain_animations.animation_finished
+			rain_animations.play("hold_clear")
 		"rain":
-			rain_animations.play("fade_in")
+			if rain_animations.current_animation == "hold_clear":
+				rain_animations.play("fade_in")
+				await rain_animations.animation_finished
+			rain_animations.play("hold_rain")
 
 func generate_track():
 	var point_increment = 3000
@@ -58,7 +60,7 @@ func generate_track():
 	train_manager.track.curve.set_point_position(0, -point_increment*CurrentRun.world.current_level_info.level_parameters["direction"])
 	
 	#set each track point per distance
-	var clamped_distance = 2 #6
+	var clamped_distance = 5 #5
 	for i in clamped_distance + 1:
 		var increment = CurrentRun.world.current_level_info.level_parameters["direction"]*point_increment
 
@@ -66,7 +68,6 @@ func generate_track():
 		var random_pos = increment+random_mod
 		if i == clamped_distance - 1:
 			random_pos = Vector2(point_increment, 0)
-			print(random_pos)
 		add_track_point(last_pos, index, random_pos)
 		index += 1
 		last_pos += random_pos
@@ -99,13 +100,14 @@ func generate_event_area(type, pos):
 
 func spawn_player():
 	await get_tree().create_timer(.5).timeout
-	new_player = player.instantiate()
+	var new_player = player.instantiate()
 	new_player.global_position = CurrentRun.world.current_train_info.train_engine.global_position
 	CurrentRun.world.current_player_info.state = "default"
 	add_child(new_player)
 	new_player.dead.connect(CurrentRun.root.show_restart_button)
 
 func enemy_killed():
+	print("enemy killed")
 	enemy_spawn_system.check_for_enemies()
 
 func weapon_picked_up(weapon):

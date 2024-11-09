@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://beeikppdlus0y"]
+[gd_scene load_steps=8 format=3 uid="uid://beeikppdlus0y"]
 
 [ext_resource type="Script" path="res://scenes/hazards/hazard_turret_shock.gd" id="1_hbdno"]
 [ext_resource type="Texture2D" uid="uid://dq2n1ulkvg4m0" path="res://sprites/ui/shock_buff.png" id="2_6axwq"]
+[ext_resource type="PackedScene" uid="uid://cui5x64fts3yi" path="res://scenes/buffs/buff_shock.tscn" id="2_s74dm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a2doi"]
 radius = 23.0
@@ -34,6 +35,7 @@ gadget_detector = NodePath("GadgetDetector")
 player_detector = NodePath("PlayerDetector")
 collision = NodePath("CollisionShape2D")
 sprite = NodePath("Sprite2D")
+buff_scene = ExtResource("2_s74dm")
 grabbable = true
 target_types = {
 "enemy": false,

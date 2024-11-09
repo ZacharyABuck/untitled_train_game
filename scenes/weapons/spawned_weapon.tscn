@@ -9,7 +9,7 @@ size = Vector2(40, 49)
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.990385, 0.0274936), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_p3o28"]
+[sub_resource type="CurveTexture" id="CurveTexture_paota"]
 curve = SubResource("Curve_m5mqf")
 
 [sub_resource type="Curve" id="Curve_51q3x"]
@@ -17,21 +17,21 @@ max_value = 2.0
 _data = [Vector2(0.00320513, 0.00511503), 0.0, 0.0, 0, 0, Vector2(1, 1.38491), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_eofi7"]
+[sub_resource type="CurveTexture" id="CurveTexture_y25uq"]
 curve = SubResource("Curve_51q3x")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y28rh"]
 particle_flag_disable_z = true
 gravity = Vector3(0, 0, 0)
-scale_curve = SubResource("CurveTexture_eofi7")
-alpha_curve = SubResource("CurveTexture_p3o28")
+scale_curve = SubResource("CurveTexture_y25uq")
+alpha_curve = SubResource("CurveTexture_paota")
 
-[sub_resource type="Gradient" id="Gradient_2toqf"]
+[sub_resource type="Gradient" id="Gradient_6j7ir"]
 offsets = PackedFloat32Array(0.228022, 0.343407, 0.522152, 0.557692)
 colors = PackedColorArray(1, 1, 1, 0, 0.0634701, 0.0634701, 1, 0.93653, 0, 0, 1, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ssxwa"]
-gradient = SubResource("Gradient_2toqf")
+gradient = SubResource("Gradient_6j7ir")
 width = 128
 height = 128
 fill = 1

@@ -70,6 +70,7 @@ visible = false
 shape = SubResource("RectangleShape2D_dwjki")
 
 [node name="HealthComponentFurnace" parent="." node_paths=PackedStringArray("HEALTHBAR") instance=ExtResource("5_mvxgj")]
+MAX_HEALTH = 50.0
 HEALTHBAR = NodePath("../HealthBarControl/FurnaceHealthBar")
 
 [node name="HealthBarControl" type="Node2D" parent="."]

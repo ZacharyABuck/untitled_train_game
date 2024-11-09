@@ -8,7 +8,7 @@ var total_experience: int = 0
 var route_experience: int = 0
 
 # Base Variables
-var base_money: float = 20.00
+var base_money: float = 0.0
 var active_player
 var animation
 var base_ranged_damage_bonus: float = 0

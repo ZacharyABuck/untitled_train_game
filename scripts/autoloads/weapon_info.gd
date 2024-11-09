@@ -70,15 +70,3 @@ var weapons_roster = {
 		"base_lifetime" = .5,
 	},
 }
-
-
-func attach_buffs(buffs, receiver_buffs):
-	for buff in buffs:
-		if receiver_buffs.has(buff):
-			receiver_buffs[buff] += buffs[buff]
-		else: receiver_buffs[buff] = buffs[buff]
-
-func detach_buffs(buffs, receiver_buffs):
-	for buff in buffs:
-		if receiver_buffs.has(buff):
-			receiver_buffs[buff] -= max(buffs[buff], 0)

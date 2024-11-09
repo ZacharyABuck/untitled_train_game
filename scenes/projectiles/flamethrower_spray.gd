@@ -4,10 +4,13 @@ func _ready():
 	super()
 	await get_tree().create_timer(.5).timeout
 	$Hitbox/CollisionShape2D.disabled = false
+	
+	var stats = {"fire": 0.3}
+	CurrentRun.world.current_level_info.update_attack_stats(id, stats)
 
 func _physics_process(_delta):
-	if shooter != null:
-		global_position = shooter.global_position
+	if CurrentRun.world.current_level_info.attack_inventory[id]["shooter"] != null:
+		global_position = CurrentRun.world.current_level_info.attack_inventory[id]["shooter"].global_position
 
 func _on_lifetimer_timeout():
 	$GPUParticles2D.emitting = false

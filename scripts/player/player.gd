@@ -6,26 +6,19 @@ class_name Player
 @onready var edge_handler = $EdgeHandler
 @onready var running_sfx = $RunningSFX
 @onready var repair_sfx = $RepairSFX
-@onready var camera = $Camera2D
 @onready var lasso = $Lasso
-
-var active_buffs: Dictionary
-
-var charging: bool = false
-var current_charge_attack
-var charge_attack_bar
 
 var can_shoot = true
 var current_ranged_weapon
 
 signal melee_attack_fired
+signal bullet_fired
 signal dead
 
 # -- BASE FUNCTIONS -- #
 func _ready():
 	CurrentRun.world.current_player_info.active_player = self
-	#camera.make_current()
-	
+
 	#pick random weapon
 	var weapon
 	if CurrentRun.world.current_player_info.current_ranged_weapon_reference.is_empty():
@@ -49,21 +42,17 @@ func _process(_delta):
 
 # -- ATTACK FUNCTIONS -- #
 func _shoot():
-	current_ranged_weapon.shoot()
+	var id = current_ranged_weapon.shoot()
+
 	if current_ranged_weapon.weapon_id == "melee":
 		melee_attack_fired.emit()
-
-func check_charge():
-	if is_instance_valid(current_charge_attack) and charge_attack_bar.value >= charge_attack_bar.max_value:
-		charging = true
-		charge_attack_bar.value = 0
-		current_charge_attack.initiate_charge()
+	else:
+		bullet_fired.emit(id)
 
 # -- EQUIPMENT FUNCTIONS -- #
 func _instantiate_ranged_weapon(gun_scene_location, random_damage, random_attack_delay, random_projectile_speed):
 	# Clear the existing ranged weapon so we can load the new one.
 	if is_instance_valid(current_ranged_weapon):
-		WeaponInfo.detach_buffs(current_ranged_weapon.active_buffs, active_buffs)
 		current_ranged_weapon.queue_free()
 
 	var gun_scene = gun_scene_location
@@ -84,7 +73,6 @@ func _instantiate_ranged_weapon(gun_scene_location, random_damage, random_attack
 
 func refresh_current_ranged_weapon_stats():
 	var damage = current_ranged_weapon.base_damage
-	WeaponInfo.attach_buffs(current_ranged_weapon.active_buffs, active_buffs)
 	damage += CurrentRun.world.current_player_info.current_ranged_damage_bonus + CurrentRun.world.current_player_info.current_ranged_weapon_damage_mod
 	current_ranged_weapon.current_damage = damage
 	current_ranged_weapon.current_attack_delay = current_ranged_weapon.base_attack_delay * CurrentRun.world.current_player_info.current_attack_delay_modifier

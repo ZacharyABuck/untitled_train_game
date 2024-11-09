@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6ayerr4kdn5d"]
+
+[ext_resource type="Script" path="res://scripts/ui/buff_panel_damage.gd" id="1_pvrhn"]
+[ext_resource type="Texture2D" uid="uid://xu0lxvrwqs62" path="res://sprites/ui/crosshair.png" id="2_hg6w8"]
+
+[node name="BuffPanelDamage" type="PanelContainer"]
+script = ExtResource("1_pvrhn")
+buff = "damage"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_hg6w8")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "Damage"
+fit_content = true

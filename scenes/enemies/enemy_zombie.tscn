@@ -494,6 +494,9 @@ position = Vector2(2, 7)
 shape = SubResource("RectangleShape2D_4v00t")
 
 [node name="HealthComponentEnemy" parent="." node_paths=PackedStringArray("ANIMATION", "status_effect_component") instance=ExtResource("3_s6o3h")]
+MAX_HEALTH = null
+ARMOR_VALUE = null
+IS_KILLABLE = null
 ANIMATION = NodePath("../ZombieSpriteSheet")
 status_effect_component = NodePath("../StatusEffectComponent")
 

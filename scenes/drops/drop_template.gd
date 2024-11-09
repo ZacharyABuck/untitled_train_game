@@ -12,8 +12,6 @@ var speed: int = 0
 func _ready():
 	initial_force()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	if state == "moving_to_player":
 		var target = CurrentRun.world.current_player_info.active_player
@@ -23,7 +21,7 @@ func _physics_process(delta):
 func initial_force():
 	var tween = get_tree().create_tween()
 	var random_offset = Vector2(randf_range(-50,50), randf_range(-50,50))
-	tween.tween_property(self, "global_position", global_position+random_offset, .1).set_ease(Tween.EASE_IN)
+	tween.tween_property(self, "global_position", global_position+random_offset, .1).set_ease(Tween.EASE_OUT)
 	state = "moving_to_player"
 
 func _on_player_detector_body_entered(body):

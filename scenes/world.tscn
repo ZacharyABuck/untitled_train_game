@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://csdhvsxyenywf"]
+[gd_scene load_steps=32 format=3 uid="uid://csdhvsxyenywf"]
 
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/world.gd" id="1_u1dsg"]
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/current_player_info.gd" id="2_kodbe"]
@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://bshtqlqkt4twy" path="res://music/world_music.mp3" id="10_3k0cp"]
 [ext_resource type="Script" path="res://scripts/autoloads/current_run_info/current_character_info.gd" id="10_yxbpk"]
 [ext_resource type="AudioStream" uid="uid://dasb0ya67twdd" path="res://music/level_music_no_intro.mp3" id="11_ar4r5"]
+[ext_resource type="Script" path="res://scripts/ui/gadget_select_ui.gd" id="16_5bnd4"]
 [ext_resource type="Script" path="res://scripts/ui/world_ui.gd" id="16_s8cdk"]
 [ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="17_7ntxb"]
 [ext_resource type="Script" path="res://components/ui_animation_component.gd" id="17_tivx6"]
@@ -192,10 +193,6 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
-expand_margin_left = 20.0
-expand_margin_top = 10.0
-expand_margin_right = 20.0
-expand_margin_bottom = 10.0
 shadow_size = 2
 shadow_offset = Vector2(2, 2)
 
@@ -210,16 +207,42 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
-expand_margin_left = 20.0
-expand_margin_top = 10.0
-expand_margin_right = 20.0
-expand_margin_bottom = 10.0
+shadow_size = 2
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6025a"]
+bg_color = Color(0.956863, 0.937255, 0.858824, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.482353, 0.27451, 0.2, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_bottom = 20.0
 shadow_size = 2
 shadow_offset = Vector2(2, 2)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_my1xl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ssevu"]
+
+[sub_resource type="Animation" id="Animation_31r4d"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PanelContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(117, 307)]
+}
 
 [sub_resource type="Animation" id="Animation_2r8ut"]
 resource_name = "slide_in"
@@ -231,9 +254,9 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.9),
-"transitions": PackedFloat32Array(0.297302, 1),
+"transitions": PackedFloat32Array(0.25, 1),
 "update": 0,
-"values": [Vector2(194, -1000), Vector2(194, 109)]
+"values": [Vector2(-800, 300), Vector2(117, 300)]
 }
 
 [sub_resource type="Animation" id="Animation_mcgfo"]
@@ -249,11 +272,12 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(0.297302),
 "update": 0,
-"values": [Vector2(194, -1000)]
+"values": [Vector2(-800, 300)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gtat0"]
 _data = {
+"RESET": SubResource("Animation_31r4d"),
 "slide_in": SubResource("Animation_2r8ut"),
 "standby": SubResource("Animation_mcgfo")
 }
@@ -311,7 +335,6 @@ libraries = {
 
 [node name="WorldUI" type="CanvasLayer" parent="."]
 process_mode = 3
-visible = false
 script = ExtResource("16_s8cdk")
 
 [node name="PanelContainer" type="PanelContainer" parent="WorldUI"]
@@ -329,32 +352,40 @@ grow_vertical = 2
 theme = ExtResource("17_7ntxb")
 
 [node name="MarginContainer" type="MarginContainer" parent="WorldUI/PanelContainer"]
+custom_minimum_size = Vector2(0, 800)
 layout_mode = 2
-size_flags_vertical = 4
 mouse_filter = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
-[node name="HBoxContainer" type="HBoxContainer" parent="WorldUI/PanelContainer/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="WorldUI/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="WorldUI/PanelContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="WorldUI/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 2
 theme_override_constants/separation = 50
 alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="WorldUI/PanelContainer/MarginContainer/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="WorldUI/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_xbybr")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="WorldUI/PanelContainer/MarginContainer/HBoxContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="WorldUI/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/separation = 50
 
-[node name="RichTextLabel" type="RichTextLabel" parent="WorldUI/PanelContainer/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="WorldUI/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("17_7ntxb")
 theme_override_font_sizes/normal_font_size = 50
@@ -362,20 +393,21 @@ bbcode_enabled = true
 text = "[center]Missions[/center]"
 fit_content = true
 
-[node name="MissionInventoryContainer" type="VBoxContainer" parent="WorldUI/PanelContainer/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="MissionInventoryContainer" type="VBoxContainer" parent="WorldUI/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="PanelContainer2" type="PanelContainer" parent="WorldUI/PanelContainer/MarginContainer/HBoxContainer"]
+[node name="PanelContainer2" type="PanelContainer" parent="WorldUI/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_78h24")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="WorldUI/PanelContainer/MarginContainer/HBoxContainer/PanelContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="WorldUI/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer2"]
 layout_mode = 2
 
-[node name="Edges" type="RichTextLabel" parent="WorldUI/PanelContainer/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
+[node name="Edges" type="RichTextLabel" parent="WorldUI/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("17_7ntxb")
 theme_override_font_sizes/normal_font_size = 50
@@ -383,11 +415,58 @@ bbcode_enabled = true
 text = "[center]Edges[/center]"
 fit_content = true
 
-[node name="EdgeLabelContainer" type="GridContainer" parent="WorldUI/PanelContainer/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
+[node name="EdgeLabelContainer" type="GridContainer" parent="WorldUI/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 50
 theme_override_constants/v_separation = 50
 columns = 4
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="WorldUI/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="WorldUI/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_6025a")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="WorldUI/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer2/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="RichTextLabel" type="RichTextLabel" parent="WorldUI/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer2/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[center]Gadgets[/center]"
+fit_content = true
+
+[node name="GadgetInventoryContainer" type="GridContainer" parent="WorldUI/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer2/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 40
+columns = 4
+
+[node name="GadgetSelectUI" type="CanvasLayer" parent="."]
+script = ExtResource("16_5bnd4")
+
+[node name="MarginContainer" type="MarginContainer" parent="GadgetSelectUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 250
+theme_override_constants/margin_top = 250
+theme_override_constants/margin_right = 250
+theme_override_constants/margin_bottom = 250
+
+[node name="GadgetPanelContainer" type="HBoxContainer" parent="GadgetSelectUI/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
 
 [node name="DebugUI" type="CanvasLayer" parent="."]
 visible = false
@@ -872,18 +951,18 @@ offset_bottom = 667.0
 fixed_icon_size = Vector2i(10, 10)
 
 [node name="EndScreenUI" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("27_la4rl")
 
 [node name="PanelContainer" type="PanelContainer" parent="EndScreenUI"]
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 2
+anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 194.0
-offset_top = -1000.0
-offset_right = -194.0
-offset_bottom = -1234.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = 117.0
+offset_top = 307.0
+offset_right = 734.0
+offset_bottom = 639.0
+grow_vertical = 0
 theme = ExtResource("17_7ntxb")
 
 [node name="MarginContainer" type="MarginContainer" parent="EndScreenUI/PanelContainer"]
@@ -911,7 +990,7 @@ layout_mode = 2
 theme_override_constants/separation = 50
 theme_override_styles/separator = SubResource("StyleBoxEmpty_ssevu")
 
-[node name="MissionCompleteContainer" type="HBoxContainer" parent="EndScreenUI/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="MissionCompleteContainer" type="VBoxContainer" parent="EndScreenUI/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 50
 alignment = 1
@@ -923,6 +1002,11 @@ size_flags_horizontal = 4
 theme = ExtResource("17_7ntxb")
 text = "No Missions Completed"
 horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="EndScreenUI/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+theme_override_styles/separator = SubResource("StyleBoxEmpty_ssevu")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="EndScreenUI/PanelContainer/MarginContainer/VBoxContainer"]
 visible = false
@@ -966,19 +1050,6 @@ script = ExtResource("17_tivx6")
 hover_scale = Vector2(1.1, 1.1)
 hover_trans = 7
 hover_time = 0.2
-
-[node name="EdgeMenu" type="HBoxContainer" parent="EndScreenUI"]
-process_mode = 3
-custom_minimum_size = Vector2(0, 400)
-offset_left = 249.0
-offset_top = 439.0
-offset_right = 1671.0
-offset_bottom = 839.0
-size_flags_vertical = 3
-mouse_filter = 2
-mouse_force_pass_scroll_events = false
-theme_override_constants/separation = 500
-alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="EndScreenUI"]
 libraries = {

@@ -42,6 +42,12 @@ func add_edge(edge_reference):
 	edge_added_or_changed.emit()
 	update_debug.emit()
 
+func remove_edge(edge_reference):
+	CurrentRun.world.current_edge_info.edge_inventory.erase(edge_reference)
+	for edge in get_children():
+		if edge.edge_reference == edge_reference:
+			edge.queue_free()
+
 func _increase_edge_level(edge : Edge):
 	edge.edge_level += 1
 	edge.handle_level_up()

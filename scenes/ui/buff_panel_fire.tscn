@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://fj4lmx26is6x"]
+
+[ext_resource type="Script" path="res://scripts/ui/buff_panel_fire.gd" id="1_tjln4"]
+[ext_resource type="Texture2D" uid="uid://bvhngr2k88jvn" path="res://sprites/ui/fire_buff.png" id="2_wrwm0"]
+
+[node name="BuffPanelFire" type="PanelContainer"]
+script = ExtResource("1_tjln4")
+buff = "fire"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_wrwm0")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "Fire"
+fit_content = true

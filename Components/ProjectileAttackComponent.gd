@@ -64,36 +64,27 @@ func shoot_if_target_in_range(target):
 				_shoot()
 				break
 
-func shoot_at_target(target):
-	attack_target = target
-	# fire initially, then kick off timer.
-	if attack_timer.is_stopped():
-		_shoot()
-
 func _shoot():
-	gun_shot.emit()
-	WeaponInfo.detach_buffs(owner.car.active_buffs, shooter.active_buffs)
-	WeaponInfo.attach_buffs(owner.car.active_buffs, shooter.active_buffs)
-	if shooter.active_buffs.has("attack_delay"):
-		attack_timer.wait_time = max(.1, default_attack_time - shooter.active_buffs["attack_delay"])
-	else:
-		attack_timer.wait_time = default_attack_time
-	if shooter.active_buffs.has("scatter_shot"):
-		scatter_shot_amount = SCATTER_SHOT_AMOUNT + shooter.active_buffs["scatter_shot"]
-	else:
-		scatter_shot_amount = SCATTER_SHOT_AMOUNT
+	attack_timer.wait_time = default_attack_time
+	for child in get_children():
+		if child is Buff and "stats" in child:
+			if child.stats.has("attack_delay"):
+				attack_timer.wait_time *= child.stats["attack_delay"]
+			if child.stats.has("scatter_shot"):
+				scatter_shot_amount = SCATTER_SHOT_AMOUNT + child.stats["scatter_shot"]
+			else:
+				scatter_shot_amount = SCATTER_SHOT_AMOUNT
 	
 	attack_timer.start()
 	if shoot_sound: shoot_sound.play()
 	else: AudioSystem.play_audio_2d("gunshot", global_position, -15)
 	var new_projectile = _instantiate_bullet()
-	
-	#check for buffs
-	WeaponInfo.attach_buffs(shooter.active_buffs, new_projectile.active_buffs)
-		
+
 	# Add the bullet to the parent scene of the shooter, which fires the projectile.
 	CurrentRun.world.add_child(new_projectile)
-	
+
+	gun_shot.emit(new_projectile)
+
 	for shot in scatter_shot_amount:
 		var scatter_shot = _instantiate_bullet()
 		scatter_shot.target += Vector2(randi_range(-100,100), randi_range(-100,100))
@@ -104,14 +95,20 @@ func _instantiate_bullet():
 	# speed, damage, global_position, valid_hitbox_types
 	var new_projectile = projectile.instantiate()
 	new_projectile.global_position = shooter.global_position
-	new_projectile.hit_target.connect(CurrentRun.world.current_level_info.bullet_hit_target)
+	#new_projectile.hit_target.connect(CurrentRun.world.current_level_info.bullet_hit_target)
 	new_projectile.speed = speed
+	new_projectile.shooter = shooter
 	new_projectile.damage = damage
+
+	var stats = {"shooter": shooter, "damage": damage}
+	var id = CurrentRun.world.current_level_info.create_attack_stats(stats)
+	new_projectile.id = id
+	
 	if lifetime > 0: # the default lifetime is 3 seconds.
 		new_projectile.lifetime = lifetime
+	
 	new_projectile.target = attack_target.global_position
 	new_projectile.valid_hitbox_types = target_types
-	new_projectile.shooter = shooter
 
 	return new_projectile
 

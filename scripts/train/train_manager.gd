@@ -1,13 +1,10 @@
 extends Node2D
 
 @export var train_vehicle_reference : PackedScene
-
 @onready var engine : TrainEngine = $TrainEngine
-
 @onready var track = $Tracks/Track
-
 @onready var mesh_vis = $TrainCollision/MeshVis
-
+@onready var train_chugging_sfx = $TrainEngine/TrainChuggingSFX
 
 func _ready():
 	CurrentRun.world.current_train_info.train_manager = self

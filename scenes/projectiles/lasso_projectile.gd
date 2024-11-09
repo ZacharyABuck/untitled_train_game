@@ -4,10 +4,11 @@ extends CharacterBody2D
 @onready var grab_position = $GrabPosition
 
 var spin_speed: float = 1000
-var initial_speed: float = 60000
-var deceleration: float = 50
+var initial_speed: float = 100000
+var deceleration: float = 3500
 var speed: float
 var final_speed: float = 40000
+var return_speed: float = 50000
 var target: Vector2
 var grabbed_hazard
 var targeted_node: Node2D
@@ -28,8 +29,9 @@ func _physics_process(delta):
 		move_and_slide()
 		if global_position.distance_to(target) <= 10 or grabbed_hazard != null:
 			state = "return"
+			speed = return_speed
 		speed = clamp(speed - deceleration, final_speed, initial_speed)
-	
+		
 	elif state == "return":
 		if targeted_node == null:
 			target = CurrentRun.world.current_player_info.active_player.global_position

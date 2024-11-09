@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://02oiy550pacp"]
+[gd_scene load_steps=45 format=3 uid="uid://02oiy550pacp"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_2a3mn"]
 [ext_resource type="PackedScene" uid="uid://cb1r5v4vqyrx8" path="res://scenes/train/TrainManager.tscn" id="3_3t5p5"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/maps/map.gd" id="3_nn34h"]
 [ext_resource type="Shader" path="res://shaders/tilt_shift.gdshader" id="5_qayv6"]
 [ext_resource type="FontFile" uid="uid://lxcj83h6gsu7" path="res://fonts/JMH Typewriter-Black.otf" id="5_uxjuw"]
+[ext_resource type="Script" path="res://scripts/ui/money_label.gd" id="7_3ymjf"]
 [ext_resource type="Theme" uid="uid://dkxiakuxtv3c5" path="res://scenes/ui/sketch_theme.tres" id="7_v8euj"]
 [ext_resource type="AudioStream" uid="uid://c8nvxqfmljdop" path="res://sounds/ui/book_skimming_short.wav" id="8_g00h4"]
 [ext_resource type="AudioStream" uid="uid://d3wi2punv8qyu" path="res://sounds/ui/bell.wav" id="11_5nccy"]
@@ -911,30 +912,6 @@ _data = {
 "alert_flash_short": SubResource("Animation_dsu7x")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7bss3"]
-bg_color = Color(0.262745, 0, 0, 0.4)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5u7rd"]
-bg_color = Color(0.901961, 0, 0, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
 [sub_resource type="Gradient" id="Gradient_678u3"]
 offsets = PackedFloat32Array(0.0933735, 0.629518)
 
@@ -1031,11 +1008,71 @@ tracks/1/keys = {
 "values": [Color(0, 0.886275, 0.886275, 1), Color(0, 0.886275, 0.886275, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_77s3l"]
+resource_name = "hold_clear"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RainSFX:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-80.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/line_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0.886275, 0.886275, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8q775"]
+resource_name = "hold_rain"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RainSFX:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-25.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/line_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0.886275, 0.886275, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lvm2e"]
 _data = {
 "RESET": SubResource("Animation_xvox3"),
 "fade_in": SubResource("Animation_6ry7i"),
-"fade_out": SubResource("Animation_e30y6")
+"fade_out": SubResource("Animation_e30y6"),
+"hold_clear": SubResource("Animation_77s3l"),
+"hold_rain": SubResource("Animation_8q775")
 }
 
 [sub_resource type="Gradient" id="Gradient_x358j"]
@@ -1143,20 +1180,8 @@ libraries = {
 "": SubResource("AnimationLibrary_bqojy")
 }
 
-[node name="PlayerHealthBar" type="ProgressBar" parent="UI"]
-process_mode = 4
-visible = false
-offset_left = 60.0
-offset_top = 59.0
-offset_right = 238.0
-offset_bottom = 98.0
-theme_override_styles/background = SubResource("StyleBoxFlat_7bss3")
-theme_override_styles/fill = SubResource("StyleBoxFlat_5u7rd")
-max_value = 50.0
-value = 25.0
-show_percentage = false
-
 [node name="MoneyLabel" type="Label" parent="UI"]
+process_mode = 3
 offset_left = 1690.0
 offset_top = 44.0
 offset_right = 1855.0
@@ -1167,6 +1192,7 @@ theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("5_uxjuw")
 theme_override_font_sizes/font_size = 30
 text = "Money = 0"
+script = ExtResource("7_3ymjf")
 
 [node name="Weather" type="Control" parent="UI"]
 layout_mode = 3

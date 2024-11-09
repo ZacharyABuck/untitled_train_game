@@ -3,4 +3,4 @@ extends Barrel
 func _ready():
 	super()
 	
-	active_buffs = {"shock": 1}
+	stats = {"damage": 3.0, "shock": 0.75}
